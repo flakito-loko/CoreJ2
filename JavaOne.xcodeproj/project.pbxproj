@@ -1,0 +1,658 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		446FE231300D09580044FD89 /* JavaOneApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446FE230300D09580044FD89 /* JavaOneApp.swift */; };
+		446FE235300D09590044FD89 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 446FE234300D09590044FD89 /* Assets.xcassets */; };
+		446FE238300D09590044FD89 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 446FE237300D09590044FD89 /* Preview Assets.xcassets */; };
+		446FE242300D095A0044FD89 /* JavaOneTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446FE241300D095A0044FD89 /* JavaOneTests.swift */; };
+		446FE24C300D095A0044FD89 /* JavaOneUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446FE24B300D095A0044FD89 /* JavaOneUITests.swift */; };
+		446FE24E300D095A0044FD89 /* JavaOneUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446FE24D300D095A0044FD89 /* JavaOneUITestsLaunchTests.swift */; };
+		A1000002300D09580044FD89 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000001300D09580044FD89 /* Game.swift */; };
+		A1000004300D09580044FD89 /* GameLibraryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000003300D09580044FD89 /* GameLibraryRepository.swift */; };
+		A1000006300D09580044FD89 /* InMemoryGameLibraryRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000005300D09580044FD89 /* InMemoryGameLibraryRepository.swift */; };
+		A1000008300D09580044FD89 /* LibraryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000007300D09580044FD89 /* LibraryViewModel.swift */; };
+		A100000A300D09580044FD89 /* LibraryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000009300D09580044FD89 /* LibraryView.swift */; };
+		A100000C300D09580044FD89 /* AppDependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100000B300D09580044FD89 /* AppDependencyContainer.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		446FE23E300D095A0044FD89 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 446FE225300D09580044FD89 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 446FE22C300D09580044FD89;
+			remoteInfo = JavaOne;
+		};
+		446FE248300D095A0044FD89 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 446FE225300D09580044FD89 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 446FE22C300D09580044FD89;
+			remoteInfo = JavaOne;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		446FE22D300D09580044FD89 /* JavaOne.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JavaOne.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		446FE230300D09580044FD89 /* JavaOneApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JavaOneApp.swift; sourceTree = "<group>"; };
+		446FE234300D09590044FD89 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		446FE237300D09590044FD89 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		446FE23D300D095A0044FD89 /* JavaOneTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JavaOneTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		446FE241300D095A0044FD89 /* JavaOneTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JavaOneTests.swift; sourceTree = "<group>"; };
+		446FE247300D095A0044FD89 /* JavaOneUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JavaOneUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		446FE24B300D095A0044FD89 /* JavaOneUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JavaOneUITests.swift; sourceTree = "<group>"; };
+		446FE24D300D095A0044FD89 /* JavaOneUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JavaOneUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		A1000001300D09580044FD89 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		A1000003300D09580044FD89 /* GameLibraryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameLibraryRepository.swift; sourceTree = "<group>"; };
+		A1000005300D09580044FD89 /* InMemoryGameLibraryRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InMemoryGameLibraryRepository.swift; sourceTree = "<group>"; };
+		A1000007300D09580044FD89 /* LibraryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryViewModel.swift; sourceTree = "<group>"; };
+		A1000009300D09580044FD89 /* LibraryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryView.swift; sourceTree = "<group>"; };
+		A100000B300D09580044FD89 /* AppDependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependencyContainer.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		446FE22A300D09580044FD89 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		446FE23A300D095A0044FD89 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		446FE244300D095A0044FD89 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		446FE224300D09580044FD89 = {
+			isa = PBXGroup;
+			children = (
+				446FE22F300D09580044FD89 /* JavaOne */,
+				446FE240300D095A0044FD89 /* JavaOneTests */,
+				446FE24A300D095A0044FD89 /* JavaOneUITests */,
+				446FE22E300D09580044FD89 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		446FE22E300D09580044FD89 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				446FE22D300D09580044FD89 /* JavaOne.app */,
+				446FE23D300D095A0044FD89 /* JavaOneTests.xctest */,
+				446FE247300D095A0044FD89 /* JavaOneUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		446FE22F300D09580044FD89 /* JavaOne */ = {
+			isa = PBXGroup;
+			children = (
+				A1000010300D09580044FD89 /* App */,
+				A1000011300D09580044FD89 /* Features */,
+				446FE234300D09590044FD89 /* Assets.xcassets */,
+				446FE236300D09590044FD89 /* Preview Content */,
+			);
+			path = JavaOne;
+			sourceTree = "<group>";
+		};
+		A1000010300D09580044FD89 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				446FE230300D09580044FD89 /* JavaOneApp.swift */,
+				A100000B300D09580044FD89 /* AppDependencyContainer.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		A1000011300D09580044FD89 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				A1000012300D09580044FD89 /* Library */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		A1000012300D09580044FD89 /* Library */ = {
+			isa = PBXGroup;
+			children = (
+				A1000013300D09580044FD89 /* Models */,
+				A1000014300D09580044FD89 /* Repositories */,
+				A1000015300D09580044FD89 /* ViewModels */,
+				A1000016300D09580044FD89 /* Views */,
+			);
+			path = Library;
+			sourceTree = "<group>";
+		};
+		A1000013300D09580044FD89 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A1000001300D09580044FD89 /* Game.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		A1000014300D09580044FD89 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				A1000003300D09580044FD89 /* GameLibraryRepository.swift */,
+				A1000005300D09580044FD89 /* InMemoryGameLibraryRepository.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		A1000015300D09580044FD89 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				A1000007300D09580044FD89 /* LibraryViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		A1000016300D09580044FD89 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A1000009300D09580044FD89 /* LibraryView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		446FE236300D09590044FD89 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				446FE237300D09590044FD89 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		446FE240300D095A0044FD89 /* JavaOneTests */ = {
+			isa = PBXGroup;
+			children = (
+				446FE241300D095A0044FD89 /* JavaOneTests.swift */,
+			);
+			path = JavaOneTests;
+			sourceTree = "<group>";
+		};
+		446FE24A300D095A0044FD89 /* JavaOneUITests */ = {
+			isa = PBXGroup;
+			children = (
+				446FE24B300D095A0044FD89 /* JavaOneUITests.swift */,
+				446FE24D300D095A0044FD89 /* JavaOneUITestsLaunchTests.swift */,
+			);
+			path = JavaOneUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		446FE22C300D09580044FD89 /* JavaOne */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 446FE251300D095A0044FD89 /* Build configuration list for PBXNativeTarget "JavaOne" */;
+			buildPhases = (
+				446FE229300D09580044FD89 /* Sources */,
+				446FE22A300D09580044FD89 /* Frameworks */,
+				446FE22B300D09580044FD89 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = JavaOne;
+			productName = JavaOne;
+			productReference = 446FE22D300D09580044FD89 /* JavaOne.app */;
+			productType = "com.apple.product-type.application";
+		};
+		446FE23C300D095A0044FD89 /* JavaOneTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 446FE254300D095A0044FD89 /* Build configuration list for PBXNativeTarget "JavaOneTests" */;
+			buildPhases = (
+				446FE239300D095A0044FD89 /* Sources */,
+				446FE23A300D095A0044FD89 /* Frameworks */,
+				446FE23B300D095A0044FD89 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				446FE23F300D095A0044FD89 /* PBXTargetDependency */,
+			);
+			name = JavaOneTests;
+			productName = JavaOneTests;
+			productReference = 446FE23D300D095A0044FD89 /* JavaOneTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		446FE246300D095A0044FD89 /* JavaOneUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 446FE257300D095A0044FD89 /* Build configuration list for PBXNativeTarget "JavaOneUITests" */;
+			buildPhases = (
+				446FE243300D095A0044FD89 /* Sources */,
+				446FE244300D095A0044FD89 /* Frameworks */,
+				446FE245300D095A0044FD89 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				446FE249300D095A0044FD89 /* PBXTargetDependency */,
+			);
+			name = JavaOneUITests;
+			productName = JavaOneUITests;
+			productReference = 446FE247300D095A0044FD89 /* JavaOneUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		446FE225300D09580044FD89 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1420;
+				LastUpgradeCheck = 1420;
+				TargetAttributes = {
+					446FE22C300D09580044FD89 = {
+						CreatedOnToolsVersion = 14.2;
+					};
+					446FE23C300D095A0044FD89 = {
+						CreatedOnToolsVersion = 14.2;
+						TestTargetID = 446FE22C300D09580044FD89;
+					};
+					446FE246300D095A0044FD89 = {
+						CreatedOnToolsVersion = 14.2;
+						TestTargetID = 446FE22C300D09580044FD89;
+					};
+				};
+			};
+			buildConfigurationList = 446FE228300D09580044FD89 /* Build configuration list for PBXProject "JavaOne" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 446FE224300D09580044FD89;
+			productRefGroup = 446FE22E300D09580044FD89 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				446FE22C300D09580044FD89 /* JavaOne */,
+				446FE23C300D095A0044FD89 /* JavaOneTests */,
+				446FE246300D095A0044FD89 /* JavaOneUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		446FE22B300D09580044FD89 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				446FE238300D09590044FD89 /* Preview Assets.xcassets in Resources */,
+				446FE235300D09590044FD89 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		446FE23B300D095A0044FD89 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		446FE245300D095A0044FD89 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		446FE229300D09580044FD89 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A1000002300D09580044FD89 /* Game.swift in Sources */,
+				A1000004300D09580044FD89 /* GameLibraryRepository.swift in Sources */,
+				A1000006300D09580044FD89 /* InMemoryGameLibraryRepository.swift in Sources */,
+				A1000008300D09580044FD89 /* LibraryViewModel.swift in Sources */,
+				A100000A300D09580044FD89 /* LibraryView.swift in Sources */,
+				A100000C300D09580044FD89 /* AppDependencyContainer.swift in Sources */,
+				446FE231300D09580044FD89 /* JavaOneApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		446FE239300D095A0044FD89 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				446FE242300D095A0044FD89 /* JavaOneTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		446FE243300D095A0044FD89 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				446FE24C300D095A0044FD89 /* JavaOneUITests.swift in Sources */,
+				446FE24E300D095A0044FD89 /* JavaOneUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		446FE23F300D095A0044FD89 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 446FE22C300D09580044FD89 /* JavaOne */;
+			targetProxy = 446FE23E300D095A0044FD89 /* PBXContainerItemProxy */;
+		};
+		446FE249300D095A0044FD89 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 446FE22C300D09580044FD89 /* JavaOne */;
+			targetProxy = 446FE248300D095A0044FD89 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		446FE24F300D095A0044FD89 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		446FE250300D095A0044FD89 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		446FE252300D095A0044FD89 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"JavaOne/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.javaonelabs.JavaOne;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		446FE253300D095A0044FD89 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"JavaOne/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.javaonelabs.JavaOne;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		446FE255300D095A0044FD89 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.javaonelabs.JavaOneTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JavaOne.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/JavaOne";
+			};
+			name = Debug;
+		};
+		446FE256300D095A0044FD89 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.javaonelabs.JavaOneTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JavaOne.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/JavaOne";
+			};
+			name = Release;
+		};
+		446FE258300D095A0044FD89 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.javaonelabs.JavaOneUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = JavaOne;
+			};
+			name = Debug;
+		};
+		446FE259300D095A0044FD89 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.javaonelabs.JavaOneUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = JavaOne;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		446FE228300D09580044FD89 /* Build configuration list for PBXProject "JavaOne" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				446FE24F300D095A0044FD89 /* Debug */,
+				446FE250300D095A0044FD89 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		446FE251300D095A0044FD89 /* Build configuration list for PBXNativeTarget "JavaOne" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				446FE252300D095A0044FD89 /* Debug */,
+				446FE253300D095A0044FD89 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		446FE254300D095A0044FD89 /* Build configuration list for PBXNativeTarget "JavaOneTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				446FE255300D095A0044FD89 /* Debug */,
+				446FE256300D095A0044FD89 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		446FE257300D095A0044FD89 /* Build configuration list for PBXNativeTarget "JavaOneUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				446FE258300D095A0044FD89 /* Debug */,
+				446FE259300D095A0044FD89 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 446FE225300D09580044FD89 /* Project object */;
+}
