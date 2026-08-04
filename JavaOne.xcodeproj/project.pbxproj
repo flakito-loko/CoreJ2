@@ -7,6 +7,47 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A10000C0 /* EmbeddedJVMState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000B0 /* EmbeddedJVMState.swift */; };
+		A10000C1 /* EmbeddedJVMError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000B1 /* EmbeddedJVMError.swift */; };
+		A10000C2 /* EmbeddedJVMMetrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000B2 /* EmbeddedJVMMetrics.swift */; };
+		A10000C3 /* EmbeddedJVMConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000B3 /* EmbeddedJVMConfiguration.swift */; };
+		A10000C4 /* EmbeddedJVMNativeRuntime.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000B4 /* EmbeddedJVMNativeRuntime.swift */; };
+		A10000C5 /* EmbeddedJVMManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000B5 /* EmbeddedJVMManager.swift */; };
+		A10000C6 /* ProcessRSSSampler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000B6 /* ProcessRSSSampler.swift */; };
+		A10000C7 /* MockEmbeddedJVMNativeRuntime.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000B7 /* MockEmbeddedJVMNativeRuntime.swift */; };
+		A10000C8 /* EmbeddedJVMReadiness.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000B8 /* EmbeddedJVMReadiness.swift */; };
+		A10000C9 /* JNIGatewayHandles.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000B9 /* JNIGatewayHandles.swift */; };
+		A10000CA /* JNIGatewayError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000BA /* JNIGatewayError.swift */; };
+		A10000CB /* JNIGatewayNativeBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000BB /* JNIGatewayNativeBackend.swift */; };
+		A10000CC /* JNIGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000BC /* JNIGateway.swift */; };
+		A10000CD /* DefaultJNIGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000BD /* DefaultJNIGateway.swift */; };
+		A10000CE /* MockJNIGatewayNativeBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000BE /* MockJNIGatewayNativeBackend.swift */; };
+		A10000CF /* ProductionJNIGatewayNativeBackend.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000BF /* ProductionJNIGatewayNativeBackend.swift */; };
+		A10000E1 /* StubEmbeddedJVMReadiness.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000E0 /* StubEmbeddedJVMReadiness.swift */; };
+		A10000E3 /* JNIGatewayNativeStub.c in Sources */ = {isa = PBXBuildFile; fileRef = A10000E2 /* JNIGatewayNativeStub.c */; };
+		A10000E5 /* JNIGatewayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000E4 /* JNIGatewayTests.swift */; };
+		A10000E7 /* JNIGatewayReferenceCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000E6 /* JNIGatewayReferenceCache.swift */; };
+		A10000E9 /* JNIGatewayCacheTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000E8 /* JNIGatewayCacheTests.swift */; };
+		A10000EB /* JNIGatewayObjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000EA /* JNIGatewayObjectTests.swift */; };
+		A10000ED /* JNIInvocationTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000EC /* JNIInvocationTypes.swift */; };
+		A10000EF /* JNIGatewayInvocationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000EE /* JNIGatewayInvocationTests.swift */; };
+		A10000F4 /* JNICallbackTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000F3 /* JNICallbackTypes.swift */; };
+		A10000F6 /* JNIGatewayCallbackRegistry.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000F5 /* JNIGatewayCallbackRegistry.swift */; };
+		A10000F8 /* JNIGatewayTrampolineHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000F7 /* JNIGatewayTrampolineHost.swift */; };
+		A10000FA /* JNIGatewayCallbackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000F9 /* JNIGatewayCallbackTests.swift */; };
+		A10000FC /* PlatformBootstrapState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000FB /* PlatformBootstrapState.swift */; };
+		A10000FE /* PlatformBootstrapError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000FD /* PlatformBootstrapError.swift */; };
+		A1000100 /* EmbeddedJVMControlling.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000FF /* EmbeddedJVMControlling.swift */; };
+		A1000102 /* PlatformBootstrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000101 /* PlatformBootstrap.swift */; };
+		A1000104 /* DefaultPlatformBootstrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000103 /* DefaultPlatformBootstrap.swift */; };
+		A1000106 /* StubEmbeddedJVMController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000105 /* StubEmbeddedJVMController.swift */; };
+		A1000108 /* PlatformBootstrapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000107 /* PlatformBootstrapTests.swift */; };
+		A100010A /* NativeCallbackHostTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100010B /* NativeCallbackHostTests.swift */; };
+		A100010C /* MobilePlatformBootstrapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100010D /* MobilePlatformBootstrapTests.swift */; };
+		A100010E /* PainterBootstrapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100010F /* PainterBootstrapTests.swift */; };
+		A1000110 /* JarLoadBootstrapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000111 /* JarLoadBootstrapTests.swift */; };
+		A1000112 /* JarRunBootstrapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000113 /* JarRunBootstrapTests.swift */; };
+		A1000116 /* DisplayBootstrapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000117 /* DisplayBootstrapTests.swift */; };
 		446FE231300D09580044FD89 /* JavaOneApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446FE230300D09580044FD89 /* JavaOneApp.swift */; };
 		446FE235300D09590044FD89 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 446FE234300D09590044FD89 /* Assets.xcassets */; };
 		446FE238300D09590044FD89 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 446FE237300D09590044FD89 /* Preview Assets.xcassets */; };
@@ -42,6 +83,42 @@
 		A100003C300D09580044FD89 /* JARArchiveReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100003D300D09580044FD89 /* JARArchiveReader.swift */; };
 		A100003E300D09580044FD89 /* ArtworkStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100003F300D09580044FD89 /* ArtworkStep.swift */; };
 		A1000040300D09580044FD89 /* ArtworkStepTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000041300D09580044FD89 /* ArtworkStepTests.swift */; };
+		A1000042300D09580044FD89 /* LaunchConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000043300D09580044FD89 /* LaunchConfiguration.swift */; };
+		A1000044300D09580044FD89 /* EmulatorSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000045300D09580044FD89 /* EmulatorSession.swift */; };
+		A1000046300D09580044FD89 /* EmulatorBridgeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000047300D09580044FD89 /* EmulatorBridgeProtocol.swift */; };
+		A1000048300D09580044FD89 /* DefaultEmulatorBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000049300D09580044FD89 /* DefaultEmulatorBridge.swift */; };
+		A100004D300D09580044FD89 /* EmulatorSessionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100004E300D09580044FD89 /* EmulatorSessionState.swift */; };
+		A100004F300D09580044FD89 /* EmulatorSessionLifecycleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000050300D09580044FD89 /* EmulatorSessionLifecycleTests.swift */; };
+		A1000051300D09580044FD89 /* EmulatorBridgeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000052300D09580044FD89 /* EmulatorBridgeError.swift */; };
+		A1000053300D09580044FD89 /* EmulatorBridgeLifecycleAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000054300D09580044FD89 /* EmulatorBridgeLifecycleAPITests.swift */; };
+		A1000055300D09580044FD89 /* EmulatorLaunchValidationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000056300D09580044FD89 /* EmulatorLaunchValidationTests.swift */; };
+		A1000057300D09580044FD89 /* RuntimeHostProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000058300D09580044FD89 /* RuntimeHostProtocol.swift */; };
+		A1000059300D09580044FD89 /* PlaceholderRuntimeHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100005A300D09580044FD89 /* PlaceholderRuntimeHost.swift */; };
+		A100005B300D09580044FD89 /* FreeJ2MERuntimeHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100005C300D09580044FD89 /* FreeJ2MERuntimeHost.swift */; };
+		A100005D300D09580044FD89 /* FreeJ2MERuntimeHostTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100005E300D09580044FD89 /* FreeJ2MERuntimeHostTests.swift */; };
+		A1000060300D09580044FD89 /* RuntimeEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000061300D09580044FD89 /* RuntimeEvent.swift */; };
+		A1000078300D09580044FD89 /* EmulatorFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000079300D09580044FD89 /* EmulatorFrame.swift */; };
+		A1000062300D09580044FD89 /* RuntimeEventPipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000063300D09580044FD89 /* RuntimeEventPipe.swift */; };
+		A1000064300D09580044FD89 /* RuntimeEventTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000065300D09580044FD89 /* RuntimeEventTests.swift */; };
+		A100006B300D09580044FD89 /* FreeJ2MERuntimeAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100006A300D09580044FD89 /* FreeJ2MERuntimeAdapter.swift */; };
+		A100006C300D09580044FD89 /* FreeJ2MERuntimeAdapterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100006D300D09580044FD89 /* FreeJ2MERuntimeAdapterTests.swift */; };
+		A100006E300D09580044FD89 /* FreeJ2MEMobilePlatformBootstrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100006F300D09580044FD89 /* FreeJ2MEMobilePlatformBootstrap.swift */; };
+		A1000070300D09580044FD89 /* FreeJ2MEMobilePlatformBootstrapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000071300D09580044FD89 /* FreeJ2MEMobilePlatformBootstrapTests.swift */; };
+		A1000072300D09580044FD89 /* FreeJ2MEJarLoadResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000073300D09580044FD89 /* FreeJ2MEJarLoadResult.swift */; };
+		A1000074300D09580044FD89 /* FreeJ2MEJarRunResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000075300D09580044FD89 /* FreeJ2MEJarRunResult.swift */; };
+		A1000114 /* FreeJ2MEDisplayResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000115 /* FreeJ2MEDisplayResult.swift */; };
+		A1000076300D09580044FD89 /* FreeJ2MEFrameCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000077300D09580044FD89 /* FreeJ2MEFrameCapture.swift */; };
+		A100008A300D09580044FD89 /* EmulatorSurfaceMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100008B300D09580044FD89 /* EmulatorSurfaceMetadata.swift */; };
+		A100008C300D09580044FD89 /* EmulatorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100008D300D09580044FD89 /* EmulatorViewModel.swift */; };
+		A100008E300D09580044FD89 /* EmulatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100008F300D09580044FD89 /* EmulatorView.swift */; };
+		A1000090300D09580044FD89 /* EmulatorViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000091300D09580044FD89 /* EmulatorViewModelTests.swift */; };
+		A1000094300D09580044FD89 /* EmulatorFrameCGImageConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000095300D09580044FD89 /* EmulatorFrameCGImageConverter.swift */; };
+		A1000096300D09580044FD89 /* LibraryViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000097300D09580044FD89 /* LibraryViewModelTests.swift */; };
+		A1000098300D09580044FD89 /* AppDependencyContainerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1000099300D09580044FD89 /* AppDependencyContainerTests.swift */; };
+		A100009A300D09580044FD89 /* PersistentRuntimePOCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100009B300D09580044FD89 /* PersistentRuntimePOCClient.swift */; };
+		A100009C300D09580044FD89 /* PersistentRuntimePOCTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A100009D300D09580044FD89 /* PersistentRuntimePOCTests.swift */; };
+		A10000A0300D09580044FD89 /* PersistentProcessFreeJ2MEMobilePlatformBootstrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000A1300D09580044FD89 /* PersistentProcessFreeJ2MEMobilePlatformBootstrap.swift */; };
+		A10000A2300D09580044FD89 /* PersistentProcessFreeJ2MEMobilePlatformBootstrapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000A3300D09580044FD89 /* PersistentProcessFreeJ2MEMobilePlatformBootstrapTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +139,47 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A10000B0 /* EmbeddedJVMState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbeddedJVMState.swift; sourceTree = "<group>"; };
+		A10000B1 /* EmbeddedJVMError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbeddedJVMError.swift; sourceTree = "<group>"; };
+		A10000B2 /* EmbeddedJVMMetrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbeddedJVMMetrics.swift; sourceTree = "<group>"; };
+		A10000B3 /* EmbeddedJVMConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbeddedJVMConfiguration.swift; sourceTree = "<group>"; };
+		A10000B4 /* EmbeddedJVMNativeRuntime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbeddedJVMNativeRuntime.swift; sourceTree = "<group>"; };
+		A10000B5 /* EmbeddedJVMManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbeddedJVMManager.swift; sourceTree = "<group>"; };
+		A10000B6 /* ProcessRSSSampler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessRSSSampler.swift; sourceTree = "<group>"; };
+		A10000B7 /* MockEmbeddedJVMNativeRuntime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockEmbeddedJVMNativeRuntime.swift; sourceTree = "<group>"; };
+		A10000B8 /* EmbeddedJVMReadiness.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbeddedJVMReadiness.swift; sourceTree = "<group>"; };
+		A10000B9 /* JNIGatewayHandles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JNIGatewayHandles.swift; sourceTree = "<group>"; };
+		A10000BA /* JNIGatewayError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JNIGatewayError.swift; sourceTree = "<group>"; };
+		A10000BB /* JNIGatewayNativeBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JNIGatewayNativeBackend.swift; sourceTree = "<group>"; };
+		A10000BC /* JNIGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JNIGateway.swift; sourceTree = "<group>"; };
+		A10000BD /* DefaultJNIGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultJNIGateway.swift; sourceTree = "<group>"; };
+		A10000BE /* MockJNIGatewayNativeBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockJNIGatewayNativeBackend.swift; sourceTree = "<group>"; };
+		A10000BF /* ProductionJNIGatewayNativeBackend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductionJNIGatewayNativeBackend.swift; sourceTree = "<group>"; };
+		A10000E0 /* StubEmbeddedJVMReadiness.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubEmbeddedJVMReadiness.swift; sourceTree = "<group>"; };
+		A10000E2 /* JNIGatewayNativeStub.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = JNIGatewayNativeStub.c; sourceTree = "<group>"; };
+		A10000E4 /* JNIGatewayTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JNIGatewayTests.swift; sourceTree = "<group>"; };
+		A10000E6 /* JNIGatewayReferenceCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JNIGatewayReferenceCache.swift; sourceTree = "<group>"; };
+		A10000E8 /* JNIGatewayCacheTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JNIGatewayCacheTests.swift; sourceTree = "<group>"; };
+		A10000EA /* JNIGatewayObjectTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JNIGatewayObjectTests.swift; sourceTree = "<group>"; };
+		A10000EC /* JNIInvocationTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JNIInvocationTypes.swift; sourceTree = "<group>"; };
+		A10000EE /* JNIGatewayInvocationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JNIGatewayInvocationTests.swift; sourceTree = "<group>"; };
+		A10000F3 /* JNICallbackTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JNICallbackTypes.swift; sourceTree = "<group>"; };
+		A10000F5 /* JNIGatewayCallbackRegistry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JNIGatewayCallbackRegistry.swift; sourceTree = "<group>"; };
+		A10000F7 /* JNIGatewayTrampolineHost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JNIGatewayTrampolineHost.swift; sourceTree = "<group>"; };
+		A10000F9 /* JNIGatewayCallbackTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JNIGatewayCallbackTests.swift; sourceTree = "<group>"; };
+		A10000FB /* PlatformBootstrapState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformBootstrapState.swift; sourceTree = "<group>"; };
+		A10000FD /* PlatformBootstrapError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformBootstrapError.swift; sourceTree = "<group>"; };
+		A10000FF /* EmbeddedJVMControlling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbeddedJVMControlling.swift; sourceTree = "<group>"; };
+		A1000101 /* PlatformBootstrap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformBootstrap.swift; sourceTree = "<group>"; };
+		A1000103 /* DefaultPlatformBootstrap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPlatformBootstrap.swift; sourceTree = "<group>"; };
+		A1000105 /* StubEmbeddedJVMController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubEmbeddedJVMController.swift; sourceTree = "<group>"; };
+		A1000107 /* PlatformBootstrapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformBootstrapTests.swift; sourceTree = "<group>"; };
+		A100010B /* NativeCallbackHostTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeCallbackHostTests.swift; sourceTree = "<group>"; };
+		A100010D /* MobilePlatformBootstrapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobilePlatformBootstrapTests.swift; sourceTree = "<group>"; };
+		A100010F /* PainterBootstrapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PainterBootstrapTests.swift; sourceTree = "<group>"; };
+		A1000111 /* JarLoadBootstrapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarLoadBootstrapTests.swift; sourceTree = "<group>"; };
+		A1000113 /* JarRunBootstrapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JarRunBootstrapTests.swift; sourceTree = "<group>"; };
+		A1000117 /* DisplayBootstrapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayBootstrapTests.swift; sourceTree = "<group>"; };
 		446FE22D300D09580044FD89 /* JavaOne.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JavaOne.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		446FE230300D09580044FD89 /* JavaOneApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JavaOneApp.swift; sourceTree = "<group>"; };
 		446FE234300D09590044FD89 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -100,6 +218,42 @@
 		A100003D300D09580044FD89 /* JARArchiveReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JARArchiveReader.swift; sourceTree = "<group>"; };
 		A100003F300D09580044FD89 /* ArtworkStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtworkStep.swift; sourceTree = "<group>"; };
 		A1000041300D09580044FD89 /* ArtworkStepTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtworkStepTests.swift; sourceTree = "<group>"; };
+		A1000043300D09580044FD89 /* LaunchConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchConfiguration.swift; sourceTree = "<group>"; };
+		A1000045300D09580044FD89 /* EmulatorSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmulatorSession.swift; sourceTree = "<group>"; };
+		A1000047300D09580044FD89 /* EmulatorBridgeProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmulatorBridgeProtocol.swift; sourceTree = "<group>"; };
+		A1000049300D09580044FD89 /* DefaultEmulatorBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultEmulatorBridge.swift; sourceTree = "<group>"; };
+		A100004E300D09580044FD89 /* EmulatorSessionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmulatorSessionState.swift; sourceTree = "<group>"; };
+		A1000050300D09580044FD89 /* EmulatorSessionLifecycleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmulatorSessionLifecycleTests.swift; sourceTree = "<group>"; };
+		A1000052300D09580044FD89 /* EmulatorBridgeError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmulatorBridgeError.swift; sourceTree = "<group>"; };
+		A1000054300D09580044FD89 /* EmulatorBridgeLifecycleAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmulatorBridgeLifecycleAPITests.swift; sourceTree = "<group>"; };
+		A1000056300D09580044FD89 /* EmulatorLaunchValidationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmulatorLaunchValidationTests.swift; sourceTree = "<group>"; };
+		A1000058300D09580044FD89 /* RuntimeHostProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuntimeHostProtocol.swift; sourceTree = "<group>"; };
+		A100005A300D09580044FD89 /* PlaceholderRuntimeHost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderRuntimeHost.swift; sourceTree = "<group>"; };
+		A100005C300D09580044FD89 /* FreeJ2MERuntimeHost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeJ2MERuntimeHost.swift; sourceTree = "<group>"; };
+		A100005E300D09580044FD89 /* FreeJ2MERuntimeHostTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeJ2MERuntimeHostTests.swift; sourceTree = "<group>"; };
+		A1000061300D09580044FD89 /* RuntimeEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuntimeEvent.swift; sourceTree = "<group>"; };
+		A1000079300D09580044FD89 /* EmulatorFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmulatorFrame.swift; sourceTree = "<group>"; };
+		A1000063300D09580044FD89 /* RuntimeEventPipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuntimeEventPipe.swift; sourceTree = "<group>"; };
+		A1000065300D09580044FD89 /* RuntimeEventTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuntimeEventTests.swift; sourceTree = "<group>"; };
+		A100006A300D09580044FD89 /* FreeJ2MERuntimeAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeJ2MERuntimeAdapter.swift; sourceTree = "<group>"; };
+		A100006D300D09580044FD89 /* FreeJ2MERuntimeAdapterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeJ2MERuntimeAdapterTests.swift; sourceTree = "<group>"; };
+		A100006F300D09580044FD89 /* FreeJ2MEMobilePlatformBootstrap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeJ2MEMobilePlatformBootstrap.swift; sourceTree = "<group>"; };
+		A1000071300D09580044FD89 /* FreeJ2MEMobilePlatformBootstrapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeJ2MEMobilePlatformBootstrapTests.swift; sourceTree = "<group>"; };
+		A1000073300D09580044FD89 /* FreeJ2MEJarLoadResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeJ2MEJarLoadResult.swift; sourceTree = "<group>"; };
+		A1000075300D09580044FD89 /* FreeJ2MEJarRunResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeJ2MEJarRunResult.swift; sourceTree = "<group>"; };
+		A1000115 /* FreeJ2MEDisplayResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeJ2MEDisplayResult.swift; sourceTree = "<group>"; };
+		A1000077300D09580044FD89 /* FreeJ2MEFrameCapture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FreeJ2MEFrameCapture.swift; sourceTree = "<group>"; };
+		A100008B300D09580044FD89 /* EmulatorSurfaceMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmulatorSurfaceMetadata.swift; sourceTree = "<group>"; };
+		A100008D300D09580044FD89 /* EmulatorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmulatorViewModel.swift; sourceTree = "<group>"; };
+		A100008F300D09580044FD89 /* EmulatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmulatorView.swift; sourceTree = "<group>"; };
+		A1000091300D09580044FD89 /* EmulatorViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmulatorViewModelTests.swift; sourceTree = "<group>"; };
+		A1000095300D09580044FD89 /* EmulatorFrameCGImageConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmulatorFrameCGImageConverter.swift; sourceTree = "<group>"; };
+		A1000097300D09580044FD89 /* LibraryViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryViewModelTests.swift; sourceTree = "<group>"; };
+		A1000099300D09580044FD89 /* AppDependencyContainerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependencyContainerTests.swift; sourceTree = "<group>"; };
+		A100009B300D09580044FD89 /* PersistentRuntimePOCClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentRuntimePOCClient.swift; sourceTree = "<group>"; };
+		A100009D300D09580044FD89 /* PersistentRuntimePOCTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentRuntimePOCTests.swift; sourceTree = "<group>"; };
+		A10000A1300D09580044FD89 /* PersistentProcessFreeJ2MEMobilePlatformBootstrap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentProcessFreeJ2MEMobilePlatformBootstrap.swift; sourceTree = "<group>"; };
+		A10000A3300D09580044FD89 /* PersistentProcessFreeJ2MEMobilePlatformBootstrapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentProcessFreeJ2MEMobilePlatformBootstrapTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,8 +325,149 @@
 			isa = PBXGroup;
 			children = (
 				A1000012300D09580044FD89 /* Library */,
+				A100004A300D09580044FD89 /* Emulator */,
 			);
 			path = Features;
+			sourceTree = "<group>";
+		};
+		A100004A300D09580044FD89 /* Emulator */ = {
+			isa = PBXGroup;
+			children = (
+				A100004B300D09580044FD89 /* Models */,
+				A100004C300D09580044FD89 /* Services */,
+				A100005F300D09580044FD89 /* Runtime */,
+				A1000092300D09580044FD89 /* ViewModels */,
+				A1000093300D09580044FD89 /* Views */,
+			);
+			path = Emulator;
+			sourceTree = "<group>";
+		};
+		A100004B300D09580044FD89 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A1000043300D09580044FD89 /* LaunchConfiguration.swift */,
+				A1000045300D09580044FD89 /* EmulatorSession.swift */,
+				A100004E300D09580044FD89 /* EmulatorSessionState.swift */,
+				A1000052300D09580044FD89 /* EmulatorBridgeError.swift */,
+				A1000061300D09580044FD89 /* RuntimeEvent.swift */,
+				A1000079300D09580044FD89 /* EmulatorFrame.swift */,
+				A100008B300D09580044FD89 /* EmulatorSurfaceMetadata.swift */,
+				A1000063300D09580044FD89 /* RuntimeEventPipe.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		A1000092300D09580044FD89 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				A100008D300D09580044FD89 /* EmulatorViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		A1000093300D09580044FD89 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A100008F300D09580044FD89 /* EmulatorView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		A100004C300D09580044FD89 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				A1000047300D09580044FD89 /* EmulatorBridgeProtocol.swift */,
+				A1000049300D09580044FD89 /* DefaultEmulatorBridge.swift */,
+				A1000058300D09580044FD89 /* RuntimeHostProtocol.swift */,
+				A100005A300D09580044FD89 /* PlaceholderRuntimeHost.swift */,
+				A1000095300D09580044FD89 /* EmulatorFrameCGImageConverter.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		A100005F300D09580044FD89 /* Runtime */ = {
+			isa = PBXGroup;
+			children = (
+				A100005C300D09580044FD89 /* FreeJ2MERuntimeHost.swift */,
+				A100006A300D09580044FD89 /* FreeJ2MERuntimeAdapter.swift */,
+				A1000073300D09580044FD89 /* FreeJ2MEJarLoadResult.swift */,
+				A1000075300D09580044FD89 /* FreeJ2MEJarRunResult.swift */,
+				A1000115 /* FreeJ2MEDisplayResult.swift */,
+				A1000077300D09580044FD89 /* FreeJ2MEFrameCapture.swift */,
+				A100006F300D09580044FD89 /* FreeJ2MEMobilePlatformBootstrap.swift */,
+				A10000A1300D09580044FD89 /* PersistentProcessFreeJ2MEMobilePlatformBootstrap.swift */,
+				A10000F0 /* EmbeddedJVM */,
+				A100009E300D09580044FD89 /* POC */,
+			);
+			path = Runtime;
+			sourceTree = "<group>";
+		};
+		A10000F0 /* EmbeddedJVM */ = {
+			isa = PBXGroup;
+			children = (
+				A10000B0 /* EmbeddedJVMState.swift */,
+				A10000B1 /* EmbeddedJVMError.swift */,
+				A10000B2 /* EmbeddedJVMMetrics.swift */,
+				A10000B3 /* EmbeddedJVMConfiguration.swift */,
+				A10000B4 /* EmbeddedJVMNativeRuntime.swift */,
+				A10000B5 /* EmbeddedJVMManager.swift */,
+				A10000B6 /* ProcessRSSSampler.swift */,
+				A10000B7 /* MockEmbeddedJVMNativeRuntime.swift */,
+				A10000F1 /* JNIGateway */,
+				A1000109 /* PlatformBootstrap */,
+			);
+			path = EmbeddedJVM;
+			sourceTree = "<group>";
+		};
+		A1000109 /* PlatformBootstrap */ = {
+			isa = PBXGroup;
+			children = (
+				A10000FB /* PlatformBootstrapState.swift */,
+				A10000FD /* PlatformBootstrapError.swift */,
+				A10000FF /* EmbeddedJVMControlling.swift */,
+				A1000101 /* PlatformBootstrap.swift */,
+				A1000103 /* DefaultPlatformBootstrap.swift */,
+				A1000105 /* StubEmbeddedJVMController.swift */,
+			);
+			path = PlatformBootstrap;
+			sourceTree = "<group>";
+		};
+		A10000F1 /* JNIGateway */ = {
+			isa = PBXGroup;
+			children = (
+				A10000B8 /* EmbeddedJVMReadiness.swift */,
+				A10000B9 /* JNIGatewayHandles.swift */,
+				A10000BA /* JNIGatewayError.swift */,
+				A10000BB /* JNIGatewayNativeBackend.swift */,
+				A10000E6 /* JNIGatewayReferenceCache.swift */,
+				A10000EC /* JNIInvocationTypes.swift */,
+				A10000F3 /* JNICallbackTypes.swift */,
+				A10000F5 /* JNIGatewayCallbackRegistry.swift */,
+				A10000F7 /* JNIGatewayTrampolineHost.swift */,
+				A10000BC /* JNIGateway.swift */,
+				A10000BD /* DefaultJNIGateway.swift */,
+				A10000BE /* MockJNIGatewayNativeBackend.swift */,
+				A10000BF /* ProductionJNIGatewayNativeBackend.swift */,
+				A10000E0 /* StubEmbeddedJVMReadiness.swift */,
+				A10000F2 /* Native */,
+			);
+			path = JNIGateway;
+			sourceTree = "<group>";
+		};
+		A10000F2 /* Native */ = {
+			isa = PBXGroup;
+			children = (
+				A10000E2 /* JNIGatewayNativeStub.c */,
+			);
+			path = Native;
+			sourceTree = "<group>";
+		};
+		A100009E300D09580044FD89 /* POC */ = {
+			isa = PBXGroup;
+			children = (
+				A100009B300D09580044FD89 /* PersistentRuntimePOCClient.swift */,
+			);
+			path = POC;
 			sourceTree = "<group>";
 		};
 		A1000012300D09580044FD89 /* Library */ = {
@@ -262,6 +557,30 @@
 				A1000035300D09580044FD89 /* HashStepTests.swift */,
 				A100003B300D09580044FD89 /* DuplicateDetectionStepTests.swift */,
 				A1000041300D09580044FD89 /* ArtworkStepTests.swift */,
+				A1000050300D09580044FD89 /* EmulatorSessionLifecycleTests.swift */,
+				A1000054300D09580044FD89 /* EmulatorBridgeLifecycleAPITests.swift */,
+				A1000056300D09580044FD89 /* EmulatorLaunchValidationTests.swift */,
+				A100005E300D09580044FD89 /* FreeJ2MERuntimeHostTests.swift */,
+				A1000065300D09580044FD89 /* RuntimeEventTests.swift */,
+				A1000091300D09580044FD89 /* EmulatorViewModelTests.swift */,
+				A1000097300D09580044FD89 /* LibraryViewModelTests.swift */,
+				A1000099300D09580044FD89 /* AppDependencyContainerTests.swift */,
+				A100009D300D09580044FD89 /* PersistentRuntimePOCTests.swift */,
+				A10000A3300D09580044FD89 /* PersistentProcessFreeJ2MEMobilePlatformBootstrapTests.swift */,
+				A100006D300D09580044FD89 /* FreeJ2MERuntimeAdapterTests.swift */,
+				A1000071300D09580044FD89 /* FreeJ2MEMobilePlatformBootstrapTests.swift */,
+				A10000E4 /* JNIGatewayTests.swift */,
+				A10000E8 /* JNIGatewayCacheTests.swift */,
+				A10000EA /* JNIGatewayObjectTests.swift */,
+				A10000EE /* JNIGatewayInvocationTests.swift */,
+				A10000F9 /* JNIGatewayCallbackTests.swift */,
+				A1000107 /* PlatformBootstrapTests.swift */,
+				A100010B /* NativeCallbackHostTests.swift */,
+				A100010D /* MobilePlatformBootstrapTests.swift */,
+				A100010F /* PainterBootstrapTests.swift */,
+				A1000111 /* JarLoadBootstrapTests.swift */,
+				A1000113 /* JarRunBootstrapTests.swift */,
+				A1000117 /* DisplayBootstrapTests.swift */,
 			);
 			path = JavaOneTests;
 			sourceTree = "<group>";
@@ -431,6 +750,59 @@
 				A100000A300D09580044FD89 /* LibraryView.swift in Sources */,
 				A100000C300D09580044FD89 /* AppDependencyContainer.swift in Sources */,
 				446FE231300D09580044FD89 /* JavaOneApp.swift in Sources */,
+				A1000042300D09580044FD89 /* LaunchConfiguration.swift in Sources */,
+				A1000044300D09580044FD89 /* EmulatorSession.swift in Sources */,
+				A1000046300D09580044FD89 /* EmulatorBridgeProtocol.swift in Sources */,
+				A1000048300D09580044FD89 /* DefaultEmulatorBridge.swift in Sources */,
+				A100004D300D09580044FD89 /* EmulatorSessionState.swift in Sources */,
+				A1000051300D09580044FD89 /* EmulatorBridgeError.swift in Sources */,
+				A1000057300D09580044FD89 /* RuntimeHostProtocol.swift in Sources */,
+				A1000059300D09580044FD89 /* PlaceholderRuntimeHost.swift in Sources */,
+				A100005B300D09580044FD89 /* FreeJ2MERuntimeHost.swift in Sources */,
+				A1000060300D09580044FD89 /* RuntimeEvent.swift in Sources */,
+				A1000078300D09580044FD89 /* EmulatorFrame.swift in Sources */,
+				A1000062300D09580044FD89 /* RuntimeEventPipe.swift in Sources */,
+				A100006B300D09580044FD89 /* FreeJ2MERuntimeAdapter.swift in Sources */,
+				A1000072300D09580044FD89 /* FreeJ2MEJarLoadResult.swift in Sources */,
+				A1000074300D09580044FD89 /* FreeJ2MEJarRunResult.swift in Sources */,
+				A1000114 /* FreeJ2MEDisplayResult.swift in Sources */,
+				A1000076300D09580044FD89 /* FreeJ2MEFrameCapture.swift in Sources */,
+				A100008A300D09580044FD89 /* EmulatorSurfaceMetadata.swift in Sources */,
+				A100008C300D09580044FD89 /* EmulatorViewModel.swift in Sources */,
+				A100008E300D09580044FD89 /* EmulatorView.swift in Sources */,
+				A1000094300D09580044FD89 /* EmulatorFrameCGImageConverter.swift in Sources */,
+				A100006E300D09580044FD89 /* FreeJ2MEMobilePlatformBootstrap.swift in Sources */,
+				A100009A300D09580044FD89 /* PersistentRuntimePOCClient.swift in Sources */,
+				A10000A0300D09580044FD89 /* PersistentProcessFreeJ2MEMobilePlatformBootstrap.swift in Sources */,
+				A10000C0 /* EmbeddedJVMState.swift in Sources */,
+				A10000C1 /* EmbeddedJVMError.swift in Sources */,
+				A10000C2 /* EmbeddedJVMMetrics.swift in Sources */,
+				A10000C3 /* EmbeddedJVMConfiguration.swift in Sources */,
+				A10000C4 /* EmbeddedJVMNativeRuntime.swift in Sources */,
+				A10000C5 /* EmbeddedJVMManager.swift in Sources */,
+				A10000C6 /* ProcessRSSSampler.swift in Sources */,
+				A10000C7 /* MockEmbeddedJVMNativeRuntime.swift in Sources */,
+				A10000C8 /* EmbeddedJVMReadiness.swift in Sources */,
+				A10000C9 /* JNIGatewayHandles.swift in Sources */,
+				A10000CA /* JNIGatewayError.swift in Sources */,
+				A10000CB /* JNIGatewayNativeBackend.swift in Sources */,
+				A10000E7 /* JNIGatewayReferenceCache.swift in Sources */,
+				A10000ED /* JNIInvocationTypes.swift in Sources */,
+				A10000F4 /* JNICallbackTypes.swift in Sources */,
+				A10000F6 /* JNIGatewayCallbackRegistry.swift in Sources */,
+				A10000F8 /* JNIGatewayTrampolineHost.swift in Sources */,
+				A10000CC /* JNIGateway.swift in Sources */,
+				A10000CD /* DefaultJNIGateway.swift in Sources */,
+				A10000CE /* MockJNIGatewayNativeBackend.swift in Sources */,
+				A10000CF /* ProductionJNIGatewayNativeBackend.swift in Sources */,
+				A10000E1 /* StubEmbeddedJVMReadiness.swift in Sources */,
+				A10000E3 /* JNIGatewayNativeStub.c in Sources */,
+				A10000FC /* PlatformBootstrapState.swift in Sources */,
+				A10000FE /* PlatformBootstrapError.swift in Sources */,
+				A1000100 /* EmbeddedJVMControlling.swift in Sources */,
+				A1000102 /* PlatformBootstrap.swift in Sources */,
+				A1000104 /* DefaultPlatformBootstrap.swift in Sources */,
+				A1000106 /* StubEmbeddedJVMController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -443,6 +815,30 @@
 				A1000034300D09580044FD89 /* HashStepTests.swift in Sources */,
 				A100003A300D09580044FD89 /* DuplicateDetectionStepTests.swift in Sources */,
 				A1000040300D09580044FD89 /* ArtworkStepTests.swift in Sources */,
+				A100004F300D09580044FD89 /* EmulatorSessionLifecycleTests.swift in Sources */,
+				A1000053300D09580044FD89 /* EmulatorBridgeLifecycleAPITests.swift in Sources */,
+				A1000055300D09580044FD89 /* EmulatorLaunchValidationTests.swift in Sources */,
+				A100005D300D09580044FD89 /* FreeJ2MERuntimeHostTests.swift in Sources */,
+				A1000064300D09580044FD89 /* RuntimeEventTests.swift in Sources */,
+				A1000090300D09580044FD89 /* EmulatorViewModelTests.swift in Sources */,
+				A1000096300D09580044FD89 /* LibraryViewModelTests.swift in Sources */,
+				A1000098300D09580044FD89 /* AppDependencyContainerTests.swift in Sources */,
+				A100009C300D09580044FD89 /* PersistentRuntimePOCTests.swift in Sources */,
+				A10000A2300D09580044FD89 /* PersistentProcessFreeJ2MEMobilePlatformBootstrapTests.swift in Sources */,
+				A100006C300D09580044FD89 /* FreeJ2MERuntimeAdapterTests.swift in Sources */,
+				A1000070300D09580044FD89 /* FreeJ2MEMobilePlatformBootstrapTests.swift in Sources */,
+				A10000E5 /* JNIGatewayTests.swift in Sources */,
+				A10000E9 /* JNIGatewayCacheTests.swift in Sources */,
+				A10000EB /* JNIGatewayObjectTests.swift in Sources */,
+				A10000EF /* JNIGatewayInvocationTests.swift in Sources */,
+				A10000FA /* JNIGatewayCallbackTests.swift in Sources */,
+				A1000108 /* PlatformBootstrapTests.swift in Sources */,
+				A100010A /* NativeCallbackHostTests.swift in Sources */,
+				A100010C /* MobilePlatformBootstrapTests.swift in Sources */,
+				A100010E /* PainterBootstrapTests.swift in Sources */,
+				A1000110 /* JarLoadBootstrapTests.swift in Sources */,
+				A1000112 /* JarRunBootstrapTests.swift in Sources */,
+				A1000116 /* DisplayBootstrapTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

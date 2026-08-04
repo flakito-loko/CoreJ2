@@ -1,7 +1,7 @@
 import SwiftUI
 import UniformTypeIdentifiers
 
-/// Displays the user's Java ME game library.
+/// Displays the user's Java ME game library and launches the emulator.
 struct LibraryView: View {
 
     // MARK: - Dependencies
@@ -58,6 +58,11 @@ struct LibraryView: View {
                 } message: {
                     Text(viewModel.errorMessage ?? "")
                 }
+                .navigationDestination(item: gameToLaunchBinding) { game in
+                    if let emulatorViewModel = viewModel.activeEmulatorViewModel {
+                        EmulatorView(viewModel: emulatorViewModel, game: game)
+                    }
+                }
         }
         .onAppear {
             viewModel.loadGames()
@@ -102,19 +107,40 @@ struct LibraryView: View {
 
     private var gameList: some View {
         List(viewModel.games) { game in
-            VStack(alignment: .leading, spacing: 4) {
-                Text(game.title)
-                    .font(.body)
+            Button {
+                viewModel.selectGame(game)
+            } label: {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(game.title)
+                        .font(.body)
+                        .foregroundStyle(.primary)
 
-                Text("Imported just now")
-                    .font(.subheadline)
-                    .foregroundStyle(.secondary)
+                    Text("Tap to play")
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                }
+                .padding(.vertical, 2)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .contentShape(Rectangle())
             }
-            .padding(.vertical, 2)
+            .buttonStyle(.plain)
         }
     }
 
     // MARK: - Bindings
+
+    private var gameToLaunchBinding: Binding<InstalledGame?> {
+        Binding(
+            get: { viewModel.gameToLaunch },
+            set: { newValue in
+                if newValue == nil {
+                    viewModel.dismissEmulator()
+                } else {
+                    viewModel.gameToLaunch = newValue
+                }
+            }
+        )
+    }
 
     private var successAlertBinding: Binding<Bool> {
         Binding(
@@ -150,20 +176,24 @@ struct LibraryView: View {
 
 struct LibraryView_Previews: PreviewProvider {
     static var previews: some View {
+        let repository = InMemoryGameLibraryRepository()
         LibraryView(
             viewModel: LibraryViewModel(
-                repository: InMemoryGameLibraryRepository(),
+                repository: repository,
                 importEngine: DefaultImportEngine(
                     pipeline: DefaultImportPipeline(
                         importService: FileImportService(),
                         steps: [
                             ManifestStep(manifestService: JARManifestService()),
                             HashStep(),
-                            DuplicateDetectionStep(repository: InMemoryGameLibraryRepository()),
+                            DuplicateDetectionStep(repository: repository),
                             ArtworkStep()
                         ]
                     )
-                )
+                ),
+                makeEmulatorViewModel: {
+                    EmulatorViewModel(bridge: DefaultEmulatorBridge())
+                }
             )
         )
     }

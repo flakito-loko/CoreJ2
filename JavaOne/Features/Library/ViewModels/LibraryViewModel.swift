@@ -1,7 +1,7 @@
 import Combine
 import Foundation
 
-/// Drives the game library screen.
+/// Drives the game library screen and presentation of the emulator.
 @MainActor
 final class LibraryViewModel: ObservableObject {
 
@@ -18,16 +18,32 @@ final class LibraryViewModel: ObservableObject {
     /// User-facing message shown after a failed import.
     @Published var errorMessage: String?
 
+    /// Game selected for emulator presentation; `nil` dismisses the emulator.
+    @Published var gameToLaunch: InstalledGame?
+
+    /// View model bound to the presented `EmulatorView`, if any.
+    private(set) var activeEmulatorViewModel: EmulatorViewModel?
+
     // MARK: - Dependencies
 
     private let repository: GameLibraryRepository
     private let importEngine: ImportEngineProtocol
+    private let makeEmulatorViewModel: () -> EmulatorViewModel
 
     // MARK: - Init
 
-    init(repository: GameLibraryRepository, importEngine: ImportEngineProtocol) {
+    /// - Parameters:
+    ///   - repository: Library persistence.
+    ///   - importEngine: JAR import pipeline.
+    ///   - makeEmulatorViewModel: Factory for a fresh emulator surface VM per launch.
+    init(
+        repository: GameLibraryRepository,
+        importEngine: ImportEngineProtocol,
+        makeEmulatorViewModel: @escaping () -> EmulatorViewModel
+    ) {
         self.repository = repository
         self.importEngine = importEngine
+        self.makeEmulatorViewModel = makeEmulatorViewModel
     }
 
     // MARK: - Intentions
@@ -48,6 +64,18 @@ final class LibraryViewModel: ObservableObject {
         case .failure:
             break
         }
+    }
+
+    /// Prepares an emulator view model and presents `EmulatorView` for `game`.
+    func selectGame(_ game: InstalledGame) {
+        activeEmulatorViewModel = makeEmulatorViewModel()
+        gameToLaunch = game
+    }
+
+    /// Dismisses the emulator screen and releases its view model.
+    func dismissEmulator() {
+        gameToLaunch = nil
+        activeEmulatorViewModel = nil
     }
 
     /// Clears the success alert message.

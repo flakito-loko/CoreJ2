@@ -82,3 +82,34 @@ coverage/
 .env
 .env.*
 !.env.example
+
+# OpenJDK Mobile — Fase 0A (toolchain local; no App Target)
+ThirdParty/OpenJDKMobile/cache/**
+ThirdParty/OpenJDKMobile/src/**
+ThirdParty/OpenJDKMobile/support/**
+ThirdParty/OpenJDKMobile/out/**
+!ThirdParty/OpenJDKMobile/cache/.gitkeep
+!ThirdParty/OpenJDKMobile/src/.gitkeep
+!ThirdParty/OpenJDKMobile/support/.gitkeep
+!ThirdParty/OpenJDKMobile/out/.gitkeep
+artifacts/openjdk-mobile/staged/**
+!artifacts/openjdk-mobile/staged/.gitkeep
+# Manifests de texto pueden versionarse; ignorar solo basura local si aparece
+artifacts/openjdk-mobile/**/*.a
+artifacts/openjdk-mobile/**/*.dylib
+artifacts/openjdk-mobile/**/*.o
+
+# Embedded JVM Phase-1 harness outputs
+artifacts/embedded-jvm-phase1/build/
+artifacts/embedded-jvm-phase1/classes/
+
+# OpenJDK Mobile toolchain caches (Phase 1.5)
+ThirdParty/OpenJDKMobile/cache/*.tar.gz
+ThirdParty/OpenJDKMobile/cache/*.tar.xz
+ThirdParty/OpenJDKMobile/cache/jdk-*/
+ThirdParty/OpenJDKMobile/cache/autoconf-*/
+ThirdParty/OpenJDKMobile/cache/m4-*/
+ThirdParty/OpenJDKMobile/cache/autoconf-prefix/
+ThirdParty/OpenJDKMobile/cache/m4-prefix/
+artifacts/embedded-jvm-phase1_5/build/
+artifacts/embedded-jvm-phase1_5/classes/
