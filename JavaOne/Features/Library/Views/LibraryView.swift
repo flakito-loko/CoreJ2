@@ -1,4 +1,5 @@
 import SwiftUI
+import UniformTypeIdentifiers
 
 /// Displays the user's Java ME game library.
 struct LibraryView: View {
@@ -6,6 +7,10 @@ struct LibraryView: View {
     // MARK: - Dependencies
 
     @ObservedObject private var viewModel: LibraryViewModel
+
+    // MARK: - UI State
+
+    @State private var isImportPresented = false
 
     // MARK: - Init
 
@@ -19,6 +24,40 @@ struct LibraryView: View {
         NavigationStack {
             content
                 .navigationTitle("Library")
+                .toolbar {
+                    ToolbarItem(placement: .primaryAction) {
+                        Button("Import Game") {
+                            isImportPresented = true
+                        }
+                    }
+                }
+                .fileImporter(
+                    isPresented: $isImportPresented,
+                    allowedContentTypes: Self.jarContentTypes,
+                    allowsMultipleSelection: false
+                ) { result in
+                    viewModel.handleImportResult(result)
+                }
+                .alert(
+                    "Import Successful",
+                    isPresented: successAlertBinding
+                ) {
+                    Button("OK", role: .cancel) {
+                        viewModel.dismissSuccessMessage()
+                    }
+                } message: {
+                    Text(viewModel.successMessage ?? "")
+                }
+                .alert(
+                    "Import Failed",
+                    isPresented: errorAlertBinding
+                ) {
+                    Button("OK", role: .cancel) {
+                        viewModel.dismissErrorMessage()
+                    }
+                } message: {
+                    Text(viewModel.errorMessage ?? "")
+                }
         }
         .onAppear {
             viewModel.loadGames()
@@ -49,6 +88,13 @@ struct LibraryView: View {
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
+
+            if let selectedFileName = viewModel.selectedFileName {
+                Text(selectedFileName)
+                    .font(.body.weight(.medium))
+                    .multilineTextAlignment(.center)
+                    .padding(.top, 8)
+            }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding()
@@ -56,9 +102,48 @@ struct LibraryView: View {
 
     private var gameList: some View {
         List(viewModel.games) { game in
-            Text(game.title)
+            VStack(alignment: .leading, spacing: 4) {
+                Text(game.title)
+                    .font(.body)
+
+                Text("Imported just now")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+            }
+            .padding(.vertical, 2)
         }
     }
+
+    // MARK: - Bindings
+
+    private var successAlertBinding: Binding<Bool> {
+        Binding(
+            get: { viewModel.successMessage != nil },
+            set: { isPresented in
+                if !isPresented {
+                    viewModel.dismissSuccessMessage()
+                }
+            }
+        )
+    }
+
+    private var errorAlertBinding: Binding<Bool> {
+        Binding(
+            get: { viewModel.errorMessage != nil },
+            set: { isPresented in
+                if !isPresented {
+                    viewModel.dismissErrorMessage()
+                }
+            }
+        )
+    }
+
+    // MARK: - File Types
+
+    private static let jarContentTypes: [UTType] = [
+        UTType(filenameExtension: "jar")
+            ?? UTType(exportedAs: "com.javaonelabs.java-archive")
+    ]
 }
 
 // MARK: - Previews
@@ -67,7 +152,18 @@ struct LibraryView_Previews: PreviewProvider {
     static var previews: some View {
         LibraryView(
             viewModel: LibraryViewModel(
-                repository: InMemoryGameLibraryRepository()
+                repository: InMemoryGameLibraryRepository(),
+                importEngine: DefaultImportEngine(
+                    pipeline: DefaultImportPipeline(
+                        importService: FileImportService(),
+                        steps: [
+                            ManifestStep(manifestService: JARManifestService()),
+                            HashStep(),
+                            DuplicateDetectionStep(repository: InMemoryGameLibraryRepository()),
+                            ArtworkStep()
+                        ]
+                    )
+                )
             )
         )
     }

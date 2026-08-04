@@ -1,15 +1,27 @@
 import Foundation
 
-/// An in-memory game library that starts empty.
-/// Used until persistent storage is introduced.
+/// An in-memory game library used for SwiftUI previews and tests.
+@MainActor
 final class InMemoryGameLibraryRepository: GameLibraryRepository {
-    private var games: [Game]
+    private var games: [InstalledGame]
 
-    init(games: [Game] = []) {
+    init(games: [InstalledGame] = []) {
         self.games = games
     }
 
-    func fetchGames() -> [Game] {
+    func fetchGames() -> [InstalledGame] {
         games
+    }
+
+    func save(_ game: InstalledGame) {
+        if let index = games.firstIndex(where: { $0.id == game.id }) {
+            games[index] = game
+        } else {
+            games.append(game)
+        }
+    }
+
+    func game(withContentHash contentHash: String) -> InstalledGame? {
+        games.first { $0.contentHash == contentHash }
     }
 }
