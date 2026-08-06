@@ -13,10 +13,10 @@
       "releaseYear": 2005,
       "resolution": "320 × 240",
       "compatibility": "Playable",
-      "coverURL": "https://flakito-loko.github.io/CoreJ2/metadata/covers/miami-nights.jpg",
+      "coverURL": "https://raw.githubusercontent.com/flakito-loko/CoreJ2/gh-pages/metadata/covers/miami-nights.jpg",
       "screenshotURLs": [
-        "https://flakito-loko.github.io/CoreJ2/metadata/screenshots/miami-nights-01.jpg",
-        "https://flakito-loko.github.io/CoreJ2/metadata/screenshots/miami-nights-02.jpg"
+        "https://raw.githubusercontent.com/flakito-loko/CoreJ2/gh-pages/metadata/screenshots/miami-nights-01.jpg",
+        "https://raw.githubusercontent.com/flakito-loko/CoreJ2/gh-pages/metadata/screenshots/miami-nights-02.jpg"
       ]
     },
     {
@@ -29,9 +29,9 @@
       "releaseYear": 1984,
       "resolution": "240 × 320",
       "compatibility": "Playable",
-      "coverURL": "https://flakito-loko.github.io/CoreJ2/metadata/covers/tetris.jpg",
+      "coverURL": "https://raw.githubusercontent.com/flakito-loko/CoreJ2/gh-pages/metadata/covers/tetris.jpg",
       "screenshotURLs": [
-        "https://flakito-loko.github.io/CoreJ2/metadata/screenshots/tetris-01.jpg"
+        "https://raw.githubusercontent.com/flakito-loko/CoreJ2/gh-pages/metadata/screenshots/tetris-01.jpg"
       ]
     },
     {
@@ -44,9 +44,9 @@
       "releaseYear": 1984,
       "resolution": "240 × 320",
       "compatibility": "Playable",
-      "coverURL": "https://flakito-loko.github.io/CoreJ2/metadata/covers/tetris.jpg",
+      "coverURL": "https://raw.githubusercontent.com/flakito-loko/CoreJ2/gh-pages/metadata/covers/tetris.jpg",
       "screenshotURLs": [
-        "https://flakito-loko.github.io/CoreJ2/metadata/screenshots/tetris-01.jpg"
+        "https://raw.githubusercontent.com/flakito-loko/CoreJ2/gh-pages/metadata/screenshots/tetris-01.jpg"
       ]
     },
     {
@@ -59,9 +59,9 @@
       "releaseYear": 1984,
       "resolution": "240 × 320",
       "compatibility": "Playable",
-      "coverURL": "https://flakito-loko.github.io/CoreJ2/metadata/covers/tetris.jpg",
+      "coverURL": "https://raw.githubusercontent.com/flakito-loko/CoreJ2/gh-pages/metadata/covers/tetris.jpg",
       "screenshotURLs": [
-        "https://flakito-loko.github.io/CoreJ2/metadata/screenshots/tetris-01.jpg"
+        "https://raw.githubusercontent.com/flakito-loko/CoreJ2/gh-pages/metadata/screenshots/tetris-01.jpg"
       ]
     },
     {
@@ -73,9 +73,9 @@
       "genre": "Shooter",
       "resolution": "240 × 320",
       "compatibility": "Playable",
-      "coverURL": "https://flakito-loko.github.io/CoreJ2/metadata/covers/astroids.jpg",
+      "coverURL": "https://raw.githubusercontent.com/flakito-loko/CoreJ2/gh-pages/metadata/covers/astroids.jpg",
       "screenshotURLs": [
-        "https://flakito-loko.github.io/CoreJ2/metadata/screenshots/astroids-01.jpg"
+        "https://raw.githubusercontent.com/flakito-loko/CoreJ2/gh-pages/metadata/screenshots/astroids-01.jpg"
       ]
     },
     {
@@ -87,7 +87,7 @@
       "genre": "Platform",
       "resolution": "240 × 320",
       "compatibility": "Playable",
-      "coverURL": "https://flakito-loko.github.io/CoreJ2/metadata/covers/bounce.jpg",
+      "coverURL": "https://raw.githubusercontent.com/flakito-loko/CoreJ2/gh-pages/metadata/covers/bounce.jpg",
       "screenshotURLs": []
     },
     {
@@ -99,7 +99,7 @@
       "genre": "Action",
       "resolution": "240 × 320",
       "compatibility": "Playable",
-      "coverURL": "https://flakito-loko.github.io/CoreJ2/metadata/covers/johnny-crash.jpg",
+      "coverURL": "https://raw.githubusercontent.com/flakito-loko/CoreJ2/gh-pages/metadata/covers/johnny-crash.jpg",
       "screenshotURLs": []
     },
     {
@@ -111,9 +111,9 @@
       "genre": "Puzzle",
       "resolution": "240 × 320",
       "compatibility": "Playable",
-      "coverURL": "https://flakito-loko.github.io/CoreJ2/metadata/covers/gryzzles.jpg",
+      "coverURL": "https://raw.githubusercontent.com/flakito-loko/CoreJ2/gh-pages/metadata/covers/gryzzles.jpg",
       "screenshotURLs": [
-        "https://flakito-loko.github.io/CoreJ2/metadata/screenshots/gryzzles-01.jpg"
+        "https://raw.githubusercontent.com/flakito-loko/CoreJ2/gh-pages/metadata/screenshots/gryzzles-01.jpg"
       ]
     },
     {
@@ -125,7 +125,7 @@
       "genre": "Puzzle",
       "resolution": "240 × 320",
       "compatibility": "Playable",
-      "coverURL": "https://flakito-loko.github.io/CoreJ2/metadata/covers/ubertris.jpg",
+      "coverURL": "https://raw.githubusercontent.com/flakito-loko/CoreJ2/gh-pages/metadata/covers/ubertris.jpg",
       "screenshotURLs": []
     },
     {
@@ -138,7 +138,7 @@
       "genre": "Strategy",
       "resolution": "240 × 320",
       "compatibility": "Playable",
-      "coverURL": "https://flakito-loko.github.io/CoreJ2/metadata/covers/alea.jpg",
+      "coverURL": "https://raw.githubusercontent.com/flakito-loko/CoreJ2/gh-pages/metadata/covers/alea.jpg",
       "screenshotURLs": []
     },
     {
@@ -151,7 +151,7 @@
       "genre": "Strategy",
       "resolution": "240 × 320",
       "compatibility": "Playable",
-      "coverURL": "https://flakito-loko.github.io/CoreJ2/metadata/covers/alea.jpg",
+      "coverURL": "https://raw.githubusercontent.com/flakito-loko/CoreJ2/gh-pages/metadata/covers/alea.jpg",
       "screenshotURLs": []
     },
     {
@@ -164,7 +164,7 @@
       "releaseYear": 2006,
       "resolution": "240 × 320",
       "compatibility": "Untested",
-      "coverURL": "https://flakito-loko.github.io/CoreJ2/metadata/covers/asphalt-3.jpg",
+      "coverURL": "https://raw.githubusercontent.com/flakito-loko/CoreJ2/gh-pages/metadata/covers/asphalt-3.jpg",
       "screenshotURLs": []
     },
     {
@@ -177,7 +177,7 @@
       "releaseYear": 2008,
       "resolution": "240 × 320",
       "compatibility": "Untested",
-      "coverURL": "https://flakito-loko.github.io/CoreJ2/metadata/covers/asphalt-4.jpg",
+      "coverURL": "https://raw.githubusercontent.com/flakito-loko/CoreJ2/gh-pages/metadata/covers/asphalt-4.jpg",
       "screenshotURLs": []
     },
     {
@@ -190,7 +190,7 @@
       "releaseYear": 2005,
       "resolution": "240 × 320",
       "compatibility": "Untested",
-      "coverURL": "https://flakito-loko.github.io/CoreJ2/metadata/covers/doom-rpg.jpg",
+      "coverURL": "https://raw.githubusercontent.com/flakito-loko/CoreJ2/gh-pages/metadata/covers/doom-rpg.jpg",
       "screenshotURLs": []
     },
     {
@@ -202,7 +202,7 @@
       "releaseYear": 2003,
       "resolution": "240 × 320",
       "compatibility": "Untested",
-      "coverURL": "https://flakito-loko.github.io/CoreJ2/metadata/covers/worms-world-party.jpg",
+      "coverURL": "https://raw.githubusercontent.com/flakito-loko/CoreJ2/gh-pages/metadata/covers/worms-world-party.jpg",
       "screenshotURLs": []
     },
     {
@@ -215,7 +215,7 @@
       "releaseYear": 2005,
       "resolution": "240 × 320",
       "compatibility": "Untested",
-      "coverURL": "https://flakito-loko.github.io/CoreJ2/metadata/covers/sonic-jump.jpg",
+      "coverURL": "https://raw.githubusercontent.com/flakito-loko/CoreJ2/gh-pages/metadata/covers/sonic-jump.jpg",
       "screenshotURLs": []
     }
   ]

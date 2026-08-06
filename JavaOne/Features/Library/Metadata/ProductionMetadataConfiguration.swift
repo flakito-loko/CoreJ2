@@ -12,8 +12,15 @@ enum ProductionMetadataConfiguration {
     /// UserDefaults key for a remote JSON catalog URL (`RemoteJSONCatalogMetadataProvider`).
     static let catalogURLDefaultsKey = "CoreJ2MetadataCatalogURL"
 
-    /// Default production JSON catalog on GitHub Pages (versioned `catalog.json`).
+    /// Default production JSON catalog (GitHub Pages publish branch).
+    /// Served from the `gh-pages` tree; identical content is intended at
+    /// `https://flakito-loko.github.io/CoreJ2/metadata/catalog.json` once Actions Pages deploy completes.
     static let defaultCatalogURL = URL(
+        string: "https://raw.githubusercontent.com/flakito-loko/CoreJ2/gh-pages/metadata/catalog.json"
+    )!
+
+    /// Canonical GitHub Pages URL (same catalog once the Pages site rebuilds).
+    static let githubPagesCatalogURL = URL(
         string: "https://flakito-loko.github.io/CoreJ2/metadata/catalog.json"
     )!
 
