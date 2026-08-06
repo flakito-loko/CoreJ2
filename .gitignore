@@ -113,3 +113,7 @@ ThirdParty/OpenJDKMobile/cache/autoconf-prefix/
 ThirdParty/OpenJDKMobile/cache/m4-prefix/
 artifacts/embedded-jvm-phase1_5/build/
 artifacts/embedded-jvm-phase1_5/classes/
+
+# Documentation site (MkDocs)
+site/
+.venv-docs/

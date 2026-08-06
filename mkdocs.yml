@@ -1,0 +1,95 @@
+site_name: JavaOne
+site_description: Native iOS emulator for Java ME (J2ME)
+site_author: JavaOne
+site_url: https://javaonelabs.github.io/JavaOne/
+
+repo_name: javaonelabs/JavaOne
+repo_url: https://github.com/javaonelabs/JavaOne
+edit_uri: edit/main/docs/
+
+copyright: Copyright &copy; JavaOne contributors
+
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - toc.follow
+  icon:
+    repo: fontawesome/brands/github
+
+plugins:
+  - search
+  - tags
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+
+# Existing engineering reports link to fixtures/artifacts outside docs/.
+validation:
+  omitted_files: info
+  absolute_links: info
+  unrecognized_links: info
+  anchors: info
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/javaonelabs/JavaOne
+
+nav:
+  - Home: index.md
+  - Getting Started: getting-started.md
+  - Building: building.md
+  - Compatibility:
+      - Overview: compatibility.md
+      - Alea: compatibility/games/Alea.md
+      - Astroids: compatibility/games/Astroids.md
+      - Tetris: compatibility/games/Tetris.md
+      - Gryzzles: compatibility/games/Gryzzles.md
+      - Ubertris: compatibility/games/Ubertris.md
+  - Architecture: architecture.md
+  - Roadmap: roadmap.md
+  - FAQ: faq.md
+  - Screenshots: screenshots/index.md
+  - Technical Reports: technical-reports.md
