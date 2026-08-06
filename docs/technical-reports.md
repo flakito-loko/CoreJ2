@@ -37,7 +37,7 @@ Engineering reports kept in-tree. Denser than the public guides.
 
 ## Public product docs
 
-- [Why JavaOne?](why-javaone.md)
+- [Why CoreJ2?](why-corej2.md)
 - [Milestones](milestones.md)
 - [Architecture](architecture.md)
 - [Compatibility](compatibility.md)

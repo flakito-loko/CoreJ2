@@ -3,9 +3,9 @@
 **Task:** E3-R001 — Research only  
 **Scope:** `hex007/freej2me` (upstream FreeJ2ME), with notes on related forks  
 **Date:** 2026-08-04  
-**JavaOne context:** Epic 3 Emulator Bridge skeleton already exists (`EmulatorBridgeProtocol`, `DefaultEmulatorBridge`, `LaunchConfiguration`, `EmulatorSession`)
+**CoreJ2 context:** Epic 3 Emulator Bridge skeleton already exists (`EmulatorBridgeProtocol`, `DefaultEmulatorBridge`, `LaunchConfiguration`, `EmulatorSession`)
 
-This document studies how FreeJ2ME works so JavaOne can design a clean integration **without** coupling Library, ImportEngine, Repository, SwiftData, or ViewModels to the runtime.
+This document studies how FreeJ2ME works so CoreJ2 can design a clean integration **without** coupling Library, ImportEngine, Repository, SwiftData, or ViewModels to the runtime.
 
 > Source inspected: shallow clone of https://github.com/hex007/freej2me  
 > Related fork (more active packaging / CLI): https://github.com/TASEmulators/freej2me-plus  
@@ -24,7 +24,7 @@ FreeJ2ME is a **desktop JVM J2ME/MIDP emulator**, not a native C/C++ core that d
 | Frontends | AWT window, Libretro (pipe + RGB), SDL2 (pipe + RGB) |
 | Vendored ASM | Bytecode rewrite when loading MIDlet classes |
 
-**Best integration reference for JavaOne:** the **Libretro / SDL “painter → RGB framebuffer” path**, not the AWT `Frame` UI.
+**Best integration reference for CoreJ2:** the **Libretro / SDL “painter → RGB framebuffer” path**, not the AWT `Frame` UI.
 
 **Hardest constraint for iOS:** FreeJ2ME assumes a full Java SE runtime (`java.awt`, `javax.sound.sampled`, `java.io.File`, reflection, ASM `defineClass`). App Store iOS cannot simply host HotSpot + AWT. Integration therefore requires either:
 
@@ -139,9 +139,9 @@ Defaults if omitted: LCD **240×320**, file dialog if no jar arg.
 
 **Per-game config** (`Config`) can override resolution/sound/phone/rotate/fps; saved under working-directory config paths. Config often **wins over CLI**.
 
-For JavaOne mapping:
+For CoreJ2 mapping:
 
-| JavaOne | FreeJ2ME |
+| CoreJ2 | FreeJ2ME |
 |---------|----------|
 | `InstalledGame.jarURL` | `file://` URL into `loadJar` |
 | Future `LaunchConfiguration` size | `MobilePlatform` width/height |
@@ -288,7 +288,7 @@ There is **no single global FreeJ2ME game loop**.
 - Frontends may sleep in paint for FPS limit (`Thread.sleep` when `limitFPS > 0`)
 - Libretro IO timer is separate (input pump)
 
-JavaOne must assume **multiple Java threads** calling into painter and audio.
+CoreJ2 must assume **multiple Java threads** calling into painter and audio.
 
 ---
 
@@ -332,7 +332,7 @@ Uses `java.io.File` / `Files.createDirectories` / `FileOutputStream`.
 - Screenshots: `{dataPath}/screenshots`
 - Working directory matters; FreeJ2ME expects a writable filesystem root via `MobilePlatform.dataPath`
 
-**JavaOne mapping:** set `dataPath` to something like  
+**CoreJ2 mapping:** set `dataPath` to something like  
 `Documents/JavaOne/Saves/<gameUUID>/` so RMS stays per-game and sandbox-safe.
 
 ---
@@ -361,15 +361,15 @@ Uses `java.io.File` / `Files.createDirectories` / `FileOutputStream`.
 
 ### 9.4 License
 
-GPL-3.0 — distributing a modified FreeJ2ME runtime linked into JavaOne has **compliance implications** (source offer, copyleft). Treat as a first-class product risk, not only a technical one.
+GPL-3.0 — distributing a modified FreeJ2ME runtime linked into CoreJ2 has **compliance implications** (source offer, copyleft). Treat as a first-class product risk, not only a technical one.
 
 ---
 
-## 10. Integration proposal (JavaOne)
+## 10. Integration proposal (CoreJ2)
 
 ### 10.1 Keep these completely independent
 
-| JavaOne area | Must remain free of FreeJ2ME types |
+| CoreJ2 area | Must remain free of FreeJ2ME types |
 |--------------|-------------------------------------|
 | Library UI | No |
 | ImportEngine / Pipeline / Steps | No |
@@ -436,7 +436,7 @@ Avoid editing upstream unless unavoidable:
 - `MobilePlatform.setPainter` usage (no change needed if already injectable)
 - New platform backends replacing `PlatformPlayer` / AWT-dependent pieces
 - `dataPath` initialization
-- Possibly abstracting `BufferedImage` access behind an interface **in a JavaOne-managed fork**, not drive-by edits
+- Possibly abstracting `BufferedImage` access behind an interface **in a CoreJ2-managed fork**, not drive-by edits
 
 ### 10.7 Major risks
 
@@ -473,7 +473,7 @@ Avoid editing upstream unless unavoidable:
 | Metric | Score | Rationale |
 |--------|-------|-----------|
 | **Architecture complexity** | **7 / 10** | Clean MIDP core + injectable painter, but three frontends, ASM loading, timers, and SE dependencies add complexity |
-| **Estimated integration difficulty (into native iOS JavaOne)** | **9 / 10** | Not because FreeJ2ME is undocumented — because **running its JVM/AWT stack on iOS** is the hard part |
+| **Estimated integration difficulty (into native iOS CoreJ2)** | **9 / 10** | Not because FreeJ2ME is undocumented — because **running its JVM/AWT stack on iOS** is the hard part |
 
 Desktop embedding difficulty would be ~5/10 (Libretro-style). iOS App Store shipping is the jump to 9.
 
@@ -490,16 +490,16 @@ Desktop embedding difficulty would be ~5/10 (Libretro-style). iOS App Store ship
 7. **Audio backend spike** — replace Java Sound for one WAV/MIDI path.  
 8. **RMS `dataPath` sandbox** — per-game Documents folder.  
 9. **Wire Library “Play”** — ViewModel → `EmulatorBridge` only.  
-10. **Compatibility harness** — corpus of JARs; track FreeJ2ME vs JavaOne results.  
+10. **Compatibility harness** — corpus of JARs; track FreeJ2ME vs CoreJ2 results.  
 11. **Legal review** — GPL-3 compliance plan before TestFlight.
 
 Until step 2 is decided, treat FreeJ2ME as a **vendored research dependency**, not a production iOS runtime.
 
 ---
 
-## Relationship to existing JavaOne docs
+## Relationship to existing CoreJ2 docs
 
-- `docs/EMULATOR_ARCHITECTURE.md` — JavaOne-side bridge contracts (Swift).  
+- `docs/EMULATOR_ARCHITECTURE.md` — CoreJ2-side bridge contracts (Swift).  
 - `docs/FREEJ2ME_ASSESSMENT.md` — FreeJ2ME-side runtime reality (this file).
 
 Together they define the seam: **Swift bridge stays stable; FreeJ2ME stays behind an adapter; Library/Import never import FreeJ2ME.**

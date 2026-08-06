@@ -62,4 +62,4 @@ Also planned: packaging & legal review for distribution.
 
 ---
 
-Repo mirror: [ROADMAP.md](https://github.com/flakito-loko/JavaOne/blob/main/ROADMAP.md)
+Repo mirror: [ROADMAP.md](https://github.com/flakito-loko/CoreJ2/blob/main/ROADMAP.md)

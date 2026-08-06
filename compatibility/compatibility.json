@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "project": "JavaOne",
+  "project": "CoreJ2",
   "generated_from": [
     "artifacts/e11-us001-gameplay-validation/REPORT.md",
     "artifacts/e11-us001-gameplay-validation/metrics/corpus-results.json",

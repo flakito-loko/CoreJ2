@@ -4,7 +4,7 @@
 **Depends on:** E3-R001 (`docs/FREEJ2ME_ASSESSMENT.md`), E3-US001 Emulator Bridge skeleton  
 **Status:** Contract definition — **not implemented in code yet**
 
-This document defines the **runtime contract** between JavaOne and FreeJ2ME: what each side must guarantee, which APIs exist at each boundary, and what remains forbidden.
+This document defines the **runtime contract** between CoreJ2 and FreeJ2ME: what each side must guarantee, which APIs exist at each boundary, and what remains forbidden.
 
 It does **not** choose the iOS JVM/runtime strategy (that remains an open spike from E3-R001). It freezes the **seam** so Library, ImportEngine, Repository, SwiftData, and ViewModels stay independent while Epic 3 progresses.
 
@@ -12,7 +12,7 @@ It does **not** choose the iOS JVM/runtime strategy (that remains an open spike 
 
 ## 1. Purpose
 
-JavaOne must be able to:
+CoreJ2 must be able to:
 
 1. Launch an installed MIDlet from an `InstalledGame`.
 2. Present frames on iOS.
@@ -326,7 +326,7 @@ These are the **only** FreeJ2ME entry points the adapter should rely on for v1 (
 ### 6.2 Allowed to know FreeJ2ME
 
 - `FreeJ2MERuntimeAdapter` and its private helpers
-- Optional future `JavaOne/Vendor/FreeJ2ME` (or SPM/binary) target
+- Optional future `CoreJ2/Vendor/FreeJ2ME` (or SPM/binary) target
 - Build scripts that package the runtime
 
 ### 6.3 Dependency direction
@@ -438,7 +438,7 @@ An implementation satisfies this contract when:
 
 | Doc | Role |
 |-----|------|
-| `docs/EMULATOR_ARCHITECTURE.md` | JavaOne bridge architecture |
+| `docs/EMULATOR_ARCHITECTURE.md` | CoreJ2 bridge architecture |
 | `docs/FREEJ2ME_ASSESSMENT.md` | FreeJ2ME internals (E3-R001) |
 | `docs/FREEJ2ME_RUNTIME_CONTRACT.md` | This seam contract (E3-R002) |
 | `AGENTS.md` | Bridge FreeJ2ME; minimize upstream edits |

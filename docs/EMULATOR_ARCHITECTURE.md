@@ -1,10 +1,10 @@
 # Emulator Architecture
 
-JavaOne integrates the Java ME runtime through a dedicated **Emulator Bridge** layer.
+CoreJ2 integrates the Java ME runtime through a dedicated **Emulator Bridge** layer.
 
 The goal is to launch installed games without coupling SwiftUI, Library, or ImportEngine to FreeJ2ME.
 
-FreeJ2ME should be integrated later with as few changes as possible to the original emulator and to the rest of JavaOne.
+FreeJ2ME should be integrated later with as few changes as possible to the original emulator and to the rest of CoreJ2.
 
 ---
 
@@ -142,7 +142,7 @@ Additional lifecycle APIs (`pause`, `resume`, `stop`, input injection) should be
 
 1. Keep FreeJ2ME sources as intact as practical (vendor / submodule / binary).
 2. Add a thin adapter **inside** the Emulator feature (e.g. `FreeJ2MEEmulatorBridge` or a collaborator used by `DefaultEmulatorBridge`).
-3. Map JavaOne types → FreeJ2ME launch args (`jarURL`, optional profile).
+3. Map CoreJ2 types → FreeJ2ME launch args (`jarURL`, optional profile).
 4. Map FreeJ2ME runtime events → `EmulatorSession` / callbacks consumed by UI.
 5. Do not leak FreeJ2ME types across the bridge protocol.
 
@@ -185,7 +185,7 @@ Import Engine (Epic 2) stays the source of installed JARs and metadata; Emulator
 
 ## Summary
 
-JavaOne owns product UX, library, and import.
+CoreJ2 owns product UX, library, and import.
 
 The **Emulator Bridge** owns the only path into the runtime.
 

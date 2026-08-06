@@ -4,7 +4,7 @@ Engineering timeline from idea to device-validated MIDlets.
 
 ```mermaid
 timeline
-    title JavaOne embedded runtime path
+    title CoreJ2 embedded runtime path
     section Foundations
         Idea : Native iOS J2ME product
         Library and Import : SwiftData + Import Engine

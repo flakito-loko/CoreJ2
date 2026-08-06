@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for helping improve JavaOne.
+Thanks for helping improve CoreJ2.
 
 ## Ground rules
 
@@ -15,7 +15,7 @@ Thanks for helping improve JavaOne.
 2. Clone with submodules:
    ```bash
    git clone --recurse-submodules <repo-url>
-   cd JavaOne
+   cd CoreJ2
    ```
 3. Open `JavaOne.xcodeproj` and build the `JavaOne` scheme for a connected device or simulator.
 4. For embedded runtime scripts, see `scripts/embedded-jvm/README.md` and `scripts/openjdk-mobile/README.md`.

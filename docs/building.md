@@ -11,7 +11,7 @@
 
 ```bash
 git clone --recurse-submodules <repo-url>
-cd JavaOne
+cd CoreJ2
 open JavaOne.xcodeproj
 ```
 

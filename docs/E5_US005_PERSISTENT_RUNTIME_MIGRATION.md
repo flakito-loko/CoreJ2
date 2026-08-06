@@ -8,7 +8,7 @@
 
 ## 1. Migration strategy
 
-1. Keep the validated daemon (`PersistentMobilePlatformDaemon`) as the JavaOne-owned JVM entrypoint.
+1. Keep the validated daemon (`PersistentMobilePlatformDaemon`) as the CoreJ2-owned JVM entrypoint.
 2. Promote POC IPC into production `PersistentProcessFreeJ2MEMobilePlatformBootstrap` conforming to `FreeJ2MEMobilePlatformBootstrapping`.
 3. Extend the bootstrap protocol with `frameHandler` + `shutdownRuntime()` (internal seam only).
 4. Default `FreeJ2MERuntimeAdapter` to the persistent bootstrap.
@@ -77,7 +77,7 @@ No protocol or Vendor revert required. Persistent daemon sources can remain unus
 
 ---
 
-## 6. Remaining blockers before a playable JavaOne on macOS
+## 6. Remaining blockers before a playable CoreJ2 on macOS
 
 1. **Input** — no keypad/pointer bridge to `MobilePlatform.key*` / pointer APIs.
 2. **Continuous game frames** — post-`runJar` paint today includes a deliberate `FRAME_PROBE`; real titles must drive FreeJ2ME `painter.run()` via their own repaint loop without relying on the probe.

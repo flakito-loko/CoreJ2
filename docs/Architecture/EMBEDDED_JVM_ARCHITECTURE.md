@@ -35,13 +35,13 @@ La JVM embebida es un **backend de plataforma** detrás de `FreeJ2MEMobilePlatfo
 
 ## 1.1 Propósito
 
-El Embedded JVM Runtime permite ejecutar FreeJ2ME **dentro del proceso de la aplicación iOS**, de forma compatible con distribución App Store, manteniendo el mismo contrato de aplicación que ya usa JavaOne en macOS.
+El Embedded JVM Runtime permite ejecutar FreeJ2ME **dentro del proceso de la aplicación iOS**, de forma compatible con distribución App Store, manteniendo el mismo contrato de aplicación que ya usa CoreJ2 en macOS.
 
 ## 1.2 Dualidad de plataformas
 
 | Plataforma | Runtime detrás de PlatformBootstrap | Estado actual |
 |------------|-------------------------------------|---------------|
-| **macOS** | JVM **persistente fuera de proceso** (`Process` + daemon JavaOne-owned) | Producción |
+| **macOS** | JVM **persistente fuera de proceso** (`Process` + daemon CoreJ2-owned) | Producción |
 | **iOS** | JVM **embebida in-process** (hipótesis OpenJDK Mobile / Zero) | Arquitectura objetivo; no implementada |
 
 Ambos caminos exponen la misma semántica Contract C hacia `FreeJ2MERuntimeAdapter`. El Adapter, el Host y el Bridge no deben ramificarse por plataforma en su API pública.
@@ -184,7 +184,7 @@ Los nombres de esta sección describen **roles arquitectónicos** del camino emb
 | | |
 |---|---|
 | **Responsabilidad** | Traducir operaciones Contract C del bootstrap a invocaciones Java (y callbacks nativos desde painter/hilos FreeJ2ME hacia el bootstrap). |
-| **Dependencias** | EmbeddedJVMManager; clases FreeJ2ME / fachada JavaOne-owned si aplica; reglas de attach/detach de hilos. |
+| **Dependencias** | EmbeddedJVMManager; clases FreeJ2ME / fachada CoreJ2-owned si aplica; reglas de attach/detach de hilos. |
 | **Puede** | Invocar `MobilePlatform` / loader / painter registration; copiar píxeles a buffers owned; propagar fallos como errores de dominio hacia el bootstrap. |
 | **Nunca debe** | Ser llamado desde Views o ViewModels; filtrar eventos de UI; renderizar; conocer `EmulatorSession`; filtrar política de App Store. |
 
@@ -300,7 +300,7 @@ Incluye `EmulatorViewModel`, `EmulatorFrameCGImageConverter` y `EmulatorView`.
 |--------|------------|
 | **App Launch** | Proceso iOS inicia. DI construye Bridge/Host/Adapter. La JVM **aún puede** diferirse hasta primer uso, pero la política objetivo es **una JVM de proceso** lista antes del primer juego o en cold-start controlado. |
 | **JVM Startup** | `EmbeddedJVMManager` crea la VM. Fallo → runtime unavailable tipado; la app permanece usable (Library). |
-| **Load FreeJ2ME** | Classpath/modules de Vendor + fachada JavaOne quedan resolubles. No implica MIDlet cargado. |
+| **Load FreeJ2ME** | Classpath/modules de Vendor + fachada CoreJ2 quedan resolubles. No implica MIDlet cargado. |
 | **Idle** | JVM viva; no hay MIDlet activo; Bridge sin sesión running; LCD en espera. |
 | **Load MIDlet** | Adapter/Bootstrap ejecutan platform (si hace falta), painter, `loadJar` para el `InstalledGame` seleccionado. |
 | **Running** | `runJar` / `startApp` alcanzados; frames e input habilitados según contrato. |
@@ -511,7 +511,7 @@ En proceso hijo macOS, un exit mata el daemon (recuperable).
 
 Política arquitectónica:
 
-1. El borde JavaOne debe **impedir o atrapar** salidas no autorizadas en la medida que el runtime lo permita.  
+1. El borde CoreJ2 debe **impedir o atrapar** salidas no autorizadas en la medida que el runtime lo permita.  
 2. FreeJ2ME Vendor no se modifica salvo fork allowlisted explícito.  
 3. Un exit no atrapado se trata como fallo fatal de proceso; no como “stop de sesión” limpio.
 
@@ -691,7 +691,7 @@ Packaging, tamaño, compliance GPL, narrativa de review, pruebas en device de pr
 
 ## Cierre
 
-Este documento fija el **contrato de arquitectura** del Embedded JVM Runtime para JavaOne.
+Este documento fija el **contrato de arquitectura** del Embedded JVM Runtime para CoreJ2.
 
 - macOS sigue en Process persistente.  
 - iOS adopta JVM embebida detrás de PlatformBootstrap.  
@@ -701,4 +701,4 @@ Cualquier PR que viole la sección Anti-patterns o los ADR aceptados debe rechaz
 
 ---
 
-*Referencia oficial · Embedded JVM Architecture v1.0 · JavaOne*
+*Referencia oficial · Embedded JVM Architecture v1.0 · CoreJ2*

@@ -1,6 +1,6 @@
 # Screenshots
 
-Device captures from physical iPhone running JavaOne with embedded OpenJDK Mobile and FreeJ2ME.
+Device captures from physical iPhone running CoreJ2 with embedded OpenJDK Mobile and FreeJ2ME.
 
 ## Reference title — Miami Nights
 

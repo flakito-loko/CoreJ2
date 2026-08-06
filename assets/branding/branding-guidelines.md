@@ -1,10 +1,12 @@
-# JavaOne Branding Guidelines
+# CoreJ2 Branding Guidelines
 
-Official visual identity for JavaOne. Assets live in `assets/branding/`.
+Official visual identity for CoreJ2. Assets live in `assets/branding/`.
+
+> Originally developed as **JavaOne**. Public branding is now **CoreJ2**.
 
 ## Brand summary
 
-JavaOne is an **embedded Java ME emulator for iPhone**. The mark combines a minimal phone silhouette, an LCD panel, a geometric diamond (embedded core), and retro keypad dots — original artwork, **not** derived from Oracle Java / coffee-cup marks.
+CoreJ2 is an **embedded Java ME emulator for iPhone & iPad**. The mark combines a minimal phone silhouette, an LCD panel, a geometric diamond (embedded core), and retro keypad dots — original artwork, **not** derived from Oracle Java / coffee-cup marks.
 
 ## Logo files
 
@@ -45,7 +47,7 @@ MkDocs loads these via Google Fonts. Do not embed proprietary typefaces.
 ## Spacing
 
 - Clear space around the isotype: **≥ 1/8 of the mark height** on all sides.
-- Clear space around the lockup: **≥ height of the capital “J”** on all sides.
+- Clear space around the lockup: **≥ height of the capital “C”** on all sides.
 - Do not crowd the logo against other UI chrome.
 
 ## Minimum size

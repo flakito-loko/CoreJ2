@@ -1,6 +1,6 @@
 # Architecture
 
-JavaOne isolates SwiftUI from FreeJ2ME. All launches cross a bridge so the vendor emulator can evolve with minimal forks.
+CoreJ2 isolates SwiftUI from FreeJ2ME. All launches cross a bridge so the vendor emulator can evolve with minimal forks.
 
 ## Layer stack
 
@@ -63,7 +63,7 @@ Epic 11 ensured failed launches always unwind via `stopSession`, so the host can
 
 ## Related docs
 
-- [Why JavaOne?](why-javaone.md)
+- [Why CoreJ2?](why-corej2.md)
 - [Milestones](milestones.md)
 - [Technical Reports](technical-reports.md)
 - `docs/Architecture/` — embedded JVM ADRs

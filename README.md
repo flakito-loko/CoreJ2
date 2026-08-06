@@ -1,11 +1,11 @@
-# JavaOne
+# CoreJ2
 
-**Run classic Java ME (J2ME) games natively on iPhone and iPad.**
+**Run classic Java ME (J2ME) games natively on iPhone & iPad.**
 
 Embedded OpenJDK Mobile · FreeJ2ME · SwiftUI · Open Source
 
 <p align="center">
-  <img src="docs/assets/gifs/miami-nights.gif" alt="Miami Nights gameplay on JavaOne" width="360" />
+  <img src="docs/assets/gifs/miami-nights.gif" alt="Miami Nights gameplay on CoreJ2" width="360" />
 </p>
 
 <p align="center">
@@ -13,10 +13,10 @@ Embedded OpenJDK Mobile · FreeJ2ME · SwiftUI · Open Source
 </p>
 
 <p align="center">
-  <a href="https://flakito-loko.github.io/JavaOne/"><img src="https://img.shields.io/badge/status-Alpha-orange?style=for-the-badge" alt="Alpha" /></a>
-  <a href="https://github.com/flakito-loko/JavaOne/releases"><img src="https://img.shields.io/badge/version-0.9.0--alpha-blue?style=for-the-badge" alt="Version" /></a>
-  <a href="https://github.com/flakito-loko/JavaOne"><img src="https://img.shields.io/badge/license-See%20repo-lightgrey?style=for-the-badge" alt="License" /></a>
-  <a href="https://github.com/flakito-loko/JavaOne/actions/workflows/docs.yml"><img src="https://img.shields.io/github/actions/workflow/status/flakito-loko/JavaOne/docs.yml?branch=main&style=for-the-badge&label=Docs" alt="Docs CI" /></a>
+  <a href="https://flakito-loko.github.io/CoreJ2/"><img src="https://img.shields.io/badge/status-Alpha-orange?style=for-the-badge" alt="Alpha" /></a>
+  <a href="https://github.com/flakito-loko/CoreJ2/releases"><img src="https://img.shields.io/badge/version-0.9.0--alpha-blue?style=for-the-badge" alt="Version" /></a>
+  <a href="https://github.com/flakito-loko/CoreJ2"><img src="https://img.shields.io/badge/license-See%20repo-lightgrey?style=for-the-badge" alt="License" /></a>
+  <a href="https://github.com/flakito-loko/CoreJ2/actions/workflows/docs.yml"><img src="https://img.shields.io/github/actions/workflow/status/flakito-loko/CoreJ2/docs.yml?branch=main&style=for-the-badge&label=Docs" alt="Docs CI" /></a>
 </p>
 
 <p align="center">
@@ -24,15 +24,15 @@ Embedded OpenJDK Mobile · FreeJ2ME · SwiftUI · Open Source
   <img src="https://img.shields.io/badge/iOS-Device-000000?logo=apple&logoColor=white" alt="iOS" />
   <img src="https://img.shields.io/badge/OpenJDK-Mobile-2563EB?logo=openjdk&logoColor=white" alt="OpenJDK" />
   <img src="https://img.shields.io/badge/FreeJ2ME-Embedded-60A5FA" alt="FreeJ2ME" />
-  <a href="https://flakito-loko.github.io/JavaOne/"><img src="https://img.shields.io/badge/Documentation-Online-2563EB" alt="Documentation" /></a>
+  <a href="https://flakito-loko.github.io/CoreJ2/"><img src="https://img.shields.io/badge/Documentation-Online-2563EB" alt="Documentation" /></a>
 </p>
 
 <p align="center">
-  <a href="https://flakito-loko.github.io/JavaOne/">Documentation</a> ·
-  <a href="https://flakito-loko.github.io/JavaOne/compatibility/">Compatibility</a> ·
-  <a href="https://flakito-loko.github.io/JavaOne/architecture/">Architecture</a> ·
-  <a href="https://flakito-loko.github.io/JavaOne/roadmap/">Roadmap</a> ·
-  <a href="https://github.com/flakito-loko/JavaOne">Source</a>
+  <a href="https://flakito-loko.github.io/CoreJ2/">Documentation</a> ·
+  <a href="https://flakito-loko.github.io/CoreJ2/compatibility/">Compatibility</a> ·
+  <a href="https://flakito-loko.github.io/CoreJ2/architecture/">Architecture</a> ·
+  <a href="https://flakito-loko.github.io/CoreJ2/roadmap/">Roadmap</a> ·
+  <a href="https://github.com/flakito-loko/CoreJ2">Source</a>
 </p>
 
 ---
@@ -88,7 +88,7 @@ Validated on:
 <p align="center">
   <img src="docs/assets/screenshots/miami-nights-gameplay.PNG" alt="Miami Nights gameplay with virtual keypad" width="280" />
   &nbsp;
-  <img src="docs/assets/screenshots/miami-nights-menu.PNG" alt="Miami Nights menu on JavaOne" width="280" />
+  <img src="docs/assets/screenshots/miami-nights-menu.PNG" alt="Miami Nights menu on CoreJ2" width="280" />
 </p>
 
 <p align="center">
@@ -107,12 +107,12 @@ Validated on:
 
 | Screenshot | Caption |
 |:----------:|---------|
-| <img src="docs/assets/screenshots/library.PNG" alt="JavaOne library" width="200" /> | **Library** — SwiftUI game list and import |
-| <img src="docs/assets/screenshots/tetris.PNG" alt="Tetris on JavaOne" width="200" /> | **Tetris** — FreeJ2ME LCD surface |
-| <img src="docs/assets/screenshots/astroids.PNG" alt="Astroids on JavaOne" width="200" /> | **Astroids** — device capture |
-| <img src="docs/assets/screenshots/gryzzles.PNG" alt="Gryzzles on JavaOne" width="200" /> | **Gryzzles** — RMS / save path validation |
+| <img src="docs/assets/screenshots/library.PNG" alt="CoreJ2 library" width="200" /> | **Library** — SwiftUI game list and import |
+| <img src="docs/assets/screenshots/tetris.PNG" alt="Tetris on CoreJ2" width="200" /> | **Tetris** — FreeJ2ME LCD surface |
+| <img src="docs/assets/screenshots/astroids.PNG" alt="Astroids on CoreJ2" width="200" /> | **Astroids** — device capture |
+| <img src="docs/assets/screenshots/gryzzles.PNG" alt="Gryzzles on CoreJ2" width="200" /> | **Gryzzles** — RMS / save path validation |
 
-More captures: [Screenshots](https://flakito-loko.github.io/JavaOne/screenshots/)
+More captures: [Screenshots](https://flakito-loko.github.io/CoreJ2/screenshots/)
 
 ---
 
@@ -126,7 +126,7 @@ Full device recordings (MP4):
 | Tetris | [tetris.mp4](docs/assets/videos/tetris.mp4) |
 | Astroids | [astroids.MP4](docs/assets/videos/astroids.MP4) |
 
-HTML5 playback is available on the [documentation site](https://flakito-loko.github.io/JavaOne/).
+HTML5 playback is available on the [documentation site](https://flakito-loko.github.io/CoreJ2/).
 
 ---
 
@@ -146,7 +146,7 @@ FreeJ2ME
 Commercial MIDlet
 ```
 
-Details: [Architecture](https://flakito-loko.github.io/JavaOne/architecture/)
+Details: [Architecture](https://flakito-loko.github.io/CoreJ2/architecture/)
 
 ---
 
@@ -177,7 +177,7 @@ Details: [Architecture](https://flakito-loko.github.io/JavaOne/architecture/)
 - Performance optimization
 - Shader pipeline
 
-Full plan: [Roadmap](https://flakito-loko.github.io/JavaOne/roadmap/)
+Full plan: [Roadmap](https://flakito-loko.github.io/CoreJ2/roadmap/)
 
 ---
 
@@ -185,12 +185,12 @@ Full plan: [Roadmap](https://flakito-loko.github.io/JavaOne/roadmap/)
 
 | Guide | Description |
 |-------|-------------|
-| [Getting Started](https://flakito-loko.github.io/JavaOne/getting-started/) | Install and launch a MIDlet |
-| [Why JavaOne?](https://flakito-loko.github.io/JavaOne/why-javaone/) | Vision and technical rationale |
-| [Architecture](https://flakito-loko.github.io/JavaOne/architecture/) | Layer ownership |
-| [Compatibility](https://flakito-loko.github.io/JavaOne/compatibility/) | Device-validated matrix |
-| [Roadmap](https://flakito-loko.github.io/JavaOne/roadmap/) | Milestones and next steps |
-| [FAQ](https://flakito-loko.github.io/JavaOne/faq/) | Common questions |
+| [Getting Started](https://flakito-loko.github.io/CoreJ2/getting-started/) | Install and launch a MIDlet |
+| [Why CoreJ2?](https://flakito-loko.github.io/CoreJ2/why-corej2/) | Vision and technical rationale |
+| [Architecture](https://flakito-loko.github.io/CoreJ2/architecture/) | Layer ownership |
+| [Compatibility](https://flakito-loko.github.io/CoreJ2/compatibility/) | Device-validated matrix |
+| [Roadmap](https://flakito-loko.github.io/CoreJ2/roadmap/) | Milestones and next steps |
+| [FAQ](https://flakito-loko.github.io/CoreJ2/faq/) | Common questions |
 
 ```bash
 python3 -m venv .venv-docs && source .venv-docs/bin/activate
@@ -224,15 +224,15 @@ See [CONTRIBUTING.md](CONTRIBUTING.md), [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
 
 Application licensing: see repository terms when published.  
 Vendor FreeJ2ME: **GPL-3.0** (`Vendor/FreeJ2ME`).  
-Brand assets: original JavaOne identity (see branding guidelines).
+Brand assets: original CoreJ2 identity (see branding guidelines).
 
 ---
 
 <p align="center">
-  <a href="https://github.com/flakito-loko/JavaOne">GitHub</a> ·
-  <a href="https://flakito-loko.github.io/JavaOne/">Documentation</a> ·
-  <a href="https://flakito-loko.github.io/JavaOne/roadmap/">Roadmap</a> ·
-  <a href="https://flakito-loko.github.io/JavaOne/compatibility/">Compatibility</a>
+  <a href="https://github.com/flakito-loko/CoreJ2">GitHub</a> ·
+  <a href="https://flakito-loko.github.io/CoreJ2/">Documentation</a> ·
+  <a href="https://flakito-loko.github.io/CoreJ2/roadmap/">Roadmap</a> ·
+  <a href="https://flakito-loko.github.io/CoreJ2/compatibility/">Compatibility</a>
 </p>
 
-<p align="center">Copyright © JavaOne contributors</p>
+<p align="center">Copyright © CoreJ2 contributors</p>

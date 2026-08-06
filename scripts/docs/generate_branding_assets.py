@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Regenerate JavaOne branding SVG/PNG assets.
+"""Regenerate CoreJ2 branding SVG/PNG assets.
 
 Requires:
   - Pillow in the active Python env
@@ -33,7 +33,7 @@ def font(path: Path, size: int) -> ImageFont.FreeTypeFont:
     return ImageFont.truetype(str(path), size)
 
 
-ISOTYPE_SVG = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="JavaOne isotype">
+ISOTYPE_SVG = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="CoreJ2 isotype">
   <defs>
     <linearGradient id="lcd" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="{PRIMARY}"/>
@@ -58,7 +58,7 @@ ISOTYPE_SVG = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" 
 def logo_svg(bg: str | None, word_fill: str, tag_fill: str) -> str:
     bg_rect = f'<rect width="512" height="160" rx="24" fill="{bg}"/>' if bg else ""
     phone_fill = "#060A14" if bg == BG else BG
-    return f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 160" role="img" aria-label="JavaOne">
+    return f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 160" role="img" aria-label="CoreJ2">
   <defs>
     <linearGradient id="lcd" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="{PRIMARY}"/>
@@ -79,8 +79,8 @@ def logo_svg(bg: str | None, word_fill: str, tag_fill: str) -> str:
     <circle cx="64" cy="106" r="3.2" fill="{GRAY}"/>
     <circle cx="78" cy="106" r="3.2" fill="{GRAY}"/>
   </g>
-  <text x="168" y="92" font-family="Space Grotesk, Inter, Helvetica, Arial, sans-serif" font-size="64" font-weight="700" fill="{word_fill}">JavaOne</text>
-  <text x="172" y="124" font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" font-weight="500" fill="{tag_fill}" letter-spacing="0.08em">EMBEDDED JAVA ME FOR IPHONE</text>
+  <text x="168" y="92" font-family="Space Grotesk, Inter, Helvetica, Arial, sans-serif" font-size="64" font-weight="700" fill="{word_fill}">CoreJ2</text>
+  <text x="172" y="124" font-family="Inter, Helvetica, Arial, sans-serif" font-size="16" font-weight="500" fill="{tag_fill}" letter-spacing="0.08em">JAVA ME ON IPHONE & IPAD</text>
 </svg>
 """
 
@@ -157,9 +157,9 @@ def render_splash(path: Path, w: int = 1284, h: int = 2778) -> None:
     draw_isotype(draw, ox, oy, scale)
     title = font(SG, int(w * 0.07))
     tag = font(INTER_REG, int(w * 0.028))
-    tw = draw.textbbox((0, 0), "JavaOne", font=title)
-    draw.text(((w - (tw[2] - tw[0])) / 2, oy + 128 * scale + h * 0.04), "JavaOne", font=title, fill=WHITE)
-    tagline = "Embedded Java ME for iPhone"
+    tw = draw.textbbox((0, 0), "CoreJ2", font=title)
+    draw.text(((w - (tw[2] - tw[0])) / 2, oy + 128 * scale + h * 0.04), "CoreJ2", font=title, fill=WHITE)
+    tagline = "Java ME on iPhone & iPad"
     tb = draw.textbbox((0, 0), tagline, font=tag)
     draw.text(((w - (tb[2] - tb[0])) / 2, oy + 128 * scale + h * 0.09), tagline, font=tag, fill=GRAY)
     img.save(path, "PNG")
@@ -177,10 +177,10 @@ def render_banner(path: Path, w: int = 1280, h: int = 640) -> None:
     draw = ImageDraw.Draw(img)
     draw_isotype(draw, 40, 90, 3.2)
     x = 420
-    draw.text((x, 150), "JavaOne", font=font(SG, 72), fill=WHITE)
+    draw.text((x, 150), "CoreJ2", font=font(SG, 72), fill=WHITE)
     draw.text(
         (x, 240),
-        "Embedded Java ME Emulator for iPhone",
+        "Run classic Java ME games on iPhone & iPad",
         font=font(INTER_BOLD, 28),
         fill=SECONDARY,
     )
@@ -206,10 +206,10 @@ def render_social(path: Path, w: int = 1200, h: int = 630) -> None:
     draw = ImageDraw.Draw(img)
     draw_isotype(draw, 70, 140, 2.8)
     x = 380
-    draw.text((x, 180), "JavaOne", font=font(SG, 68), fill=WHITE)
+    draw.text((x, 180), "CoreJ2", font=font(SG, 68), fill=WHITE)
     draw.text(
         (x, 270),
-        "Embedded Java ME Emulator for iPhone",
+        "Run classic Java ME games on iPhone & iPad",
         font=font(INTER_BOLD, 26),
         fill=SECONDARY,
     )
@@ -229,7 +229,7 @@ def main() -> None:
     (OUT / "isotype.svg").write_text(ISOTYPE_SVG)
     (OUT / "favicon.svg").write_text(ISOTYPE_SVG)
     (OUT / "logo-square.svg").write_text(
-        ISOTYPE_SVG.replace('aria-label="JavaOne isotype"', 'aria-label="JavaOne square logo"')
+        ISOTYPE_SVG.replace('aria-label="CoreJ2 isotype"', 'aria-label="CoreJ2 square logo"')
     )
     (OUT / "logo.svg").write_text(logo_svg(None, PRIMARY, GRAY))
     (OUT / "logo-dark.svg").write_text(logo_svg(BG, WHITE, GRAY))

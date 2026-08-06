@@ -1,7 +1,7 @@
 # Compatibility
 
-JavaOne tracks MIDlet compatibility from **device validation reports**.
-This page is generated from [`compatibility/compatibility.json`](https://github.com/flakito-loko/JavaOne/blob/main/compatibility/compatibility.json) — do not hand-edit the matrix.
+CoreJ2 tracks MIDlet compatibility from **device validation reports**.
+This page is generated from [`compatibility/compatibility.json`](https://github.com/flakito-loko/CoreJ2/blob/main/compatibility/compatibility.json) — do not hand-edit the matrix.
 
 **Downloads:** [JSON](compatibility/compatibility.json) · [CSV](compatibility/compatibility.csv)
 

@@ -67,7 +67,7 @@ Ninguna capa por encima de PlatformBootstrap ve `JNIEnv`, `jobject`, `jclass` ni
 
 ## 1.1 Qué hace
 
-1. Ser el **único** componente JavaOne autorizado a llamar la API JNI.  
+1. Ser el **único** componente CoreJ2 autorizado a llamar la API JNI.  
 2. Traducir operaciones semánticas del **PlatformBootstrap iOS** a invocaciones Java (métodos/campos).  
 3. Recibir **callbacks nativos** originados en hilos Java (p. ej. painter futuro) y entregarlos al Bootstrap como datos owned (buffers, códigos), **sin** filtrar `JNIEnv` hacia arriba.  
 4. Aplicar disciplina de hilos: attach/detach; **nunca** compartir `JNIEnv` entre hilos.  
@@ -119,7 +119,7 @@ Los nombres siguientes son **roles**; la implementación puede usar Swift protoc
 | `callStatic(classId, methodId, args) → Result` | Llamada estática tipada vía IDs opacos cacheados |
 | `callInstance(objectId, methodId, args) → Result` | Llamada de instancia |
 | `get/setStaticField` / `get/setField` | Acceso a campos cuando el Bootstrap lo necesite |
-| `resolveClass(binaryName) → ClassId` | Resolución controlada (p. ej. spike Fase 2: clase hello / utilitaria JavaOne-owned) |
+| `resolveClass(binaryName) → ClassId` | Resolución controlada (p. ej. spike Fase 2: clase hello / utilitaria CoreJ2-owned) |
 | `resolveMethod` / `resolveField` | Obtención de IDs; preferible cachear como Global |
 
 Los `ClassId` / `MethodId` / `ObjectId` son **handles opacos** del Gateway.  
@@ -448,4 +448,4 @@ Ninguno de estos riesgos requiere un spike **previo** distinto de la propia **Fa
 
 ## Approved for implementation
 
-*Referencia oficial · JNI Gateway Architecture v1.0 · JavaOne · Epic 2*
+*Referencia oficial · JNI Gateway Architecture v1.0 · CoreJ2 · Epic 2*

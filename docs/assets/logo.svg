@@ -1,16 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="JavaOne">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="CoreJ2 isotype">
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0%" stop-color="#0A84FF"/>
-      <stop offset="100%" stop-color="#5E5CE6"/>
+    <linearGradient id="lcd" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2563EB"/>
+      <stop offset="100%" stop-color="#60A5FA"/>
     </linearGradient>
   </defs>
-  <rect width="128" height="128" rx="28" fill="url(#bg)"/>
-  <rect x="28" y="22" width="72" height="84" rx="10" fill="#0B0B0F" opacity="0.92"/>
-  <rect x="36" y="34" width="56" height="48" rx="4" fill="#1C1C1E" stroke="#64D2FF" stroke-width="2"/>
-  <circle cx="46" cy="94" r="3.5" fill="#8E8E93"/>
-  <circle cx="58" cy="94" r="3.5" fill="#8E8E93"/>
-  <circle cx="70" cy="94" r="3.5" fill="#8E8E93"/>
-  <circle cx="82" cy="94" r="3.5" fill="#8E8E93"/>
-  <text x="64" y="64" text-anchor="middle" fill="#F5F5F7" font-family="SF Pro Display, Helvetica, Arial, sans-serif" font-size="18" font-weight="700">J1</text>
+  <rect x="34" y="14" width="60" height="100" rx="12" fill="#0B1220" stroke="#2563EB" stroke-width="4"/>
+  <rect x="54" y="22" width="20" height="4" rx="2" fill="#94A3B8" opacity="0.55"/>
+  <rect x="42" y="32" width="44" height="52" rx="6" fill="url(#lcd)"/>
+  <path d="M64 42 L74 52 L64 62 L54 52 Z" fill="#FFFFFF" opacity="0.95"/>
+  <rect x="58" y="50" width="12" height="4" rx="1" fill="#0B1220" opacity="0.35"/>
+  <circle cx="50" cy="96" r="3.2" fill="#60A5FA"/>
+  <circle cx="64" cy="96" r="3.2" fill="#60A5FA"/>
+  <circle cx="78" cy="96" r="3.2" fill="#60A5FA"/>
+  <circle cx="50" cy="106" r="3.2" fill="#94A3B8"/>
+  <circle cx="64" cy="106" r="3.2" fill="#94A3B8"/>
+  <circle cx="78" cy="106" r="3.2" fill="#94A3B8"/>
 </svg>

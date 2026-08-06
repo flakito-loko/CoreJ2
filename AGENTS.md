@@ -1,8 +1,8 @@
-# JavaOne AI Engineering Guide
+# CoreJ2 AI Engineering Guide
 
 ## Mission
 
-JavaOne is a native iOS emulator for Java ME (J2ME).
+CoreJ2 is a native iOS emulator for Java ME (J2ME).
 
 The goal is to become the best J2ME emulator available for iPhone and iPad.
 
@@ -73,4 +73,4 @@ Never refactor unrelated code.
 
 Eventually integrate FreeJ2ME without modifying the original emulator as much as possible.
 
-JavaOne should communicate with FreeJ2ME through a bridge layer.
+CoreJ2 should communicate with FreeJ2ME through a bridge layer.

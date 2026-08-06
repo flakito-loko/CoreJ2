@@ -175,7 +175,7 @@ Captured in `PersistentRuntimePOCMetrics` and printed by `scripts/run_persistent
 
 ## 8. Recommendation
 
-**Yes — JavaOne should migrate toward this architecture**, in stages:
+**Yes — CoreJ2 should migrate toward this architecture**, in stages:
 
 1. **Adopt the persistent-process model on macOS** as the next engineering backend behind `FreeJ2MEMobilePlatformBootstrapping` (replacing ephemeral Process-per-hook), without changing Bridge/Host/Adapter public APIs.
 2. **Keep the one-shot bootstrap** until the persistent backend passes the same Contract C tests.

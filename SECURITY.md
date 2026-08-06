@@ -26,7 +26,7 @@ You should receive an acknowledgement within a reasonable time. We will coordina
 
 ## Scope notes
 
-JavaOne embeds a JVM and third-party emulator code (FreeJ2ME). Reports related to:
+CoreJ2 embeds a JVM and third-party emulator code (FreeJ2ME). Reports related to:
 
 - Sandbox escape from a MIDlet into the iOS app container beyond intended Documents paths
 - Path traversal in import / RMS / classpath staging
