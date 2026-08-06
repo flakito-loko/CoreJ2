@@ -1,6 +1,7 @@
 import Combine
 import Foundation
 import SwiftUI
+import UniformTypeIdentifiers
 
 /// Drives the game library screen and presentation of the emulator.
 @MainActor
@@ -9,32 +10,19 @@ final class LibraryViewModel: ObservableObject {
     // MARK: - Published State
 
     @Published private(set) var games: [InstalledGame] = []
-
-    /// Free-text filter over title and publisher.
     @Published var searchText: String = ""
-
-    /// Grid or list presentation.
     @Published var layoutMode: LibraryLayoutMode = .grid
-
-    /// File name of the most recently picked JAR, if any.
     @Published private(set) var selectedFileName: String?
-
-    /// User-facing message shown after a successful import.
     @Published var successMessage: String?
-
-    /// User-facing message shown after a failed import.
     @Published var errorMessage: String?
-
-    /// Game selected for emulator presentation; `nil` dismisses the emulator.
     @Published var gameToLaunch: InstalledGame?
-
-    /// Game presented in the detail / cover sheet.
     @Published var gameForDetail: InstalledGame?
-
-    /// True while metadata enrichment is running after import.
+    @Published var gameForSettings: InstalledGame?
+    @Published var gameForSaveData: InstalledGame?
+    @Published var gamePendingShare: InstalledGame?
+    @Published var gamePendingDeletion: InstalledGame?
     @Published private(set) var isEnrichingMetadata = false
 
-    /// View model bound to the presented `EmulatorView`, if any.
     private(set) var activeEmulatorViewModel: EmulatorViewModel?
 
     // MARK: - Derived
@@ -52,6 +40,7 @@ final class LibraryViewModel: ObservableObject {
                 || game.publisher.localizedCaseInsensitiveContains(query)
                 || game.genre.localizedCaseInsensitiveContains(query)
                 || game.developer.localizedCaseInsensitiveContains(query)
+                || game.contentHash.localizedCaseInsensitiveContains(query)
         }
     }
 
@@ -79,6 +68,9 @@ final class LibraryViewModel: ObservableObject {
     private let makeEmulatorViewModel: () -> EmulatorViewModel
     private let metadataEnricher: GameMetadataEnricher
     private let coverStore: GameCoverStore
+    private let installationManager: GameInstallationManager
+    private let settingsStore: GameSettingsStore
+    private let identityRegistry: GameIdentityRegistry
 
     // MARK: - Init
 
@@ -87,23 +79,31 @@ final class LibraryViewModel: ObservableObject {
         importEngine: ImportEngineProtocol,
         makeEmulatorViewModel: @escaping () -> EmulatorViewModel,
         metadataEnricher: GameMetadataEnricher,
-        coverStore: GameCoverStore = GameCoverStore()
+        coverStore: GameCoverStore = GameCoverStore(),
+        installationManager: GameInstallationManager = GameInstallationManager(),
+        settingsStore: GameSettingsStore = GameSettingsStore(),
+        identityRegistry: GameIdentityRegistry = .shared
     ) {
         self.repository = repository
         self.importEngine = importEngine
         self.makeEmulatorViewModel = makeEmulatorViewModel
         self.metadataEnricher = metadataEnricher
         self.coverStore = coverStore
+        self.installationManager = installationManager
+        self.settingsStore = settingsStore
+        self.identityRegistry = identityRegistry
     }
 
     // MARK: - Intentions
 
     func loadGames() {
         games = repository.fetchGames()
+        for game in games where !game.contentHash.isEmpty {
+            identityRegistry.bind(contentHash: game.contentHash, installID: game.id)
+        }
         Task { await enrichGamesMissingMetadata() }
     }
 
-    /// Backfills catalog/HTTP metadata for titles imported before LIBRARY-US002.
     private func enrichGamesMissingMetadata() async {
         let pending = games.filter { !$0.hasCachedMetadata }
         guard !pending.isEmpty else { return }
@@ -129,18 +129,40 @@ final class LibraryViewModel: ObservableObject {
         }
     }
 
+    func handle(_ action: LibraryGameAction, for game: InstalledGame) {
+        switch action {
+        case .play:
+            selectGame(game)
+        case .settings:
+            gameForSettings = game
+        case .favorite:
+            toggleFavorite(game)
+        case .changeCover:
+            openDetail(game)
+        case .shareJAR:
+            gamePendingShare = game
+        case .showSaveData:
+            gameForSaveData = game
+        case .delete:
+            // Dismiss sheets so the native confirmation dialog is visible.
+            gameForDetail = nil
+            gameForSettings = nil
+            gameForSaveData = nil
+            gamePendingDeletion = game
+        }
+    }
+
     func toggleFavorite(_ game: InstalledGame) {
         let updated = game.updating(isFavorite: !game.isFavorite)
         repository.save(updated)
         games = repository.fetchGames()
-        refreshDetailIfNeeded(updated.id)
+        refreshPresented(updated.id)
     }
 
     func selectGame(_ game: InstalledGame) {
         let updated = game.updating(lastPlayedAt: .some(Date()))
         repository.save(updated)
         games = repository.fetchGames()
-
         activeEmulatorViewModel = makeEmulatorViewModel()
         gameToLaunch = games.first(where: { $0.id == updated.id }) ?? updated
     }
@@ -149,24 +171,36 @@ final class LibraryViewModel: ObservableObject {
         gameForDetail = game
     }
 
-    func dismissDetail() {
-        gameForDetail = nil
-    }
+    func dismissDetail() { gameForDetail = nil }
+    func dismissSettings() { gameForSettings = nil }
+    func dismissSaveData() { gameForSaveData = nil }
+    func dismissShare() { gamePendingShare = nil }
+    func dismissDeletionPrompt() { gamePendingDeletion = nil }
 
     func dismissEmulator() {
         gameToLaunch = nil
         activeEmulatorViewModel = nil
     }
 
-    func dismissSuccessMessage() {
-        successMessage = nil
+    func dismissSuccessMessage() { successMessage = nil }
+    func dismissErrorMessage() { errorMessage = nil }
+
+    func settings(for game: InstalledGame) -> GameSettings {
+        settingsStore.load(for: game.contentHash)
     }
 
-    func dismissErrorMessage() {
-        errorMessage = nil
+    func saveSettings(_ settings: GameSettings, compatibility: GameCompatibility, for game: InstalledGame) {
+        settingsStore.save(settings, for: game.contentHash)
+        let updated = game.updating(compatibility: compatibility)
+        repository.save(updated)
+        games = repository.fetchGames()
+        refreshPresented(game.id)
     }
 
-    /// Re-runs provider lookup for an existing game (uses cache afterward).
+    func saveDataURL(for game: InstalledGame) -> URL? {
+        installationManager.saveDataDirectory(for: game)
+    }
+
     func refreshMetadata(for game: InstalledGame) {
         Task {
             isEnrichingMetadata = true
@@ -174,7 +208,7 @@ final class LibraryViewModel: ObservableObject {
             let enriched = await metadataEnricher.enrich(game)
             repository.save(enriched)
             games = repository.fetchGames()
-            refreshDetailIfNeeded(game.id)
+            refreshPresented(game.id)
         }
     }
 
@@ -183,7 +217,7 @@ final class LibraryViewModel: ObservableObject {
             let updated = try coverStore.applyCustomCover(imageData: data, to: game)
             repository.save(updated)
             games = repository.fetchGames()
-            refreshDetailIfNeeded(game.id)
+            refreshPresented(game.id)
         } catch {
             errorMessage = error.localizedDescription
         }
@@ -194,7 +228,25 @@ final class LibraryViewModel: ObservableObject {
             let updated = try coverStore.restoreDefaultCover(for: game)
             repository.save(updated)
             games = repository.fetchGames()
-            refreshDetailIfNeeded(game.id)
+            refreshPresented(game.id)
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+    }
+
+    /// Deletes library files and optionally RMS / settings / identity binding.
+    func confirmDelete(mode: GameDeletionMode) {
+        guard let game = gamePendingDeletion else { return }
+        gamePendingDeletion = nil
+        do {
+            try installationManager.delete(game, mode: mode)
+            repository.delete(game)
+            if gameForDetail?.id == game.id { gameForDetail = nil }
+            if gameForSettings?.id == game.id { gameForSettings = nil }
+            if gameForSaveData?.id == game.id { gameForSaveData = nil }
+            games = repository.fetchGames()
+            let kept = mode == .gameOnly ? " Save data was kept." : " All related data was removed."
+            successMessage = "\"\(game.title)\" deleted.\(kept)"
         } catch {
             errorMessage = error.localizedDescription
         }
@@ -205,6 +257,7 @@ final class LibraryViewModel: ObservableObject {
     private func importSelectedJAR(from url: URL) async {
         do {
             var installedGame = try importEngine.importJAR(from: url)
+            identityRegistry.bind(contentHash: installedGame.contentHash, installID: installedGame.id)
             repository.save(installedGame)
             games = repository.fetchGames()
 
@@ -216,7 +269,8 @@ final class LibraryViewModel: ObservableObject {
 
             errorMessage = nil
             let metaNote = installedGame.hasCachedMetadata ? " Metadata cached for offline use." : ""
-            successMessage = "\"\(url.lastPathComponent)\" was imported successfully.\(metaNote)"
+            let idNote = " Identity \(installedGame.stableIdentity.prefix(12))…"
+            successMessage = "\"\(url.lastPathComponent)\" was imported successfully.\(metaNote)\(idNote)"
         } catch {
             isEnrichingMetadata = false
             successMessage = nil
@@ -224,9 +278,12 @@ final class LibraryViewModel: ObservableObject {
         }
     }
 
-    private func refreshDetailIfNeeded(_ id: UUID) {
+    private func refreshPresented(_ id: UUID) {
         if gameForDetail?.id == id {
             gameForDetail = games.first(where: { $0.id == id })
+        }
+        if gameForSettings?.id == id {
+            gameForSettings = games.first(where: { $0.id == id })
         }
     }
 }

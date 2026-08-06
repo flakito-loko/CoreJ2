@@ -76,6 +76,24 @@ final class SwiftDataGameLibraryRepository: GameLibraryRepository {
         }
     }
 
+    func delete(_ game: InstalledGame) {
+        let gameID = game.id
+        let descriptor = FetchDescriptor<InstalledGameEntity>(
+            predicate: #Predicate { entity in
+                entity.id == gameID
+            }
+        )
+
+        do {
+            if let existing = try modelContext.fetch(descriptor).first {
+                modelContext.delete(existing)
+                try modelContext.save()
+            }
+        } catch {
+            // The protocol does not surface persistence errors to callers.
+        }
+    }
+
     func game(withContentHash contentHash: String) -> InstalledGame? {
         let hash = contentHash
         let descriptor = FetchDescriptor<InstalledGameEntity>(

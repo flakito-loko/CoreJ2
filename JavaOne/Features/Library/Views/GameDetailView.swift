@@ -10,6 +10,10 @@ struct GameDetailView: View {
     let onRestoreCover: () -> Void
     let onApplyCoverData: (Data) -> Void
     let onRefreshMetadata: () -> Void
+    var onSettings: (() -> Void)? = nil
+    var onShare: (() -> Void)? = nil
+    var onShowSaveData: (() -> Void)? = nil
+    var onDelete: (() -> Void)? = nil
 
     @State private var photoItem: PhotosPickerItem?
     @State private var isFileImporterPresented = false
@@ -28,6 +32,7 @@ struct GameDetailView: View {
                     if !game.screenshotURLs.isEmpty {
                         screenshotsBlock
                     }
+                    managementActions
                     coverActions
                     Button(action: onPlay) {
                         Text("Play")
@@ -52,8 +57,8 @@ struct GameDetailView: View {
                 }
                 ToolbarItem(placement: .primaryAction) {
                     Button(action: onToggleFavorite) {
-                        Image(systemName: game.isFavorite ? "star.fill" : "star")
-                            .foregroundStyle(game.isFavorite ? LibraryTheme.gold : .primary)
+                        Image(systemName: game.isFavorite ? "heart.fill" : "heart")
+                            .foregroundStyle(game.isFavorite ? Color.red.opacity(0.9) : .primary)
                     }
                     .accessibilityLabel(game.isFavorite ? "Remove from favorites" : "Add to favorites")
                 }
@@ -107,6 +112,17 @@ struct GameDetailView: View {
             if !game.midletVersion.isEmpty {
                 labeled("Version", game.midletVersion)
             }
+            if !game.stableIdentity.isEmpty {
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("SHA-256")
+                        .font(LibraryTheme.metaFont())
+                        .foregroundStyle(.secondary)
+                    Text(game.stableIdentity)
+                        .font(.system(.caption2, design: .monospaced))
+                        .textSelection(.enabled)
+                        .accessibilityIdentifier("detail-stable-identity")
+                }
+            }
             CompatibilityBadge(compatibility: game.compatibility)
             if game.hasCachedMetadata {
                 Text(game.metadataProviderID.isEmpty ? "Metadata cached offline" : "Cached via \(game.metadataProviderID)")
@@ -145,6 +161,38 @@ struct GameDetailView: View {
                         }
                     }
                 }
+            }
+        }
+    }
+
+    private var managementActions: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("Manage")
+                .font(LibraryTheme.sectionFont(relativeTo: .title3))
+
+            if let onSettings {
+                Button(action: onSettings) {
+                    actionLabel("Game Settings", systemImage: "gearshape")
+                }
+                .buttonStyle(.plain)
+            }
+            if let onShare {
+                Button(action: onShare) {
+                    actionLabel("Share JAR", systemImage: "square.and.arrow.up")
+                }
+                .buttonStyle(.plain)
+            }
+            if let onShowSaveData {
+                Button(action: onShowSaveData) {
+                    actionLabel("Show Save Data", systemImage: "folder")
+                }
+                .buttonStyle(.plain)
+            }
+            if let onDelete {
+                Button(role: .destructive, action: onDelete) {
+                    actionLabel("Delete Game", systemImage: "trash")
+                }
+                .buttonStyle(.plain)
             }
         }
     }

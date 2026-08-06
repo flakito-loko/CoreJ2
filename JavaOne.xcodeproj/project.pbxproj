@@ -28,6 +28,15 @@
 		E1100007300D095A0044FD89 /* RMSSaveDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1100006300D095A0044FD89 /* RMSSaveDirectory.swift */; };
 		E1100009300D095A0044FD89 /* RMSSaveDirectoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1100008300D095A0044FD89 /* RMSSaveDirectoryTests.swift */; };
 		E1200011300D095A0044FD89 /* InstalledGameEntityPathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1200010300D095A0044FD89 /* InstalledGameEntityPathTests.swift */; };
+		L3000002300D09580044FD03 /* GameIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = L3000001300D09580044FD03 /* GameIdentity.swift */; };
+		L3000004300D09580044FD03 /* GameInstallationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = L3000003300D09580044FD03 /* GameInstallationManager.swift */; };
+		L3000006300D09580044FD03 /* GameSettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = L3000005300D09580044FD03 /* GameSettingsStore.swift */; };
+		L3000008300D09580044FD03 /* LibraryGameAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = L3000007300D09580044FD03 /* LibraryGameAction.swift */; };
+		L300000A300D09580044FD03 /* GameSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = L3000009300D09580044FD03 /* GameSettingsView.swift */; };
+		L300000C300D09580044FD03 /* GameSaveDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = L300000B300D09580044FD03 /* GameSaveDataView.swift */; };
+		L300000E300D09580044FD03 /* ActivityShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = L300000D300D09580044FD03 /* ActivityShareView.swift */; };
+		L3000010300D09580044FD03 /* GameIdentityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = L300000F300D09580044FD03 /* GameIdentityTests.swift */; };
+		L3000012300D09580044FD03 /* LIBRARYUS003ManagementUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = L3000011300D09580044FD03 /* LIBRARYUS003ManagementUITests.swift */; };
 		L2000002300D09580044FD02 /* MetadataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = L2000001300D09580044FD02 /* MetadataProvider.swift */; };
 		L2000004300D09580044FD02 /* CompositeMetadataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = L2000003300D09580044FD02 /* CompositeMetadataProvider.swift */; };
 		L2000006300D09580044FD02 /* CatalogMetadataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = L2000005300D09580044FD02 /* CatalogMetadataProvider.swift */; };
@@ -228,6 +237,15 @@
 		E1100006300D095A0044FD89 /* RMSSaveDirectory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMSSaveDirectory.swift; sourceTree = "<group>"; };
 		E1100008300D095A0044FD89 /* RMSSaveDirectoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMSSaveDirectoryTests.swift; sourceTree = "<group>"; };
 		E1200010300D095A0044FD89 /* InstalledGameEntityPathTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstalledGameEntityPathTests.swift; sourceTree = "<group>"; };
+		L3000001300D09580044FD03 /* GameIdentity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameIdentity.swift; sourceTree = "<group>"; };
+		L3000003300D09580044FD03 /* GameInstallationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameInstallationManager.swift; sourceTree = "<group>"; };
+		L3000005300D09580044FD03 /* GameSettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettingsStore.swift; sourceTree = "<group>"; };
+		L3000007300D09580044FD03 /* LibraryGameAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryGameAction.swift; sourceTree = "<group>"; };
+		L3000009300D09580044FD03 /* GameSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettingsView.swift; sourceTree = "<group>"; };
+		L300000B300D09580044FD03 /* GameSaveDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSaveDataView.swift; sourceTree = "<group>"; };
+		L300000D300D09580044FD03 /* ActivityShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityShareView.swift; sourceTree = "<group>"; };
+		L300000F300D09580044FD03 /* GameIdentityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameIdentityTests.swift; sourceTree = "<group>"; };
+		L3000011300D09580044FD03 /* LIBRARYUS003ManagementUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LIBRARYUS003ManagementUITests.swift; sourceTree = "<group>"; };
 		L2000001300D09580044FD02 /* MetadataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataProvider.swift; sourceTree = "<group>"; };
 		L2000003300D09580044FD02 /* CompositeMetadataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositeMetadataProvider.swift; sourceTree = "<group>"; };
 		L2000005300D09580044FD02 /* CatalogMetadataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogMetadataProvider.swift; sourceTree = "<group>"; };
@@ -483,6 +501,7 @@
 				A1000091300D09580044FD89 /* EmulatorViewModelTests.swift */,
 				A1000097300D09580044FD89 /* LibraryViewModelTests.swift */,
 				L2000011300D09580044FD02 /* MetadataProviderTests.swift */,
+				L300000F300D09580044FD03 /* GameIdentityTests.swift */,
 				A1000099300D09580044FD89 /* AppDependencyContainerTests.swift */,
 				A100009D300D09580044FD89 /* PersistentRuntimePOCTests.swift */,
 				A10000A3300D09580044FD89 /* PersistentProcessFreeJ2MEMobilePlatformBootstrapTests.swift */,
@@ -539,6 +558,7 @@
 				MN000003300D095D0044FD89 /* MNAUDIO002MiamiNightsNativeAudioUITests.swift */,
 				LUS001F1300D095A0044FD89 /* LIBRARYUS001LibraryUITests.swift */,
 				L2000013300D09580044FD02 /* LIBRARYUS002MetadataUITests.swift */,
+				L3000011300D09580044FD03 /* LIBRARYUS003ManagementUITests.swift */,
 			);
 			path = JavaOneUITests;
 			sourceTree = "<group>";
@@ -601,6 +621,7 @@
 			children = (
 				A1000001300D09580044FD89 /* InstalledGame.swift */,
 				L1000001300D09580044FD01 /* GameCompatibility.swift */,
+				L3000007300D09580044FD03 /* LibraryGameAction.swift */,
 				A1000019300D09580044FD89 /* InstalledGameEntity.swift */,
 				A1000021300D09580044FD89 /* MidletManifest.swift */,
 				A100002D300D09580044FD89 /* ImportContext.swift */,
@@ -634,6 +655,9 @@
 				L1000009300D09580044FD01 /* GameCardView.swift */,
 				L100000B300D09580044FD01 /* GameListRowView.swift */,
 				L200000D300D09580044FD02 /* GameDetailView.swift */,
+				L3000009300D09580044FD03 /* GameSettingsView.swift */,
+				L300000B300D09580044FD03 /* GameSaveDataView.swift */,
+				L300000D300D09580044FD03 /* ActivityShareView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -653,6 +677,9 @@
 				A1000037300D09580044FD89 /* DuplicateDetectionStep.swift */,
 				A100003F300D09580044FD89 /* ArtworkStep.swift */,
 				L1000005300D09580044FD01 /* LibraryCoverImageCache.swift */,
+				L3000001300D09580044FD03 /* GameIdentity.swift */,
+				L3000003300D09580044FD03 /* GameInstallationManager.swift */,
+				L3000005300D09580044FD03 /* GameSettingsStore.swift */,
 				A1000039300D09580044FD89 /* ImportEngineError.swift */,
 				A1000023300D09580044FD89 /* ManifestService.swift */,
 				A1000025300D09580044FD89 /* JARManifestService.swift */,
@@ -1010,6 +1037,13 @@
 				L200000A300D09580044FD02 /* GameMetadataEnricher.swift in Sources */,
 				L200000C300D09580044FD02 /* GameCoverStore.swift in Sources */,
 				L200000E300D09580044FD02 /* GameDetailView.swift in Sources */,
+				L3000002300D09580044FD03 /* GameIdentity.swift in Sources */,
+				L3000004300D09580044FD03 /* GameInstallationManager.swift in Sources */,
+				L3000006300D09580044FD03 /* GameSettingsStore.swift in Sources */,
+				L3000008300D09580044FD03 /* LibraryGameAction.swift in Sources */,
+				L300000A300D09580044FD03 /* GameSettingsView.swift in Sources */,
+				L300000C300D09580044FD03 /* GameSaveDataView.swift in Sources */,
+				L300000E300D09580044FD03 /* ActivityShareView.swift in Sources */,
 				A1000018300D09580044FD89 /* InstalledGameEntity.swift in Sources */,
 				A1000004300D09580044FD89 /* GameLibraryRepository.swift in Sources */,
 				A1000006300D09580044FD89 /* InMemoryGameLibraryRepository.swift in Sources */,
@@ -1128,6 +1162,7 @@
 				A1000090300D09580044FD89 /* EmulatorViewModelTests.swift in Sources */,
 				A1000096300D09580044FD89 /* LibraryViewModelTests.swift in Sources */,
 				L2000012300D09580044FD02 /* MetadataProviderTests.swift in Sources */,
+				L3000010300D09580044FD03 /* GameIdentityTests.swift in Sources */,
 				A1000098300D09580044FD89 /* AppDependencyContainerTests.swift in Sources */,
 				A100009C300D09580044FD89 /* PersistentRuntimePOCTests.swift in Sources */,
 				A10000A2300D09580044FD89 /* PersistentProcessFreeJ2MEMobilePlatformBootstrapTests.swift in Sources */,
@@ -1184,6 +1219,7 @@
 				MN000004300D095D0044FD89 /* MNAUDIO002MiamiNightsNativeAudioUITests.swift in Sources */,
 				LUS001F2300D095A0044FD89 /* LIBRARYUS001LibraryUITests.swift in Sources */,
 				L2000014300D09580044FD02 /* LIBRARYUS002MetadataUITests.swift in Sources */,
+				L3000012300D09580044FD03 /* LIBRARYUS003ManagementUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

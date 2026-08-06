@@ -6,6 +6,7 @@ struct GameCardView: View {
     let onPlay: () -> Void
     let onToggleFavorite: () -> Void
     var onOpenDetail: (() -> Void)? = nil
+    var onAction: ((LibraryGameAction) -> Void)? = nil
 
     @Environment(\.colorScheme) private var colorScheme
 
@@ -27,9 +28,9 @@ struct GameCardView: View {
                 .accessibilityLabel("Details for \(game.title)")
 
                 Button(action: onToggleFavorite) {
-                    Image(systemName: game.isFavorite ? "star.fill" : "star")
+                    Image(systemName: game.isFavorite ? "heart.fill" : "heart")
                         .font(.body.weight(.semibold))
-                        .foregroundStyle(game.isFavorite ? LibraryTheme.gold : .white)
+                        .foregroundStyle(game.isFavorite ? Color.red.opacity(0.9) : .white)
                         .padding(8)
                         .background(.ultraThinMaterial, in: Circle())
                 }
@@ -55,14 +56,12 @@ struct GameCardView: View {
                         .font(LibraryTheme.metaFont(relativeTo: .caption2))
                         .foregroundStyle(LibraryTheme.teal)
                         .lineLimit(1)
-                        .accessibilityIdentifier("genre-\(game.id.uuidString)")
                 }
 
                 HStack(spacing: 6) {
                     Text(game.resolution)
                         .font(LibraryTheme.metaFont(relativeTo: .caption2))
                         .foregroundStyle(.tertiary)
-
                     CompatibilityBadge(compatibility: game.compatibility)
                 }
 
@@ -91,9 +90,24 @@ struct GameCardView: View {
         )
         .accessibilityElement(children: .contain)
         .contextMenu {
-            Button("Change Cover…") { onOpenDetail?() }
-            Button("Game Info") { onOpenDetail?() }
-            Button(game.isFavorite ? "Remove Favorite" : "Favorite", action: onToggleFavorite)
+            gameContextMenu
+        }
+    }
+
+    @ViewBuilder
+    private var gameContextMenu: some View {
+        ForEach(LibraryGameAction.allCases) { action in
+            Button(
+                role: action.isDestructive ? .destructive : nil,
+                action: { onAction?(action) }
+            ) {
+                Label(
+                    action.title(isFavorite: game.isFavorite),
+                    systemImage: action == .favorite
+                        ? (game.isFavorite ? "heart.slash" : "heart.fill")
+                        : action.systemImage
+                )
+            }
         }
     }
 

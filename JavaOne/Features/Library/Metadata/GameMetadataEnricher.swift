@@ -83,11 +83,24 @@ final class GameMetadataEnricher {
         )
 
         persistSidecar(enriched, record: record, in: gameDirectory)
+        mirrorIdentityCache(enriched, record: record)
         return enriched
     }
 
     // MARK: - Private
 
+    /// Writes a hash-keyed cache used for future sync (independent of filename).
+    private func mirrorIdentityCache(_ game: InstalledGame, record: GameMetadataRecord) {
+        guard !game.contentHash.isEmpty,
+              let cacheDir = LibraryGamePaths.metadataCacheDirectory(
+                contentHash: game.contentHash,
+                fileManager: fileManager
+              ) else {
+            return
+        }
+        try? fileManager.createDirectory(at: cacheDir, withIntermediateDirectories: true)
+        persistSidecar(game, record: record, in: cacheDir)
+    }
     private func download(_ remote: URL, to destination: URL) async -> URL? {
         do {
             let (data, response) = try await session.data(from: remote)

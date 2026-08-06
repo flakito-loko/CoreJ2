@@ -1,11 +1,12 @@
 import SwiftUI
 
-/// Compact row for list presentation.
+/// Compact row for list presentation with swipe-to-delete.
 struct GameListRowView: View {
     let game: InstalledGame
     let onPlay: () -> Void
     let onToggleFavorite: () -> Void
     var onOpenDetail: (() -> Void)? = nil
+    var onAction: ((LibraryGameAction) -> Void)? = nil
 
     @Environment(\.colorScheme) private var colorScheme
 
@@ -31,8 +32,8 @@ struct GameListRowView: View {
                     Spacer(minLength: 4)
 
                     Button(action: onToggleFavorite) {
-                        Image(systemName: game.isFavorite ? "star.fill" : "star")
-                            .foregroundStyle(game.isFavorite ? LibraryTheme.gold : .secondary)
+                        Image(systemName: game.isFavorite ? "heart.fill" : "heart")
+                            .foregroundStyle(game.isFavorite ? Color.red.opacity(0.9) : .secondary)
                     }
                     .buttonStyle(.plain)
                     .accessibilityLabel(game.isFavorite ? "Remove from favorites" : "Add to favorites")
@@ -78,9 +79,17 @@ struct GameListRowView: View {
         .padding(.horizontal, 4)
         .contentShape(Rectangle())
         .contextMenu {
-            Button("Change Cover…") { onOpenDetail?() }
-            Button("Game Info") { onOpenDetail?() }
-            Button(game.isFavorite ? "Remove Favorite" : "Favorite", action: onToggleFavorite)
+            ForEach(LibraryGameAction.allCases) { action in
+                Button(
+                    role: action.isDestructive ? .destructive : nil,
+                    action: { onAction?(action) }
+                ) {
+                    Label(
+                        action.title(isFavorite: game.isFavorite),
+                        systemImage: action.systemImage
+                    )
+                }
+            }
         }
     }
 

@@ -1,16 +1,24 @@
 import Foundation
 
 /// Imports JAR files into the on-device JavaOne library using `FileManager`.
+///
+/// LIBRARY-US003 — chooses the install UUID from ``GameIdentityRegistry`` using the
+/// JAR's SHA-256 so reimports after "Delete Game" reconnect to existing RMS saves.
 final class FileImportService: ImportService {
 
     // MARK: - Dependencies
 
     private let fileManager: FileManager
+    private let identityRegistry: GameIdentityRegistry
 
     // MARK: - Init
 
-    init(fileManager: FileManager = .default) {
+    init(
+        fileManager: FileManager = .default,
+        identityRegistry: GameIdentityRegistry = .shared
+    ) {
         self.fileManager = fileManager
+        self.identityRegistry = identityRegistry
     }
 
     // MARK: - ImportService
@@ -23,7 +31,10 @@ final class FileImportService: ImportService {
             }
         }
 
-        let gameID = UUID()
+        let contentHash = try GameIdentity.sha256Hex(ofFileAt: sourceURL)
+        let gameID = identityRegistry.installID(forContentHash: contentHash)
+        identityRegistry.bind(contentHash: contentHash, installID: gameID)
+
         let gameDirectory = try makeGameDirectory(id: gameID)
         let destinationURL = gameDirectory.appendingPathComponent("game.jar", isDirectory: false)
 
@@ -38,7 +49,7 @@ final class FileImportService: ImportService {
             title: sourceURL.deletingPathExtension().lastPathComponent,
             jarURL: destinationURL,
             importedAt: Date(),
-            contentHash: ""
+            contentHash: contentHash
         )
     }
 

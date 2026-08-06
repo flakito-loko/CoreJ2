@@ -1,0 +1,35 @@
+[
+  {
+    "attachments" : [
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "00008150-000C70A80EBA401C",
+        "deviceName" : "iPhone de Leonel Figuereo",
+        "exportedFileName" : "3DBB354E-7510-4070-916B-7BD4F73DB9D6.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "library-us003-library_0_05A8612C-C63E-41E4-90CC-FB60E214688E.png",
+        "timestamp" : 1786031870.32
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "00008150-000C70A80EBA401C",
+        "deviceName" : "iPhone de Leonel Figuereo",
+        "exportedFileName" : "B70456C4-1F2C-4B2D-8B90-2A9841A9942C.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "library-us003-delete-confirm_0_EF710C7E-0469-4475-A298-EA25D4F89C17.png",
+        "timestamp" : 1786031869.486
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "00008150-000C70A80EBA401C",
+        "deviceName" : "iPhone de Leonel Figuereo",
+        "exportedFileName" : "3BECF0EB-114F-4B3C-AC37-01EE2C0D8BE2.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "library-us003-detail-manage_0_CD206872-97A3-4C1B-9484-30A1419BFC69.png",
+        "timestamp" : 1786031862.692
+      }
+    ],
+    "testIdentifier" : "LIBRARYUS003ManagementUITests/testLibraryManagementSurfacesDeleteAndSettings()",
+    "testIdentifierURL" : "test://com.apple.xcode/JavaOne/JavaOneUITests/LIBRARYUS003ManagementUITests/testLibraryManagementSurfacesDeleteAndSettings"
+  }
+]

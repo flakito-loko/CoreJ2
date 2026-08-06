@@ -1,13 +1,17 @@
-import CryptoKit
 import Foundation
 
-/// Calculates the SHA-256 digest of the imported JAR for an import session.
+/// Calculates / verifies the SHA-256 digest of the imported JAR.
 @MainActor
 final class HashStep: ImportStep {
 
+    private let identityRegistry: GameIdentityRegistry
+
+    init(identityRegistry: GameIdentityRegistry = .shared) {
+        self.identityRegistry = identityRegistry
+    }
+
     // MARK: - ImportStep
 
-    /// Reads the imported JAR and stores its lowercase SHA-256 hex digest in the context.
     func run(on context: ImportContext) throws {
         guard let jarURL = context.importedJarURL ?? context.installedGame?.jarURL else {
             context.warnings.append("Unable to hash JAR: imported file is unavailable.")
@@ -15,15 +19,11 @@ final class HashStep: ImportStep {
         }
 
         do {
-            let jarData = try Data(contentsOf: jarURL)
-            let digest = SHA256.hash(data: jarData)
-            let contentHash = digest.map { byte in
-                String(format: "%02x", byte)
-            }.joined()
-
+            let contentHash = try GameIdentity.sha256Hex(ofFileAt: jarURL)
             context.contentHash = contentHash
 
             if let installedGame = context.installedGame {
+                identityRegistry.bind(contentHash: contentHash, installID: installedGame.id)
                 context.installedGame = installedGame.updating(contentHash: contentHash)
             }
         } catch {

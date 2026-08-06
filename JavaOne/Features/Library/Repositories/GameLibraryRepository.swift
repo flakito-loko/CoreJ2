@@ -9,6 +9,9 @@ protocol GameLibraryRepository {
     /// Stores an installed game in the library.
     func save(_ game: InstalledGame)
 
+    /// Removes an installed game from persistence (does not touch disk files).
+    func delete(_ game: InstalledGame)
+
     /// Returns the installed game with the given content hash, if one exists.
     func game(withContentHash contentHash: String) -> InstalledGame?
 }

@@ -87,8 +87,52 @@ struct LibraryView: View {
                     onToggleFavorite: { viewModel.toggleFavorite(game) },
                     onRestoreCover: { viewModel.restoreDefaultCover(for: game) },
                     onApplyCoverData: { viewModel.applyCoverImageData($0, to: game) },
-                    onRefreshMetadata: { viewModel.refreshMetadata(for: game) }
+                    onRefreshMetadata: { viewModel.refreshMetadata(for: game) },
+                    onSettings: { viewModel.handle(.settings, for: game) },
+                    onShare: { viewModel.handle(.shareJAR, for: game) },
+                    onShowSaveData: { viewModel.handle(.showSaveData, for: game) },
+                    onDelete: { viewModel.handle(.delete, for: game) }
                 )
+            }
+            .sheet(item: $viewModel.gameForSettings) { game in
+                GameSettingsView(
+                    game: game,
+                    settings: viewModel.settings(for: game),
+                    onToggleFavorite: { viewModel.toggleFavorite(game) },
+                    onSave: { settings, compatibility in
+                        viewModel.saveSettings(settings, compatibility: compatibility, for: game)
+                    },
+                    onChangeCover: {
+                        viewModel.dismissSettings()
+                        viewModel.openDetail(game)
+                    }
+                )
+            }
+            .sheet(item: $viewModel.gameForSaveData) { game in
+                GameSaveDataView(
+                    game: game,
+                    rootURL: viewModel.saveDataURL(for: game)
+                )
+            }
+            .sheet(item: $viewModel.gamePendingShare) { game in
+                ActivityShareView(items: [game.jarURL])
+                    .presentationDetents([.medium])
+            }
+            .alert(
+                deletionTitle,
+                isPresented: deletionDialogBinding
+            ) {
+                Button("Delete Game", role: .destructive) {
+                    viewModel.confirmDelete(mode: .gameOnly)
+                }
+                Button("Delete Everything", role: .destructive) {
+                    viewModel.confirmDelete(mode: .everything)
+                }
+                Button("Cancel", role: .cancel) {
+                    viewModel.dismissDeletionPrompt()
+                }
+            } message: {
+                Text("Delete Game removes the JAR and artwork but keeps save data. Delete Everything also removes RMS saves and settings.")
             }
             .overlay(alignment: .top) {
                 if viewModel.isEnrichingMetadata {
@@ -105,6 +149,24 @@ struct LibraryView: View {
         .onAppear {
             viewModel.loadGames()
         }
+    }
+
+    private var deletionTitle: String {
+        if let title = viewModel.gamePendingDeletion?.title {
+            return "Delete \(title)?"
+        }
+        return "Delete Game?"
+    }
+
+    private var deletionDialogBinding: Binding<Bool> {
+        Binding(
+            get: { viewModel.gamePendingDeletion != nil },
+            set: { presented in
+                if !presented {
+                    viewModel.dismissDeletionPrompt()
+                }
+            }
+        )
     }
 
     // MARK: - Content
@@ -196,7 +258,8 @@ struct LibraryView: View {
                         game: game,
                         onPlay: { viewModel.selectGame(game) },
                         onToggleFavorite: { viewModel.toggleFavorite(game) },
-                        onOpenDetail: { viewModel.openDetail(game) }
+                        onOpenDetail: { viewModel.openDetail(game) },
+                        onAction: { viewModel.handle($0, for: game) }
                     )
                     .frame(width: 168)
                     .matchedGeometryEffect(id: "strip-\(game.id)", in: libraryNamespace)
@@ -230,7 +293,8 @@ struct LibraryView: View {
                             game: game,
                             onPlay: { viewModel.selectGame(game) },
                             onToggleFavorite: { viewModel.toggleFavorite(game) },
-                            onOpenDetail: { viewModel.openDetail(game) }
+                            onOpenDetail: { viewModel.openDetail(game) },
+                            onAction: { viewModel.handle($0, for: game) }
                         )
                         .matchedGeometryEffect(id: "grid-\(game.id)", in: libraryNamespace)
                         .transition(.opacity.combined(with: .scale(scale: 0.98)))
@@ -247,7 +311,8 @@ struct LibraryView: View {
                             game: game,
                             onPlay: { viewModel.selectGame(game) },
                             onToggleFavorite: { viewModel.toggleFavorite(game) },
-                            onOpenDetail: { viewModel.openDetail(game) }
+                            onOpenDetail: { viewModel.openDetail(game) },
+                            onAction: { viewModel.handle($0, for: game) }
                         )
                         .padding(.horizontal, 12)
                         .padding(.vertical, 4)
@@ -255,6 +320,19 @@ struct LibraryView: View {
                             RoundedRectangle(cornerRadius: 16, style: .continuous)
                                 .fill(colorScheme == .dark ? Color.white.opacity(0.05) : Color.white.opacity(0.55))
                         )
+                        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                            Button(role: .destructive) {
+                                viewModel.handle(.delete, for: game)
+                            } label: {
+                                Label("Delete", systemImage: "trash")
+                            }
+                            Button {
+                                viewModel.handle(.shareJAR, for: game)
+                            } label: {
+                                Label("Share", systemImage: "square.and.arrow.up")
+                            }
+                            .tint(LibraryTheme.teal)
+                        }
                         .transition(.opacity.combined(with: .move(edge: .trailing)))
                     }
                 }

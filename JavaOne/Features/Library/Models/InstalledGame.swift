@@ -7,7 +7,13 @@ struct InstalledGame: Identifiable, Equatable, Hashable {
     let jarURL: URL
     let importedAt: Date
     /// SHA-256 digest of the JAR contents, as a lowercase hexadecimal string.
+    ///
+    /// LIBRARY-US003 — this is the permanent game identity (metadata, artwork,
+    /// compatibility, sync). Install `id` remains the sandbox UUID used by RMS.
     let contentHash: String
+
+    /// Stable identity alias for `contentHash` (never derived from filename).
+    var stableIdentity: String { contentHash }
 
     /// `MIDlet-Vendor` / catalog publisher when known.
     var publisher: String

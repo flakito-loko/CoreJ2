@@ -21,6 +21,10 @@ final class InMemoryGameLibraryRepository: GameLibraryRepository {
         }
     }
 
+    func delete(_ game: InstalledGame) {
+        games.removeAll { $0.id == game.id }
+    }
+
     func game(withContentHash contentHash: String) -> InstalledGame? {
         games.first { $0.contentHash == contentHash }
     }
