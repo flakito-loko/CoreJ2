@@ -2,41 +2,43 @@
 
 ## What is JavaOne?
 
-A native iOS app that runs Java ME (J2ME) MIDlets using an embedded FreeJ2ME runtime on OpenJDK Mobile, wrapped in a SwiftUI shell.
+A native iOS application that runs Java ME (J2ME) MIDlets using an **embedded** FreeJ2ME runtime on OpenJDK Mobile, with a SwiftUI library and emulator UI.
 
-## Is this FreeJ2ME?
+## How does it differ from FreeJ2ME?
 
-FreeJ2ME is the Java ME engine. JavaOne is the iOS product: library, import, UI, bridge, and iOS-specific bootstrap (JNI, AWT bring-up, sandbox RMS).
+FreeJ2ME is the Java ME engine. JavaOne is the iOS product: import/library, SwiftUI, bridge, PlatformBootstrap, JNI gateway, AWT/ImageIO bring-up, and sandbox RMS wiring.
 
-## Will every JAR work?
+## Does it use an embedded JVM?
 
-No. See [Compatibility](compatibility.md). The public matrix starts with five canary titles validated on a physical iPhone.
+Yes. On iOS, OpenJDK Mobile (Zero) is linked into the app process and started with `JNI_CreateJavaVM`.
 
-## Where are my saves?
+## Does it require a jailbreak?
 
-Under the app container:
+No. Development and validation target stock iOS devices with standard signing.
 
-`Documents/JavaOne/Saves/<game-uuid>/rms/…`
+## Can it run commercial games?
 
-## Why is audio missing?
+Yes — commercial MIDlets have been exercised on physical iPhone. Public compatibility is tracked in the [Compatibility](compatibility.md) matrix (canary corpus today; expanding in Epic 12).
 
-Audio / MMAPI was not part of the Epic 11 validation scope. Status is tracked as Untested until a dedicated pass lands.
+## Why OpenJDK Mobile?
 
-## Why does Alea look “stuck”?
+It provides a buildable OpenJDK path for mobile/Zero that can be statically linked under iOS constraints, avoiding a desktop HotSpot/JIT process model.
 
-Alea accepts input and shows a first frame, but the LCD frame counter can stall during long sessions (P2). Prefer Astroids/Tetris/Ubertris for continuous-animation checks.
+## Why not the Android Runtime?
 
-## Can I modify FreeJ2ME?
+JavaOne targets Apple platforms with a MIDP stack (FreeJ2ME), not Android APKs. ART would not provide MIDP APIs or match the FreeJ2ME integration strategy.
 
-Prefer fixing issues in JavaOne’s bridge/bootstrap. Vendor patches must be minimal and documented.
+## Where are saves stored?
 
-## How do I build docs?
+Under `Documents/JavaOne/Saves/<game-uuid>/rms/…` after Epic 11 RMS wiring.
+
+## Is audio supported?
+
+Audio / MMAPI is not yet validated in the public matrix (marked Untested).
+
+## How do I build the docs site?
 
 ```bash
 pip install -r requirements-docs.txt
 mkdocs serve
 ```
-
-## How do I report a security issue?
-
-See [SECURITY.md](https://github.com/javaonelabs/JavaOne/blob/main/SECURITY.md). Do not file public issues for sensitive reports.

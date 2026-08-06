@@ -1,82 +1,144 @@
 # JavaOne
 
-Native iOS emulator for **Java ME (J2ME)**.
+**Embedded Java ME Emulator for iPhone**
 
-JavaOne aims to be the best J2ME emulator available for iPhone and iPad, with a first-party Apple feel — SwiftUI, SwiftData, and a clean bridge to an embedded FreeJ2ME runtime on OpenJDK Mobile.
+Run classic J2ME games natively on iOS using an embedded OpenJDK Mobile runtime and FreeJ2ME.
 
-## Status
+<p align="center">
+  <img src="docs/images/brand/logo.svg" alt="JavaOne" width="120" />
+</p>
 
-| Item | Value |
-|------|-------|
-| Current version | **1.0** (development / pre-App Store) |
-| Platform | iOS (device + simulator tooling) |
-| Runtime path | SwiftUI → Bridge → RuntimeHost → PlatformBootstrap → JNIGateway → Embedded OpenJDK Mobile → FreeJ2ME → MIDlet |
-| Documentation site | [GitHub Pages](https://javaonelabs.github.io/JavaOne/) (MkDocs Material) |
+<p align="center">
+  <a href="https://flakito-loko.github.io/JavaOne/"><img src="https://img.shields.io/badge/status-Alpha-orange?style=for-the-badge" alt="Alpha" /></a>
+  <a href="https://github.com/flakito-loko/JavaOne/releases"><img src="https://img.shields.io/badge/version-1.0.0--dev-blue?style=for-the-badge" alt="Version" /></a>
+  <a href="https://github.com/flakito-loko/JavaOne"><img src="https://img.shields.io/badge/license-See%20repo-lightgrey?style=for-the-badge" alt="License" /></a>
+  <a href="https://github.com/flakito-loko/JavaOne/actions/workflows/docs.yml"><img src="https://img.shields.io/github/actions/workflow/status/flakito-loko/JavaOne/docs.yml?branch=main&style=for-the-badge&label=Docs" alt="Docs CI" /></a>
+</p>
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Swift-6-F05138?logo=swift&logoColor=white" alt="Swift" />
+  <img src="https://img.shields.io/badge/iOS-Device-000000?logo=apple&logoColor=white" alt="iOS" />
+  <img src="https://img.shields.io/badge/OpenJDK-Mobile-007396?logo=openjdk&logoColor=white" alt="OpenJDK" />
+  <img src="https://img.shields.io/badge/FreeJ2ME-Embedded-2EA44F" alt="FreeJ2ME" />
+  <img src="https://img.shields.io/badge/GitHub%20Pages-Live-222?logo=github" alt="Pages" />
+  <a href="https://flakito-loko.github.io/JavaOne/"><img src="https://img.shields.io/badge/Documentation-Online-0A84FF" alt="Documentation" /></a>
+</p>
+
+---
+
+## Hero
+
+| | |
+|:--|:--|
+| **JavaOne** | Embedded Java ME on iPhone — SwiftUI shell, in-process OpenJDK Mobile, FreeJ2ME MIDlets. |
+| **Tagline** | Classic phones. Modern Apple devices. One embedded JVM. |
+
+**Quick links**
+
+- 📖 [Documentation](https://flakito-loko.github.io/JavaOne/)
+- 🎮 [Compatibility](https://flakito-loko.github.io/JavaOne/compatibility/)
+- 🏗 [Architecture](https://flakito-loko.github.io/JavaOne/architecture/)
+- 🗺 [Roadmap](https://flakito-loko.github.io/JavaOne/roadmap/)
+- 📥 [Source Code](https://github.com/flakito-loko/JavaOne)
+
+---
 
 ## Features
 
-- Game library with SwiftData persistence
-- JAR import pipeline (manifest, hash, duplicate detection, artwork)
-- Emulator bridge isolating UI from FreeJ2ME
-- Embedded OpenJDK Mobile (Zero) + FreeJ2ME on device
-- Virtual keypad + touch mapping
-- Sandboxed MIDP RMS under `Documents/JavaOne/Saves/`
+- ✅ Embedded OpenJDK Mobile
+- ✅ FreeJ2ME runtime
+- ✅ Native SwiftUI frontend
+- ✅ LCD rendering
+- ✅ Touch
+- ✅ Virtual keypad
+- ✅ Persistent JVM
+- ✅ RMS support
+- ✅ Commercial MIDlets
+
+---
+
+## Screenshots
+
+Placeholders until device captures land (`docs/images/screenshots/`):
+
+| Main Menu | Library | Emulator |
+|:---------:|:-------:|:--------:|
+| ![Main Menu](docs/images/screenshots/main-menu.svg) | ![Library](docs/images/screenshots/library.svg) | ![Tetris](docs/images/screenshots/tetris.svg) |
+
+More: Astroids · Alea · Gryzzles · Settings — same folder, drop-in PNG/WebP replacements.
+
+---
+
+## Animated captures
+
+GIF slots (placeholders only — no fake footage):
+
+| Gameplay | Launch | Library | Touch |
+|:--------:|:------:|:-------:|:-----:|
+| ![Gameplay](docs/images/gifs/gameplay-placeholder.svg) | ![Launch](docs/images/gifs/launch-placeholder.svg) | ![Library](docs/images/gifs/library-placeholder.svg) | ![Touch](docs/images/gifs/touch-controls-placeholder.svg) |
+
+---
+
+## Runtime stack
+
+```text
+SwiftUI → EmulatorView → Bridge → RuntimeHost → PlatformBootstrap
+       → JNIGateway → Embedded OpenJDK Mobile → FreeJ2ME → MIDlet
+```
+
+---
 
 ## Documentation
 
-| Doc | Description |
-|-----|-------------|
-| [Getting Started](docs/getting-started.md) | Install and run a MIDlet |
-| [Building](docs/building.md) | Build the app and embedded runtime |
-| [Architecture](docs/architecture.md) | Layer diagram and design rules |
-| [Compatibility](docs/compatibility.md) | Device-validated MIDlet matrix |
-| [Roadmap](docs/roadmap.md) | Epics and milestones |
-| [FAQ](docs/faq.md) | Common questions |
-| [Technical Reports](docs/technical-reports.md) | Engineering reports index |
-| [CONTRIBUTING](CONTRIBUTING.md) | How to contribute |
-| [SECURITY](SECURITY.md) | Vulnerability reporting |
-| [CODE_OF_CONDUCT](CODE_OF_CONDUCT.md) | Community standards |
-| [CHANGELOG](CHANGELOG.md) | Release history |
-| [ROADMAP](ROADMAP.md) | Product roadmap (repo root) |
+| Guide | Description |
+|-------|-------------|
+| [Getting Started](https://flakito-loko.github.io/JavaOne/getting-started/) | Install and launch a MIDlet |
+| [Why JavaOne?](https://flakito-loko.github.io/JavaOne/why-javaone/) | Vision and technical rationale |
+| [Architecture](https://flakito-loko.github.io/JavaOne/architecture/) | Layer ownership |
+| [Compatibility](https://flakito-loko.github.io/JavaOne/compatibility/) | Device-validated matrix |
+| [Milestones](https://flakito-loko.github.io/JavaOne/milestones/) | Engineering timeline |
+| [Roadmap](https://flakito-loko.github.io/JavaOne/roadmap/) | Epics and progress |
+| [Performance](https://flakito-loko.github.io/JavaOne/performance/) | Benchmark placeholders |
+| [FAQ](https://flakito-loko.github.io/JavaOne/faq/) | Common questions |
 
-Machine-readable compatibility data lives in [`compatibility/`](compatibility/).
-
-## Quick start (developers)
+Local preview:
 
 ```bash
-# Open the Xcode project
-open JavaOne.xcodeproj
-
-# Preview documentation locally
 python3 -m venv .venv-docs
 source .venv-docs/bin/activate
 pip install -r requirements-docs.txt
 mkdocs serve
 ```
 
-See [Building](docs/building.md) for OpenJDK Mobile and FreeJ2ME classpath steps.
+---
 
-## Architecture at a glance
+## Status
 
-```text
-SwiftUI
-  → Bridge
-    → RuntimeHost
-      → PlatformBootstrap
-        → JNIGateway
-          → Embedded OpenJDK Mobile
-            → FreeJ2ME
-              → MIDlet
-```
+🚧 **Alpha** — runs commercial MIDlets on physical iPhone; public corpus and packaging still expanding.
 
-FreeJ2ME is integrated through a bridge layer with as few upstream modifications as possible.
+Current version: **1.0.0-dev** · Current epic focus: **Epic 12 — Compatibility Program**
+
+---
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md), [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md), and [SECURITY.md](SECURITY.md).
+
+---
 
 ## License
 
-Application code: see repository license terms when published.  
-Vendor FreeJ2ME: **GPL-3.0** (see `Vendor/FreeJ2ME`).  
-Compatibility corpus JARs are third-party fixtures used for validation only.
+Application licensing: see repository terms when published.  
+Vendor FreeJ2ME: **GPL-3.0** (`Vendor/FreeJ2ME`).  
+Compatibility JARs are third-party fixtures for validation only.
 
-## Disclaimer
+---
 
-JavaOne is under active development. Compatibility results describe specific devices, iOS builds, and validation dates — not a guarantee for every JAR.
+<p align="center">
+  <a href="https://github.com/flakito-loko/JavaOne">GitHub</a> ·
+  <a href="https://flakito-loko.github.io/JavaOne/">Documentation</a> ·
+  <a href="https://flakito-loko.github.io/JavaOne/roadmap/">Roadmap</a> ·
+  <a href="https://flakito-loko.github.io/JavaOne/compatibility/">Compatibility</a>
+</p>
+
+<p align="center">Copyright © JavaOne contributors</p>

@@ -1,0 +1,75 @@
+
+:root {
+  --javaone-accent: #0A84FF;
+}
+
+.javaone-hero {
+  text-align: center;
+  padding: 1.5rem 0 0.5rem;
+}
+
+.javaone-hero__logo {
+  margin: 0 0 0.75rem;
+}
+
+.javaone-hero__tagline {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: -0.5rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.javaone-hero__lead {
+  max-width: 40rem;
+  margin: 0.75rem auto 1.25rem;
+  font-size: 1.05rem;
+}
+
+.javaone-hero__badges img {
+  margin: 0.15rem;
+}
+
+.javaone-hero__actions {
+  margin: 1.25rem 0 0.5rem;
+}
+
+.javaone-shots {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.75rem;
+}
+
+.javaone-shots img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid var(--md-default-fg-color--lightest);
+}
+
+.javaone-footer-note {
+  text-align: center;
+  opacity: 0.85;
+  margin-top: 2rem;
+}
+
+progress {
+  width: 12rem;
+  height: 0.65rem;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+}
+
+/* Card grid fallback if not using Material grids plugin extras */
+.grid.cards > ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.75rem;
+  list-style: none;
+  padding: 0;
+}
+
+.grid.cards > ul > li {
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 0.5rem;
+  padding: 0.9rem 1rem;
+}

@@ -1,51 +1,76 @@
 # Changelog
 
-All notable changes to JavaOne are documented in this file.
-
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html) where practical for pre-release tags.
+All notable changes to JavaOne, organized by epic.
 
 ## [Unreleased]
 
-### Added
+### Documentation
 
-- Public documentation website (MkDocs Material) — **DOCS-US001**
-- Compatibility corpus data (`compatibility/compatibility.json`, `.csv`) from E11 device validation
-- GitHub Pages deployment workflow
+- Public documentation and website polish (DOCS-US002)
+- Why JavaOne, milestones, performance, compatibility statistics
+- Screenshot and GIF placeholder layout
+- MkDocs Material branding for `flakito-loko/JavaOne`
 
-### Fixed
+## Epic 12 — Compatibility Program (in progress)
 
-- PlatformBootstrap relaunch lifecycle (`invalidState(ready)`) — E11-US002
-- Sandboxed MIDP RMS `dataPath` for Gryzzles / Ubertris — E11-US003
+- Corpus expansion beyond canary titles
+- Public compatibility.json / CSV as source of truth
+- Statistics charts generated from validation data
 
-## [1.0.0-dev] — 2026-08-06
+## Epic 11 — Device Gameplay, Lifecycle & RMS
 
-Development baseline after embedded runtime bring-up and device gameplay validation.
+- E11-US001 continuous gameplay validation on physical iPhone
+- E11-US002 PlatformBootstrap relaunch recovery
+- E11-US003 sandboxed RMS `dataPath` (Gryzzles / Ubertris)
 
-### Added
+## Epic 10 — Font, ImageIO & RunJar Hardening
 
-- Game library (SwiftData) — Epic 1
-- Import Engine (manifest, hash, duplicates, artwork) — Epic 2
-- Emulator Bridge, RuntimeHost, FreeJ2ME bootstrap through MIDlet startup — Epic 3
-- Emulator surface / renderer path — Epic 4
-- Persistent runtime design and migration — Epic 5
-- Embedded OpenJDK Mobile + FreeJ2ME on iOS — Epic 6
-- OpenJDK `java.home` / JNI create path — Epic 7
-- JNI Gateway throwable handling — Epic 8
-- Embedded AWT runtime for LCD frames — Epic 9
-- Font / ImageIO / RunJar hardening — Epic 10
-- Device gameplay validation, relaunch lifecycle, RMS compatibility — Epic 11
+- FontManager / fontconfig bring-up
+- ImageIO sandbox paths
+- JPEG decode path
+- RunJar failure diagnostics
 
-### Validation tags
+## Epic 9 — Embedded AWT Runtime
 
-| Tag | Meaning |
-|-----|---------|
-| `v0.2-import-engine` | Epic 2 complete |
-| `v0.6-midlet-startup` | Epic 3 FreeJ2ME bootstrap through MIDlet startup |
+- Enough `java.awt.image` / graphics natives for FreeJ2ME LCD buffers
+- First LCD frame path on iOS
 
-## Legend
+## Epic 8 — JNI Gateway Throwable Path
 
-- **Added** for new capabilities
-- **Changed** for behavior changes
-- **Fixed** for bug fixes
-- **Removed** for removals
+- Safe Java throwable propagation through JNIGateway
+
+## Epic 7 — OpenJDK Java Home / JNI Bring-up
+
+- Correct `java.home` / boot classpath
+- Successful `JNI_CreateJavaVM` on device
+
+## Epic 6 — Embedded OpenJDK Mobile + FreeJ2ME
+
+- Replace native JVM stubs
+- Embedded FreeJ2ME classpath
+- Real MIDlet smoke, stability, exit containment, painter safety
+
+## Epic 5 — Persistent Runtime
+
+- Persistent JVM / session design and migration notes
+
+## Epic 4 — Renderer / Emulator Surface
+
+- LCD surface metadata and SwiftUI frame presentation
+
+## Epic 3 — Emulator Bridge & FreeJ2ME Host
+
+- Bridge protocols, RuntimeHost, vendor FreeJ2ME submodule
+- Bootstrap through MIDlet startup (`v0.6-midlet-startup`)
+
+## Epic 2 — Import Engine
+
+- Manifest → Hash → DuplicateDetection → Artwork (`v0.2-import-engine`)
+
+## Epic 1 — Game Library
+
+- SwiftData library and empty-state UX
+
+## Documentation site (DOCS-US001)
+
+- Initial MkDocs Material site and GitHub Pages workflow

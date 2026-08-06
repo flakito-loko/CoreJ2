@@ -1,6 +1,6 @@
 # Technical Reports
 
-Engineering reports and architecture notes kept in-tree. These are denser than the public guides.
+Engineering reports kept in-tree. Denser than the public guides.
 
 ## Product / bridge docs
 
@@ -35,9 +35,17 @@ Engineering reports and architecture notes kept in-tree. These are denser than t
 - [PHASE1_5_OPENJDK_MOBILE_SPIKE.md](Architecture/PHASE1_5_OPENJDK_MOBILE_SPIKE.md)
 - [PHASE1_EMBEDDED_JVM_SPIKE.md](Architecture/PHASE1_EMBEDDED_JVM_SPIKE.md)
 
+## Public product docs
+
+- [Why JavaOne?](why-javaone.md)
+- [Milestones](milestones.md)
+- [Architecture](architecture.md)
+- [Compatibility](compatibility.md)
+- [Performance](performance.md)
+
 ## Validation artifacts
 
-Device validation write-ups also live under `artifacts/` (not all published to Pages):
+Device write-ups under `artifacts/` (not all mirrored to Pages):
 
 - `artifacts/e11-us001-gameplay-validation/REPORT.md`
 - `artifacts/e11-us002-relaunch-lifecycle/REPORT.md`

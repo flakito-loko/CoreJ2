@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "project": "JavaOne",
   "generated_from": [
     "artifacts/e11-us001-gameplay-validation/REPORT.md",
@@ -15,16 +15,29 @@
     "runtime": "Production app + embedded OpenJDK Mobile + FreeJ2ME"
   },
   "status_legend": {
+    "Perfect": "Launch, continuous frames, input, RMS/audio as applicable \u2014 no known issues",
     "Playable": "Launches and sustains interactive gameplay on device",
     "Partial": "Launches with significant limitations",
-    "Broken": "Fails to launch or unusable",
+    "Launch only": "First frame / startApp OK but not sustainably playable",
+    "Not working": "Fails to launch or unusable",
     "Untested": "Not measured in the referenced validation runs"
+  },
+  "status_emoji": {
+    "Perfect": "\ud83d\udfe2",
+    "Playable": "\ud83d\udfe2",
+    "Partial": "\ud83d\udfe1",
+    "Launch only": "\ud83d\udfe0",
+    "Not working": "\ud83d\udd34",
+    "Untested": "\u26aa"
   },
   "games": [
     {
       "id": "Alea",
       "title": "Alea",
       "jar": "Alea.jar",
+      "vendor": "ro.plesoianu",
+      "midp": "MIDP 2.0",
+      "genre": "Puzzle / Dice",
       "status": "Playable",
       "fps": 0.0,
       "rms": "N/A",
@@ -39,12 +52,16 @@
       ],
       "ttff_seconds": 3.3,
       "session_seconds": 301,
-      "frame_continuity": "stalled_after_first_paint"
+      "frame_continuity": "stalled_after_first_paint",
+      "launch_success": true
     },
     {
       "id": "Astroids",
       "title": "Astroids",
       "jar": "astroids.jar",
+      "vendor": "astroids",
+      "midp": "MIDP 2.0",
+      "genre": "Arcade / Shooter",
       "status": "Playable",
       "fps": 13.65,
       "rms": "N/A",
@@ -59,12 +76,16 @@
       ],
       "ttff_seconds": 1.0,
       "session_seconds": 300,
-      "frame_continuity": "ok"
+      "frame_continuity": "ok",
+      "launch_success": true
     },
     {
       "id": "Tetris",
       "title": "Tetris",
       "jar": "tetris.jar",
+      "vendor": "game.Tetris (fixture)",
+      "midp": "MIDP 2.0",
+      "genre": "Puzzle",
       "status": "Playable",
       "fps": 4.01,
       "rms": "N/A",
@@ -79,12 +100,16 @@
       ],
       "ttff_seconds": 1.0,
       "session_seconds": 301,
-      "frame_continuity": "ok"
+      "frame_continuity": "ok",
+      "launch_success": true
     },
     {
       "id": "Gryzzles",
       "title": "Gryzzles",
       "jar": "gryzzles.jar",
+      "vendor": "game.Gryzzles",
+      "midp": "MIDP 2.0",
+      "genre": "Puzzle",
       "status": "Playable",
       "fps": null,
       "rms": "Pass",
@@ -98,12 +123,16 @@
       ],
       "ttff_seconds": null,
       "session_seconds": null,
-      "frame_continuity": "validated_after_rms_fix"
+      "frame_continuity": "validated_after_rms_fix",
+      "launch_success": true
     },
     {
       "id": "Ubertris",
       "title": "Ubertris",
       "jar": "Ubertris.jar",
+      "vendor": "ubertris",
+      "midp": "MIDP 2.0",
+      "genre": "Puzzle",
       "status": "Playable",
       "fps": 11.84,
       "rms": "Pass",
@@ -118,7 +147,8 @@
       ],
       "ttff_seconds": 1.0,
       "session_seconds": 302,
-      "frame_continuity": "ok"
+      "frame_continuity": "ok",
+      "launch_success": true
     }
   ]
 }

@@ -1,66 +1,79 @@
 # Roadmap
 
-Mirror of the repository [ROADMAP.md](https://github.com/javaonelabs/JavaOne/blob/main/ROADMAP.md).
-
 ## Current version
 
-**1.0.0-dev** — real MIDlets on device via embedded OpenJDK Mobile + FreeJ2ME.
+**1.0.0-dev** · 🚧 Alpha
 
-## Next milestones
+## Current epic
 
-1. Compatibility sweep (Epic 12+) and public matrix expansion
-2. Audio / MMAPI validation
-3. Alea frame-continuity (P2)
-4. App Store packaging & legal review
-5. UX polish and shipping screenshots
+**Epic 12 — Compatibility Program** — expand corpus, keep `compatibility.json` authoritative, publish stats.
 
-## Completed Epics
+## Progress
+
+| Track | Progress |
+|-------|----------|
+| Epic 1 · Game Library | <progress value="100" max="100"></progress> 100% |
+| Epic 2 · Import Engine | <progress value="100" max="100"></progress> 100% |
+| Epic 3 · Bridge & Host | <progress value="100" max="100"></progress> 100% |
+| Epic 4 · Renderer | <progress value="100" max="100"></progress> 100% |
+| Epic 5 · Persistent Runtime | <progress value="100" max="100"></progress> 100% |
+| Epic 6 · Embedded FreeJ2ME | <progress value="100" max="100"></progress> 100% |
+| Epic 7 · JNI / java.home | <progress value="100" max="100"></progress> 100% |
+| Epic 8 · Gateway throwables | <progress value="100" max="100"></progress> 100% |
+| Epic 9 · Embedded AWT | <progress value="100" max="100"></progress> 100% |
+| Epic 10 · Font / ImageIO | <progress value="100" max="100"></progress> 100% |
+| Epic 11 · Gameplay / RMS | <progress value="100" max="100"></progress> 100% |
+| Epic 12 · Compatibility | <progress value="20" max="100"></progress> 20% |
+| Audio / MMAPI | <progress value="0" max="100"></progress> 0% |
+| Distribution packaging | <progress value="0" max="100"></progress> 0% |
+
+## Completed epics
 
 ### Epic 1 — Game Library
-SwiftData-backed library and empty-state UX.
+SwiftData-backed library UX.
 
 ### Epic 2 — Import Engine
-Manifest, SHA-256, duplicate detection, artwork extraction pipeline.
+Manifest, hash, duplicates, artwork.
 
 ### Epic 3 — Emulator Bridge & FreeJ2ME Host
-Bridge protocols, RuntimeHost, vendor submodule, MIDlet startup path.
+Bridge, RuntimeHost, vendor submodule, MIDlet startup.
 
 ### Epic 4 — Renderer / Emulator Surface
-LCD frames into the SwiftUI emulator surface.
+LCD frames into SwiftUI.
 
 ### Epic 5 — Persistent Runtime
-Long-lived runtime design and migration notes.
+Long-lived JVM design.
 
 ### Epic 6 — Embedded OpenJDK Mobile + FreeJ2ME
-In-process Zero JVM, FreeJ2ME classpath, smoke and stability.
+In-process Zero + FreeJ2ME classpath.
 
 ### Epic 7 — OpenJDK Java Home / JNI Bring-up
-Device-capable `JNI_CreateJavaVM` with correct `java.home`.
+Device `JNI_CreateJavaVM`.
 
 ### Epic 8 — JNI Gateway Throwable Path
-Safe throwable propagation through JNI.
+Safe exception propagation.
 
 ### Epic 9 — Embedded AWT Runtime
-Graphics stack sufficient for FreeJ2ME LCD buffers.
+Graphics natives for LCD.
 
 ### Epic 10 — Font, ImageIO & RunJar Hardening
-Fonts, image decoders, and RunJar diagnostics.
+Fonts, codecs, RunJar diagnostics.
 
 ### Epic 11 — Device Gameplay, Lifecycle & RMS
-5-minute corpus validation; relaunch recovery; sandbox RMS.
+5-minute corpus; relaunch recovery; sandbox RMS.
 
-## Epic board
+## Upcoming epics
 
-| Epic | Title | Status |
-|------|-------|--------|
-| 1 | Game Library | Completed |
-| 2 | Import Engine | Completed |
-| 3 | Emulator Bridge & FreeJ2ME Host | Completed |
-| 4 | Renderer / Emulator Surface | Completed |
-| 5 | Persistent Runtime | Completed |
-| 6 | Embedded OpenJDK Mobile + FreeJ2ME | Completed |
-| 7 | OpenJDK Java Home / JNI Bring-up | Completed |
-| 8 | JNI Gateway Throwable Path | Completed |
-| 9 | Embedded AWT Runtime | Completed |
-| 10 | Font, ImageIO & RunJar Hardening | Completed |
-| 11 | Device Gameplay, Lifecycle & RMS | Completed |
+1. **Epic 12** — Compatibility Program (current)
+2. Audio / MMAPI validation epic
+3. Frame-continuity / painter polish
+4. Packaging & legal review
+
+## Long-term goals
+
+- Broad commercial title coverage
+- First-party HIG polish and shipping screenshots
+- Minimal FreeJ2ME upstream drift
+- Sustainable public compatibility database
+
+Repo mirror: [https://github.com/flakito-loko/JavaOne/blob/main/ROADMAP.md](https://github.com/flakito-loko/JavaOne/blob/main/ROADMAP.md)
