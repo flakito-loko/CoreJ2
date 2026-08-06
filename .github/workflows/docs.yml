@@ -67,3 +67,6 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          # Large media (videos/GIFs) can keep the Pages deployment queued >10m.
+          timeout: 1800000
