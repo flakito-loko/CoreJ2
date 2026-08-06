@@ -1,14 +1,16 @@
-# Why JavaOne?
+# Why CoreJ2?
 
 Technical rationale for the project — factual, not marketing copy.
 
+> Originally developed as **JavaOne**. The public brand is now **CoreJ2**; internal Xcode targets, package paths, and sandbox directories may still use the historical name.
+
 ## Project origin
 
-JavaOne started as a native iOS app for managing and launching Java ME (J2ME) MIDlets. Early epics delivered a SwiftData library and import pipeline. The hard problem was always the runtime: running FreeJ2ME on iPhone without a jailbreak and without shipping a desktop-style external JVM process.
+CoreJ2 started as a native iOS app for managing and launching Java ME (J2ME) MIDlets. Early epics delivered a SwiftData library and import pipeline. The hard problem was always the runtime: running FreeJ2ME on iPhone without a jailbreak and without shipping a desktop-style external JVM process.
 
 ## Current validated state
 
-JavaOne now runs commercial Java ME titles on a **physical iPhone** using an **embedded OpenJDK Mobile** runtime and **FreeJ2ME**, with a **SwiftUI** frontend.
+CoreJ2 now runs commercial Java ME titles on a **physical iPhone** using an **embedded OpenJDK Mobile** runtime and **FreeJ2ME**, with a **SwiftUI** frontend.
 
 Reference title: **Miami Nights: Singles in the City** — launch, menus, gameplay, save/load, and dialogs validated in a manual play session without crashes. Native MMAPI audio playback remains in progress (silent-audio compatibility path works).
 
@@ -26,7 +28,7 @@ iOS does not allow arbitrary JIT processes with the flexibility of desktop. Open
 
 ## Why FreeJ2ME
 
-FreeJ2ME already implements MIDP/CLDC APIs, LCD painting, and MIDlet lifecycle. Reimplementing that stack would dwarf the product. JavaOne vendors FreeJ2ME and talks to it through a Runtime Host + JNI bridge instead of forking aggressively.
+FreeJ2ME already implements MIDP/CLDC APIs, LCD painting, and MIDlet lifecycle. Reimplementing that stack would dwarf the product. CoreJ2 vendors FreeJ2ME and talks to it through a Runtime Host + JNI bridge instead of forking aggressively.
 
 ## Why SwiftUI
 

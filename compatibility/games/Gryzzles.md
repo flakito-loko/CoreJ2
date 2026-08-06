@@ -21,7 +21,7 @@ Puzzle MIDlet that exercises MIDP RecordStore during `startApp`.
 ### E11-US003 — Fixed
 Root cause: FreeJ2ME built RMS paths as `./rms/<suitename>` relative to a non-writable iOS CWD when `dataPath` was empty.
 
-JavaOne now configures sandbox `dataPath` under `Documents/JavaOne/Saves/<gameUUID>/` before `loadJar`/`runJar`.
+CoreJ2 now configures sandbox `dataPath` under `Documents/JavaOne/Saves/<gameUUID>/` before `loadJar`/`runJar`.
 
 Results:
 - Launch success

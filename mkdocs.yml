@@ -1,21 +1,22 @@
-site_name: JavaOne
-site_description: Run classic Java ME (J2ME) games natively on iPhone and iPad
-site_author: JavaOne
-site_url: https://flakito-loko.github.io/JavaOne/
+site_name: CoreJ2
+site_description: Run classic Java ME (J2ME) games natively on iPhone & iPad
+site_author: CoreJ2
+site_url: https://flakito-loko.github.io/CoreJ2/
 
-repo_name: flakito-loko/JavaOne
-repo_url: https://github.com/flakito-loko/JavaOne
+repo_name: flakito-loko/CoreJ2
+repo_url: https://github.com/flakito-loko/CoreJ2
 edit_uri: edit/main/docs/
 
 copyright: >
-  Copyright &copy; JavaOne contributors ·
-  <a href="https://github.com/flakito-loko/JavaOne">GitHub</a> ·
-  <a href="https://flakito-loko.github.io/JavaOne/">Documentation</a> ·
-  <a href="https://flakito-loko.github.io/JavaOne/roadmap/">Roadmap</a> ·
-  <a href="https://flakito-loko.github.io/JavaOne/compatibility/">Compatibility</a>
+  Copyright &copy; CoreJ2 contributors ·
+  <a href="https://github.com/flakito-loko/CoreJ2">GitHub</a> ·
+  <a href="https://flakito-loko.github.io/CoreJ2/">Documentation</a> ·
+  <a href="https://flakito-loko.github.io/CoreJ2/roadmap/">Roadmap</a> ·
+  <a href="https://flakito-loko.github.io/CoreJ2/compatibility/">Compatibility</a>
 
 theme:
   name: material
+  custom_dir: docs/overrides
   font:
     text: Inter
     code: Roboto Mono
@@ -103,21 +104,21 @@ extra_css:
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/flakito-loko/JavaOne
+      link: https://github.com/flakito-loko/CoreJ2
       name: GitHub
     - icon: fontawesome/solid/book
-      link: https://flakito-loko.github.io/JavaOne/
+      link: https://flakito-loko.github.io/CoreJ2/
       name: Documentation
     - icon: fontawesome/solid/gamepad
-      link: https://flakito-loko.github.io/JavaOne/compatibility/
+      link: https://flakito-loko.github.io/CoreJ2/compatibility/
       name: Compatibility
     - icon: fontawesome/solid/map
-      link: https://flakito-loko.github.io/JavaOne/roadmap/
+      link: https://flakito-loko.github.io/CoreJ2/roadmap/
       name: Roadmap
 
 nav:
   - Home: index.md
-  - Why JavaOne?: why-javaone.md
+  - Why CoreJ2?: why-corej2.md
   - Getting Started: getting-started.md
   - Building: building.md
   - Compatibility:

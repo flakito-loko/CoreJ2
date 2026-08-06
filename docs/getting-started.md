@@ -4,11 +4,11 @@
 
 - iPhone or iPad (device validation targets recent iOS)
 - A Java ME `.jar` you are legally allowed to run
-- A development build of JavaOne (App Store release pending)
+- A development build of CoreJ2 (App Store release pending)
 
 ## Install a game
 
-1. Open JavaOne.
+1. Open CoreJ2.
 2. Use the library import flow to select a `.jar`.
 3. The Import Engine reads the manifest, computes a content hash, rejects duplicates, and extracts artwork when present.
 4. The title appears in your library.
@@ -28,7 +28,7 @@ MIDP RecordStore data is written under:
 Documents/JavaOne/Saves/<game-uuid>/rms/...
 ```
 
-Do not rely on relative `./rms/` paths from desktop FreeJ2ME docs — JavaOne configures a sandbox `dataPath` per game.
+Do not rely on relative `./rms/` paths from desktop FreeJ2ME docs — CoreJ2 configures a sandbox `dataPath` per game.
 
 ## Tips
 

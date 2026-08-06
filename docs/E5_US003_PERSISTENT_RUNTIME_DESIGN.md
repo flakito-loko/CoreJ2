@@ -34,7 +34,7 @@ On iOS, every bootstrap hook throws `EmulatorBridgeError.runtimeUnavailable` bef
 |------|----------------|
 | **Swift adapter** | `FreeJ2MERuntimeAdapter.start` runs Contract C **sequentially**: `initializeRuntime` (no-op) → `createMobilePlatform` → `registerPainter` → `loadJar` → `runJar`. |
 | **Process** | Each of those four hooks calls `runHostJVMBootstrap`, which creates a **new** `Foundation.Process`, runs `bin/java`, and **`waitUntilExit()` on `@MainActor`**. |
-| **JVM** | HotSpot (host JDK) with `-Djava.awt.headless=true` and `-Djava.security.manager=allow`. Classpath = compiled FreeJ2ME + JavaOne-owned `MobilePlatformBootstrap`. |
+| **JVM** | HotSpot (host JDK) with `-Djava.awt.headless=true` and `-Djava.security.manager=allow`. Classpath = compiled FreeJ2ME + CoreJ2-owned `MobilePlatformBootstrap`. |
 | **Bootstrap** | `MobilePlatformBootstrap.main` constructs `MobilePlatform`, binds `Mobile.setPlatform`, optionally installs painter / loads JAR / calls `runJar()`, prints structured stdout (`OK`, `FRAME`, `LOAD_JAR_OK`, `RUN_JAR_OK`, …), then **exits**. |
 | **Exit** | Process terminates. All Java heap state (`MobilePlatform`, `MIDletLoader`, active MIDlet, painter closure, LCD `BufferedImage`) is destroyed. |
 
@@ -104,7 +104,7 @@ Destroy runtime (optional: tear down JVM if session-scoped)
 
 ### 2.3 Process topology options (feasibility)
 
-These are **design choices**, not implementations. FreeJ2ME Vendor stays unmodified; JavaOne-owned façade may grow.
+These are **design choices**, not implementations. FreeJ2ME Vendor stays unmodified; CoreJ2-owned façade may grow.
 
 | Option | Description | Fits iOS? | Fits “one platform instance”? |
 |--------|-------------|-----------|-------------------------------|
@@ -134,7 +134,7 @@ Public protocols and Adapter method signatures stay fixed. Changes are **behind*
 | Component | Change needed | Responsibility after change | Complexity | Risk |
 |-----------|---------------|-----------------------------|------------|------|
 | **`ProcessFreeJ2MEMobilePlatformBootstrap`** (or successor conforming to `FreeJ2MEMobilePlatformBootstrapping`) | Stop spawning one JVM per hook; hold session process / channel; stream frames; map stop. | Sole executor of Contract C against a **live** Java side | **High** | Process I/O races; MainActor blocking; incomplete teardown |
-| **`MobilePlatformBootstrap.java` (JavaOne-owned)** | Evolve from one-shot `main` to a **command loop** (or daemon mode): create once, accept load/run/pause/stop, stream FRAME, exit only on destroy | Keep FreeJ2ME untouched; own embed façade | **High** | Protocol design; `System.exit` from MIDlets; thread model |
+| **`MobilePlatformBootstrap.java` (CoreJ2-owned)** | Evolve from one-shot `main` to a **command loop** (or daemon mode): create once, accept load/run/pause/stop, stream FRAME, exit only on destroy | Keep FreeJ2ME untouched; own embed façade | **High** | Protocol design; `System.exit` from MIDlets; thread model |
 | **`FreeJ2MERuntimeAdapter` (implementation only)** | Keep `start`/`pause`/`resume`/`stop` signatures; make flags reflect **real** live state; implement pause/resume/stop against bootstrap; avoid treating multi-process probes as truth | FreeJ2ME contact + Contract C orchestration | **Medium** | State machine bugs if bootstrap lies |
 | **`FreeJ2MERuntimeHost` (implementation only)** | Possibly hop frame yields off MainActor; ensure `.stopped` after destroy; document frame-before-started | Event publication + lifecycle events | **Low–Medium** | Dropped events under `bufferingNewest(64)` |
 | **`RuntimeEventPipe`** | Consider finish-on-stop + new pipe per session, or reset policy; optional dedicated frame channel | Backpressure / session isolation | **Medium** | Breaking tests that assume singleton stream |
@@ -251,7 +251,7 @@ Retain current rule: **copy** out of FreeJ2ME/`BufferedImage` into independent `
 | **Java Sound** | `javax.sound.sampled` / MIDI backends assumed by FreeJ2ME audio. Needs replacement or stub for iOS; not required for “persistent LCD + input” MVP but blocks “playable”. |
 | **ASM / `defineClass`** | MIDlet loading uses bytecode rewriting. Runtime must allow dynamic class definition. |
 | **App Store restrictions** | Interpreted code download policies, GPL-3 compliance/distribution, JIT restrictions, large native runtimes, private API risk of exotic JVMs. Legal + technical gate. |
-| **No clean embed teardown API in FreeJ2ME** | Upstream is desktop/libretro-oriented; multi-session embed is not a first-class API. Persistence must be designed in JavaOne’s façade without editing Vendor initially — may later force an allowlisted fork for `destroyApp` / exit traps. |
+| **No clean embed teardown API in FreeJ2ME** | Upstream is desktop/libretro-oriented; multi-session embed is not a first-class API. Persistence must be designed in CoreJ2’s façade without editing Vendor initially — may later force an allowlisted fork for `destroyApp` / exit traps. |
 
 **Ordering:** Embedded JVM + AWT/`BufferedImage` feasibility **gates** iOS. Persistent Process on macOS **de-risks** session/frame/stop design independently.
 
@@ -265,7 +265,7 @@ Each step is independently testable. Difficulty: Low / Medium / High.
 |------|------|-------------|------------|
 | **M0 — Freeze seams** | Confirm Bridge / Host / Adapter public APIs remain the integration contract; document this spike as source of truth for persistence. | Review-only / existing unit tests green | **Low** |
 | **M1 — Persistent command protocol (design)** | Specify stdin/stdout or length-prefixed messages: `CREATE`, `PAINTER`, `LOAD`, `RUN`, `PAUSE`, `RESUME`, `STOP`, `FRAME`, errors. | Golden fixtures for parser | **Medium** |
-| **M2 — JavaOne bootstrap daemon mode (macOS)** | Extend `MobilePlatformBootstrap` with a long-running loop **without** modifying Vendor. One JVM; commands mutate one `MobilePlatform`. | Java unit / process integration: create→load→run→stop; assert same PID | **High** |
+| **M2 — CoreJ2 bootstrap daemon mode (macOS)** | Extend `MobilePlatformBootstrap` with a long-running loop **without** modifying Vendor. One JVM; commands mutate one `MobilePlatform`. | Java unit / process integration: create→load→run→stop; assert same PID | **High** |
 | **M3 — Swift persistent Process bootstrap** | New or evolved bootstrap conforming to `FreeJ2MEMobilePlatformBootstrapping`; Adapter DI swap on macOS tests. | Adapter tests against real persistent Process; flags survive across hooks | **High** |
 | **M4 — Streaming frames** | Parse continuous `FRAME` during RUN; call `onFrameCaptured` asynchronously; prove ViewModel LCD updates after `start` returns. | Integration: probe MIDlet paints N frames; VM `receivedFrameCount >= N` | **High** |
 | **M5 — MainActor unblocking** | Move Process I/O off MainActor; Host hop for yields. | UI responsiveness test / timeout tests under slow JVM | **Medium** |
@@ -283,7 +283,7 @@ Each step is independently testable. Difficulty: Low / Medium / High.
 ## 9. Design decisions locked by this spike
 
 1. **Persistence is mandatory** for a real `EmulatorSession`; ephemeral Process-per-hook cannot be the product model.
-2. **Public Bridge / Host / Adapter APIs do not need to change** to introduce persistence; the bootstrapping backend and JavaOne-owned Java façade do.
+2. **Public Bridge / Host / Adapter APIs do not need to change** to introduce persistence; the bootstrapping backend and CoreJ2-owned Java façade do.
 3. **Host vs Adapter split stays:** events in Host, FreeJ2ME contact in Adapter.
 4. **Frames remain copies**; painter may be asynchronous relative to `launch` returning.
 5. **macOS persistent Process** is the proving ground; **embedded JVM** is the iOS gate.

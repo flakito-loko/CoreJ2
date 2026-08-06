@@ -1,13 +1,30 @@
 # Changelog
 
-All notable changes to JavaOne, organized by epic.
+All notable changes to CoreJ2, organized by epic.
+
+## [Unreleased]
+
+### Branding
+
+- Rebrand public identity from JavaOne → **CoreJ2** (BRAND-US001)
+- Updated logos, banners, social preview, docs site, and app display name
+- Historical note: project was originally developed as JavaOne; internal Xcode targets and sandbox paths unchanged
+- Official CoreJ2 visual identity assets: isotype, logos, banner, social preview, splash, app icon concept
+- Brand guidelines and MkDocs/README integration (`assets/branding/`)
+
+### Documentation
+
+- Public documentation and website polish (DOCS-US002)
+- Why CoreJ2, milestones, performance, compatibility statistics
+- Screenshot and GIF placeholder layout
+- MkDocs Material branding for `flakito-loko/CoreJ2`
 
 ## [0.9.0-alpha] — 2026-08-06
 
 ### Documentation
 
 - Public project refresh (DOCS-US004): README, GitHub Pages, screenshots, GIFs, and gameplay videos
-- Position JavaOne as a device-validated commercial J2ME runner (Miami Nights reference title)
+- Position CoreJ2 as a device-validated commercial J2ME runner (Miami Nights reference title)
 - Status table, architecture stack, and roadmap split (completed / current / future)
 
 ### Media
@@ -15,20 +32,6 @@ All notable changes to JavaOne, organized by epic.
 - Device screenshots under `docs/assets/screenshots/`
 - Optimized gameplay GIFs under `docs/assets/gifs/`
 - Full MP4 recordings under `docs/assets/videos/`
-
-## [Unreleased]
-
-### Branding
-
-- Official JavaOne visual identity (BRAND-US001): isotype, logos, banner, social preview, splash, app icon concept
-- Brand guidelines and MkDocs/README integration (`assets/branding/`)
-
-### Documentation
-
-- Public documentation and website polish (DOCS-US002)
-- Why JavaOne, milestones, performance, compatibility statistics
-- Screenshot and GIF placeholder layout
-- MkDocs Material branding for `flakito-loko/JavaOne`
 
 ## Epic 12 — Compatibility Program (in progress)
 

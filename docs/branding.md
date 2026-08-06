@@ -1,10 +1,12 @@
 # Branding
 
-JavaOne visual identity — original mark (phone + LCD + diamond core + keypad). Not affiliated with Oracle Java branding.
+CoreJ2 visual identity — original mark (phone + LCD + diamond core + keypad). Not affiliated with Oracle Java branding.
+
+> Originally developed as **JavaOne**.
 
 ## Assets
 
-Canonical files: [`assets/branding/`](https://github.com/flakito-loko/JavaOne/tree/main/assets/branding)
+Canonical files: [`assets/branding/`](https://github.com/flakito-loko/CoreJ2/tree/main/assets/branding)
 
 | Asset | Preview |
 |-------|---------|
@@ -17,7 +19,7 @@ Canonical files: [`assets/branding/`](https://github.com/flakito-loko/JavaOne/tr
 
 ## Guidelines
 
-Full rules: [`branding-guidelines.md`](https://github.com/flakito-loko/JavaOne/blob/main/assets/branding/branding-guidelines.md)
+Full rules: [`branding-guidelines.md`](https://github.com/flakito-loko/CoreJ2/blob/main/assets/branding/branding-guidelines.md)
 
 ### Palette
 

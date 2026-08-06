@@ -1,12 +1,12 @@
 # FAQ
 
-## What is JavaOne?
+## What is CoreJ2?
 
 A native iOS application that runs Java ME (J2ME) MIDlets using an **embedded** FreeJ2ME runtime on OpenJDK Mobile, with a SwiftUI library and emulator UI.
 
 ## How does it differ from FreeJ2ME?
 
-FreeJ2ME is the Java ME engine. JavaOne is the iOS product: import/library, SwiftUI, bridge, PlatformBootstrap, JNI gateway, AWT/ImageIO bring-up, and sandbox RMS wiring.
+FreeJ2ME is the Java ME engine. CoreJ2 is the iOS product: import/library, SwiftUI, bridge, PlatformBootstrap, JNI gateway, AWT/ImageIO bring-up, and sandbox RMS wiring.
 
 ## Does it use an embedded JVM?
 
@@ -26,7 +26,7 @@ It provides a buildable OpenJDK path for mobile/Zero that can be statically link
 
 ## Why not the Android Runtime?
 
-JavaOne targets Apple platforms with a MIDP stack (FreeJ2ME), not Android APKs. ART would not provide MIDP APIs or match the FreeJ2ME integration strategy.
+CoreJ2 targets Apple platforms with a MIDP stack (FreeJ2ME), not Android APKs. ART would not provide MIDP APIs or match the FreeJ2ME integration strategy.
 
 ## Where are saves stored?
 

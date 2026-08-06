@@ -452,4 +452,4 @@ Cualquier PR que cree múltiples VM, destruya la VM al cambiar de juego, filtre 
 
 ---
 
-*Referencia oficial · EmbeddedJVMManager v1.0 · JavaOne*
+*Referencia oficial · EmbeddedJVMManager v1.0 · CoreJ2*

@@ -34,7 +34,7 @@ Dejar listo el entorno de ingeniería para construir y enlazar OpenJDK Mobile (u
 ## Prerrequisitos
 
 - Arquitectura oficial leída y aceptada por el equipo.
-- Acceso a macOS + Xcode alineado al proyecto JavaOne.
+- Acceso a macOS + Xcode alineado al proyecto CoreJ2.
 - Decisión de no alterar Bridge / Host / Adapter públicos.
 
 ## Entregables / trabajo
@@ -104,7 +104,7 @@ Crear una **JVM embebida en proceso iOS** y ejecutar únicamente un **Hello Worl
 
 - Área Runtime / bootstrap iOS de spike (aislado).
 - Posible target de prueba o flag de compilación **sin** DI de producción.
-- Clase Java hello (JavaOne-owned, no Vendor).
+- Clase Java hello (CoreJ2-owned, no Vendor).
 
 ## Riesgos
 
@@ -306,7 +306,7 @@ Puede incluir validación de existencia/legibilidad alineada a Bridge, y opciona
 
 ## Objetivo
 
-Ejecutar un **MIDlet mínimo** (p. ej. ProbeMIDlet / equivalente JavaOne-owned) hasta `startApp`.  
+Ejecutar un **MIDlet mínimo** (p. ej. ProbeMIDlet / equivalente CoreJ2-owned) hasta `startApp`.  
 **Sin** render UI. **Sin** audio. Frames pueden ignorarse.
 
 ## Prerrequisitos
@@ -779,4 +779,4 @@ La arquitectura oficial permanece en los tres documentos padre. Cualquier fase q
 
 ---
 
-*Implementation Roadmap v1.0 · JavaOne*
+*Implementation Roadmap v1.0 · CoreJ2*

@@ -11,7 +11,7 @@
 
 ## Objetivo de 0A
 
-Dejar el repositorio listo para construir **OpenJDK Mobile** de forma **repetible** en una máquina macOS de ingeniería / CI, sin integrar todavía la JVM en JavaOne.
+Dejar el repositorio listo para construir **OpenJDK Mobile** de forma **repetible** en una máquina macOS de ingeniería / CI, sin integrar todavía la JVM en CoreJ2.
 
 El criterio de éxito completo de la Fase 0 del roadmap (“imagen estática Zero obtenida”) se cumple cuando alguien ejecuta el pipeline y genera `libjvm.a` + manifest. **0A entrega el kit**; el primer build verde en host es el cierre operativo de Fase 0.
 
@@ -43,7 +43,7 @@ scripts/openjdk-mobile/ # toolchain — fuera del App Target
 
 | Herramienta | Notas |
 |-------------|--------|
-| macOS + Xcode | Mismo entorno alineado al proyecto JavaOne |
+| macOS + Xcode | Mismo entorno alineado al proyecto CoreJ2 |
 | iPhoneOS SDK | `xcrun --sdk iphoneos --show-sdk-path` |
 | autoconf | `brew install autoconf` |
 | Boot JDK **24** | Requisito documentado por OpenJDK Mobile; `export BOOT_JDK_HOME=…` si hace falta |
@@ -143,7 +143,7 @@ El enlace al proceso iOS y `EmbeddedJVMManager` comienzan en **Fase 1**, no aqu�
 
 ## Qué no hacer en 0A
 
-- No añadir search paths / `libjvm.a` al target `JavaOne` en Xcode.
+- No añadir search paths / `libjvm.a` al target `CoreJ2` en Xcode.
 - No implementar JNI ni Hello World embebido.
 - No tocar FreeJ2ME, Bridge, Host, Adapter, PlatformBootstrap, Library, UI.
 - No versionar binarios enormes en git (usar cache CI + manifests).

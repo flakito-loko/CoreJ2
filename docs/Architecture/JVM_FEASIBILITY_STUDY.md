@@ -2,10 +2,10 @@
 
 **Tipo:** Investigación / arquitectura (sin implementación)  
 **Fecha:** 2026-08-04  
-**Audiencia:** Ingeniería JavaOne  
+**Audiencia:** Ingeniería CoreJ2  
 **Alcance:** Ejecutar FreeJ2ME dentro de una app iOS distribuible por App Store, **sin alterar** la arquitectura existente (Bridge → Host → Adapter → PlatformBootstrap).
 
-**Contexto JavaOne:**
+**Contexto CoreJ2:**
 
 - macOS ya tiene JVM persistente vía `PersistentProcessFreeJ2MEMobilePlatformBootstrap` + `PersistentMobilePlatformDaemon`.
 - iOS hoy falla de forma tipada con `EmulatorBridgeError.runtimeUnavailable` (sin `Process` / sin JDK host).
@@ -18,13 +18,13 @@
 | Pregunta | Respuesta corta |
 |----------|-----------------|
 | ¿Hay JVM real en iOS App Store? | **Sí, con matices:** OpenJDK Mobile (Zero interpreter, builds estáticos) es la vía oficial más creíble en 2025–2026; no es HotSpot JIT. |
-| ¿OpenJDK Mobile es viable para JavaOne? | **Viable como spike técnico**, no como “enchufar y listo”. Cubre bytecode + JNI; **no garantiza** AWT headless completo ni el perfil SE que FreeJ2ME necesita. |
+| ¿OpenJDK Mobile es viable para CoreJ2? | **Viable como spike técnico**, no como “enchufar y listo”. Cubre bytecode + JNI; **no garantiza** AWT headless completo ni el perfil SE que FreeJ2ME necesita. |
 | ¿`libjvm` estática? | **Sí:** el árbol `openjdk/mobile` documenta `make … static-libs-image` → `libjvm.a` (variante Zero en device). |
 | ¿Compatible con “no JIT”? | **Sí, por diseño:** Zero interpreta bytecode; no genera código nativo en runtime. Rendimiento limitado; Leyden/AOT es la evolución esperada. |
 | ¿Encaje con PlatformBootstrap? | **Sí, sin romper capas:** nuevo backend iOS de `FreeJ2MEMobilePlatformBootstrapping` (JNI/FFI in-process) paralelo al Process persistente de macOS. |
 | ¿Recomendación? | **Adoptar OpenJDK Mobile (Zero + static) como hipótesis principal** y ejecutar un spike M9 acotado (hello JNI → headless AWT/`BufferedImage` → `defineClass` → Contract C). En paralelo, plan B: fork allowlisted de backends gráficos/audio si AWT no cierra. |
 
-**Veredicto:** Embebido in-process es la única topología alineada con App Store y con la arquitectura JavaOne. No hay camino serio con `Process`/`java` hijo en iOS. El riesgo dominante **no** es “¿existe libjvm?”, sino **¿FreeJ2ME corre sobre el subconjunto SE + AWT que ese JVM ofrece?**
+**Veredicto:** Embebido in-process es la única topología alineada con App Store y con la arquitectura CoreJ2. No hay camino serio con `Process`/`java` hijo en iOS. El riesgo dominante **no** es “¿existe libjvm?”, sino **¿FreeJ2ME corre sobre el subconjunto SE + AWT que ese JVM ofrece?**
 
 ---
 
@@ -44,7 +44,7 @@
 
 ### 1.2 Conclusión de opciones
 
-Para JavaOne (emular **JARs MIDlet arbitrarios** con FreeJ2ME):
+Para CoreJ2 (emular **JARs MIDlet arbitrarios** con FreeJ2ME):
 
 1. **Prioridad 1:** OpenJDK Mobile in-process (opción A).  
 2. **Prioridad 2 (si AWT/`defineClass` fallan):** mismo JVM + **fork allowlisted** de backends FreeJ2ME (gráficos/audio), sin cambiar Bridge/Host.  
@@ -61,7 +61,7 @@ Para JavaOne (emular **JARs MIDlet arbitrarios** con FreeJ2ME):
 - Objetivo: parches mínimos para JVM + class libraries en iOS/Android, con intención de upstream.  
 - Gluon ha invertido en pipelines, docs y builds estáticos (InfoQ, nov 2025).
 
-### 2.2 Fortalezas para JavaOne
+### 2.2 Fortalezas para CoreJ2
 
 - **JVM real** (HotSpot familia) con variante **Zero** en device → cumple la restricción de no generar código en runtime.  
 - Documentación explícita de **imagen de librerías estáticas** (`libjvm.a`).  
@@ -101,7 +101,7 @@ No se debe tratar como decisión cerrada de producto hasta que el spike demuestr
 
 - Enlazar estáticamente reduce fricción de `dylib` sueltas, pero el JDK también puede producir/necesitar otras libs y recursos (`lib/` modules, configs).  
 - Experiencias pasadas (p. ej. empaquetado OpenJDK 8 en App Store) muestran que **rutas de carga**, `Frameworks/`, y `dlopen` desde extensiones son puntos de rechazo frecuentes si se hace mal.  
-- Plan de integración JavaOne: un **Xcode target / xcframework** “JavaOneJVM” owned por el equipo, consumido solo desde `Features/Emulator/Runtime/` — nunca desde Views.
+- Plan de integración CoreJ2: un **Xcode target / xcframework** “CoreJ2JVM” owned por el equipo, consumido solo desde `Features/Emulator/Runtime/` — nunca desde Views.
 
 ---
 
@@ -123,9 +123,9 @@ No se debe tratar como decisión cerrada de producto hasta que el spike demuestr
 | Dependencia | Rol |
 |-------------|-----|
 | `libjvm` (+ libs JDK estáticas/dinámicas permitidas) | Ejecutar bytecode |
-| Classpath / modules FreeJ2ME + bootstrap JavaOne | Contract C |
+| Classpath / modules FreeJ2ME + bootstrap CoreJ2 | Contract C |
 | Recursos JDK (si la imagen los exige) | Locales, configs, security |
-| JNI façade JavaOne | CREATE/PAINTER/LOAD/RUN/STOP hacia clases Java |
+| JNI façade CoreJ2 | CREATE/PAINTER/LOAD/RUN/STOP hacia clases Java |
 | (Opcional) libffi enlazada | Si Zero la requiere en link final |
 
 ### 4.3 Dependencias “de producto” FreeJ2ME (no son del JVM, pero bloquean)
@@ -149,7 +149,7 @@ En **iOS device**, Apple no permite el modelo clásico de JIT (memoria escribibl
 - **Simulator (x64/arm64 macOS):** a menudo se puede usar otras variantes (p. ej. server) para desarrollo; **no** es la configuración de App Store.  
 - Estrategia a medio plazo citada por el ecosistema (Gluon/Leyden): Zero + **AOT/Leyden** para métodos calientes, sin JIT clásico.
 
-### 5.3 Implicación para JavaOne
+### 5.3 Implicación para CoreJ2
 
 | Aspecto | Evaluación |
 |---------|------------|
@@ -187,7 +187,7 @@ Library / SwiftUI
 Nuevo tipo, p. ej. `EmbeddedOpenJDKMobilePlatformBootstrap`, que:
 
 1. En `bootstrapMobilePlatform`: asegura JVM arrancada **una vez por proceso app** (o por sesión) vía JNI `JNI_CreateJavaVM` / API equivalente del build static.  
-2. Implementa los mismos comandos semánticos que el daemon persistente (CREATE / PAINTER / LOAD / RUN / STOP), pero **in-process** (invocación directa de clases `org.recompile.mobile.*` + fachada JavaOne).  
+2. Implementa los mismos comandos semánticos que el daemon persistente (CREATE / PAINTER / LOAD / RUN / STOP), pero **in-process** (invocación directa de clases `org.recompile.mobile.*` + fachada CoreJ2).  
 3. Publica frames por el mismo `frameHandler` ya existente en el protocolo.  
 4. `shutdownRuntime()` destruye sesión Java; la JVM puede quedarse viva (reuso) o destruirse (más simple al inicio).
 
@@ -248,7 +248,7 @@ o factory en `AppDependencyContainer` que elija la implementación concreta de `
 | R7 | **Licencias (GPL-3)** | No es guideline técnico, pero puede bloquear distribución comercial o imponer obligaciones de fuente. Tratar como gate de producto paralelo al spike técnico. |
 | R8 | **Private API** | Cualquier patch JDK que toque APIs privadas iOS → rechazo. Mantener syscalls/POSIX documentados. |
 
-**Postura de review recomendada:** presentar JavaOne como app nativa SwiftUI cuya capacidad de emulación es un **motor local** empaquetado; el usuario importa sus propios JARs; sin store de ROMs integrado si eso eleva el riesgo.
+**Postura de review recomendada:** presentar CoreJ2 como app nativa SwiftUI cuya capacidad de emulación es un **motor local** empaquetado; el usuario importa sus propios JARs; sin store de ROMs integrado si eso eleva el riesgo.
 
 ---
 
@@ -294,7 +294,7 @@ o factory en `AppDependencyContainer` que elija la implementación concreta de `
 - Java on Mobile: https://openjdk-mobile.github.io/  
 - OpenJDK iOS notes (histórico Zero + libffi): https://openjdk.org/projects/mobile/ios.html  
 - InfoQ (2025): *Running Java on iOS: Gluon Introduces OpenJDK Mobile Resources…*  
-- JavaOne: `docs/FREEJ2ME_ASSESSMENT.md`, `docs/E5_US003_PERSISTENT_RUNTIME_DESIGN.md`, `docs/E5_US005_PERSISTENT_RUNTIME_MIGRATION.md`
+- CoreJ2: `docs/FREEJ2ME_ASSESSMENT.md`, `docs/E5_US003_PERSISTENT_RUNTIME_DESIGN.md`, `docs/E5_US005_PERSISTENT_RUNTIME_MIGRATION.md`
 
 ---
 

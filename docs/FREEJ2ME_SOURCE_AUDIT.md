@@ -3,7 +3,7 @@
 **Task:** E3-R004 — Official FreeJ2ME source audit (documentation only)  
 **Upstream audited:** [hex007/freej2me](https://github.com/hex007/freej2me)  
 **Pinned revision:** `b1c4cf13e012938f9d5270621fddea60e5554858` (tip of default branch at audit time; merge `b1c4cf1`)  
-**Method:** Read-only shallow clone outside the JavaOne tree — **no FreeJ2ME or JavaOne source was modified**  
+**Method:** Read-only shallow clone outside the CoreJ2 tree — **no FreeJ2ME or CoreJ2 source was modified**  
 **Depends on:** E3-R001 (`FREEJ2ME_ASSESSMENT.md`), E3-R002 (`FREEJ2ME_RUNTIME_CONTRACT.md`), E3-R003 (`FREEJ2ME_INTEGRATION_STRATEGY.md`)
 
 ---
@@ -31,7 +31,7 @@ Overall: **the live hex007 tree matches the assessment**. The assessment’s arc
 
 - Extra mobile helper: `WavImaAdpcmDecoder.java` (used by audio path).
 - AWT also appears in `javax/microedition/lcdui/game/LayerManager.java` (not only mobile/frontends).
-- FreeJ2ME has **no method named `launch()`**; “launch” in JavaOne maps to frontend `main` + `loadJar`/`runJar`.
+- FreeJ2ME has **no method named `launch()`**; “launch” in CoreJ2 maps to frontend `main` + `loadJar`/`runJar`.
 - `setPainter()` is installed **before** `startApp()`, not after the first `repaint()` (see §3).
 
 **Counts at audited SHA:** ~317 Java files total (~158 `javax`, ~107 ASM, ~13 `org.recompile`, plus `libretro`/`sdl2` natives).
@@ -80,7 +80,7 @@ Frontend main / host bring-up
 │     // AWT: lcd.paint(...)
 │     // Libretro/Anbu: copy getLCD() / push RGB
 │
-├─ MobilePlatform.dataPath = <sandbox>        ← (Libretro sets; JavaOne must always set)
+├─ MobilePlatform.dataPath = <sandbox>        ← (Libretro sets; CoreJ2 must always set)
 │
 ├─ MobilePlatform.loadJar("file:///.../game.jar")
 │     └─ new MIDletLoader(URL[])
@@ -117,10 +117,10 @@ Later frames (game loop / timers / threads owned by MIDlet):
   Display.callSerially(Runnable) ► Timer (~17ms) executes queued runnables
 ```
 
-### 3.2 Compact “JavaOne mental model” graph
+### 3.2 Compact “CoreJ2 mental model” graph
 
 ```text
-JavaOne FreeJ2MERuntimeHost / Adapter
+CoreJ2 FreeJ2MERuntimeHost / Adapter
         │
         ▼
 Mobile.setPlatform + dataPath + setPainter     (prepare)
@@ -140,13 +140,13 @@ painter.run() → (future) RuntimeEvent.frameAvailable + pixels from getLCD()
 
 ---
 
-## 4. Every place JavaOne will eventually need to connect
+## 4. Every place CoreJ2 will eventually need to connect
 
 These are **integration seams**. Prefer connecting from Swift/`FreeJ2MERuntimeAdapter` (or JNI façade) **without** editing FreeJ2ME unless listed as allowlisted in E3-R003.
 
 ### 4.1 Mandatory startup (Contract C — already targeted)
 
-| Seam | FreeJ2ME API | JavaOne action |
+| Seam | FreeJ2ME API | CoreJ2 action |
 |------|--------------|----------------|
 | Construct platform | `new MobilePlatform(w,h)` + `Mobile.setPlatform` | LCD defaults 240×320 (or LaunchConfiguration) |
 | Sandbox | `MobilePlatform.dataPath` | `Documents/JavaOne/Saves/<gameUUID>/` |
@@ -156,7 +156,7 @@ These are **integration seams**. Prefer connecting from Swift/`FreeJ2MERuntimeAd
 
 ### 4.2 First frame / rendering
 
-| Seam | Location | JavaOne action |
+| Seam | Location | CoreJ2 action |
 |------|----------|----------------|
 | Painter callback | Runnable passed to `setPainter` | Hop to MainActor/Metal; never block MIDlet unboundedly |
 | Pixel source | `MobilePlatform.getLCD()` → `BufferedImage` | Read ARGB; later adapt if AWT buffer unavailable on iOS runtime |
@@ -164,7 +164,7 @@ These are **integration seams**. Prefer connecting from Swift/`FreeJ2MERuntimeAd
 
 ### 4.3 Input
 
-| Seam | API | JavaOne action |
+| Seam | API | CoreJ2 action |
 |------|-----|----------------|
 | Keys | `keyPressed` / `keyReleased` / `keyRepeated` | Map virtual keypad → `Mobile` keycodes |
 | Pointer | `pointerPressed` / `Dragged` / `Released` | Scale UIKit → LCD coords |
@@ -172,7 +172,7 @@ These are **integration seams**. Prefer connecting from Swift/`FreeJ2MERuntimeAd
 
 ### 4.4 Display / lifecycle
 
-| Seam | API | JavaOne action |
+| Seam | API | CoreJ2 action |
 |------|-----|----------------|
 | Current screen | `Display.setCurrent` | Triggers flush + often first paint |
 | Serial events | `Display.callSerially` + Timer | Runs on FreeJ2ME timer thread — adapter must tolerate non-main painter |
@@ -182,12 +182,12 @@ These are **integration seams**. Prefer connecting from Swift/`FreeJ2MERuntimeAd
 
 ### 4.5 Persistence / audio (post-startup)
 
-| Seam | Location | JavaOne action |
+| Seam | Location | CoreJ2 action |
 |------|----------|----------------|
 | RMS | `javax.microedition.rms.RecordStore` via `dataPath` | Ensure directory exists & is writable |
 | MMAPI Player | `PlatformPlayer` | Eventually replace Java Sound with AVAudioEngine behind façade (likely fork) |
 
-### 4.6 Explicit non-connect (do not wire JavaOne to these)
+### 4.6 Explicit non-connect (do not wire CoreJ2 to these)
 
 | Piece | Reason |
 |-------|--------|
@@ -236,7 +236,7 @@ Aligns with E3-R001 §10.6 and E3-R003 §6.
 | `Config.java` | UI / images |
 | `LayerManager.java` | AWT usage inside MIDP game layer |
 
-**Impact:** Core LCD path is AWT-shaped. An iOS-capable runtime must provide AWT-compatible buffers **or** JavaOne must fork thin graphics backends.
+**Impact:** Core LCD path is AWT-shaped. An iOS-capable runtime must provide AWT-compatible buffers **or** CoreJ2 must fork thin graphics backends.
 
 ### 6.2 Java Sound
 
@@ -256,7 +256,7 @@ Aligns with E3-R001 §10.6 and E3-R003 §6.
 | `MIDletLoader` | JAR via `URLClassLoader` / resource streams (not raw `File` for game code) |
 | ASM util/xml | Tooling only |
 
-**Impact:** JavaOne must set `dataPath` to the app sandbox; never rely on process CWD.
+**Impact:** CoreJ2 must set `dataPath` to the app sandbox; never rely on process CWD.
 
 ### 6.4 Threads / timers
 
@@ -291,7 +291,7 @@ Aligns with E3-R001 §10.6 and E3-R003 §6.
 
 ## 7. Precise integration checklist
 
-Use this as the gate list before claiming “FreeJ2ME runs inside JavaOne.”
+Use this as the gate list before claiming “FreeJ2ME runs inside CoreJ2.”
 
 ### 7.1 Repository / legal
 
@@ -351,7 +351,7 @@ The official **hex007/freej2me** tree at `b1c4cf1` **confirms** `FREEJ2ME_ASSESS
 
 **`setPainter` (early) → `loadJar` → `runJar`/`startApp` → `Display.setCurrent` / `Canvas.repaint` / `GameCanvas.flushGraphics` → `MobilePlatform.repaint|flushGraphics` → `painter.run()`.**
 
-JavaOne’s first durable connections are exactly Contract C: **platform + `dataPath` + painter + `loadJar` + `runJar`**, then pixels from **`getLCD()`**. Everything else (AWT buffers, Java Sound, `System.exit`, ASM/`defineClass`) is either a **runtime prerequisite** or an **allowlisted fork**, not a reason to rewrite MIDP.
+CoreJ2’s first durable connections are exactly Contract C: **platform + `dataPath` + painter + `loadJar` + `runJar`**, then pixels from **`getLCD()`**. Everything else (AWT buffers, Java Sound, `System.exit`, ASM/`defineClass`) is either a **runtime prerequisite** or an **allowlisted fork**, not a reason to rewrite MIDP.
 
 ---
 
@@ -362,13 +362,13 @@ JavaOne’s first durable connections are exactly Contract C: **platform + `data
 | `docs/FREEJ2ME_ASSESSMENT.md` | E3-R001 architecture assessment |
 | `docs/FREEJ2ME_RUNTIME_CONTRACT.md` | E3-R002 seam contracts |
 | `docs/FREEJ2ME_INTEGRATION_STRATEGY.md` | E3-R003 vendor/submodule policy |
-| `docs/EMULATOR_ARCHITECTURE.md` | JavaOne bridge layout |
+| `docs/EMULATOR_ARCHITECTURE.md` | CoreJ2 bridge layout |
 
 ---
 
 ## Out of scope for E3-R004
 
-- Modifying FreeJ2ME or JavaOne application code  
+- Modifying FreeJ2ME or CoreJ2 application code  
 - Adding the submodule  
 - Implementing JNI  
 - Commits
