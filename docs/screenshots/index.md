@@ -30,8 +30,8 @@ Device captures from physical iPhone running CoreJ2 with embedded OpenJDK Mobile
 
 | Title | File |
 |-------|------|
-| Miami Nights | [miami-nights.MP4](../assets/videos/miami-nights.MP4) |
-| Tetris | [tetris.mp4](../assets/videos/tetris.mp4) |
-| Astroids | [astroids.MP4](../assets/videos/astroids.MP4) |
+| Miami Nights | [miami-nights.MP4](https://github.com/flakito-loko/CoreJ2/raw/main/docs/assets/videos/miami-nights.MP4) |
+| Tetris | [tetris.mp4](https://github.com/flakito-loko/CoreJ2/raw/main/docs/assets/videos/tetris.mp4) |
+| Astroids | [astroids.MP4](https://github.com/flakito-loko/CoreJ2/raw/main/docs/assets/videos/astroids.MP4) |
 
-HTML5 players are on the [home page](../index.md).
+GIF previews are above; full recordings download from the repository.

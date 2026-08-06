@@ -52,6 +52,11 @@ jobs:
       - name: Build MkDocs site
         run: mkdocs build
 
+      # Keep ~50MB device MP4s in git for download links, but omit them from the
+      # Pages artifact so GitHub Pages deployment does not stall in `deployment_queued`.
+      - name: Omit large videos from Pages artifact
+        run: rm -rf site/assets/videos
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
