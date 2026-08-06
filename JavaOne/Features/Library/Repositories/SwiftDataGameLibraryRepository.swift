@@ -66,7 +66,16 @@ final class SwiftDataGameLibraryRepository: GameLibraryRepository {
                     screenshotPathsJoined: game.screenshotURLs.map(\.path).joined(separator: "|"),
                     defaultCoverPath: game.defaultCoverURL?.path ?? "",
                     metadataProviderID: game.metadataProviderID,
-                    hasCustomCover: game.hasCustomCover
+                    hasCustomCover: game.hasCustomCover,
+                    officialTitle: game.officialTitle,
+                    displayTitle: game.displayTitle,
+                    officialPublisher: game.officialPublisher,
+                    officialGenre: game.officialGenre,
+                    officialReleaseYear: game.officialReleaseYear,
+                    isDisplayTitleCustom: game.isDisplayTitleCustom,
+                    isPublisherCustom: game.isPublisherCustom,
+                    isGenreCustom: game.isGenreCustom,
+                    isReleaseYearCustom: game.isReleaseYearCustom
                 )
                 modelContext.insert(entity)
             }

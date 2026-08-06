@@ -99,8 +99,13 @@ struct LibraryView: View {
                     game: game,
                     settings: viewModel.settings(for: game),
                     onToggleFavorite: { viewModel.toggleFavorite(game) },
-                    onSave: { settings, compatibility in
-                        viewModel.saveSettings(settings, compatibility: compatibility, for: game)
+                    onSave: { settings, compatibility, identity in
+                        viewModel.saveSettings(
+                            settings,
+                            compatibility: compatibility,
+                            identity: identity,
+                            for: game
+                        )
                     },
                     onChangeCover: {
                         viewModel.dismissSettings()

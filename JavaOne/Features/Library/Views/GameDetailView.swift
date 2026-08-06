@@ -98,15 +98,19 @@ struct GameDetailView: View {
 
     private var metaBlock: some View {
         VStack(alignment: .leading, spacing: 8) {
-            labeled("Publisher", game.publisher)
+            if game.isDisplayTitleCustom {
+                labeled("Display Name", game.title)
+                labeled("Official Name", game.officialTitle)
+            }
+            labeled("Publisher", game.publisher + (game.isPublisherCustom ? " (custom)" : ""))
             if !game.developer.isEmpty {
                 labeled("Developer", game.developer)
             }
             if !game.genre.isEmpty {
-                labeled("Genre", game.genre)
+                labeled("Genre", game.genre + (game.isGenreCustom ? " (custom)" : ""))
             }
             if let year = game.releaseYear {
-                labeled("Year", String(year))
+                labeled("Year", String(year) + (game.isReleaseYearCustom ? " (custom)" : ""))
             }
             labeled("Resolution", game.resolution)
             if !game.midletVersion.isEmpty {

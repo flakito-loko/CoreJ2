@@ -134,21 +134,65 @@ final class LibraryViewModel: ObservableObject {
         case .play:
             selectGame(game)
         case .settings:
-            gameForSettings = game
+            presentSettings(game)
         case .favorite:
             toggleFavorite(game)
         case .changeCover:
             openDetail(game)
         case .shareJAR:
-            gamePendingShare = game
+            presentShare(game)
         case .showSaveData:
-            gameForSaveData = game
+            presentSaveData(game)
         case .delete:
             // Dismiss sheets so the native confirmation dialog is visible.
             gameForDetail = nil
             gameForSettings = nil
             gameForSaveData = nil
             gamePendingDeletion = game
+        }
+    }
+
+    /// Presents settings after clearing other library sheets (iOS won't stack sibling `.sheet`s).
+    private func presentSettings(_ game: InstalledGame) {
+        let needsSettle = gameForDetail != nil || gameForSaveData != nil || gamePendingShare != nil
+        gameForDetail = nil
+        gameForSaveData = nil
+        gamePendingShare = nil
+        if needsSettle {
+            Task { @MainActor in
+                try? await Task.sleep(nanoseconds: 450_000_000)
+                gameForSettings = game
+            }
+        } else {
+            gameForSettings = game
+        }
+    }
+
+    private func presentSaveData(_ game: InstalledGame) {
+        let needsSettle = gameForDetail != nil || gameForSettings != nil
+        gameForDetail = nil
+        gameForSettings = nil
+        if needsSettle {
+            Task { @MainActor in
+                try? await Task.sleep(nanoseconds: 450_000_000)
+                gameForSaveData = game
+            }
+        } else {
+            gameForSaveData = game
+        }
+    }
+
+    private func presentShare(_ game: InstalledGame) {
+        let needsSettle = gameForDetail != nil || gameForSettings != nil
+        gameForDetail = nil
+        gameForSettings = nil
+        if needsSettle {
+            Task { @MainActor in
+                try? await Task.sleep(nanoseconds: 450_000_000)
+                gamePendingShare = game
+            }
+        } else {
+            gamePendingShare = game
         }
     }
 
@@ -189,9 +233,40 @@ final class LibraryViewModel: ObservableObject {
         settingsStore.load(for: game.contentHash)
     }
 
-    func saveSettings(_ settings: GameSettings, compatibility: GameCompatibility, for game: InstalledGame) {
+    func saveSettings(
+        _ settings: GameSettings,
+        compatibility: GameCompatibility,
+        identity: GameIdentityEdits,
+        for game: InstalledGame
+    ) {
         settingsStore.save(settings, for: game.contentHash)
-        let updated = game.updating(compatibility: compatibility)
+
+        let trimmedDisplay = identity.displayTitle.trimmingCharacters(in: .whitespacesAndNewlines)
+        let useOfficialTitle = identity.resetDisplayTitle || trimmedDisplay.isEmpty || trimmedDisplay == game.officialTitle
+        let parsedYear = Int(identity.releaseYearText.trimmingCharacters(in: .whitespacesAndNewlines))
+
+        var updated = game.updating(
+            publisher: identity.resetPublisher ? game.officialPublisher : identity.publisher,
+            compatibility: compatibility,
+            genre: identity.resetGenre ? game.officialGenre : identity.genre,
+            releaseYear: identity.resetYear
+                ? .some(game.officialReleaseYear)
+                : .some(parsedYear),
+            displayTitle: useOfficialTitle ? "" : trimmedDisplay,
+            isDisplayTitleCustom: !useOfficialTitle,
+            isPublisherCustom: !identity.resetPublisher && identity.publisher != game.officialPublisher,
+            isGenreCustom: !identity.resetGenre && identity.genre != game.officialGenre,
+            isReleaseYearCustom: !identity.resetYear && parsedYear != game.officialReleaseYear
+        )
+
+        // Keep effective publisher/genre aligned when resetting.
+        if identity.resetPublisher {
+            updated = updated.updating(publisher: game.officialPublisher, isPublisherCustom: false)
+        }
+        if identity.resetGenre {
+            updated = updated.updating(genre: game.officialGenre, isGenreCustom: false)
+        }
+
         repository.save(updated)
         games = repository.fetchGames()
         refreshPresented(game.id)

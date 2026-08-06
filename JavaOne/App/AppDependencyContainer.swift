@@ -26,14 +26,25 @@ final class AppDependencyContainer {
     private lazy var manifestService: ManifestService = JARManifestService()
 
     private lazy var metadataProvider: any MetadataProvider = {
-        var providers: [any MetadataProvider] = [
-            CatalogMetadataProvider.loadDefault()
-        ]
-        // Optional remote endpoint — not hardcoded to a single public website.
-        if let endpoint = UserDefaults.standard.string(forKey: "CoreJ2MetadataEndpoint"),
-           let url = URL(string: endpoint) {
-            providers.insert(HTTPMetadataProvider(baseURL: url, providerID: "http.user"), at: 0)
+        var providers: [any MetadataProvider] = []
+
+        // 1) Optional user-configured lookup API (JSON only).
+        if let lookupURL = ProductionMetadataConfiguration.resolvedLookupBaseURL() {
+            providers.append(
+                HTTPMetadataProvider(baseURL: lookupURL, providerID: "http.user")
+            )
         }
+
+        // 2) Production remote JSON catalog (auto-refresh + Documents cache).
+        providers.append(
+            RemoteJSONCatalogMetadataProvider(
+                catalogURL: ProductionMetadataConfiguration.resolvedCatalogURL()
+            )
+        )
+
+        // 3) Bundled / Documents offline catalog.
+        providers.append(CatalogMetadataProvider.loadDefault())
+
         return CompositeMetadataProvider(providers: providers)
     }()
 

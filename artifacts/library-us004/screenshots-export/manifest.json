@@ -1,0 +1,26 @@
+[
+  {
+    "attachments" : [
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "00008150-000C70A80EBA401C",
+        "deviceName" : "iPhone de Leonel Figuereo",
+        "exportedFileName" : "9766780E-6D88-4FD4-9450-89D659326552.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "library-us004-settings-persisted_0_84A4E266-57F0-419A-8760-4E62999D6F1E.png",
+        "timestamp" : 1786033842.246
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "00008150-000C70A80EBA401C",
+        "deviceName" : "iPhone de Leonel Figuereo",
+        "exportedFileName" : "22EF425A-B3AE-425B-A94B-2AAD97E1F43A.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "library-us004-settings-edit_0_9EC09E3D-76D0-4137-AFEC-C51C3B291617.png",
+        "timestamp" : 1786033831.23
+      }
+    ],
+    "testIdentifier" : "LIBRARYUS004IdentityUITests/testDisplayNameEditPersistsAndShowsOfficialName()",
+    "testIdentifierURL" : "test://com.apple.xcode/JavaOne/JavaOneUITests/LIBRARYUS004IdentityUITests/testDisplayNameEditPersistsAndShowsOfficialName"
+  }
+]

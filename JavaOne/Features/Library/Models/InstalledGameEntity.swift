@@ -29,6 +29,16 @@ final class InstalledGameEntity {
     var metadataProviderID: String = ""
     var hasCustomCover: Bool = false
 
+    var officialTitle: String = ""
+    var displayTitle: String = ""
+    var officialPublisher: String = ""
+    var officialGenre: String = ""
+    var officialReleaseYear: Int?
+    var isDisplayTitleCustom: Bool = false
+    var isPublisherCustom: Bool = false
+    var isGenreCustom: Bool = false
+    var isReleaseYearCustom: Bool = false
+
     // MARK: - Init
 
     init(
@@ -51,7 +61,16 @@ final class InstalledGameEntity {
         screenshotPathsJoined: String = "",
         defaultCoverPath: String = "",
         metadataProviderID: String = "",
-        hasCustomCover: Bool = false
+        hasCustomCover: Bool = false,
+        officialTitle: String = "",
+        displayTitle: String = "",
+        officialPublisher: String = "",
+        officialGenre: String = "",
+        officialReleaseYear: Int? = nil,
+        isDisplayTitleCustom: Bool = false,
+        isPublisherCustom: Bool = false,
+        isGenreCustom: Bool = false,
+        isReleaseYearCustom: Bool = false
     ) {
         self.id = id
         self.title = title
@@ -73,6 +92,15 @@ final class InstalledGameEntity {
         self.defaultCoverPath = defaultCoverPath
         self.metadataProviderID = metadataProviderID
         self.hasCustomCover = hasCustomCover
+        self.officialTitle = officialTitle.isEmpty ? title : officialTitle
+        self.displayTitle = displayTitle
+        self.officialPublisher = officialPublisher.isEmpty ? publisher : officialPublisher
+        self.officialGenre = officialGenre.isEmpty ? genre : officialGenre
+        self.officialReleaseYear = officialReleaseYear ?? releaseYear
+        self.isDisplayTitleCustom = isDisplayTitleCustom
+        self.isPublisherCustom = isPublisherCustom
+        self.isGenreCustom = isGenreCustom
+        self.isReleaseYearCustom = isReleaseYearCustom
     }
 
     // MARK: - Mapping
@@ -152,7 +180,7 @@ final class InstalledGameEntity {
 
         return InstalledGame(
             id: id,
-            title: title,
+            title: officialTitle.isEmpty ? title : officialTitle,
             jarURL: resolvedURL,
             importedAt: importedAt,
             contentHash: contentHash,
@@ -170,7 +198,16 @@ final class InstalledGameEntity {
             screenshotURLs: screenshots,
             defaultCoverURL: defaultCoverURL,
             metadataProviderID: provider,
-            hasCustomCover: hasCustomCover
+            hasCustomCover: hasCustomCover,
+            officialTitle: officialTitle.isEmpty ? title : officialTitle,
+            displayTitle: displayTitle,
+            officialPublisher: officialPublisher.isEmpty ? publisher : officialPublisher,
+            officialGenre: officialGenre.isEmpty ? genreValue : officialGenre,
+            officialReleaseYear: officialReleaseYear ?? year,
+            isDisplayTitleCustom: isDisplayTitleCustom,
+            isPublisherCustom: isPublisherCustom,
+            isGenreCustom: isGenreCustom,
+            isReleaseYearCustom: isReleaseYearCustom
         )
     }
 
@@ -194,6 +231,15 @@ final class InstalledGameEntity {
         defaultCoverPath = game.defaultCoverURL?.path ?? ""
         metadataProviderID = game.metadataProviderID
         hasCustomCover = game.hasCustomCover
+        officialTitle = game.officialTitle
+        displayTitle = game.displayTitle
+        officialPublisher = game.officialPublisher
+        officialGenre = game.officialGenre
+        officialReleaseYear = game.officialReleaseYear
+        isDisplayTitleCustom = game.isDisplayTitleCustom
+        isPublisherCustom = game.isPublisherCustom
+        isGenreCustom = game.isGenreCustom
+        isReleaseYearCustom = game.isReleaseYearCustom
     }
 
     // MARK: - Path Resolution

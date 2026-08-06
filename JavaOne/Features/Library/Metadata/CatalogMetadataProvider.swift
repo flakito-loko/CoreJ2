@@ -185,6 +185,48 @@ struct CatalogEntry: Codable, Equatable, Sendable {
             resolution: "240 × 320",
             coverURL: nil,
             screenshotURLs: nil
+        ),
+        CatalogEntry(
+            title: "Alea Jacta Est",
+            vendor: nil,
+            version: nil,
+            contentHash: nil,
+            description: "Strategy title from the CoreJ2 compatibility corpus.",
+            publisher: "Unknown",
+            developer: "Unknown",
+            genre: "Strategy",
+            releaseYear: nil,
+            resolution: "240 × 320",
+            coverURL: nil,
+            screenshotURLs: nil
+        ),
+        CatalogEntry(
+            title: "Doom RPG",
+            vendor: "id Software",
+            version: nil,
+            contentHash: nil,
+            description: "Turn-based RPG set in the Doom universe, built for Java ME handsets.",
+            publisher: "id Software",
+            developer: "Fountainhead Entertainment",
+            genre: "RPG",
+            releaseYear: 2005,
+            resolution: "240 × 320",
+            coverURL: nil,
+            screenshotURLs: nil
+        ),
+        CatalogEntry(
+            title: "Sonic Jump",
+            vendor: "Sega",
+            version: nil,
+            contentHash: nil,
+            description: "Vertical jump-and-run starring Sonic, adapted for feature phones.",
+            publisher: "Sega",
+            developer: "Sega",
+            genre: "Platform",
+            releaseYear: 2005,
+            resolution: "240 × 320",
+            coverURL: nil,
+            screenshotURLs: nil
         )
     ]
 }

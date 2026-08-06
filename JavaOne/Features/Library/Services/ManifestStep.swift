@@ -52,7 +52,10 @@ final class ManifestStep: ImportStep {
                 title: resolvedTitle,
                 publisher: publisher,
                 resolution: "\(size.width) × \(size.height)",
-                midletVersion: version
+                midletVersion: version,
+                officialTitle: resolvedTitle,
+                displayTitle: installedGame.isDisplayTitleCustom ? installedGame.displayTitle : "",
+                officialPublisher: publisher
             )
         } catch ManifestServiceError.manifestMissing {
             context.warnings.append("MANIFEST.MF is missing; using the filename title.")

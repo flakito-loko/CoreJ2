@@ -3,42 +3,50 @@ import Foundation
 /// A Java ME game owned by CoreJ2's internal library.
 struct InstalledGame: Identifiable, Equatable, Hashable {
     let id: UUID
-    let title: String
     let jarURL: URL
     let importedAt: Date
-    /// SHA-256 digest of the JAR contents, as a lowercase hexadecimal string.
-    ///
-    /// LIBRARY-US003 — this is the permanent game identity (metadata, artwork,
-    /// compatibility, sync). Install `id` remains the sandbox UUID used by RMS.
+    /// SHA-256 digest of the JAR contents (permanent game identity).
     let contentHash: String
 
-    /// Stable identity alias for `contentHash` (never derived from filename).
     var stableIdentity: String { contentHash }
 
-    /// `MIDlet-Vendor` / catalog publisher when known.
+    // MARK: - Official metadata (providers / manifest only)
+
+    var officialTitle: String
+    var officialPublisher: String
+    var officialGenre: String
+    var officialReleaseYear: Int?
+
+    // MARK: - Display / effective
+
+    /// User display-name override. Empty → `officialTitle` is shown.
+    var displayTitle: String
+    /// Effective library title (display name has priority).
+    var title: String {
+        let trimmed = displayTitle.trimmingCharacters(in: .whitespacesAndNewlines)
+        return trimmed.isEmpty ? officialTitle : trimmed
+    }
+
     var publisher: String
-    /// Active cover on disk (custom, metadata, or JAR icon).
+    var genre: String
+    var releaseYear: Int?
+
+    var isDisplayTitleCustom: Bool
+    var isPublisherCustom: Bool
+    var isGenreCustom: Bool
+    var isReleaseYearCustom: Bool
+
     var coverURL: URL?
-    /// Display size label (e.g. `240 × 320`).
     var resolution: String
     var isFavorite: Bool
     var lastPlayedAt: Date?
     var compatibility: GameCompatibility
-
-    /// `MIDlet-Version` when present.
     var midletVersion: String
-    /// Long-form description from a metadata provider (cached locally).
     var gameDescription: String
     var developer: String
-    var genre: String
-    var releaseYear: Int?
-    /// Local screenshot file URLs (downloaded once).
     var screenshotURLs: [URL]
-    /// Cover restored by "Restore Default" (metadata cover or JAR icon).
     var defaultCoverURL: URL?
-    /// Provenance of online/catalog metadata.
     var metadataProviderID: String
-    /// `true` when the user imported a custom cover.
     var hasCustomCover: Bool
 
     init(
@@ -61,14 +69,33 @@ struct InstalledGame: Identifiable, Equatable, Hashable {
         screenshotURLs: [URL] = [],
         defaultCoverURL: URL? = nil,
         metadataProviderID: String = "",
-        hasCustomCover: Bool = false
+        hasCustomCover: Bool = false,
+        officialTitle: String? = nil,
+        displayTitle: String = "",
+        officialPublisher: String? = nil,
+        officialGenre: String? = nil,
+        officialReleaseYear: Int? = nil,
+        isDisplayTitleCustom: Bool = false,
+        isPublisherCustom: Bool = false,
+        isGenreCustom: Bool = false,
+        isReleaseYearCustom: Bool = false
     ) {
         self.id = id
-        self.title = title
         self.jarURL = jarURL
         self.importedAt = importedAt
         self.contentHash = contentHash
+        self.officialTitle = (officialTitle?.isEmpty == false) ? officialTitle! : title
+        self.displayTitle = displayTitle
+        self.officialPublisher = officialPublisher ?? publisher
         self.publisher = publisher
+        self.officialGenre = officialGenre ?? genre
+        self.genre = genre
+        self.officialReleaseYear = officialReleaseYear ?? releaseYear
+        self.releaseYear = releaseYear
+        self.isDisplayTitleCustom = isDisplayTitleCustom
+        self.isPublisherCustom = isPublisherCustom
+        self.isGenreCustom = isGenreCustom
+        self.isReleaseYearCustom = isReleaseYearCustom
         self.coverURL = coverURL
         self.resolution = resolution
         self.isFavorite = isFavorite
@@ -77,8 +104,6 @@ struct InstalledGame: Identifiable, Equatable, Hashable {
         self.midletVersion = midletVersion
         self.gameDescription = gameDescription
         self.developer = developer
-        self.genre = genre
-        self.releaseYear = releaseYear
         self.screenshotURLs = screenshotURLs
         self.defaultCoverURL = defaultCoverURL
         self.metadataProviderID = metadataProviderID
@@ -102,11 +127,32 @@ struct InstalledGame: Identifiable, Equatable, Hashable {
         screenshotURLs: [URL]? = nil,
         defaultCoverURL: URL?? = nil,
         metadataProviderID: String? = nil,
-        hasCustomCover: Bool? = nil
+        hasCustomCover: Bool? = nil,
+        officialTitle: String? = nil,
+        displayTitle: String? = nil,
+        officialPublisher: String? = nil,
+        officialGenre: String? = nil,
+        officialReleaseYear: Int?? = nil,
+        isDisplayTitleCustom: Bool? = nil,
+        isPublisherCustom: Bool? = nil,
+        isGenreCustom: Bool? = nil,
+        isReleaseYearCustom: Bool? = nil
     ) -> InstalledGame {
-        InstalledGame(
+        // Pipeline `title:` updates the official name (and display when not customized).
+        var nextOfficialTitle = officialTitle ?? self.officialTitle
+        var nextDisplayTitle = displayTitle ?? self.displayTitle
+        var nextTitleCustom = isDisplayTitleCustom ?? self.isDisplayTitleCustom
+        if let title {
+            nextOfficialTitle = title
+            if !(isDisplayTitleCustom ?? self.isDisplayTitleCustom) {
+                nextDisplayTitle = ""
+                nextTitleCustom = false
+            }
+        }
+
+        return InstalledGame(
             id: id,
-            title: title ?? self.title,
+            title: nextOfficialTitle,
             jarURL: jarURL,
             importedAt: importedAt,
             contentHash: contentHash ?? self.contentHash,
@@ -124,11 +170,23 @@ struct InstalledGame: Identifiable, Equatable, Hashable {
             screenshotURLs: screenshotURLs ?? self.screenshotURLs,
             defaultCoverURL: defaultCoverURL ?? self.defaultCoverURL,
             metadataProviderID: metadataProviderID ?? self.metadataProviderID,
-            hasCustomCover: hasCustomCover ?? self.hasCustomCover
+            hasCustomCover: hasCustomCover ?? self.hasCustomCover,
+            officialTitle: nextOfficialTitle,
+            displayTitle: nextDisplayTitle,
+            officialPublisher: officialPublisher ?? self.officialPublisher,
+            officialGenre: officialGenre ?? self.officialGenre,
+            officialReleaseYear: {
+                if let officialReleaseYear { return officialReleaseYear }
+                return self.officialReleaseYear
+            }(),
+            isDisplayTitleCustom: nextTitleCustom,
+            isPublisherCustom: isPublisherCustom ?? self.isPublisherCustom,
+            isGenreCustom: isGenreCustom ?? self.isGenreCustom,
+            isReleaseYearCustom: isReleaseYearCustom ?? self.isReleaseYearCustom
         )
     }
 
     var hasCachedMetadata: Bool {
-        !gameDescription.isEmpty || !genre.isEmpty || !metadataProviderID.isEmpty || releaseYear != nil
+        !gameDescription.isEmpty || !officialGenre.isEmpty || !metadataProviderID.isEmpty || officialReleaseYear != nil
     }
 }

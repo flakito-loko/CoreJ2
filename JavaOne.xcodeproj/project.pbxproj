@@ -28,6 +28,10 @@
 		E1100007300D095A0044FD89 /* RMSSaveDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1100006300D095A0044FD89 /* RMSSaveDirectory.swift */; };
 		E1100009300D095A0044FD89 /* RMSSaveDirectoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1100008300D095A0044FD89 /* RMSSaveDirectoryTests.swift */; };
 		E1200011300D095A0044FD89 /* InstalledGameEntityPathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1200010300D095A0044FD89 /* InstalledGameEntityPathTests.swift */; };
+		L4000002300D09580044FD04 /* ProductionMetadataConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = L4000001300D09580044FD04 /* ProductionMetadataConfiguration.swift */; };
+		L4000004300D09580044FD04 /* RemoteJSONCatalogMetadataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = L4000003300D09580044FD04 /* RemoteJSONCatalogMetadataProvider.swift */; };
+		L4000006300D09580044FD04 /* EditableIdentityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = L4000005300D09580044FD04 /* EditableIdentityTests.swift */; };
+		L4000008300D09580044FD04 /* LIBRARYUS004IdentityUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = L4000007300D09580044FD04 /* LIBRARYUS004IdentityUITests.swift */; };
 		L3000002300D09580044FD03 /* GameIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = L3000001300D09580044FD03 /* GameIdentity.swift */; };
 		L3000004300D09580044FD03 /* GameInstallationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = L3000003300D09580044FD03 /* GameInstallationManager.swift */; };
 		L3000006300D09580044FD03 /* GameSettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = L3000005300D09580044FD03 /* GameSettingsStore.swift */; };
@@ -237,6 +241,10 @@
 		E1100006300D095A0044FD89 /* RMSSaveDirectory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMSSaveDirectory.swift; sourceTree = "<group>"; };
 		E1100008300D095A0044FD89 /* RMSSaveDirectoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMSSaveDirectoryTests.swift; sourceTree = "<group>"; };
 		E1200010300D095A0044FD89 /* InstalledGameEntityPathTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstalledGameEntityPathTests.swift; sourceTree = "<group>"; };
+		L4000001300D09580044FD04 /* ProductionMetadataConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductionMetadataConfiguration.swift; sourceTree = "<group>"; };
+		L4000003300D09580044FD04 /* RemoteJSONCatalogMetadataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteJSONCatalogMetadataProvider.swift; sourceTree = "<group>"; };
+		L4000005300D09580044FD04 /* EditableIdentityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableIdentityTests.swift; sourceTree = "<group>"; };
+		L4000007300D09580044FD04 /* LIBRARYUS004IdentityUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LIBRARYUS004IdentityUITests.swift; sourceTree = "<group>"; };
 		L3000001300D09580044FD03 /* GameIdentity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameIdentity.swift; sourceTree = "<group>"; };
 		L3000003300D09580044FD03 /* GameInstallationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameInstallationManager.swift; sourceTree = "<group>"; };
 		L3000005300D09580044FD03 /* GameSettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettingsStore.swift; sourceTree = "<group>"; };
@@ -502,6 +510,7 @@
 				A1000097300D09580044FD89 /* LibraryViewModelTests.swift */,
 				L2000011300D09580044FD02 /* MetadataProviderTests.swift */,
 				L300000F300D09580044FD03 /* GameIdentityTests.swift */,
+				L4000005300D09580044FD04 /* EditableIdentityTests.swift */,
 				A1000099300D09580044FD89 /* AppDependencyContainerTests.swift */,
 				A100009D300D09580044FD89 /* PersistentRuntimePOCTests.swift */,
 				A10000A3300D09580044FD89 /* PersistentProcessFreeJ2MEMobilePlatformBootstrapTests.swift */,
@@ -559,6 +568,7 @@
 				LUS001F1300D095A0044FD89 /* LIBRARYUS001LibraryUITests.swift */,
 				L2000013300D09580044FD02 /* LIBRARYUS002MetadataUITests.swift */,
 				L3000011300D09580044FD03 /* LIBRARYUS003ManagementUITests.swift */,
+				L4000007300D09580044FD04 /* LIBRARYUS004IdentityUITests.swift */,
 			);
 			path = JavaOneUITests;
 			sourceTree = "<group>";
@@ -604,6 +614,8 @@
 				L2000007300D09580044FD02 /* HTTPMetadataProvider.swift */,
 				L2000009300D09580044FD02 /* GameMetadataEnricher.swift */,
 				L200000B300D09580044FD02 /* GameCoverStore.swift */,
+				L4000001300D09580044FD04 /* ProductionMetadataConfiguration.swift */,
+				L4000003300D09580044FD04 /* RemoteJSONCatalogMetadataProvider.swift */,
 			);
 			path = Metadata;
 			sourceTree = "<group>";
@@ -1036,6 +1048,8 @@
 				L2000008300D09580044FD02 /* HTTPMetadataProvider.swift in Sources */,
 				L200000A300D09580044FD02 /* GameMetadataEnricher.swift in Sources */,
 				L200000C300D09580044FD02 /* GameCoverStore.swift in Sources */,
+				L4000002300D09580044FD04 /* ProductionMetadataConfiguration.swift in Sources */,
+				L4000004300D09580044FD04 /* RemoteJSONCatalogMetadataProvider.swift in Sources */,
 				L200000E300D09580044FD02 /* GameDetailView.swift in Sources */,
 				L3000002300D09580044FD03 /* GameIdentity.swift in Sources */,
 				L3000004300D09580044FD03 /* GameInstallationManager.swift in Sources */,
@@ -1163,6 +1177,7 @@
 				A1000096300D09580044FD89 /* LibraryViewModelTests.swift in Sources */,
 				L2000012300D09580044FD02 /* MetadataProviderTests.swift in Sources */,
 				L3000010300D09580044FD03 /* GameIdentityTests.swift in Sources */,
+				L4000006300D09580044FD04 /* EditableIdentityTests.swift in Sources */,
 				A1000098300D09580044FD89 /* AppDependencyContainerTests.swift in Sources */,
 				A100009C300D09580044FD89 /* PersistentRuntimePOCTests.swift in Sources */,
 				A10000A2300D09580044FD89 /* PersistentProcessFreeJ2MEMobilePlatformBootstrapTests.swift in Sources */,
@@ -1220,6 +1235,7 @@
 				LUS001F2300D095A0044FD89 /* LIBRARYUS001LibraryUITests.swift in Sources */,
 				L2000014300D09580044FD02 /* LIBRARYUS002MetadataUITests.swift in Sources */,
 				L3000012300D09580044FD03 /* LIBRARYUS003ManagementUITests.swift in Sources */,
+				L4000008300D09580044FD04 /* LIBRARYUS004IdentityUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

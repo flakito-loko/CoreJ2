@@ -19,10 +19,15 @@ final class GameMetadataEnricher {
     }
 
     /// Looks up metadata and writes local artifacts under the game directory.
+    ///
+    /// Custom display fields are preserved; official metadata is always refreshed.
     func enrich(_ game: InstalledGame) async -> InstalledGame {
         let query = GameMetadataQuery(
-            title: game.title,
-            vendor: game.publisher == "Unknown" ? nil : game.publisher,
+            title: game.officialTitle.isEmpty ? game.title : game.officialTitle,
+            vendor: {
+                let p = game.officialPublisher.isEmpty ? game.publisher : game.officialPublisher
+                return p == "Unknown" ? nil : p
+            }(),
             version: game.midletVersion.isEmpty ? nil : game.midletVersion,
             contentHash: game.contentHash
         )
@@ -67,19 +72,35 @@ final class GameMetadataEnricher {
             }
         }
 
+        let nextOfficialTitle = record.title?.trimmingCharacters(in: .whitespacesAndNewlines).nilIfEmpty
+            ?? game.officialTitle
+        let nextOfficialPublisher = record.publisher?.trimmingCharacters(in: .whitespacesAndNewlines).nilIfEmpty
+            ?? game.officialPublisher
+        let nextOfficialGenre = record.genre?.trimmingCharacters(in: .whitespacesAndNewlines).nilIfEmpty
+            ?? game.officialGenre
+        let nextOfficialYear = record.releaseYear ?? game.officialReleaseYear
+
         let enriched = game.updating(
-            title: record.title,
-            publisher: record.publisher,
+            publisher: game.isPublisherCustom ? game.publisher : (nextOfficialPublisher),
             coverURL: .some(coverURL),
-            resolution: record.resolution,
-            gameDescription: record.description,
-            developer: record.developer,
-            genre: record.genre,
-            releaseYear: .some(record.releaseYear),
+            resolution: record.resolution ?? game.resolution,
+            gameDescription: record.description ?? game.gameDescription,
+            developer: record.developer ?? game.developer,
+            genre: game.isGenreCustom ? game.genre : (nextOfficialGenre),
+            releaseYear: game.isReleaseYearCustom ? .some(game.releaseYear) : .some(nextOfficialYear),
             screenshotURLs: screenshotURLs,
             defaultCoverURL: .some(defaultCoverURL),
             metadataProviderID: record.providerID,
-            hasCustomCover: game.hasCustomCover
+            hasCustomCover: game.hasCustomCover,
+            officialTitle: nextOfficialTitle,
+            displayTitle: game.isDisplayTitleCustom ? game.displayTitle : "",
+            officialPublisher: nextOfficialPublisher,
+            officialGenre: nextOfficialGenre,
+            officialReleaseYear: .some(nextOfficialYear),
+            isDisplayTitleCustom: game.isDisplayTitleCustom,
+            isPublisherCustom: game.isPublisherCustom,
+            isGenreCustom: game.isGenreCustom,
+            isReleaseYearCustom: game.isReleaseYearCustom
         )
 
         persistSidecar(enriched, record: record, in: gameDirectory)
@@ -89,7 +110,6 @@ final class GameMetadataEnricher {
 
     // MARK: - Private
 
-    /// Writes a hash-keyed cache used for future sync (independent of filename).
     private func mirrorIdentityCache(_ game: InstalledGame, record: GameMetadataRecord) {
         guard !game.contentHash.isEmpty,
               let cacheDir = LibraryGamePaths.metadataCacheDirectory(
@@ -101,6 +121,7 @@ final class GameMetadataEnricher {
         try? fileManager.createDirectory(at: cacheDir, withIntermediateDirectories: true)
         persistSidecar(game, record: record, in: cacheDir)
     }
+
     private func download(_ remote: URL, to destination: URL) async -> URL? {
         do {
             let (data, response) = try await session.data(from: remote)
@@ -124,15 +145,21 @@ final class GameMetadataEnricher {
         in gameDirectory: URL
     ) {
         let payload: [String: Any] = [
+            "officialTitle": game.officialTitle,
+            "displayTitle": game.displayTitle,
             "title": game.title,
             "description": game.gameDescription,
             "publisher": game.publisher,
+            "officialPublisher": game.officialPublisher,
             "developer": game.developer,
             "genre": game.genre,
+            "officialGenre": game.officialGenre,
             "releaseYear": game.releaseYear as Any,
+            "officialReleaseYear": game.officialReleaseYear as Any,
             "resolution": game.resolution,
             "midletVersion": game.midletVersion,
             "providerID": record.providerID,
+            "contentHash": game.contentHash,
             "cachedAt": ISO8601DateFormatter().string(from: Date())
         ]
         let url = gameDirectory.appendingPathComponent("metadata.json", isDirectory: false)
@@ -140,5 +167,12 @@ final class GameMetadataEnricher {
             return
         }
         try? data.write(to: url, options: .atomic)
+    }
+}
+
+private extension String {
+    var nilIfEmpty: String? {
+        let trimmed = trimmingCharacters(in: .whitespacesAndNewlines)
+        return trimmed.isEmpty ? nil : trimmed
     }
 }
