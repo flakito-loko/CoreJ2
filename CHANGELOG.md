@@ -4,6 +4,11 @@ All notable changes to JavaOne, organized by epic.
 
 ## [Unreleased]
 
+### Branding
+
+- Official JavaOne visual identity (BRAND-US001): isotype, logos, banner, social preview, splash, app icon concept
+- Brand guidelines and MkDocs/README integration (`assets/branding/`)
+
 ### Documentation
 
 - Public documentation and website polish (DOCS-US002)

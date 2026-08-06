@@ -1,28 +1,63 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap");
 
 :root {
-  --javaone-accent: #0A84FF;
+  --javaone-primary: #2563EB;
+  --javaone-secondary: #60A5FA;
+  --javaone-bg: #0B1220;
+  --javaone-white: #FFFFFF;
+  --javaone-gray: #94A3B8;
+  --javaone-ok: #22C55E;
+  --javaone-partial: #EAB308;
+  --javaone-launch: #F97316;
+  --javaone-bad: #EF4444;
+}
+
+.md-typeset h1,
+.md-typeset h2,
+.md-header__topic,
+.javaone-hero h1 {
+  font-family: "Space Grotesk", "Inter", var(--md-text-font), sans-serif;
+}
+
+.md-typeset {
+  font-family: "Inter", var(--md-text-font), sans-serif;
+}
+
+.md-header {
+  background: linear-gradient(90deg, #0B1220, #122038 60%, #1e3a8a 140%);
+}
+
+.md-tabs {
+  background-color: #0B1220;
+}
+
+[data-md-color-scheme="default"] .md-header,
+[data-md-color-scheme="default"] .md-tabs {
+  background: linear-gradient(90deg, #1e3a8a, var(--javaone-primary));
 }
 
 .javaone-hero {
   text-align: center;
-  padding: 1.5rem 0 0.5rem;
+  padding: 1.75rem 0 0.75rem;
 }
 
 .javaone-hero__logo {
-  margin: 0 0 0.75rem;
+  margin: 0 0 0.85rem;
 }
 
 .javaone-hero__tagline {
-  font-size: 1.25rem;
+  font-family: "Space Grotesk", Inter, sans-serif;
+  font-size: 1.35rem;
   font-weight: 600;
-  margin-top: -0.5rem;
-  color: var(--md-default-fg-color--light);
+  margin-top: -0.35rem;
+  color: var(--javaone-secondary);
 }
 
 .javaone-hero__lead {
-  max-width: 40rem;
-  margin: 0.75rem auto 1.25rem;
+  max-width: 42rem;
+  margin: 0.85rem auto 1.25rem;
   font-size: 1.05rem;
+  color: var(--md-default-fg-color--light);
 }
 
 .javaone-hero__badges img {
@@ -30,7 +65,12 @@
 }
 
 .javaone-hero__actions {
-  margin: 1.25rem 0 0.5rem;
+  margin: 1.35rem 0 0.5rem;
+}
+
+.javaone-hero__actions .md-button--primary {
+  background-color: var(--javaone-primary);
+  border-color: var(--javaone-primary);
 }
 
 .javaone-shots {
@@ -43,7 +83,7 @@
   width: 100%;
   height: auto;
   border-radius: 12px;
-  border: 1px solid var(--md-default-fg-color--lightest);
+  border: 1px solid color-mix(in srgb, var(--javaone-primary) 35%, transparent);
 }
 
 .javaone-footer-note {
@@ -57,9 +97,9 @@ progress {
   height: 0.65rem;
   vertical-align: middle;
   margin-right: 0.5rem;
+  accent-color: var(--javaone-primary);
 }
 
-/* Card grid fallback if not using Material grids plugin extras */
 .grid.cards > ul {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -69,7 +109,44 @@ progress {
 }
 
 .grid.cards > ul > li {
-  border: 1px solid var(--md-default-fg-color--lightest);
+  border: 1px solid color-mix(in srgb, var(--javaone-primary) 28%, transparent);
   border-radius: 0.5rem;
   padding: 0.9rem 1rem;
+  background: color-mix(in srgb, var(--javaone-primary) 6%, transparent);
 }
+
+.status-perfect,
+.status-playable {
+  color: var(--javaone-ok);
+  font-weight: 600;
+}
+
+.status-partial {
+  color: var(--javaone-partial);
+  font-weight: 600;
+}
+
+.status-launch {
+  color: var(--javaone-launch);
+  font-weight: 600;
+}
+
+.status-broken {
+  color: var(--javaone-bad);
+  font-weight: 600;
+}
+
+.swatch {
+  display: inline-block;
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 0.25rem;
+  vertical-align: middle;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.swatch-primary { background: #2563EB; }
+.swatch-secondary { background: #60A5FA; }
+.swatch-bg { background: #0B1220; }
+.swatch-white { background: #FFFFFF; border-color: #94A3B8; }
+.swatch-gray { background: #94A3B8; }

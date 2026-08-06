@@ -16,8 +16,11 @@ copyright: >
 
 theme:
   name: material
-  logo: images/brand/logo.svg
-  favicon: images/brand/logo.svg
+  font:
+    text: Inter
+    code: Roboto Mono
+  logo: assets/branding/isotype.svg
+  favicon: assets/branding/favicon.svg
   palette:
     - media: "(prefers-color-scheme)"
       toggle:
@@ -25,15 +28,15 @@ theme:
         name: Switch to light mode
     - media: "(prefers-color-scheme: light)"
       scheme: default
-      primary: indigo
-      accent: blue
+      primary: blue
+      accent: indigo
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      primary: indigo
-      accent: blue
+      primary: blue
+      accent: indigo
       toggle:
         icon: material/brightness-4
         name: Switch to system preference
@@ -131,4 +134,5 @@ nav:
   - Performance: performance.md
   - FAQ: faq.md
   - Screenshots: screenshots/index.md
+  - Branding: branding.md
   - Technical Reports: technical-reports.md

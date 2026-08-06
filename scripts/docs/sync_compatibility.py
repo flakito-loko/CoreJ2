@@ -93,7 +93,14 @@ def main() -> None:
         fps = "—" if g.get("fps") is None else f'{g["fps"]:.2f}'
         title = g["title"]
         status = g["status"]
-        badge = f'{emoji_for(status, status_emoji)} {status}'
+        css = {
+            "Perfect": "status-perfect",
+            "Playable": "status-playable",
+            "Partial": "status-partial",
+            "Launch only": "status-launch",
+            "Not working": "status-broken",
+        }.get(status, "status-playable")
+        badge = f'<span class="{css}">{emoji_for(status, status_emoji)} {status}</span>'
         rows.append(
             f"| [{title}](compatibility/games/{title}.md) | {g.get('vendor', '—')} | "
             f"{g.get('midp', '—')} | {badge} | {fps} | {g['touch']} | {g['keypad']} | "

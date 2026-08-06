@@ -7,12 +7,14 @@ hide:
 <div class="javaone-hero" markdown="1">
 
 <p class="javaone-hero__logo" markdown="1">
-![JavaOne](images/brand/logo.svg){ width="96" }
+![JavaOne](assets/branding/isotype.svg){ width="96" }
 </p>
 
 # JavaOne
 
 <p class="javaone-hero__tagline">Embedded Java ME Emulator for iPhone</p>
+
+![Banner](assets/branding/banner-github.png)
 
 <p class="javaone-hero__lead">
 Run classic J2ME games natively on iOS using an embedded OpenJDK Mobile runtime and FreeJ2ME.
@@ -110,6 +112,7 @@ flowchart TD
 | [Roadmap](roadmap.md) | Epics and progress |
 | [Performance](performance.md) | Benchmark placeholders |
 | [FAQ](faq.md) | Common questions |
+| [Branding](branding.md) | Visual identity |
 
 ---
 

@@ -24,11 +24,11 @@ See also: [Compatibility statistics](compatibility-stats.md) · [Performance](pe
 
 | Game | Vendor | MIDP | Status | FPS | Touch | Keypad | RMS | Audio | Notes |
 |------|--------|------|--------|-----|-------|--------|-----|-------|-------|
-| [Alea](compatibility/games/Alea.md) | ro.plesoianu | MIDP 2.0 | 🟢 Playable | 0.00 | Pass | Pass | N/A | Untested | First paint OK; LCD frame counter stalled (~6) during 5 min continuous input (P2). Relaunch OK after E11-US002. |
-| [Astroids](compatibility/games/Astroids.md) | astroids | MIDP 2.0 | 🟢 Playable | 13.65 | Pass | Pass | N/A | Untested | Strong game loop on device; frames 72→4174 over ~5 min. Relaunch OK. |
-| [Tetris](compatibility/games/Tetris.md) | game.Tetris (fixture) | MIDP 2.0 | 🟢 Playable | 4.01 | Pass | Pass | N/A | Untested | Fixture tetris.jar; continuous frames 13→1222. Commercial Tetris_240x320 also present on device but not exercised in the 5-min loop. |
-| [Gryzzles](compatibility/games/Gryzzles.md) | game.Gryzzles | MIDP 2.0 | 🟢 Playable | — | Pass | Pass | Pass | Untested | E11-US001 failed with RMS NPE. Fixed in E11-US003 (sandbox dataPath). Launches and persists GryzzlesLevel store; relaunch OK. |
-| [Ubertris](compatibility/games/Ubertris.md) | ubertris | MIDP 2.0 | 🟢 Playable | 11.84 | Pass | Pass | Pass | Untested | First session painted well (65→3637). E11-US001 RMS path + relaunch/bootstrap issues fixed in E11-US002/US003. License Alert remains (P2 UI). |
+| [Alea](compatibility/games/Alea.md) | ro.plesoianu | MIDP 2.0 | <span class="status-playable">🟢 Playable</span> | 0.00 | Pass | Pass | N/A | Untested | First paint OK; LCD frame counter stalled (~6) during 5 min continuous input (P2). Relaunch OK after E11-US002. |
+| [Astroids](compatibility/games/Astroids.md) | astroids | MIDP 2.0 | <span class="status-playable">🟢 Playable</span> | 13.65 | Pass | Pass | N/A | Untested | Strong game loop on device; frames 72→4174 over ~5 min. Relaunch OK. |
+| [Tetris](compatibility/games/Tetris.md) | game.Tetris (fixture) | MIDP 2.0 | <span class="status-playable">🟢 Playable</span> | 4.01 | Pass | Pass | N/A | Untested | Fixture tetris.jar; continuous frames 13→1222. Commercial Tetris_240x320 also present on device but not exercised in the 5-min loop. |
+| [Gryzzles](compatibility/games/Gryzzles.md) | game.Gryzzles | MIDP 2.0 | <span class="status-playable">🟢 Playable</span> | — | Pass | Pass | Pass | Untested | E11-US001 failed with RMS NPE. Fixed in E11-US003 (sandbox dataPath). Launches and persists GryzzlesLevel store; relaunch OK. |
+| [Ubertris](compatibility/games/Ubertris.md) | ubertris | MIDP 2.0 | <span class="status-playable">🟢 Playable</span> | 11.84 | Pass | Pass | Pass | Untested | First session painted well (65→3637). E11-US001 RMS path + relaunch/bootstrap issues fixed in E11-US002/US003. License Alert remains (P2 UI). |
 
 ## Status legend
 
