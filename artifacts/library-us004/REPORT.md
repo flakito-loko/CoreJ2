@@ -47,4 +47,4 @@ See `artifacts/library-us004/screenshots/`
 
 ## Commit hash
 
-_(filled after commit)_
+`120c72548db47f7f803ac405d39a0e46bb40a9b2`
