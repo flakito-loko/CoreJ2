@@ -1,26 +1,37 @@
 # Screenshots
 
-Drop real captures into `docs/images/screenshots/` using the filenames below. SVG placeholders keep the layout stable until then.
+Device captures from physical iPhone running JavaOne with embedded OpenJDK Mobile and FreeJ2ME.
 
-| Shot | File | Status |
-|------|------|--------|
-| Main Menu | [`main-menu.svg`](../images/screenshots/main-menu.svg) | Placeholder |
-| Library | [`library.svg`](../images/screenshots/library.svg) | Placeholder |
-| Tetris | [`tetris.svg`](../images/screenshots/tetris.svg) | Placeholder |
-| Astroids | [`astroids.svg`](../images/screenshots/astroids.svg) | Placeholder |
-| Alea | [`alea.svg`](../images/screenshots/alea.svg) | Placeholder |
-| Gryzzles | [`gryzzles.svg`](../images/screenshots/gryzzles.svg) | Placeholder |
-| Settings | [`settings.svg`](../images/screenshots/settings.svg) | Placeholder |
+## Reference title — Miami Nights
 
-Preferred replacements: PNG or WebP at ~3× phone width. Keep the same basename (e.g. `tetris.png`) and update references if you change extension.
+| Shot | Preview | Caption |
+|------|---------|---------|
+| Gameplay | ![Miami Nights gameplay](../assets/screenshots/miami-nights-gameplay.PNG){ width="240" } | Miami Nights gameplay with virtual keypad |
+| Menu | ![Miami Nights menu](../assets/screenshots/miami-nights-menu.PNG){ width="240" } | Miami Nights in-game menu |
 
-## Animated GIF slots
+## Library & corpus
 
-| Capture | Placeholder |
-|---------|-------------|
-| Gameplay | [`gameplay-placeholder.svg`](../images/gifs/gameplay-placeholder.svg) |
-| Launch | [`launch-placeholder.svg`](../images/gifs/launch-placeholder.svg) |
-| Library | [`library-placeholder.svg`](../images/gifs/library-placeholder.svg) |
-| Touch controls | [`touch-controls-placeholder.svg`](../images/gifs/touch-controls-placeholder.svg) |
+| Shot | Preview | Caption |
+|------|---------|---------|
+| Library | ![Library](../assets/screenshots/library.PNG){ width="240" } | SwiftUI library with Import Game |
+| Tetris | ![Tetris](../assets/screenshots/tetris.PNG){ width="240" } | Tetris LCD surface |
+| Astroids | ![Astroids](../assets/screenshots/astroids.PNG){ width="240" } | Astroids on device |
+| Gryzzles | ![Gryzzles](../assets/screenshots/gryzzles.PNG){ width="240" } | Gryzzles (RMS validation title) |
 
-Do not commit synthetic “fake gameplay” GIFs — wait for device recordings.
+## GIF previews
+
+| Capture | Preview | Caption |
+|---------|---------|---------|
+| Miami Nights | ![Miami Nights](../assets/gifs/miami-nights.gif){ width="220" } | Commercial title — playable session |
+| Tetris | ![Tetris](../assets/gifs/tetris.gif){ width="220" } | LCD + virtual keypad |
+| Astroids | ![Astroids](../assets/gifs/astroids.gif){ width="220" } | Touch + keypad path |
+
+## Gameplay videos
+
+| Title | File |
+|-------|------|
+| Miami Nights | [miami-nights.MP4](../assets/videos/miami-nights.MP4) |
+| Tetris | [tetris.mp4](../assets/videos/tetris.mp4) |
+| Astroids | [astroids.MP4](../assets/videos/astroids.MP4) |
+
+HTML5 players are on the [home page](../index.md).

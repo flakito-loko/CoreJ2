@@ -2,6 +2,20 @@
 
 All notable changes to JavaOne, organized by epic.
 
+## [0.9.0-alpha] — 2026-08-06
+
+### Documentation
+
+- Public project refresh (DOCS-US004): README, GitHub Pages, screenshots, GIFs, and gameplay videos
+- Position JavaOne as a device-validated commercial J2ME runner (Miami Nights reference title)
+- Status table, architecture stack, and roadmap split (completed / current / future)
+
+### Media
+
+- Device screenshots under `docs/assets/screenshots/`
+- Optimized gameplay GIFs under `docs/assets/gifs/`
+- Full MP4 recordings under `docs/assets/videos/`
+
 ## [Unreleased]
 
 ### Branding

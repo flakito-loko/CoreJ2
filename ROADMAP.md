@@ -4,38 +4,40 @@ Public roadmap for JavaOne. Site mirror: [docs/roadmap.md](https://flakito-loko.
 
 ## Current version
 
-**1.0.0-dev** (Alpha)
+**v0.9.0-alpha** (Alpha)
 
-## Current epic
+## Completed Milestones
 
-**Epic 12 — Compatibility Program**
+- Embedded JVM
+- FreeJ2ME Integration
+- AWT · ImageIO · JPEG · FontManager
+- RMS
+- Commercial MIDlets
+- Miami Nights gameplay
 
-## Progress
+## Current Work
+
+- Native MMAPI Audio
+- Compatibility Database (Epic 12)
+
+## Future Work
+
+- Controller support
+- Per-game settings
+- Save States
+- Performance optimization
+- Shader pipeline
+
+## Progress snapshot
 
 | Area | Progress |
 |------|----------|
 | Library & Import | ████████████████████ 100% |
 | Bridge & Host | ████████████████████ 100% |
 | Embedded JVM | ████████████████████ 100% |
-| Device gameplay | ██████████████████░░ 90% |
+| Device gameplay | ████████████████████ 100% |
 | Compatibility corpus | ████░░░░░░░░░░░░░░░░ 20% |
-| Audio / MMAPI | ░░░░░░░░░░░░░░░░░░░░ 0% |
+| Audio / MMAPI | ██░░░░░░░░░░░░░░░░░░ 10% |
 | App Store packaging | ░░░░░░░░░░░░░░░░░░░░ 0% |
 
-## Completed epics
-
-Epics 1–11 (see [CHANGELOG](CHANGELOG.md) and [docs/milestones.md](https://flakito-loko.github.io/JavaOne/milestones/)).
-
-## Upcoming
-
-1. Epic 12 corpus expansion
-2. Audio validation
-3. Alea frame continuity (P2)
-4. Packaging / legal review
-5. Shipping screenshots & GIFs
-
-## Long-term
-
-- Broad commercial JAR coverage
-- First-party HIG polish
-- Minimal FreeJ2ME upstream drift via the bridge
+Details: [CHANGELOG](CHANGELOG.md) · [milestones](https://flakito-loko.github.io/JavaOne/milestones/)

@@ -22,6 +22,7 @@ timeline
         First Commercial MIDlet : Real JAR smoke on device
         Persistent JVM : Reuse VM across sessions
         RMS : Sandboxed dataPath RecordStores
+        Miami Nights gameplay : Commercial title playable on iPhone
         Compatibility Program : Public matrix and corpus expansion
 ```
 
@@ -39,6 +40,7 @@ timeline
 | First commercial MIDlet | Unmodified JARs beyond hello-world |
 | Persistent JVM | Launch/stop cycles without destroying the VM every time |
 | RMS | Writable RecordStore paths under Documents |
+| Miami Nights gameplay | Commercial title: launch, menus, gameplay, save/load on device |
 | Compatibility Program | Public, data-driven title matrix |
 
 See also: [Architecture](architecture.md) · [Roadmap](roadmap.md) · [Technical Reports](technical-reports.md)

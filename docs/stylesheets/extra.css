@@ -53,6 +53,31 @@
   color: var(--javaone-secondary);
 }
 
+.javaone-hero__pills {
+  margin: 0.75rem auto 1.25rem;
+  max-width: 40rem;
+  font-size: 0.95rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.javaone-hero__gif {
+  margin: 1rem auto 0.5rem;
+}
+
+.javaone-hero__gif img {
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--javaone-primary) 35%, transparent);
+  max-width: min(360px, 100%);
+  height: auto;
+}
+
+.javaone-hero__caption {
+  margin: 0.35rem auto 1rem;
+  font-size: 0.9rem;
+  color: var(--md-default-fg-color--light);
+  font-style: italic;
+}
+
 .javaone-hero__lead {
   max-width: 42rem;
   margin: 0.85rem auto 1.25rem;
@@ -84,6 +109,48 @@
   height: auto;
   border-radius: 12px;
   border: 1px solid color-mix(in srgb, var(--javaone-primary) 35%, transparent);
+}
+
+.javaone-shots--pair {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  max-width: 640px;
+  margin-inline: auto;
+}
+
+.javaone-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.25rem;
+  margin: 1rem 0 1.5rem;
+}
+
+.javaone-gallery figure {
+  margin: 0;
+  text-align: center;
+}
+
+.javaone-gallery img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--javaone-primary) 35%, transparent);
+}
+
+.javaone-gallery figcaption,
+.javaone-shots figcaption {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--md-default-fg-color--light);
+}
+
+.javaone-videos video {
+  display: block;
+  width: min(360px, 100%);
+  height: auto;
+  margin: 0.5rem 0 0.75rem;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--javaone-primary) 35%, transparent);
+  background: #000;
 }
 
 .javaone-footer-note {

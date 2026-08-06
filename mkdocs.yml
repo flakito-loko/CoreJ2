@@ -1,5 +1,5 @@
 site_name: JavaOne
-site_description: Embedded Java ME Emulator for iPhone
+site_description: Run classic Java ME (J2ME) games natively on iPhone and iPad
 site_author: JavaOne
 site_url: https://flakito-loko.github.io/JavaOne/
 
@@ -136,3 +136,5 @@ nav:
   - Screenshots: screenshots/index.md
   - Branding: branding.md
   - Technical Reports: technical-reports.md
+  - Releases:
+      - v0.9.0-alpha: releases/v0.9.0-alpha.md

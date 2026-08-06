@@ -18,7 +18,7 @@ No. Development and validation target stock iOS devices with standard signing.
 
 ## Can it run commercial games?
 
-Yes — commercial MIDlets have been exercised on physical iPhone. Public compatibility is tracked in the [Compatibility](compatibility.md) matrix (canary corpus today; expanding in Epic 12).
+Yes. Commercial MIDlets run on physical iPhone. The reference title is **Miami Nights: Singles in the City** (launch, menus, gameplay, save/load validated). Public compatibility is tracked in the [Compatibility](compatibility.md) matrix and is still expanding (Epic 12).
 
 ## Why OpenJDK Mobile?
 
@@ -34,7 +34,7 @@ Under `Documents/JavaOne/Saves/<game-uuid>/rms/…` after Epic 11 RMS wiring.
 
 ## Is audio supported?
 
-Audio / MMAPI is not yet validated in the public matrix (marked Untested).
+Silent-audio compatibility works for titles that tolerate muted playback. A **native MMAPI audio backend** for real sound output is still in progress.
 
 ## How do I build the docs site?
 

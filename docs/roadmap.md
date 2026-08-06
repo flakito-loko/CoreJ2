@@ -2,13 +2,25 @@
 
 ## Current version
 
-**1.0.0-dev** · 🚧 Alpha
+**v0.9.0-alpha** · 🚧 Alpha
 
-## Current epic
+Commercial J2ME titles (including Miami Nights) run on physical iPhone with embedded OpenJDK Mobile. Native audio and broader compatibility are the active focus.
 
-**Epic 12 — Compatibility Program** — expand corpus, keep `compatibility.json` authoritative, publish stats.
+---
 
-## Progress
+## Completed Milestones
+
+- Embedded JVM (OpenJDK Mobile Zero)
+- FreeJ2ME Integration
+- AWT
+- ImageIO
+- JPEG
+- FontManager
+- RMS
+- Commercial MIDlets
+- Miami Nights gameplay
+
+### Epic progress (1–11)
 
 | Track | Progress |
 |-------|----------|
@@ -23,57 +35,31 @@
 | Epic 9 · Embedded AWT | <progress value="100" max="100"></progress> 100% |
 | Epic 10 · Font / ImageIO | <progress value="100" max="100"></progress> 100% |
 | Epic 11 · Gameplay / RMS | <progress value="100" max="100"></progress> 100% |
-| Epic 12 · Compatibility | <progress value="20" max="100"></progress> 20% |
-| Audio / MMAPI | <progress value="0" max="100"></progress> 0% |
-| Distribution packaging | <progress value="0" max="100"></progress> 0% |
 
-## Completed epics
+---
 
-### Epic 1 — Game Library
-SwiftData-backed library UX.
+## Current Work
 
-### Epic 2 — Import Engine
-Manifest, hash, duplicates, artwork.
+| Track | Progress |
+|-------|----------|
+| Native MMAPI Audio | <progress value="10" max="100"></progress> In progress |
+| Compatibility Database (Epic 12) | <progress value="20" max="100"></progress> 20% |
 
-### Epic 3 — Emulator Bridge & FreeJ2ME Host
-Bridge, RuntimeHost, vendor submodule, MIDlet startup.
+- Native MMAPI audio backend for titles that expect real playback
+- Expand the public compatibility corpus and keep `compatibility.json` authoritative
 
-### Epic 4 — Renderer / Emulator Surface
-LCD frames into SwiftUI.
+---
 
-### Epic 5 — Persistent Runtime
-Long-lived JVM design.
+## Future Work
 
-### Epic 6 — Embedded OpenJDK Mobile + FreeJ2ME
-In-process Zero + FreeJ2ME classpath.
+- Controller support
+- Per-game settings
+- Save States
+- Performance optimization
+- Shader pipeline
 
-### Epic 7 — OpenJDK Java Home / JNI Bring-up
-Device `JNI_CreateJavaVM`.
+Also planned: packaging & legal review for distribution.
 
-### Epic 8 — JNI Gateway Throwable Path
-Safe exception propagation.
+---
 
-### Epic 9 — Embedded AWT Runtime
-Graphics natives for LCD.
-
-### Epic 10 — Font, ImageIO & RunJar Hardening
-Fonts, codecs, RunJar diagnostics.
-
-### Epic 11 — Device Gameplay, Lifecycle & RMS
-5-minute corpus; relaunch recovery; sandbox RMS.
-
-## Upcoming epics
-
-1. **Epic 12** — Compatibility Program (current)
-2. Audio / MMAPI validation epic
-3. Frame-continuity / painter polish
-4. Packaging & legal review
-
-## Long-term goals
-
-- Broad commercial title coverage
-- First-party HIG polish and shipping screenshots
-- Minimal FreeJ2ME upstream drift
-- Sustainable public compatibility database
-
-Repo mirror: [https://github.com/flakito-loko/JavaOne/blob/main/ROADMAP.md](https://github.com/flakito-loko/JavaOne/blob/main/ROADMAP.md)
+Repo mirror: [ROADMAP.md](https://github.com/flakito-loko/JavaOne/blob/main/ROADMAP.md)

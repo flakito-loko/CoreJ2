@@ -6,23 +6,23 @@ hide:
 
 <div class="javaone-hero" markdown="1">
 
-<p class="javaone-hero__logo" markdown="1">
-![JavaOne](assets/branding/isotype.svg){ width="96" }
-</p>
-
 # JavaOne
 
-<p class="javaone-hero__tagline">Embedded Java ME Emulator for iPhone</p>
+<p class="javaone-hero__tagline">Run classic Java ME (J2ME) games natively on iPhone and iPad.</p>
 
-![Banner](assets/branding/banner-github.png)
-
-<p class="javaone-hero__lead">
-Run classic J2ME games natively on iOS using an embedded OpenJDK Mobile runtime and FreeJ2ME.
+<p class="javaone-hero__pills" markdown="1">
+`Embedded OpenJDK Mobile` · `FreeJ2ME` · `SwiftUI` · `Open Source`
 </p>
+
+<p class="javaone-hero__gif" markdown="1">
+![Miami Nights gameplay on JavaOne](assets/gifs/miami-nights.gif){ width="360" }
+</p>
+
+<p class="javaone-hero__caption">Miami Nights: Singles in the City — gameplay on a physical iPhone</p>
 
 <p class="javaone-hero__badges" markdown="1">
 [![Alpha](https://img.shields.io/badge/status-Alpha-orange)](https://github.com/flakito-loko/JavaOne)
-[![Version](https://img.shields.io/badge/version-1.0.0--dev-blue)](https://github.com/flakito-loko/JavaOne)
+[![Version](https://img.shields.io/badge/version-0.9.0--alpha-blue)](https://github.com/flakito-loko/JavaOne/releases)
 [![Swift](https://img.shields.io/badge/Swift-6-F05138?logo=swift&logoColor=white)](https://github.com/flakito-loko/JavaOne)
 [![iOS](https://img.shields.io/badge/iOS-Device-000000?logo=apple&logoColor=white)](https://github.com/flakito-loko/JavaOne)
 [![Docs](https://img.shields.io/badge/Docs-GitHub%20Pages-0A84FF)](https://flakito-loko.github.io/JavaOne/)
@@ -40,77 +40,183 @@ Run classic J2ME games natively on iOS using an embedded OpenJDK Mobile runtime 
 
 ---
 
-## Features
+## Current Status
 
-<div class="grid cards" markdown>
+| Feature | Status |
+|---------|--------|
+| Embedded OpenJDK Mobile | ✅ |
+| FreeJ2ME Runtime | ✅ |
+| Commercial MIDlets | ✅ |
+| LCD Rendering | ✅ |
+| Touch Input | ✅ |
+| Virtual Keypad | ✅ |
+| Save / Load (RMS) | ✅ |
+| Multiple Launch Cycles | ✅ |
+| Gameplay | ✅ |
+| Silent Audio Compatibility | ✅ |
+| Native Audio Playback | 🚧 In Progress |
+| Compatibility Expansion | 🚧 In Progress |
 
--   :material-chip: **Embedded OpenJDK Mobile**
--   :material-language-java: **FreeJ2ME runtime**
--   :material-apple: **Native SwiftUI frontend**
--   :material-monitor: **LCD rendering**
--   :material-gesture-tap: **Touch**
--   :material-keyboard: **Virtual keypad**
--   :material-memory: **Persistent JVM**
--   :material-content-save: **RMS support**
--   :material-gamepad-variant: **Commercial MIDlets**
+---
+
+## Reference Game
+
+### Miami Nights: Singles in the City
+
+Validated on physical iPhone with embedded OpenJDK Mobile, FreeJ2ME, and a SwiftUI frontend.
+
+| Check | Result |
+|-------|--------|
+| Launch | ✓ |
+| Menus | ✓ |
+| Gameplay | ✓ |
+| Save | ✓ |
+| Load | ✓ |
+| Dialogs | ✓ |
+| Stable gameplay | ✓ |
+| No crashes during manual play session | ✓ |
+
+**Remaining work:** native MMAPI audio backend · compatibility expansion
+
+<div class="javaone-shots javaone-shots--pair" markdown>
+
+<figure markdown>
+![Miami Nights gameplay](assets/screenshots/miami-nights-gameplay.PNG)
+<figcaption>Gameplay with virtual keypad</figcaption>
+</figure>
+
+<figure markdown>
+![Miami Nights menu](assets/screenshots/miami-nights-menu.PNG)
+<figcaption>In-game menu on device</figcaption>
+</figure>
 
 </div>
 
 ---
 
-## Screenshots
+## Showcase
 
-<div class="javaone-shots" markdown>
+### GIF previews
 
-![Main Menu](images/screenshots/main-menu.svg)
-![Library](images/screenshots/library.svg)
-![Tetris](images/screenshots/tetris.svg)
-![Astroids](images/screenshots/astroids.svg)
+<div class="javaone-gallery" markdown>
+
+<figure markdown>
+![Miami Nights GIF](assets/gifs/miami-nights.gif)
+<figcaption>Miami Nights — commercial title, playable session</figcaption>
+</figure>
+
+<figure markdown>
+![Tetris GIF](assets/gifs/tetris.gif)
+<figcaption>Tetris — LCD rendering and virtual keypad</figcaption>
+</figure>
+
+<figure markdown>
+![Astroids GIF](assets/gifs/astroids.gif)
+<figcaption>Astroids — touch + keypad input path</figcaption>
+</figure>
 
 </div>
 
-More placeholders: [Alea](images/screenshots/alea.svg) · [Gryzzles](images/screenshots/gryzzles.svg) · [Settings](images/screenshots/settings.svg)  
+### Screenshots
+
+<div class="javaone-gallery" markdown>
+
+<figure markdown>
+![Library](assets/screenshots/library.PNG)
+<figcaption>Library — SwiftUI game list and import</figcaption>
+</figure>
+
+<figure markdown>
+![Tetris](assets/screenshots/tetris.PNG)
+<figcaption>Tetris — FreeJ2ME LCD surface</figcaption>
+</figure>
+
+<figure markdown>
+![Astroids](assets/screenshots/astroids.PNG)
+<figcaption>Astroids — device capture</figcaption>
+</figure>
+
+<figure markdown>
+![Gryzzles](assets/screenshots/gryzzles.PNG)
+<figcaption>Gryzzles — RMS / save path validation</figcaption>
+</figure>
+
+</div>
+
 See [Screenshots](screenshots/index.md).
 
 ---
 
-## Animated captures
+## Gameplay Videos
 
-Placeholders only — replace with real `.gif` files when available.
+<div class="javaone-videos" markdown>
 
-| Gameplay | Launch | Library | Touch controls |
-|:--------:|:------:|:-------:|:--------------:|
-| ![Gameplay](images/gifs/gameplay-placeholder.svg) | ![Launch](images/gifs/launch-placeholder.svg) | ![Library](images/gifs/library-placeholder.svg) | ![Touch](images/gifs/touch-controls-placeholder.svg) |
+### Miami Nights
+
+<video controls playsinline preload="metadata" poster="assets/screenshots/miami-nights-gameplay.PNG" width="360">
+  <source src="assets/videos/miami-nights.MP4" type="video/mp4">
+</video>
+
+[Download MP4](assets/videos/miami-nights.MP4)
+
+### Tetris
+
+<video controls playsinline preload="metadata" poster="assets/screenshots/tetris.PNG" width="360">
+  <source src="assets/videos/tetris.mp4" type="video/mp4">
+</video>
+
+[Download MP4](assets/videos/tetris.mp4)
+
+### Astroids
+
+<video controls playsinline preload="metadata" poster="assets/screenshots/astroids.PNG" width="360">
+  <source src="assets/videos/astroids.MP4" type="video/mp4">
+</video>
+
+[Download MP4](assets/videos/astroids.MP4)
+
+</div>
 
 ---
 
-## Runtime stack
+## Architecture
 
-```mermaid
-flowchart TD
-  A[SwiftUI] --> B[EmulatorView]
-  B --> C[Bridge]
-  C --> D[RuntimeHost]
-  D --> E[PlatformBootstrap]
-  E --> F[JNIGateway]
-  F --> G[Embedded OpenJDK Mobile]
-  G --> H[FreeJ2ME]
-  H --> I[MIDlet]
+```text
+SwiftUI
+  ↓
+Bridge
+  ↓
+Runtime Host
+  ↓
+Embedded OpenJDK Mobile
+  ↓
+FreeJ2ME
+  ↓
+Commercial MIDlet
 ```
 
+Full layer ownership: [Architecture](architecture.md)
+
 ---
 
-## Explore
+## Compatibility Database
+
+Device-validated titles live in the public [Compatibility](compatibility.md) matrix. Expansion is ongoing (Epic 12).
+
+[Browse compatibility →](compatibility.md){ .md-button }
+
+---
+
+## Documentation
 
 | Page | Why |
 |------|-----|
 | [Why JavaOne?](why-javaone.md) | Vision and technical rationale |
 | [Getting Started](getting-started.md) | First launch |
 | [Compatibility](compatibility.md) | Device-validated matrix |
-| [Milestones](milestones.md) | How we got here |
 | [Architecture](architecture.md) | Ownership by layer |
-| [Roadmap](roadmap.md) | Epics and progress |
-| [Performance](performance.md) | Benchmark placeholders |
+| [Roadmap](roadmap.md) | Completed, current, future |
+| [Milestones](milestones.md) | Engineering timeline |
 | [FAQ](faq.md) | Common questions |
 | [Branding](branding.md) | Visual identity |
 
@@ -118,6 +224,6 @@ flowchart TD
 
 <div class="javaone-footer-note" markdown="1">
 
-🚧 **Alpha** · [GitHub](https://github.com/flakito-loko/JavaOne) · [Roadmap](roadmap.md) · [Compatibility](compatibility.md) · [License / Security](https://github.com/flakito-loko/JavaOne/blob/main/SECURITY.md)
+🚧 **Alpha · v0.9.0-alpha** · [GitHub](https://github.com/flakito-loko/JavaOne) · [Roadmap](roadmap.md) · [Compatibility](compatibility.md)
 
 </div>
