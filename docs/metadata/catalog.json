@@ -1,0 +1,222 @@
+{
+  "version": "1.0.0",
+  "generatedAt": "2026-08-06T16:50:00Z",
+  "games": [
+    {
+      "title": "Miami Nights",
+      "vendor": "Gameloft",
+      "contentHash": "b1600f109f5d6e9cc7d6cf42f2d2ca692a92d28aec3d2f630f242a6bc81e71a2",
+      "description": "Cruise the neon streets of Miami in this classic Java ME racing adventure from Gameloft.",
+      "publisher": "Gameloft",
+      "developer": "Gameloft",
+      "genre": "Racing",
+      "releaseYear": 2005,
+      "resolution": "320 × 240",
+      "compatibility": "Playable",
+      "coverURL": "https://flakito-loko.github.io/CoreJ2/metadata/covers/miami-nights.jpg",
+      "screenshotURLs": [
+        "https://flakito-loko.github.io/CoreJ2/metadata/screenshots/miami-nights-01.jpg",
+        "https://flakito-loko.github.io/CoreJ2/metadata/screenshots/miami-nights-02.jpg"
+      ]
+    },
+    {
+      "title": "Tetris",
+      "contentHash": "3b5d73a235219b5f1ac80d9afd84922a2d1536397c3d832ce98387d31c278711",
+      "description": "The timeless falling-block puzzle that defined a generation of mobile gaming.",
+      "publisher": "Various",
+      "developer": "Various",
+      "genre": "Puzzle",
+      "releaseYear": 1984,
+      "resolution": "240 × 320",
+      "compatibility": "Playable",
+      "coverURL": "https://flakito-loko.github.io/CoreJ2/metadata/covers/tetris.jpg",
+      "screenshotURLs": [
+        "https://flakito-loko.github.io/CoreJ2/metadata/screenshots/tetris-01.jpg"
+      ]
+    },
+    {
+      "title": "Tetris",
+      "contentHash": "cbc54ed57cb7137295569e8aa1a9cb61b4f02cb1dcbf77ec2e7b4f8b52dad208",
+      "description": "The timeless falling-block puzzle that defined a generation of mobile gaming.",
+      "publisher": "Various",
+      "developer": "Various",
+      "genre": "Puzzle",
+      "releaseYear": 1984,
+      "resolution": "240 × 320",
+      "compatibility": "Playable",
+      "coverURL": "https://flakito-loko.github.io/CoreJ2/metadata/covers/tetris.jpg",
+      "screenshotURLs": [
+        "https://flakito-loko.github.io/CoreJ2/metadata/screenshots/tetris-01.jpg"
+      ]
+    },
+    {
+      "title": "Tetris",
+      "contentHash": "5a01c387a40981d9a82b64fde299cf847c2a49b6fe4b0de1be7c213324e60e8b",
+      "description": "The timeless falling-block puzzle that defined a generation of mobile gaming.",
+      "publisher": "Various",
+      "developer": "Various",
+      "genre": "Puzzle",
+      "releaseYear": 1984,
+      "resolution": "240 × 320",
+      "compatibility": "Playable",
+      "coverURL": "https://flakito-loko.github.io/CoreJ2/metadata/covers/tetris.jpg",
+      "screenshotURLs": [
+        "https://flakito-loko.github.io/CoreJ2/metadata/screenshots/tetris-01.jpg"
+      ]
+    },
+    {
+      "title": "Astroids",
+      "contentHash": "117bf7a252cd73eb73d414bb66cf10ffc9b2dd33a9475c31e226edc8de3459f5",
+      "description": "Arcade space shooter — clear the field of asteroids and survive the swarm.",
+      "publisher": "Unknown",
+      "developer": "Unknown",
+      "genre": "Shooter",
+      "resolution": "240 × 320",
+      "compatibility": "Playable",
+      "coverURL": "https://flakito-loko.github.io/CoreJ2/metadata/covers/astroids.jpg",
+      "screenshotURLs": [
+        "https://flakito-loko.github.io/CoreJ2/metadata/screenshots/astroids-01.jpg"
+      ]
+    },
+    {
+      "title": "Bounce",
+      "contentHash": "f1045f1af43a518b13c708d061059322878395bb4ea416e38b811c3798ba4fbb",
+      "description": "Guide the bouncing ball through challenging platform levels on classic Java ME handsets.",
+      "publisher": "Unknown",
+      "developer": "Unknown",
+      "genre": "Platform",
+      "resolution": "240 × 320",
+      "compatibility": "Playable",
+      "coverURL": "https://flakito-loko.github.io/CoreJ2/metadata/covers/bounce.jpg",
+      "screenshotURLs": []
+    },
+    {
+      "title": "Johnny Crash",
+      "contentHash": "7e67539c5f370f18d75106f4f5ae05d16f18bd1a94163f7da70e71d57579d2ea",
+      "description": "Action platformer starring Johnny Crash — validated on CoreJ2 device corpus.",
+      "publisher": "Unknown",
+      "developer": "Unknown",
+      "genre": "Action",
+      "resolution": "240 × 320",
+      "compatibility": "Playable",
+      "coverURL": "https://flakito-loko.github.io/CoreJ2/metadata/covers/johnny-crash.jpg",
+      "screenshotURLs": []
+    },
+    {
+      "title": "Gryzzles",
+      "contentHash": "e28e42e0d183f1a69a1471533d488e7d524fd67f8bd30ca495da01de9801c23e",
+      "description": "Match-three puzzle adventure used in CoreJ2 RMS validation suites.",
+      "publisher": "Unknown",
+      "developer": "Unknown",
+      "genre": "Puzzle",
+      "resolution": "240 × 320",
+      "compatibility": "Playable",
+      "coverURL": "https://flakito-loko.github.io/CoreJ2/metadata/covers/gryzzles.jpg",
+      "screenshotURLs": [
+        "https://flakito-loko.github.io/CoreJ2/metadata/screenshots/gryzzles-01.jpg"
+      ]
+    },
+    {
+      "title": "Ubertris",
+      "contentHash": "a0c90b6b14a27c432612f5a13100a467384d14c38c4f7c5397c67a6d4b4b93e3",
+      "description": "Fast falling-block puzzle from the CoreJ2 compatibility corpus — RMS and relaunch validated.",
+      "publisher": "Unknown",
+      "developer": "Unknown",
+      "genre": "Puzzle",
+      "resolution": "240 × 320",
+      "compatibility": "Playable",
+      "coverURL": "https://flakito-loko.github.io/CoreJ2/metadata/covers/ubertris.jpg",
+      "screenshotURLs": []
+    },
+    {
+      "title": "Alea Jacta Est",
+      "vendor": "ro.plesoianu",
+      "contentHash": "cda1595336904f7f59474d3901ec339fa83b23fa774966e2f8a24b825d6df37f",
+      "description": "Strategy dice title from the CoreJ2 compatibility corpus (also known as Alea).",
+      "publisher": "ro.plesoianu",
+      "developer": "ro.plesoianu",
+      "genre": "Strategy",
+      "resolution": "240 × 320",
+      "compatibility": "Playable",
+      "coverURL": "https://flakito-loko.github.io/CoreJ2/metadata/covers/alea.jpg",
+      "screenshotURLs": []
+    },
+    {
+      "title": "Alea",
+      "vendor": "ro.plesoianu",
+      "contentHash": "cda1595336904f7f59474d3901ec339fa83b23fa774966e2f8a24b825d6df37f",
+      "description": "Strategy dice title from the CoreJ2 compatibility corpus.",
+      "publisher": "ro.plesoianu",
+      "developer": "ro.plesoianu",
+      "genre": "Strategy",
+      "resolution": "240 × 320",
+      "compatibility": "Playable",
+      "coverURL": "https://flakito-loko.github.io/CoreJ2/metadata/covers/alea.jpg",
+      "screenshotURLs": []
+    },
+    {
+      "title": "Asphalt 3",
+      "vendor": "Gameloft",
+      "description": "High-speed arcade racing with licensed cars on the Java ME platform.",
+      "publisher": "Gameloft",
+      "developer": "Gameloft",
+      "genre": "Racing",
+      "releaseYear": 2006,
+      "resolution": "240 × 320",
+      "compatibility": "Untested",
+      "coverURL": "https://flakito-loko.github.io/CoreJ2/metadata/covers/asphalt-3.jpg",
+      "screenshotURLs": []
+    },
+    {
+      "title": "Asphalt 4",
+      "vendor": "Gameloft",
+      "description": "Elite Racing sequel bringing sharper tracks and career modes to Java ME.",
+      "publisher": "Gameloft",
+      "developer": "Gameloft",
+      "genre": "Racing",
+      "releaseYear": 2008,
+      "resolution": "240 × 320",
+      "compatibility": "Untested",
+      "coverURL": "https://flakito-loko.github.io/CoreJ2/metadata/covers/asphalt-4.jpg",
+      "screenshotURLs": []
+    },
+    {
+      "title": "Doom RPG",
+      "vendor": "id Software",
+      "description": "Turn-based RPG set in the Doom universe, built for Java ME handsets.",
+      "publisher": "id Software",
+      "developer": "Fountainhead Entertainment",
+      "genre": "RPG",
+      "releaseYear": 2005,
+      "resolution": "240 × 320",
+      "compatibility": "Untested",
+      "coverURL": "https://flakito-loko.github.io/CoreJ2/metadata/covers/doom-rpg.jpg",
+      "screenshotURLs": []
+    },
+    {
+      "title": "Worms World Party",
+      "description": "Turn-based artillery mayhem with the Worms cast on mobile.",
+      "publisher": "THQ",
+      "developer": "Twisted Minds",
+      "genre": "Strategy",
+      "releaseYear": 2003,
+      "resolution": "240 × 320",
+      "compatibility": "Untested",
+      "coverURL": "https://flakito-loko.github.io/CoreJ2/metadata/covers/worms-world-party.jpg",
+      "screenshotURLs": []
+    },
+    {
+      "title": "Sonic Jump",
+      "vendor": "Sega",
+      "description": "Vertical jump-and-run starring Sonic, adapted for feature phones.",
+      "publisher": "Sega",
+      "developer": "Sega",
+      "genre": "Platform",
+      "releaseYear": 2005,
+      "resolution": "240 × 320",
+      "compatibility": "Untested",
+      "coverURL": "https://flakito-loko.github.io/CoreJ2/metadata/covers/sonic-jump.jpg",
+      "screenshotURLs": []
+    }
+  ]
+}
