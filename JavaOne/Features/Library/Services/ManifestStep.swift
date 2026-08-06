@@ -44,11 +44,15 @@ final class ManifestStep: ImportStep {
                 publisher = "Unknown"
             }
 
+            let version = manifest.version?
+                .trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+
             let size = MIDletLCDGeometry.size(forMidletName: resolvedTitle)
             context.installedGame = installedGame.updating(
                 title: resolvedTitle,
                 publisher: publisher,
-                resolution: "\(size.width) × \(size.height)"
+                resolution: "\(size.width) × \(size.height)",
+                midletVersion: version
             )
         } catch ManifestServiceError.manifestMissing {
             context.warnings.append("MANIFEST.MF is missing; using the filename title.")

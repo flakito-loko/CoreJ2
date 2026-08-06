@@ -80,6 +80,7 @@ private enum ManifestParser {
         return MidletManifest(
             midletName: attributes["MIDlet-Name"],
             vendor: attributes["MIDlet-Vendor"],
+            version: attributes["MIDlet-Version"],
             iconPath: iconPath(from: attributes)
         )
     }

@@ -1,0 +1,26 @@
+[
+  {
+    "attachments" : [
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "00008150-000C70A80EBA401C",
+        "deviceName" : "iPhone de Leonel Figuereo",
+        "exportedFileName" : "021659FD-4387-4106-94BF-96C94357316E.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "library-us002-library_0_03311BAB-FA5D-4FF9-95A1-E716175A1584.png",
+        "timestamp" : 1786030389.141
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "00008150-000C70A80EBA401C",
+        "deviceName" : "iPhone de Leonel Figuereo",
+        "exportedFileName" : "E3C2D650-61B3-468D-AC70-4F58D5B04507.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "library-us002-detail-metadata_0_09514C66-66CB-45ED-BD9B-ACD1D3C7111E.png",
+        "timestamp" : 1786030387.886
+      }
+    ],
+    "testIdentifier" : "LIBRARYUS002MetadataUITests/testLibraryShowsCachedMetadataAndCoverActions()",
+    "testIdentifierURL" : "test://com.apple.xcode/JavaOne/JavaOneUITests/LIBRARYUS002MetadataUITests/testLibraryShowsCachedMetadataAndCoverActions"
+  }
+]

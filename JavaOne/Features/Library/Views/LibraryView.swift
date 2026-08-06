@@ -77,6 +77,30 @@ struct LibraryView: View {
                     EmulatorView(viewModel: emulatorViewModel, game: game)
                 }
             }
+            .sheet(item: $viewModel.gameForDetail) { game in
+                GameDetailView(
+                    game: game,
+                    onPlay: {
+                        viewModel.dismissDetail()
+                        viewModel.selectGame(game)
+                    },
+                    onToggleFavorite: { viewModel.toggleFavorite(game) },
+                    onRestoreCover: { viewModel.restoreDefaultCover(for: game) },
+                    onApplyCoverData: { viewModel.applyCoverImageData($0, to: game) },
+                    onRefreshMetadata: { viewModel.refreshMetadata(for: game) }
+                )
+            }
+            .overlay(alignment: .top) {
+                if viewModel.isEnrichingMetadata {
+                    Text("Fetching metadata…")
+                        .font(LibraryTheme.metaFont(relativeTo: .caption))
+                        .padding(.horizontal, 14)
+                        .padding(.vertical, 8)
+                        .background(.ultraThinMaterial, in: Capsule())
+                        .padding(.top, 8)
+                        .accessibilityIdentifier("metadata-enriching")
+                }
+            }
         }
         .onAppear {
             viewModel.loadGames()
@@ -171,7 +195,8 @@ struct LibraryView: View {
                     GameCardView(
                         game: game,
                         onPlay: { viewModel.selectGame(game) },
-                        onToggleFavorite: { viewModel.toggleFavorite(game) }
+                        onToggleFavorite: { viewModel.toggleFavorite(game) },
+                        onOpenDetail: { viewModel.openDetail(game) }
                     )
                     .frame(width: 168)
                     .matchedGeometryEffect(id: "strip-\(game.id)", in: libraryNamespace)
@@ -204,7 +229,8 @@ struct LibraryView: View {
                         GameCardView(
                             game: game,
                             onPlay: { viewModel.selectGame(game) },
-                            onToggleFavorite: { viewModel.toggleFavorite(game) }
+                            onToggleFavorite: { viewModel.toggleFavorite(game) },
+                            onOpenDetail: { viewModel.openDetail(game) }
                         )
                         .matchedGeometryEffect(id: "grid-\(game.id)", in: libraryNamespace)
                         .transition(.opacity.combined(with: .scale(scale: 0.98)))
@@ -220,7 +246,8 @@ struct LibraryView: View {
                         GameListRowView(
                             game: game,
                             onPlay: { viewModel.selectGame(game) },
-                            onToggleFavorite: { viewModel.toggleFavorite(game) }
+                            onToggleFavorite: { viewModel.toggleFavorite(game) },
+                            onOpenDetail: { viewModel.openDetail(game) }
                         )
                         .padding(.horizontal, 12)
                         .padding(.vertical, 4)
@@ -387,7 +414,10 @@ struct LibraryView_Previews: PreviewProvider {
                 ),
                 makeEmulatorViewModel: {
                     EmulatorViewModel(bridge: DefaultEmulatorBridge())
-                }
+                },
+                metadataEnricher: GameMetadataEnricher(
+                    provider: CatalogMetadataProvider(entries: CatalogEntry.seedEntries)
+                )
             )
         )
     }

@@ -46,7 +46,10 @@ final class LibraryViewModelTests: XCTestCase {
             importEngine: StubImportEngine(),
             makeEmulatorViewModel: {
                 EmulatorViewModel(bridge: DefaultEmulatorBridge())
-            }
+            },
+            metadataEnricher: GameMetadataEnricher(
+                provider: CatalogMetadataProvider(entries: CatalogEntry.seedEntries)
+            )
         )
     }
 

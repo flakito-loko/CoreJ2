@@ -1,0 +1,57 @@
+{
+  "games": [
+    {
+      "title": "Miami Nights",
+      "vendor": "Gameloft",
+      "description": "Cruise the neon streets of Miami in this classic Java ME racing adventure from Gameloft.",
+      "publisher": "Gameloft",
+      "developer": "Gameloft",
+      "genre": "Racing",
+      "releaseYear": 2005,
+      "resolution": "320 × 240"
+    },
+    {
+      "title": "Asphalt 3",
+      "vendor": "Gameloft",
+      "description": "High-speed arcade racing with licensed cars on the Java ME platform.",
+      "publisher": "Gameloft",
+      "developer": "Gameloft",
+      "genre": "Racing",
+      "releaseYear": 2006,
+      "resolution": "240 × 320"
+    },
+    {
+      "title": "Tetris",
+      "description": "The timeless falling-block puzzle that defined a generation of mobile gaming.",
+      "publisher": "Various",
+      "developer": "Various",
+      "genre": "Puzzle",
+      "releaseYear": 1984,
+      "resolution": "240 × 320"
+    },
+    {
+      "title": "Astroids",
+      "description": "Arcade space shooter — clear the field of asteroids and survive the swarm.",
+      "publisher": "Unknown",
+      "developer": "Unknown",
+      "genre": "Shooter",
+      "resolution": "240 × 320"
+    },
+    {
+      "title": "Gryzzles",
+      "description": "Match-three puzzle adventure used in CoreJ2 RMS validation suites.",
+      "publisher": "Unknown",
+      "developer": "Unknown",
+      "genre": "Puzzle",
+      "resolution": "240 × 320"
+    },
+    {
+      "title": "Alea Jacta Est",
+      "description": "Strategy title from the CoreJ2 compatibility corpus.",
+      "publisher": "Unknown",
+      "developer": "Unknown",
+      "genre": "Strategy",
+      "resolution": "240 × 320"
+    }
+  ]
+}

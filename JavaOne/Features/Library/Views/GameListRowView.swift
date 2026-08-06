@@ -5,14 +5,21 @@ struct GameListRowView: View {
     let game: InstalledGame
     let onPlay: () -> Void
     let onToggleFavorite: () -> Void
+    var onOpenDetail: (() -> Void)? = nil
 
     @Environment(\.colorScheme) private var colorScheme
 
     var body: some View {
         HStack(spacing: 14) {
-            GameCoverView(game: game)
-                .frame(width: 72, height: 96)
-                .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+            Button {
+                onOpenDetail?()
+            } label: {
+                GameCoverView(game: game)
+                    .frame(width: 72, height: 96)
+                    .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+            }
+            .buttonStyle(.plain)
+            .accessibilityLabel("Details for \(game.title)")
 
             VStack(alignment: .leading, spacing: 4) {
                 HStack(alignment: .firstTextBaseline) {
@@ -35,6 +42,13 @@ struct GameListRowView: View {
                     .font(LibraryTheme.metaFont())
                     .foregroundStyle(.secondary)
                     .lineLimit(1)
+
+                if !game.genre.isEmpty {
+                    Text(game.genre)
+                        .font(LibraryTheme.metaFont(relativeTo: .caption2))
+                        .foregroundStyle(LibraryTheme.teal)
+                        .lineLimit(1)
+                }
 
                 HStack(spacing: 8) {
                     Text(game.resolution)
@@ -63,6 +77,11 @@ struct GameListRowView: View {
         .padding(.vertical, 8)
         .padding(.horizontal, 4)
         .contentShape(Rectangle())
+        .contextMenu {
+            Button("Change Cover…") { onOpenDetail?() }
+            Button("Game Info") { onOpenDetail?() }
+            Button(game.isFavorite ? "Remove Favorite" : "Favorite", action: onToggleFavorite)
+        }
     }
 
     private var lastPlayedLabel: String {

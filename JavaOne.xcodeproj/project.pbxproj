@@ -28,6 +28,16 @@
 		E1100007300D095A0044FD89 /* RMSSaveDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1100006300D095A0044FD89 /* RMSSaveDirectory.swift */; };
 		E1100009300D095A0044FD89 /* RMSSaveDirectoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1100008300D095A0044FD89 /* RMSSaveDirectoryTests.swift */; };
 		E1200011300D095A0044FD89 /* InstalledGameEntityPathTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1200010300D095A0044FD89 /* InstalledGameEntityPathTests.swift */; };
+		L2000002300D09580044FD02 /* MetadataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = L2000001300D09580044FD02 /* MetadataProvider.swift */; };
+		L2000004300D09580044FD02 /* CompositeMetadataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = L2000003300D09580044FD02 /* CompositeMetadataProvider.swift */; };
+		L2000006300D09580044FD02 /* CatalogMetadataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = L2000005300D09580044FD02 /* CatalogMetadataProvider.swift */; };
+		L2000008300D09580044FD02 /* HTTPMetadataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = L2000007300D09580044FD02 /* HTTPMetadataProvider.swift */; };
+		L200000A300D09580044FD02 /* GameMetadataEnricher.swift in Sources */ = {isa = PBXBuildFile; fileRef = L2000009300D09580044FD02 /* GameMetadataEnricher.swift */; };
+		L200000C300D09580044FD02 /* GameCoverStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = L200000B300D09580044FD02 /* GameCoverStore.swift */; };
+		L200000E300D09580044FD02 /* GameDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = L200000D300D09580044FD02 /* GameDetailView.swift */; };
+		L2000010300D09580044FD02 /* GameMetadataCatalog.json in Resources */ = {isa = PBXBuildFile; fileRef = L200000F300D09580044FD02 /* GameMetadataCatalog.json */; };
+		L2000012300D09580044FD02 /* MetadataProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = L2000011300D09580044FD02 /* MetadataProviderTests.swift */; };
+		L2000014300D09580044FD02 /* LIBRARYUS002MetadataUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = L2000013300D09580044FD02 /* LIBRARYUS002MetadataUITests.swift */; };
 		L1000002300D09580044FD01 /* GameCompatibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = L1000001300D09580044FD01 /* GameCompatibility.swift */; };
 		L1000004300D09580044FD01 /* LibraryTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = L1000003300D09580044FD01 /* LibraryTheme.swift */; };
 		L1000006300D09580044FD01 /* LibraryCoverImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = L1000005300D09580044FD01 /* LibraryCoverImageCache.swift */; };
@@ -218,6 +228,16 @@
 		E1100006300D095A0044FD89 /* RMSSaveDirectory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMSSaveDirectory.swift; sourceTree = "<group>"; };
 		E1100008300D095A0044FD89 /* RMSSaveDirectoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMSSaveDirectoryTests.swift; sourceTree = "<group>"; };
 		E1200010300D095A0044FD89 /* InstalledGameEntityPathTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstalledGameEntityPathTests.swift; sourceTree = "<group>"; };
+		L2000001300D09580044FD02 /* MetadataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataProvider.swift; sourceTree = "<group>"; };
+		L2000003300D09580044FD02 /* CompositeMetadataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositeMetadataProvider.swift; sourceTree = "<group>"; };
+		L2000005300D09580044FD02 /* CatalogMetadataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogMetadataProvider.swift; sourceTree = "<group>"; };
+		L2000007300D09580044FD02 /* HTTPMetadataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMetadataProvider.swift; sourceTree = "<group>"; };
+		L2000009300D09580044FD02 /* GameMetadataEnricher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameMetadataEnricher.swift; sourceTree = "<group>"; };
+		L200000B300D09580044FD02 /* GameCoverStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCoverStore.swift; sourceTree = "<group>"; };
+		L200000D300D09580044FD02 /* GameDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDetailView.swift; sourceTree = "<group>"; };
+		L200000F300D09580044FD02 /* GameMetadataCatalog.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = GameMetadataCatalog.json; sourceTree = "<group>"; };
+		L2000011300D09580044FD02 /* MetadataProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataProviderTests.swift; sourceTree = "<group>"; };
+		L2000013300D09580044FD02 /* LIBRARYUS002MetadataUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LIBRARYUS002MetadataUITests.swift; sourceTree = "<group>"; };
 		L1000001300D09580044FD01 /* GameCompatibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCompatibility.swift; sourceTree = "<group>"; };
 		L1000003300D09580044FD01 /* LibraryTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryTheme.swift; sourceTree = "<group>"; };
 		L1000005300D09580044FD01 /* LibraryCoverImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryCoverImageCache.swift; sourceTree = "<group>"; };
@@ -417,9 +437,18 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		L2000021300D09580044FD02 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				L200000F300D09580044FD02 /* GameMetadataCatalog.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		446FE22F300D09580044FD89 /* JavaOne */ = {
 			isa = PBXGroup;
 			children = (
+				L2000021300D09580044FD02 /* Resources */,
 				A1000010300D09580044FD89 /* App */,
 				A1000011300D09580044FD89 /* Features */,
 				446FE234300D09590044FD89 /* Assets.xcassets */,
@@ -453,6 +482,7 @@
 				A1000065300D09580044FD89 /* RuntimeEventTests.swift */,
 				A1000091300D09580044FD89 /* EmulatorViewModelTests.swift */,
 				A1000097300D09580044FD89 /* LibraryViewModelTests.swift */,
+				L2000011300D09580044FD02 /* MetadataProviderTests.swift */,
 				A1000099300D09580044FD89 /* AppDependencyContainerTests.swift */,
 				A100009D300D09580044FD89 /* PersistentRuntimePOCTests.swift */,
 				A10000A3300D09580044FD89 /* PersistentProcessFreeJ2MEMobilePlatformBootstrapTests.swift */,
@@ -508,6 +538,7 @@
 				MN000001300D095D0044FD89 /* MNAUDIO001MiamiNightsAudioUITests.swift */,
 				MN000003300D095D0044FD89 /* MNAUDIO002MiamiNightsNativeAudioUITests.swift */,
 				LUS001F1300D095A0044FD89 /* LIBRARYUS001LibraryUITests.swift */,
+				L2000013300D09580044FD02 /* LIBRARYUS002MetadataUITests.swift */,
 			);
 			path = JavaOneUITests;
 			sourceTree = "<group>";
@@ -535,12 +566,26 @@
 			children = (
 				A1000013300D09580044FD89 /* Models */,
 				L1000010300D09580044FD01 /* Theme */,
+				L2000020300D09580044FD02 /* Metadata */,
 				A1000014300D09580044FD89 /* Repositories */,
 				A1000017300D09580044FD89 /* Services */,
 				A1000015300D09580044FD89 /* ViewModels */,
 				A1000016300D09580044FD89 /* Views */,
 			);
 			path = Library;
+			sourceTree = "<group>";
+		};
+		L2000020300D09580044FD02 /* Metadata */ = {
+			isa = PBXGroup;
+			children = (
+				L2000001300D09580044FD02 /* MetadataProvider.swift */,
+				L2000003300D09580044FD02 /* CompositeMetadataProvider.swift */,
+				L2000005300D09580044FD02 /* CatalogMetadataProvider.swift */,
+				L2000007300D09580044FD02 /* HTTPMetadataProvider.swift */,
+				L2000009300D09580044FD02 /* GameMetadataEnricher.swift */,
+				L200000B300D09580044FD02 /* GameCoverStore.swift */,
+			);
+			path = Metadata;
 			sourceTree = "<group>";
 		};
 		L1000010300D09580044FD01 /* Theme */ = {
@@ -588,6 +633,7 @@
 				L1000007300D09580044FD01 /* GameCoverView.swift */,
 				L1000009300D09580044FD01 /* GameCardView.swift */,
 				L100000B300D09580044FD01 /* GameListRowView.swift */,
+				L200000D300D09580044FD02 /* GameDetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -899,6 +945,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				446FE238300D09590044FD89 /* Preview Assets.xcassets in Resources */,
+				L2000010300D09580044FD02 /* GameMetadataCatalog.json in Resources */,
 				446FE235300D09590044FD89 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -956,6 +1003,13 @@
 				L1000008300D09580044FD01 /* GameCoverView.swift in Sources */,
 				L100000A300D09580044FD01 /* GameCardView.swift in Sources */,
 				L100000C300D09580044FD01 /* GameListRowView.swift in Sources */,
+				L2000002300D09580044FD02 /* MetadataProvider.swift in Sources */,
+				L2000004300D09580044FD02 /* CompositeMetadataProvider.swift in Sources */,
+				L2000006300D09580044FD02 /* CatalogMetadataProvider.swift in Sources */,
+				L2000008300D09580044FD02 /* HTTPMetadataProvider.swift in Sources */,
+				L200000A300D09580044FD02 /* GameMetadataEnricher.swift in Sources */,
+				L200000C300D09580044FD02 /* GameCoverStore.swift in Sources */,
+				L200000E300D09580044FD02 /* GameDetailView.swift in Sources */,
 				A1000018300D09580044FD89 /* InstalledGameEntity.swift in Sources */,
 				A1000004300D09580044FD89 /* GameLibraryRepository.swift in Sources */,
 				A1000006300D09580044FD89 /* InMemoryGameLibraryRepository.swift in Sources */,
@@ -1073,6 +1127,7 @@
 				A1000064300D09580044FD89 /* RuntimeEventTests.swift in Sources */,
 				A1000090300D09580044FD89 /* EmulatorViewModelTests.swift in Sources */,
 				A1000096300D09580044FD89 /* LibraryViewModelTests.swift in Sources */,
+				L2000012300D09580044FD02 /* MetadataProviderTests.swift in Sources */,
 				A1000098300D09580044FD89 /* AppDependencyContainerTests.swift in Sources */,
 				A100009C300D09580044FD89 /* PersistentRuntimePOCTests.swift in Sources */,
 				A10000A2300D09580044FD89 /* PersistentProcessFreeJ2MEMobilePlatformBootstrapTests.swift in Sources */,
@@ -1128,6 +1183,7 @@
 				MN000002300D095D0044FD89 /* MNAUDIO001MiamiNightsAudioUITests.swift in Sources */,
 				MN000004300D095D0044FD89 /* MNAUDIO002MiamiNightsNativeAudioUITests.swift in Sources */,
 				LUS001F2300D095A0044FD89 /* LIBRARYUS001LibraryUITests.swift in Sources */,
+				L2000014300D09580044FD02 /* LIBRARYUS002MetadataUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1274,6 +1330,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = CoreJ2;
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "CoreJ2 needs photo access to set custom game covers.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1305,6 +1362,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = CoreJ2;
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "CoreJ2 needs photo access to set custom game covers.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

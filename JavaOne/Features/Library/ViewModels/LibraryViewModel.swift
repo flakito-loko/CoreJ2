@@ -1,5 +1,6 @@
 import Combine
 import Foundation
+import SwiftUI
 
 /// Drives the game library screen and presentation of the emulator.
 @MainActor
@@ -27,6 +28,12 @@ final class LibraryViewModel: ObservableObject {
     /// Game selected for emulator presentation; `nil` dismisses the emulator.
     @Published var gameToLaunch: InstalledGame?
 
+    /// Game presented in the detail / cover sheet.
+    @Published var gameForDetail: InstalledGame?
+
+    /// True while metadata enrichment is running after import.
+    @Published private(set) var isEnrichingMetadata = false
+
     /// View model bound to the presented `EmulatorView`, if any.
     private(set) var activeEmulatorViewModel: EmulatorViewModel?
 
@@ -43,6 +50,8 @@ final class LibraryViewModel: ObservableObject {
         return games.filter { game in
             game.title.localizedCaseInsensitiveContains(query)
                 || game.publisher.localizedCaseInsensitiveContains(query)
+                || game.genre.localizedCaseInsensitiveContains(query)
+                || game.developer.localizedCaseInsensitiveContains(query)
         }
     }
 
@@ -68,51 +77,65 @@ final class LibraryViewModel: ObservableObject {
     private let repository: GameLibraryRepository
     private let importEngine: ImportEngineProtocol
     private let makeEmulatorViewModel: () -> EmulatorViewModel
+    private let metadataEnricher: GameMetadataEnricher
+    private let coverStore: GameCoverStore
 
     // MARK: - Init
 
-    /// - Parameters:
-    ///   - repository: Library persistence.
-    ///   - importEngine: JAR import pipeline.
-    ///   - makeEmulatorViewModel: Factory for a fresh emulator surface VM per launch.
     init(
         repository: GameLibraryRepository,
         importEngine: ImportEngineProtocol,
-        makeEmulatorViewModel: @escaping () -> EmulatorViewModel
+        makeEmulatorViewModel: @escaping () -> EmulatorViewModel,
+        metadataEnricher: GameMetadataEnricher,
+        coverStore: GameCoverStore = GameCoverStore()
     ) {
         self.repository = repository
         self.importEngine = importEngine
         self.makeEmulatorViewModel = makeEmulatorViewModel
+        self.metadataEnricher = metadataEnricher
+        self.coverStore = coverStore
     }
 
     // MARK: - Intentions
 
-    /// Loads games from the library repository.
     func loadGames() {
+        games = repository.fetchGames()
+        Task { await enrichGamesMissingMetadata() }
+    }
+
+    /// Backfills catalog/HTTP metadata for titles imported before LIBRARY-US002.
+    private func enrichGamesMissingMetadata() async {
+        let pending = games.filter { !$0.hasCachedMetadata }
+        guard !pending.isEmpty else { return }
+        isEnrichingMetadata = true
+        defer { isEnrichingMetadata = false }
+        for game in pending {
+            let enriched = await metadataEnricher.enrich(game)
+            if enriched.hasCachedMetadata || enriched.coverURL != game.coverURL {
+                repository.save(enriched)
+            }
+        }
         games = repository.fetchGames()
     }
 
-    /// Handles the result of the system file importer.
-    /// Cancellation is ignored. A selected JAR is copied into the internal library.
     func handleImportResult(_ result: Result<[URL], Error>) {
         switch result {
         case .success(let urls):
             guard let url = urls.first else { return }
             selectedFileName = url.lastPathComponent
-            importSelectedJAR(from: url)
+            Task { await importSelectedJAR(from: url) }
         case .failure:
             break
         }
     }
 
-    /// Toggles favorite state and persists the change.
     func toggleFavorite(_ game: InstalledGame) {
         let updated = game.updating(isFavorite: !game.isFavorite)
         repository.save(updated)
         games = repository.fetchGames()
+        refreshDetailIfNeeded(updated.id)
     }
 
-    /// Prepares an emulator view model and presents `EmulatorView` for `game`.
     func selectGame(_ game: InstalledGame) {
         let updated = game.updating(lastPlayedAt: .some(Date()))
         repository.save(updated)
@@ -122,34 +145,88 @@ final class LibraryViewModel: ObservableObject {
         gameToLaunch = games.first(where: { $0.id == updated.id }) ?? updated
     }
 
-    /// Dismisses the emulator screen and releases its view model.
+    func openDetail(_ game: InstalledGame) {
+        gameForDetail = game
+    }
+
+    func dismissDetail() {
+        gameForDetail = nil
+    }
+
     func dismissEmulator() {
         gameToLaunch = nil
         activeEmulatorViewModel = nil
     }
 
-    /// Clears the success alert message.
     func dismissSuccessMessage() {
         successMessage = nil
     }
 
-    /// Clears the error alert message.
     func dismissErrorMessage() {
         errorMessage = nil
     }
 
+    /// Re-runs provider lookup for an existing game (uses cache afterward).
+    func refreshMetadata(for game: InstalledGame) {
+        Task {
+            isEnrichingMetadata = true
+            defer { isEnrichingMetadata = false }
+            let enriched = await metadataEnricher.enrich(game)
+            repository.save(enriched)
+            games = repository.fetchGames()
+            refreshDetailIfNeeded(game.id)
+        }
+    }
+
+    func applyCoverImageData(_ data: Data, to game: InstalledGame) {
+        do {
+            let updated = try coverStore.applyCustomCover(imageData: data, to: game)
+            repository.save(updated)
+            games = repository.fetchGames()
+            refreshDetailIfNeeded(game.id)
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+    }
+
+    func restoreDefaultCover(for game: InstalledGame) {
+        do {
+            let updated = try coverStore.restoreDefaultCover(for: game)
+            repository.save(updated)
+            games = repository.fetchGames()
+            refreshDetailIfNeeded(game.id)
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+    }
+
     // MARK: - Private
 
-    private func importSelectedJAR(from url: URL) {
+    private func importSelectedJAR(from url: URL) async {
         do {
-            let installedGame = try importEngine.importJAR(from: url)
+            var installedGame = try importEngine.importJAR(from: url)
             repository.save(installedGame)
             games = repository.fetchGames()
+
+            isEnrichingMetadata = true
+            installedGame = await metadataEnricher.enrich(installedGame)
+            isEnrichingMetadata = false
+            repository.save(installedGame)
+            games = repository.fetchGames()
+
             errorMessage = nil
-            successMessage = "\"\(url.lastPathComponent)\" was imported successfully."
+            let metaNote = installedGame.hasCachedMetadata ? " Metadata cached for offline use." : ""
+            successMessage = "\"\(url.lastPathComponent)\" was imported successfully.\(metaNote)"
         } catch {
+            isEnrichingMetadata = false
             successMessage = nil
             errorMessage = error.localizedDescription
+        }
+    }
+
+    private func refreshDetailIfNeeded(_ id: UUID) {
+        if gameForDetail?.id == id {
+            gameForDetail = games.first(where: { $0.id == id })
         }
     }
 }

@@ -19,6 +19,16 @@ final class InstalledGameEntity {
     var lastPlayedAt: Date?
     var compatibilityRaw: String = "Ready"
 
+    var midletVersion: String = ""
+    var gameDescription: String = ""
+    var developer: String = ""
+    var genre: String = ""
+    var releaseYear: Int?
+    var screenshotPathsJoined: String = ""
+    var defaultCoverPath: String = ""
+    var metadataProviderID: String = ""
+    var hasCustomCover: Bool = false
+
     // MARK: - Init
 
     init(
@@ -32,7 +42,16 @@ final class InstalledGameEntity {
         resolution: String = "240 × 320",
         isFavorite: Bool = false,
         lastPlayedAt: Date? = nil,
-        compatibilityRaw: String = GameCompatibility.ready.rawValue
+        compatibilityRaw: String = GameCompatibility.ready.rawValue,
+        midletVersion: String = "",
+        gameDescription: String = "",
+        developer: String = "",
+        genre: String = "",
+        releaseYear: Int? = nil,
+        screenshotPathsJoined: String = "",
+        defaultCoverPath: String = "",
+        metadataProviderID: String = "",
+        hasCustomCover: Bool = false
     ) {
         self.id = id
         self.title = title
@@ -45,37 +64,91 @@ final class InstalledGameEntity {
         self.isFavorite = isFavorite
         self.lastPlayedAt = lastPlayedAt
         self.compatibilityRaw = compatibilityRaw
+        self.midletVersion = midletVersion
+        self.gameDescription = gameDescription
+        self.developer = developer
+        self.genre = genre
+        self.releaseYear = releaseYear
+        self.screenshotPathsJoined = screenshotPathsJoined
+        self.defaultCoverPath = defaultCoverPath
+        self.metadataProviderID = metadataProviderID
+        self.hasCustomCover = hasCustomCover
     }
 
     // MARK: - Mapping
 
-    /// Maps this entity to the domain model.
-    ///
-    /// Resolves the JAR under the current app container when a stored absolute
-    /// path went stale (Simulator reinstall / container UUID change).
     func toDomain() -> InstalledGame {
         let resolvedURL = Self.resolvedJarURL(gameID: id, storedPath: jarPath)
         if resolvedURL.path != jarPath {
             jarPath = resolvedURL.path
         }
 
-        let coverURL: URL?
-        if coverPath.isEmpty {
-            // Discover artwork written by ArtworkStep even for pre-redesign imports.
-            let discovered = resolvedURL
-                .deletingLastPathComponent()
-                .appendingPathComponent("artwork", isDirectory: true)
-                .appendingPathComponent("icon.png", isDirectory: false)
-            coverURL = FileManager.default.fileExists(atPath: discovered.path) ? discovered : nil
+        let artworkRoot = resolvedURL
+            .deletingLastPathComponent()
+            .appendingPathComponent("artwork", isDirectory: true)
+
+        let coverURL = Self.resolveExistingURL(
+            storedPath: coverPath,
+            fallbacks: [
+                artworkRoot.appendingPathComponent("custom-cover.jpg"),
+                artworkRoot.appendingPathComponent("cover.jpg"),
+                artworkRoot.appendingPathComponent("icon.png")
+            ]
+        )
+
+        let defaultCoverURL = Self.resolveExistingURL(
+            storedPath: defaultCoverPath,
+            fallbacks: [
+                artworkRoot.appendingPathComponent("cover.jpg"),
+                artworkRoot.appendingPathComponent("icon.png")
+            ]
+        )
+
+        let screenshots: [URL]
+        if screenshotPathsJoined.isEmpty {
+            let shotsDir = artworkRoot.appendingPathComponent("screenshots", isDirectory: true)
+            if let entries = try? FileManager.default.contentsOfDirectory(
+                at: shotsDir,
+                includingPropertiesForKeys: nil
+            ) {
+                screenshots = entries
+                    .filter { ["jpg", "jpeg", "png"].contains($0.pathExtension.lowercased()) }
+                    .sorted { $0.lastPathComponent < $1.lastPathComponent }
+            } else {
+                screenshots = []
+            }
         } else {
-            let stored = URL(fileURLWithPath: coverPath)
-            coverURL = FileManager.default.fileExists(atPath: stored.path) ? stored : nil
+            screenshots = screenshotPathsJoined
+                .split(separator: "|")
+                .map { URL(fileURLWithPath: String($0)) }
+                .filter { FileManager.default.fileExists(atPath: $0.path) }
         }
 
         let size = MIDletLCDGeometry.size(forMidletName: title)
         let resolvedResolution = resolution.isEmpty
             ? "\(size.width) × \(size.height)"
             : resolution
+
+        // Hydrate text metadata from sidecar when SwiftData predates LIBRARY-US002 fields.
+        var description = gameDescription
+        var developerValue = developer
+        var genreValue = genre
+        var year = releaseYear
+        var provider = metadataProviderID
+        var version = midletVersion
+        let sidecar = resolvedURL
+            .deletingLastPathComponent()
+            .appendingPathComponent("metadata.json", isDirectory: false)
+        if description.isEmpty,
+           let data = try? Data(contentsOf: sidecar),
+           let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any] {
+            description = json["description"] as? String ?? description
+            developerValue = json["developer"] as? String ?? developerValue
+            genreValue = json["genre"] as? String ?? genreValue
+            year = json["releaseYear"] as? Int ?? year
+            provider = json["providerID"] as? String ?? provider
+            version = json["midletVersion"] as? String ?? version
+        }
 
         return InstalledGame(
             id: id,
@@ -88,7 +161,16 @@ final class InstalledGameEntity {
             resolution: resolvedResolution,
             isFavorite: isFavorite,
             lastPlayedAt: lastPlayedAt,
-            compatibility: GameCompatibility(rawValue: compatibilityRaw) ?? .ready
+            compatibility: GameCompatibility(rawValue: compatibilityRaw) ?? .ready,
+            midletVersion: version,
+            gameDescription: description,
+            developer: developerValue,
+            genre: genreValue,
+            releaseYear: year,
+            screenshotURLs: screenshots,
+            defaultCoverURL: defaultCoverURL,
+            metadataProviderID: provider,
+            hasCustomCover: hasCustomCover
         )
     }
 
@@ -103,19 +185,29 @@ final class InstalledGameEntity {
         isFavorite = game.isFavorite
         lastPlayedAt = game.lastPlayedAt
         compatibilityRaw = game.compatibility.rawValue
+        midletVersion = game.midletVersion
+        gameDescription = game.gameDescription
+        developer = game.developer
+        genre = game.genre
+        releaseYear = game.releaseYear
+        screenshotPathsJoined = game.screenshotURLs.map(\.path).joined(separator: "|")
+        defaultCoverPath = game.defaultCoverURL?.path ?? ""
+        metadataProviderID = game.metadataProviderID
+        hasCustomCover = game.hasCustomCover
     }
 
     // MARK: - Path Resolution
 
-    /// Returns a usable JAR URL for `gameID`, preferring `storedPath` when it still exists.
-    ///
-    /// When the absolute path is stale (Simulator reinstall, container UUID change, or a
-    /// seed sentinel such as `…/Application/PLACEHOLDER/…`), relocates to
-    /// `Documents/JavaOne/Library/<gameID>/game.jar`.
-    ///
-    /// E12-US002 — Also accepts lowercase UUID folder names. Validation seeds that used
-    /// `uuid.uuid4()` created lowercase directories while `UUID.uuidString` is uppercase;
-    /// on case-sensitive device volumes that mismatch left PLACEHOLDER paths unresolved.
+    private static func resolveExistingURL(storedPath: String, fallbacks: [URL]) -> URL? {
+        if !storedPath.isEmpty {
+            let stored = URL(fileURLWithPath: storedPath)
+            if FileManager.default.fileExists(atPath: stored.path) {
+                return stored
+            }
+        }
+        return fallbacks.first { FileManager.default.fileExists(atPath: $0.path) }
+    }
+
     static func resolvedJarURL(gameID: UUID, storedPath: String) -> URL {
         let storedURL = URL(fileURLWithPath: storedPath)
         if FileManager.default.fileExists(atPath: storedURL.path) {
@@ -145,7 +237,6 @@ final class InstalledGameEntity {
             }
         }
 
-        // Mixed-case leftovers: match UUID folders case-insensitively.
         if let entries = try? FileManager.default.contentsOfDirectory(
             at: libraryRoot,
             includingPropertiesForKeys: [.isDirectoryKey],

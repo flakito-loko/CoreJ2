@@ -5,19 +5,26 @@ struct GameCardView: View {
     let game: InstalledGame
     let onPlay: () -> Void
     let onToggleFavorite: () -> Void
+    var onOpenDetail: (() -> Void)? = nil
 
     @Environment(\.colorScheme) private var colorScheme
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
             ZStack(alignment: .topTrailing) {
-                GameCoverView(game: game)
-                    .aspectRatio(3 / 4, contentMode: .fit)
-                    .clipShape(RoundedRectangle(cornerRadius: LibraryTheme.coverCornerRadius, style: .continuous))
-                    .overlay(
-                        RoundedRectangle(cornerRadius: LibraryTheme.coverCornerRadius, style: .continuous)
-                            .strokeBorder(Color.primary.opacity(0.06), lineWidth: 1)
-                    )
+                Button {
+                    onOpenDetail?()
+                } label: {
+                    GameCoverView(game: game)
+                        .aspectRatio(3 / 4, contentMode: .fit)
+                        .clipShape(RoundedRectangle(cornerRadius: LibraryTheme.coverCornerRadius, style: .continuous))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: LibraryTheme.coverCornerRadius, style: .continuous)
+                                .strokeBorder(Color.primary.opacity(0.06), lineWidth: 1)
+                        )
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel("Details for \(game.title)")
 
                 Button(action: onToggleFavorite) {
                     Image(systemName: game.isFavorite ? "star.fill" : "star")
@@ -42,6 +49,14 @@ struct GameCardView: View {
                     .font(LibraryTheme.metaFont())
                     .foregroundStyle(.secondary)
                     .lineLimit(1)
+
+                if !game.genre.isEmpty {
+                    Text(game.genre)
+                        .font(LibraryTheme.metaFont(relativeTo: .caption2))
+                        .foregroundStyle(LibraryTheme.teal)
+                        .lineLimit(1)
+                        .accessibilityIdentifier("genre-\(game.id.uuidString)")
+                }
 
                 HStack(spacing: 6) {
                     Text(game.resolution)
@@ -75,6 +90,11 @@ struct GameCardView: View {
                 .fill(colorScheme == .dark ? Color.white.opacity(0.06) : Color.white.opacity(0.72))
         )
         .accessibilityElement(children: .contain)
+        .contextMenu {
+            Button("Change Cover…") { onOpenDetail?() }
+            Button("Game Info") { onOpenDetail?() }
+            Button(game.isFavorite ? "Remove Favorite" : "Favorite", action: onToggleFavorite)
+        }
     }
 
     private var lastPlayedLabel: String {
