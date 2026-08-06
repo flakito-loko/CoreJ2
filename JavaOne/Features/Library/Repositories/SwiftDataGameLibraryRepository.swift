@@ -23,7 +23,12 @@ final class SwiftDataGameLibraryRepository: GameLibraryRepository {
         )
 
         do {
-            return try modelContext.fetch(descriptor).map { $0.toDomain() }
+            let entities = try modelContext.fetch(descriptor)
+            let games = entities.map { $0.toDomain() }
+            if modelContext.hasChanges {
+                try modelContext.save()
+            }
+            return games
         } catch {
             return []
         }
@@ -39,10 +44,7 @@ final class SwiftDataGameLibraryRepository: GameLibraryRepository {
 
         do {
             if let existing = try modelContext.fetch(descriptor).first {
-                existing.title = game.title
-                existing.jarPath = game.jarURL.path
-                existing.importedAt = game.importedAt
-                existing.contentHash = game.contentHash
+                existing.apply(game)
             } else {
                 modelContext.insert(
                     InstalledGameEntity(
@@ -50,7 +52,13 @@ final class SwiftDataGameLibraryRepository: GameLibraryRepository {
                         title: game.title,
                         jarPath: game.jarURL.path,
                         importedAt: game.importedAt,
-                        contentHash: game.contentHash
+                        contentHash: game.contentHash,
+                        publisher: game.publisher,
+                        coverPath: game.coverURL?.path ?? "",
+                        resolution: game.resolution,
+                        isFavorite: game.isFavorite,
+                        lastPlayedAt: game.lastPlayedAt,
+                        compatibilityRaw: game.compatibility.rawValue
                     )
                 )
             }

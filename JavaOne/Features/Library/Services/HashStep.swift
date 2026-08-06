@@ -24,13 +24,7 @@ final class HashStep: ImportStep {
             context.contentHash = contentHash
 
             if let installedGame = context.installedGame {
-                context.installedGame = InstalledGame(
-                    id: installedGame.id,
-                    title: installedGame.title,
-                    jarURL: installedGame.jarURL,
-                    importedAt: installedGame.importedAt,
-                    contentHash: contentHash
-                )
+                context.installedGame = installedGame.updating(contentHash: contentHash)
             }
         } catch {
             context.warnings.append("Unable to calculate SHA-256 for the imported JAR.")

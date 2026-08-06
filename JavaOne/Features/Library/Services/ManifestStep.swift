@@ -1,6 +1,6 @@
 import Foundation
 
-/// Reads the MIDlet manifest and resolves the final game title for an import session.
+/// Reads the MIDlet manifest and resolves title, publisher, and resolution.
 @MainActor
 final class ManifestStep: ImportStep {
 
@@ -16,7 +16,7 @@ final class ManifestStep: ImportStep {
 
     // MARK: - ImportStep
 
-    /// Updates `context.manifest` and the installed game title when possible.
+    /// Updates `context.manifest` and library metadata when possible.
     func run(on context: ImportContext) throws {
         guard let installedGame = context.installedGame else { return }
 
@@ -25,26 +25,47 @@ final class ManifestStep: ImportStep {
             let manifest = try manifestService.readManifest(from: jarURL)
             context.manifest = manifest
 
-            if let midletName = manifest.midletName?
-                .trimmingCharacters(in: .whitespacesAndNewlines),
-               !midletName.isEmpty {
-                context.installedGame = InstalledGame(
-                    id: installedGame.id,
-                    title: midletName,
-                    jarURL: installedGame.jarURL,
-                    importedAt: installedGame.importedAt,
-                    contentHash: installedGame.contentHash
-                )
-                return
+            let midletName = manifest.midletName?
+                .trimmingCharacters(in: .whitespacesAndNewlines)
+            let resolvedTitle: String
+            if let midletName, !midletName.isEmpty {
+                resolvedTitle = midletName
+            } else {
+                context.warnings.append("MIDlet-Name is missing or empty; using the filename title.")
+                resolvedTitle = installedGame.title
             }
 
-            context.warnings.append("MIDlet-Name is missing or empty; using the filename title.")
+            let vendor = manifest.vendor?
+                .trimmingCharacters(in: .whitespacesAndNewlines)
+            let publisher: String
+            if let vendor, !vendor.isEmpty {
+                publisher = vendor
+            } else {
+                publisher = "Unknown"
+            }
+
+            let size = MIDletLCDGeometry.size(forMidletName: resolvedTitle)
+            context.installedGame = installedGame.updating(
+                title: resolvedTitle,
+                publisher: publisher,
+                resolution: "\(size.width) × \(size.height)"
+            )
         } catch ManifestServiceError.manifestMissing {
             context.warnings.append("MANIFEST.MF is missing; using the filename title.")
+            applyDefaultResolution(to: context, game: installedGame)
         } catch ManifestServiceError.invalidManifest {
             context.warnings.append("MANIFEST.MF is invalid; using the filename title.")
+            applyDefaultResolution(to: context, game: installedGame)
         } catch {
             context.warnings.append("Unable to read MANIFEST.MF; using the filename title.")
+            applyDefaultResolution(to: context, game: installedGame)
         }
+    }
+
+    private func applyDefaultResolution(to context: ImportContext, game: InstalledGame) {
+        let size = MIDletLCDGeometry.size(forMidletName: game.title)
+        context.installedGame = game.updating(
+            resolution: "\(size.width) × \(size.height)"
+        )
     }
 }

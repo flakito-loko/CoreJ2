@@ -9,6 +9,12 @@ final class LibraryViewModel: ObservableObject {
 
     @Published private(set) var games: [InstalledGame] = []
 
+    /// Free-text filter over title and publisher.
+    @Published var searchText: String = ""
+
+    /// Grid or list presentation.
+    @Published var layoutMode: LibraryLayoutMode = .grid
+
     /// File name of the most recently picked JAR, if any.
     @Published private(set) var selectedFileName: String?
 
@@ -23,6 +29,39 @@ final class LibraryViewModel: ObservableObject {
 
     /// View model bound to the presented `EmulatorView`, if any.
     private(set) var activeEmulatorViewModel: EmulatorViewModel?
+
+    // MARK: - Derived
+
+    var gameCountLabel: String {
+        let count = games.count
+        return count == 1 ? "1 game" : "\(count) games"
+    }
+
+    var filteredGames: [InstalledGame] {
+        let query = searchText.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !query.isEmpty else { return games }
+        return games.filter { game in
+            game.title.localizedCaseInsensitiveContains(query)
+                || game.publisher.localizedCaseInsensitiveContains(query)
+        }
+    }
+
+    var favoriteGames: [InstalledGame] {
+        games
+            .filter(\.isFavorite)
+            .sorted { $0.title.localizedCaseInsensitiveCompare($1.title) == .orderedAscending }
+    }
+
+    var recentGames: [InstalledGame] {
+        games
+            .compactMap { game -> (InstalledGame, Date)? in
+                guard let played = game.lastPlayedAt else { return nil }
+                return (game, played)
+            }
+            .sorted { $0.1 > $1.1 }
+            .prefix(8)
+            .map(\.0)
+    }
 
     // MARK: - Dependencies
 
@@ -66,10 +105,21 @@ final class LibraryViewModel: ObservableObject {
         }
     }
 
+    /// Toggles favorite state and persists the change.
+    func toggleFavorite(_ game: InstalledGame) {
+        let updated = game.updating(isFavorite: !game.isFavorite)
+        repository.save(updated)
+        games = repository.fetchGames()
+    }
+
     /// Prepares an emulator view model and presents `EmulatorView` for `game`.
     func selectGame(_ game: InstalledGame) {
+        let updated = game.updating(lastPlayedAt: .some(Date()))
+        repository.save(updated)
+        games = repository.fetchGames()
+
         activeEmulatorViewModel = makeEmulatorViewModel()
-        gameToLaunch = game
+        gameToLaunch = games.first(where: { $0.id == updated.id }) ?? updated
     }
 
     /// Dismisses the emulator screen and releases its view model.

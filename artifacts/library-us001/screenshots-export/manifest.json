@@ -1,0 +1,35 @@
+[
+  {
+    "attachments" : [
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "00008150-000C70A80EBA401C",
+        "deviceName" : "iPhone de Leonel Figuereo",
+        "exportedFileName" : "84B5172B-BE45-4D76-B22E-7930DA4A4270.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "library-with-games_0_DA2583BD-13D3-4951-A780-2824944EB86A.png",
+        "timestamp" : 1786029372.153
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "00008150-000C70A80EBA401C",
+        "deviceName" : "iPhone de Leonel Figuereo",
+        "exportedFileName" : "5962DA90-AB9C-42D1-AD8B-6D61F10E93D0.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "library-list_0_43683A8D-E516-4DE8-94BA-45ECAC887BD2.png",
+        "timestamp" : 1786029368.974
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "00008150-000C70A80EBA401C",
+        "deviceName" : "iPhone de Leonel Figuereo",
+        "exportedFileName" : "74473C5D-FA2B-4F8A-B4BD-10D212AA5A6B.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "library-grid_0_C4CC47AD-1652-4590-AA1D-CAD604695463.png",
+        "timestamp" : 1786029365.578
+      }
+    ],
+    "testIdentifier" : "LIBRARYUS001LibraryUITests/testModernLibraryShowsBrandSearchAndLayouts()",
+    "testIdentifierURL" : "test://com.apple.xcode/JavaOne/JavaOneUITests/LIBRARYUS001LibraryUITests/testModernLibraryShowsBrandSearchAndLayouts"
+  }
+]

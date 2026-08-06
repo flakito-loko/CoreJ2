@@ -48,6 +48,9 @@ final class ArtworkStep: ImportStep {
         do {
             let artworkURL = try writeIcon(iconData, nextToJARAt: jarURL)
             context.artworkURL = artworkURL
+            if let installedGame = context.installedGame {
+                context.installedGame = installedGame.updating(coverURL: .some(artworkURL))
+            }
         } catch {
             context.warnings.append("Unable to save the extracted MIDlet icon.")
         }
