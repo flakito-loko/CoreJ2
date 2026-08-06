@@ -19,16 +19,14 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
 concurrency:
   group: pages
   cancel-in-progress: true
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -53,25 +51,13 @@ jobs:
         run: mkdocs build
 
       # Keep ~50MB device MP4s in git for download links, but omit them from the
-      # Pages artifact so GitHub Pages deployment does not stall in `deployment_queued`.
-      - name: Omit large videos from Pages artifact
+      # published site so GitHub Pages stays reliable after the CoreJ2 rename.
+      - name: Omit large videos from published site
         run: rm -rf site/assets/videos
 
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          path: site
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
-        with:
-          # Large media (videos/GIFs) can keep the Pages deployment queued >10m.
-          timeout: 1800000
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site
+          force_orphan: true
