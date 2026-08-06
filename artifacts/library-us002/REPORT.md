@@ -34,4 +34,4 @@ See `artifacts/library-us002/screenshots/`
 
 ## Commit hash
 
-Pending commit.
+`704e90fdc1b14419812f1d08378c68f7cb8719c4`
