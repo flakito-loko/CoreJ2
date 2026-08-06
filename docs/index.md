@@ -149,33 +149,15 @@ See [Screenshots](screenshots/index.md).
 
 ## Gameplay Videos
 
-<div class="corej2-videos" markdown>
+Full device recordings live in the repository (hosted outside the Pages artifact to keep deploys reliable).
 
-### Miami Nights
+| Title | Recording |
+|-------|-----------|
+| Miami Nights | [Download MP4](https://github.com/flakito-loko/CoreJ2/raw/main/docs/assets/videos/miami-nights.MP4) |
+| Tetris | [Download MP4](https://github.com/flakito-loko/CoreJ2/raw/main/docs/assets/videos/tetris.mp4) |
+| Astroids | [Download MP4](https://github.com/flakito-loko/CoreJ2/raw/main/docs/assets/videos/astroids.MP4) |
 
-<video controls playsinline preload="metadata" poster="assets/screenshots/miami-nights-gameplay.PNG" width="360">
-  <source src="assets/videos/miami-nights.MP4" type="video/mp4">
-</video>
-
-[Download MP4](assets/videos/miami-nights.MP4)
-
-### Tetris
-
-<video controls playsinline preload="metadata" poster="assets/screenshots/tetris.PNG" width="360">
-  <source src="assets/videos/tetris.mp4" type="video/mp4">
-</video>
-
-[Download MP4](assets/videos/tetris.mp4)
-
-### Astroids
-
-<video controls playsinline preload="metadata" poster="assets/screenshots/astroids.PNG" width="360">
-  <source src="assets/videos/astroids.MP4" type="video/mp4">
-</video>
-
-[Download MP4](assets/videos/astroids.MP4)
-
-</div>
+GIF previews are above; use the downloads for full-length playback.
 
 ---
 
