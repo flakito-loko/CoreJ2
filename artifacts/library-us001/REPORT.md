@@ -46,4 +46,4 @@ Top section: **CoreJ2** brand, search, game count, Favorites strip, Recent strip
 
 ## Commit hash
 
-See git commit created for this story (recorded below after commit).
+`e610e8c0235d1282b4509702e80097b4e459bb89`.
