@@ -38,4 +38,4 @@ Library backfill also re-enriches installs missing covers.
 
 ## Commit hash
 
-_(filled after commit)_
+`089084fd355ed89a850ad946280d5978ad26381b`
