@@ -79,11 +79,29 @@ final class GameMetadataEnricher {
         let nextOfficialGenre = record.genre?.trimmingCharacters(in: .whitespacesAndNewlines).nilIfEmpty
             ?? game.officialGenre
         let nextOfficialYear = record.releaseYear ?? game.officialReleaseYear
+        let nextCompatibility: GameCompatibility = {
+            if let raw = record.compatibility?.trimmingCharacters(in: .whitespacesAndNewlines),
+               let mapped = GameCompatibility(rawValue: raw) {
+                return mapped
+            }
+            // Map catalog labels that differ from raw enum cases.
+            switch record.compatibility?.trimmingCharacters(in: .whitespacesAndNewlines).lowercased() {
+            case "perfect", "playable":
+                return .ready
+            case "partial", "limited":
+                return .limited
+            case "launch only", "unknown", "untested", "not working":
+                return .unknown
+            default:
+                return game.compatibility
+            }
+        }()
 
         let enriched = game.updating(
             publisher: game.isPublisherCustom ? game.publisher : (nextOfficialPublisher),
             coverURL: .some(coverURL),
             resolution: record.resolution ?? game.resolution,
+            compatibility: nextCompatibility,
             gameDescription: record.description ?? game.gameDescription,
             developer: record.developer ?? game.developer,
             genre: game.isGenreCustom ? game.genre : (nextOfficialGenre),

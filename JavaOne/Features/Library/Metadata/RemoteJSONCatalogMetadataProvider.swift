@@ -37,6 +37,7 @@ actor RemoteJSONCatalogMetadataProvider: MetadataProvider {
             genre: record.genre,
             releaseYear: record.releaseYear,
             resolution: record.resolution,
+            compatibility: record.compatibility,
             coverRemoteURL: record.coverRemoteURL,
             screenshotRemoteURLs: record.screenshotRemoteURLs,
             providerID: providerID
@@ -76,13 +77,16 @@ actor RemoteJSONCatalogMetadataProvider: MetadataProvider {
         do {
             let (data, response) = try await session.data(for: request)
             if let http = response as? HTTPURLResponse, !(200..<300).contains(http.statusCode) {
+                // Do not lock out retries after a transient/missing catalog (e.g. prior 404).
+                lastFetchAttempt = nil
                 return
             }
             let decoded = try JSONDecoder().decode(CatalogFile.self, from: data)
             try persistCache(data)
             cachedProvider = CatalogMetadataProvider(entries: decoded.games)
         } catch {
-            // Offline / unreachable — keep bundled + Documents cache.
+            // Offline / unreachable — keep bundled + Documents cache; allow retry soon.
+            lastFetchAttempt = nil
         }
     }
 

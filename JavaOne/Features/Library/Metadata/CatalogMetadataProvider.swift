@@ -82,6 +82,9 @@ struct CatalogMetadataProvider: MetadataProvider {
 // MARK: - Catalog models
 
 struct CatalogFile: Codable, Sendable {
+    /// Catalog schema / content version (e.g. `"1.0.0"`).
+    var version: String?
+    var generatedAt: String?
     let games: [CatalogEntry]
 }
 
@@ -96,6 +99,8 @@ struct CatalogEntry: Codable, Equatable, Sendable {
     var genre: String?
     var releaseYear: Int?
     var resolution: String?
+    /// CoreJ2 compatibility label (Perfect / Playable / Partial / …).
+    var compatibility: String? = nil
     var coverURL: String?
     var screenshotURLs: [String]?
 
@@ -108,6 +113,7 @@ struct CatalogEntry: Codable, Equatable, Sendable {
             genre: genre,
             releaseYear: releaseYear,
             resolution: resolution,
+            compatibility: compatibility,
             coverRemoteURL: coverURL.flatMap(URL.init(string:)),
             screenshotRemoteURLs: (screenshotURLs ?? []).compactMap(URL.init(string:)),
             providerID: providerID

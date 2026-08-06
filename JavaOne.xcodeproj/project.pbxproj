@@ -32,6 +32,8 @@
 		L4000004300D09580044FD04 /* RemoteJSONCatalogMetadataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = L4000003300D09580044FD04 /* RemoteJSONCatalogMetadataProvider.swift */; };
 		L4000006300D09580044FD04 /* EditableIdentityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = L4000005300D09580044FD04 /* EditableIdentityTests.swift */; };
 		L4000008300D09580044FD04 /* LIBRARYUS004IdentityUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = L4000007300D09580044FD04 /* LIBRARYUS004IdentityUITests.swift */; };
+		L5000008300D09580044FD05 /* LIBRARYUS005CatalogUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = L5000007300D09580044FD05 /* LIBRARYUS005CatalogUITests.swift */; };
+
 		L3000002300D09580044FD03 /* GameIdentity.swift in Sources */ = {isa = PBXBuildFile; fileRef = L3000001300D09580044FD03 /* GameIdentity.swift */; };
 		L3000004300D09580044FD03 /* GameInstallationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = L3000003300D09580044FD03 /* GameInstallationManager.swift */; };
 		L3000006300D09580044FD03 /* GameSettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = L3000005300D09580044FD03 /* GameSettingsStore.swift */; };
@@ -245,6 +247,8 @@
 		L4000003300D09580044FD04 /* RemoteJSONCatalogMetadataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteJSONCatalogMetadataProvider.swift; sourceTree = "<group>"; };
 		L4000005300D09580044FD04 /* EditableIdentityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditableIdentityTests.swift; sourceTree = "<group>"; };
 		L4000007300D09580044FD04 /* LIBRARYUS004IdentityUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LIBRARYUS004IdentityUITests.swift; sourceTree = "<group>"; };
+		L5000007300D09580044FD05 /* LIBRARYUS005CatalogUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LIBRARYUS005CatalogUITests.swift; sourceTree = "<group>"; };
+
 		L3000001300D09580044FD03 /* GameIdentity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameIdentity.swift; sourceTree = "<group>"; };
 		L3000003300D09580044FD03 /* GameInstallationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameInstallationManager.swift; sourceTree = "<group>"; };
 		L3000005300D09580044FD03 /* GameSettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSettingsStore.swift; sourceTree = "<group>"; };
@@ -569,6 +573,7 @@
 				L2000013300D09580044FD02 /* LIBRARYUS002MetadataUITests.swift */,
 				L3000011300D09580044FD03 /* LIBRARYUS003ManagementUITests.swift */,
 				L4000007300D09580044FD04 /* LIBRARYUS004IdentityUITests.swift */,
+				L5000007300D09580044FD05 /* LIBRARYUS005CatalogUITests.swift */,
 			);
 			path = JavaOneUITests;
 			sourceTree = "<group>";
@@ -1236,6 +1241,7 @@
 				L2000014300D09580044FD02 /* LIBRARYUS002MetadataUITests.swift in Sources */,
 				L3000012300D09580044FD03 /* LIBRARYUS003ManagementUITests.swift in Sources */,
 				L4000008300D09580044FD04 /* LIBRARYUS004IdentityUITests.swift in Sources */,
+				L5000008300D09580044FD05 /* LIBRARYUS005CatalogUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

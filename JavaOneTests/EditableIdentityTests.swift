@@ -67,6 +67,6 @@ final class EditableIdentityTests: XCTestCase {
             defaults: UserDefaults(suiteName: "test.corej2.meta.\(UUID().uuidString)")!
         )
         XCTAssertEqual(url, ProductionMetadataConfiguration.defaultCatalogURL)
-        XCTAssertTrue(url.absoluteString.contains("catalog.json"))
+        XCTAssertTrue(url.absoluteString.contains("flakito-loko.github.io/CoreJ2/metadata/catalog.json"))
     }
 }

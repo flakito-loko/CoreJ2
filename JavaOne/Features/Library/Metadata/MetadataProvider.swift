@@ -17,6 +17,7 @@ struct GameMetadataRecord: Equatable, Sendable {
     var genre: String?
     var releaseYear: Int?
     var resolution: String?
+    var compatibility: String?
     /// Remote cover to download once and cache locally.
     var coverRemoteURL: URL?
     /// Optional remote screenshots to download once.
@@ -32,6 +33,7 @@ struct GameMetadataRecord: Equatable, Sendable {
         genre: String? = nil,
         releaseYear: Int? = nil,
         resolution: String? = nil,
+        compatibility: String? = nil,
         coverRemoteURL: URL? = nil,
         screenshotRemoteURLs: [URL] = [],
         providerID: String
@@ -43,6 +45,7 @@ struct GameMetadataRecord: Equatable, Sendable {
         self.genre = genre
         self.releaseYear = releaseYear
         self.resolution = resolution
+        self.compatibility = compatibility
         self.coverRemoteURL = coverRemoteURL
         self.screenshotRemoteURLs = screenshotRemoteURLs
         self.providerID = providerID

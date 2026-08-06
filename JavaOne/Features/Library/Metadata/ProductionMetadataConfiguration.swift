@@ -12,9 +12,9 @@ enum ProductionMetadataConfiguration {
     /// UserDefaults key for a remote JSON catalog URL (`RemoteJSONCatalogMetadataProvider`).
     static let catalogURLDefaultsKey = "CoreJ2MetadataCatalogURL"
 
-    /// Default production JSON catalog (GitHub raw). Schema matches `GameMetadataCatalog.json`.
+    /// Default production JSON catalog on GitHub Pages (versioned `catalog.json`).
     static let defaultCatalogURL = URL(
-        string: "https://raw.githubusercontent.com/flakito-loko/CoreJ2/main/docs/metadata/catalog.json"
+        string: "https://flakito-loko.github.io/CoreJ2/metadata/catalog.json"
     )!
 
     /// Resolves the active catalog URL (user override → production default).

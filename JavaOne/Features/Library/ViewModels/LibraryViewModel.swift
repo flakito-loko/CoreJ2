@@ -105,7 +105,12 @@ final class LibraryViewModel: ObservableObject {
     }
 
     private func enrichGamesMissingMetadata() async {
-        let pending = games.filter { !$0.hasCachedMetadata }
+        let pending = games.filter { game in
+            if !game.hasCachedMetadata { return true }
+            // Re-enrich when catalog may now supply artwork for an install with no cover.
+            if !game.hasCustomCover && game.coverURL == nil { return true }
+            return false
+        }
         guard !pending.isEmpty else { return }
         isEnrichingMetadata = true
         defer { isEnrichingMetadata = false }
