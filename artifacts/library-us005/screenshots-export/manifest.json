@@ -1,0 +1,26 @@
+[
+  {
+    "attachments" : [
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "00008150-000C70A80EBA401C",
+        "deviceName" : "iPhone de Leonel Figuereo",
+        "exportedFileName" : "3CE377E4-C527-44BE-BDAD-74ADBFD138E1.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "library-us005-detail-metadata_0_239204B0-64B8-4BC2-9E2F-60FEB305E90D.png",
+        "timestamp" : 1786037214.642
+      },
+      {
+        "configurationName" : "Test Scheme Action",
+        "deviceId" : "00008150-000C70A80EBA401C",
+        "deviceName" : "iPhone de Leonel Figuereo",
+        "exportedFileName" : "59DDA1E8-656E-482B-B582-6EC9EE32C75C.png",
+        "isAssociatedWithFailure" : false,
+        "suggestedHumanReadableName" : "library-us005-library_0_4B8EAD59-E0F4-4ED9-81FC-820618DC9DBC.png",
+        "timestamp" : 1786037204.033
+      }
+    ],
+    "testIdentifier" : "LIBRARYUS005CatalogUITests/testCataloguedGamesReceiveMetadataAndArtwork()",
+    "testIdentifierURL" : "test://com.apple.xcode/JavaOne/JavaOneUITests/LIBRARYUS005CatalogUITests/testCataloguedGamesReceiveMetadataAndArtwork"
+  }
+]
