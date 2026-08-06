@@ -1,0 +1,2146 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Run classic Java ME (J2ME) games natively on iPhone & iPad">
+      
+      
+        <meta name="author" content="CoreJ2">
+      
+      
+        <link rel="canonical" href="https://flakito-loko.github.io/CoreJ2/Architecture/JNI_GATEWAY_ARCHITECTURE/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/branding/favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>JNI Gateway — Architecture - CoreJ2</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  
+  <meta property="og:title" content="JNI Gateway — Architecture - CoreJ2">
+  <meta property="og:description" content="Run classic Java ME (J2ME) games natively on iPhone & iPad">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://flakito-loko.github.io/CoreJ2/Architecture/JNI_GATEWAY_ARCHITECTURE/">
+  <meta property="og:image" content="https://flakito-loko.github.io/CoreJ2/assets/branding/social-preview.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="JNI Gateway — Architecture - CoreJ2">
+  <meta name="twitter:description" content="Run classic Java ME (J2ME) games natively on iPhone & iPad">
+  <meta name="twitter:image" content="https://flakito-loko.github.io/CoreJ2/assets/branding/social-preview.png">
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#jni-gateway-architecture" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="CoreJ2" class="md-header__button md-logo" aria-label="CoreJ2" data-md-component="logo">
+      
+  <img src="../../assets/branding/isotype.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CoreJ2
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              JNI Gateway — Architecture
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/flakito-loko/CoreJ2" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    flakito-loko/CoreJ2
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../why-corej2/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Why CoreJ2?
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../getting-started/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Getting Started
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../building/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Building
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../compatibility/" class="md-tabs__link">
+          
+  
+  
+  Compatibility
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../architecture/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Architecture
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../milestones/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Milestones
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../roadmap/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Roadmap
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../performance/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Performance
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../faq/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  FAQ
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../screenshots/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Screenshots
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../branding/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Branding
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../technical-reports/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Technical Reports
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../releases/v0.9.0-alpha/" class="md-tabs__link">
+          
+  
+  
+  Releases
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="CoreJ2" class="md-nav__button md-logo" aria-label="CoreJ2" data-md-component="logo">
+      
+  <img src="../../assets/branding/isotype.svg" alt="logo">
+
+    </a>
+    CoreJ2
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/flakito-loko/CoreJ2" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    flakito-loko/CoreJ2
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../why-corej2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Why CoreJ2?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../building/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Building
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Compatibility
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Compatibility
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../compatibility/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../compatibility-stats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Statistics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../compatibility/games/Alea/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Alea
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../compatibility/games/Astroids/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Astroids
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../compatibility/games/Tetris/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tetris
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../compatibility/games/Gryzzles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gryzzles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../compatibility/games/Ubertris/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ubertris
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../milestones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Milestones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../screenshots/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Screenshots
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../branding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Branding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../technical-reports/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Reports
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Releases
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_14">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Releases
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../releases/v0.9.0-alpha/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    v0.9.0-alpha
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="jni-gateway-architecture">JNI Gateway — Architecture<a class="headerlink" href="#jni-gateway-architecture" title="Permanent link">&para;</a></h1>
+<p><strong>Estado:</strong> Contrato oficial de componente (diseño)<br />
+<strong>Versión:</strong> 1.0<br />
+<strong>Fecha:</strong> 2026-08-04<br />
+<strong>Epic:</strong> Epic 2 — JNI Gateway Architecture<br />
+<strong>Padre arquitectónico:</strong> <code>docs/Architecture/EMBEDDED_JVM_ARCHITECTURE.md</code><br />
+<strong>Contrato hermano:</strong> <code>docs/Architecture/EMBEDDED_JVM_MANAGER.md</code><br />
+<strong>Roadmap:</strong> Fase 2 — Spike JNI (<code>docs/Architecture/IMPLEMENTATION_ROADMAP.md</code>)</p>
+<p><strong>Naturaleza</strong></p>
+<p>Este documento es la <strong>especificación de ingeniería</strong> del rol <code>JNIGateway</code>.<br />
+<strong>No es código.</strong> No define Objective-C++. No invoca FreeJ2ME. No modifica <code>EmbeddedJVMManager</code>.<br />
+Toda implementación futura del camino iOS embebido debe cumplir este contrato.</p>
+<hr />
+<h1 id="0-posicion-en-la-pila">0. Posición en la pila<a class="headerlink" href="#0-posicion-en-la-pila" title="Permanent link">&para;</a></h1>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Library / SwiftUI / Views
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>        │
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>        ▼
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>EmulatorBridge
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>        │
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>        ▼
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>RuntimeHost
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>        │
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>        ▼
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>FreeJ2MERuntimeAdapter
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>        │
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>        ▼
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>FreeJ2MEMobilePlatformBootstrapping   (backend iOS)
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>        │
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>        ├── EmbeddedJVMManager          ← dueño de la JVM (una por proceso)
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>        │
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>        └── JNIGateway                  ← ÚNICO componente autorizado a JNI
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>                │
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>                ▼
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>              JNI API
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>                │
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>                ▼
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>         Embedded JVM (OpenJDK Mobile)
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>                │
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>                ▼
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>              Java heap
+</span></code></pre></div>
+<p><strong>Cadena de comunicación (obligatoria):</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Swift (Bootstrap iOS)
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  → consulta/estado EmbeddedJVMManager   (¿JNI usable?)
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>  → opera solo vía JNIGateway            (invocaciones / callbacks)
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>      → JNI (Attach / FindClass / Call* / New* / Delete*)
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>          → Java
+</span></code></pre></div>
+<p><code>EmbeddedJVMManager</code> <strong>no</strong> ejecuta Contract C ni FindClass/Call.<br />
+<code>JNIGateway</code> <strong>no</strong> crea ni destruye la JVM.<br />
+Ninguna capa por encima de PlatformBootstrap ve <code>JNIEnv</code>, <code>jobject</code>, <code>jclass</code> ni <code>JavaVM*</code>.</p>
+<hr />
+<h1 id="1-responsabilidades-de-jnigateway">1. Responsabilidades de JNIGateway<a class="headerlink" href="#1-responsabilidades-de-jnigateway" title="Permanent link">&para;</a></h1>
+<h2 id="11-que-hace">1.1 Qué hace<a class="headerlink" href="#11-que-hace" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Ser el <strong>único</strong> componente CoreJ2 autorizado a llamar la API JNI.  </li>
+<li>Traducir operaciones semánticas del <strong>PlatformBootstrap iOS</strong> a invocaciones Java (métodos/campos).  </li>
+<li>Recibir <strong>callbacks nativos</strong> originados en hilos Java (p. ej. painter futuro) y entregarlos al Bootstrap como datos owned (buffers, códigos), <strong>sin</strong> filtrar <code>JNIEnv</code> hacia arriba.  </li>
+<li>Aplicar disciplina de hilos: attach/detach; <strong>nunca</strong> compartir <code>JNIEnv</code> entre hilos.  </li>
+<li>Gestionar <strong>local refs</strong> (scope de llamada) y <strong>global refs</strong> de infraestructura (cache de clases/métodos de vida larga).  </li>
+<li>Convertir strings y arrays/buffers en la frontera Swift ↔ Java según políticas de §9–§10.  </li>
+<li>Capturar excepciones Java pendientes, limpiarlas y mapearlas a errores de dominio del Bootstrap (§5, §8).  </li>
+<li>Respetar la habilitación del Manager: solo operar cuando el Manager declara borde JNI usable (<code>Ready</code> / <code>Idle</code> / <code>Running</code> / <code>Paused</code> según fase); rechazar tras <code>Shutdown</code> / <code>Destroyed</code> / <code>Failed</code>.  </li>
+<li>Invalidar caches y rechazar callbacks cuando el Manager ordena teardown.</li>
+</ol>
+<h2 id="12-que-no-hace">1.2 Qué no hace<a class="headerlink" href="#12-que-no-hace" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Prohibido</th>
+<th>Motivo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Crear / destruir la JVM</td>
+<td>Ownership de <code>EmbeddedJVMManager</code></td>
+</tr>
+<tr>
+<td>Conocer Bridge, Host, Adapter público, Library, Views, SwiftUI</td>
+<td>Anti-acoplamiento</td>
+</tr>
+<tr>
+<td>Poseer <code>EmulatorSession</code> o publicar <code>RuntimeEvent</code></td>
+<td>Ownership Bridge / Host</td>
+</tr>
+<tr>
+<td>Renderizar frames o conocer CGImage/SwiftUI</td>
+<td>Renderer</td>
+</tr>
+<tr>
+<td>Importar / hashear juegos</td>
+<td>Library / Import</td>
+</tr>
+<tr>
+<td>Orquestar Contract C completo (CREATE/PAINTER/LOAD/RUN/STOP)</td>
+<td>PlatformBootstrap</td>
+</tr>
+<tr>
+<td>Exponer <code>JNIEnv*</code> / <code>jobject</code> fuera del Runtime embebido</td>
+<td>Opacidad</td>
+</tr>
+<tr>
+<td>Cargar FreeJ2ME por sí mismo como política de producto</td>
+<td>Bootstrap + Manager (<code>LoadingFreeJ2ME</code>)</td>
+</tr>
+<tr>
+<td>Sustituir el spike Phase-1 <code>HelloWorld</code> como API de producto</td>
+<td>Spike ≠ Gateway</td>
+</tr>
+</tbody>
+</table>
+<h2 id="13-relacion-con-el-spike-phase-1">1.3 Relación con el spike Phase 1<a class="headerlink" href="#13-relacion-con-el-spike-phase-1" title="Permanent link">&para;</a></h2>
+<p>La invocación puntual de <code>HelloWorld.main</code> embebida en nativo de Fase 1 fue un <strong>harness de prueba</strong>, no el Gateway.<br />
+Al implementar este contrato, <strong>toda</strong> invocación JNI de producto (incluida la de spikes posteriores) debe pasar por <code>JNIGateway</code>. El Manager permanece dueño solo de create/destroy VM.</p>
+<hr />
+<h1 id="2-public-api-contrato-conceptual">2. Public API (contrato conceptual)<a class="headerlink" href="#2-public-api-contrato-conceptual" title="Permanent link">&para;</a></h1>
+<p>La API es <strong>interna</strong> al backend iOS de PlatformBootstrap. No es superficie Bridge/Host/Adapter.</p>
+<p>Los nombres siguientes son <strong>roles</strong>; la implementación puede usar Swift protocols + backend nativo opaco, sin filtrar tipos JNI.</p>
+<h2 id="21-ciclo-de-borde">2.1 Ciclo de borde<a class="headerlink" href="#21-ciclo-de-borde" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Operación</th>
+<th>Semántica</th>
+<th>Precondiciones</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bind(to manager readiness)</code></td>
+<td>Asociar Gateway al proceso JVM ya creado; construir caches iniciales si aplica</td>
+<td>Manager ≥ <code>Ready</code></td>
+</tr>
+<tr>
+<td><code>invalidate()</code></td>
+<td>Soltar global refs; marcar Gateway no usable</td>
+<td>Ordenado por Manager en <code>Shutdown</code> / <code>Failed</code> / <code>Destroyed</code></td>
+</tr>
+<tr>
+<td><code>isUsable() → Bool</code></td>
+<td>Consulta consistente con el Manager</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<h2 id="22-invocacion-sincrona-bootstrap-java">2.2 Invocación síncrona (Bootstrap → Java)<a class="headerlink" href="#22-invocacion-sincrona-bootstrap-java" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Operación</th>
+<th>Semántica</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>callStatic(classId, methodId, args) → Result</code></td>
+<td>Llamada estática tipada vía IDs opacos cacheados</td>
+</tr>
+<tr>
+<td><code>callInstance(objectId, methodId, args) → Result</code></td>
+<td>Llamada de instancia</td>
+</tr>
+<tr>
+<td><code>get/setStaticField</code> / <code>get/setField</code></td>
+<td>Acceso a campos cuando el Bootstrap lo necesite</td>
+</tr>
+<tr>
+<td><code>resolveClass(binaryName) → ClassId</code></td>
+<td>Resolución controlada (p. ej. spike Fase 2: clase hello / utilitaria CoreJ2-owned)</td>
+</tr>
+<tr>
+<td><code>resolveMethod</code> / <code>resolveField</code></td>
+<td>Obtención de IDs; preferible cachear como Global</td>
+</tr>
+</tbody>
+</table>
+<p>Los <code>ClassId</code> / <code>MethodId</code> / <code>ObjectId</code> son <strong>handles opacos</strong> del Gateway.<br />
+El Bootstrap no recibe <code>jclass</code>/<code>jmethodID</code> crudos.</p>
+<h2 id="23-callbacks-java-bootstrap">2.3 Callbacks (Java → Bootstrap)<a class="headerlink" href="#23-callbacks-java-bootstrap" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Operación</th>
+<th>Semántica</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>registerNative(classId, methodName, signature, trampoline)</code></td>
+<td>Registra implementación nativa <strong>dentro</strong> del Gateway</td>
+</tr>
+<tr>
+<td>Entrega a Bootstrap</td>
+<td>El trampoline copia datos a tipos owned (<code>Data</code>, structs) y llama un closure/<code>frameHandler</code>-like del Bootstrap en cola de runtime — <strong>nunca</strong> MainActor de forma bloqueante indefinida</td>
+</tr>
+</tbody>
+</table>
+<p>En Epic 2 / Fase 2 el callback puede limitarse a return values síncronos; el registro de natives para painter queda especificado aquí para no romper el diseño al llegar Contract C.</p>
+<h2 id="24-quien-puede-llamar">2.4 Quién puede llamar<a class="headerlink" href="#24-quien-puede-llamar" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Cliente</th>
+<th>¿Permitido?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Backend iOS de <code>FreeJ2MEMobilePlatformBootstrapping</code></td>
+<td><strong>Sí</strong> (único cliente de producto)</td>
+</tr>
+<tr>
+<td><code>EmbeddedJVMManager</code></td>
+<td>Solo para señalizar usable/invalidar — <strong>no</strong> para FindClass/Call de negocio</td>
+</tr>
+<tr>
+<td>Adapter / Host / Bridge / Views / Library</td>
+<td><strong>No</strong></td>
+</tr>
+<tr>
+<td>Tests de spike aislados</td>
+<td>Sí, detrás del mismo protocolo, sin App Target wiring</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="3-ownership-rules">3. Ownership rules<a class="headerlink" href="#3-ownership-rules" title="Permanent link">&para;</a></h1>
+<table>
+<thead>
+<tr>
+<th>Recurso</th>
+<th>Poseedor</th>
+<th>Quién libera</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>JavaVM*</strong></td>
+<td><code>EmbeddedJVMManager</code></td>
+<td>Manager en Destroy</td>
+</tr>
+<tr>
+<td><strong>JNIEnv* (por hilo)</strong></td>
+<td>Hilo attached; coordinado por Gateway</td>
+<td>Detach al fin del uso del hilo (o política de hilo dedicado)</td>
+</tr>
+<tr>
+<td><strong>Global JNI refs</strong> (clases/métodos/infra)</td>
+<td>Gateway</td>
+<td><code>invalidate()</code> en Shutdown / Failed</td>
+</tr>
+<tr>
+<td><strong>Global refs de sesión</strong> (objetos FreeJ2ME de un juego)</td>
+<td>Gateway bajo dirección del Bootstrap</td>
+<td>Stop de sesión → liberar; <strong>no</strong> Destroy JVM</td>
+</tr>
+<tr>
+<td><strong>Local refs</strong></td>
+<td>Scope de una invocación Gateway</td>
+<td>Fin de scope (<code>PopLocalFrame</code> / delete explícito)</td>
+</tr>
+<tr>
+<td><strong>Buffers de frame (copia nativa)</strong></td>
+<td>Productor Gateway → <code>frameHandler</code> Bootstrap → Adapter</td>
+<td>Cadena hacia <code>EmulatorFrame</code>; Gateway no retiene tras entrega</td>
+</tr>
+<tr>
+<td><strong>Handles opacos Swift</strong></td>
+<td>Bootstrap / Gateway</td>
+<td>Invalidación al soltar global ref subyacente</td>
+</tr>
+<tr>
+<td><strong>EmulatorSession / RuntimeEvent</strong></td>
+<td>Bridge / Host</td>
+<td>Fuera del Gateway</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Reglas:</strong></p>
+<ol>
+<li>Stop de sesión <strong>no</strong> invalida el Gateway completo; solo refs de sesión.  </li>
+<li>Destroy de JVM <strong>sí</strong> invalida el Gateway completo.  </li>
+<li>El Gateway nunca almacena <code>JNIEnv</code> en propiedades de larga vida.  </li>
+<li>El Manager nunca almacena global refs JNI.</li>
+</ol>
+<hr />
+<h1 id="4-threading-model">4. Threading model<a class="headerlink" href="#4-threading-model" title="Permanent link">&para;</a></h1>
+<h2 id="41-principios">4.1 Principios<a class="headerlink" href="#41-principios" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Un <code>JNIEnv</code> por hilo attached.</strong> Prohibido usar un env obtenido en el hilo A desde el hilo B.  </li>
+<li><strong>Hilos de llamada Bootstrap → Java:</strong> cola/serial executor de runtime (“JNI call threads” / mismo pool que el Manager permite para no bloquear MainActor).  </li>
+<li><strong>Hilos Java → nativo:</strong> el trampoline hace <code>GetEnv</code> / <code>AttachCurrentThread</code> según estado; copia datos; <strong>no</strong> reentra al Manager sin su monitor; entrega al Bootstrap de forma asíncrona segura.  </li>
+<li><strong>MainActor / UI:</strong> nunca JNI directo; nunca attach bloqueante prolongado en MainActor.  </li>
+<li><strong>Serialización:</strong> operaciones que mutan caches de global refs se serializan en un monitor interno del Gateway compatible con el monitor del Manager (evitar deadlock: orden de locks documentado — preferir <strong>no</strong> retener lock del Manager mientras se ejecuta JNI largo).</li>
+</ol>
+<h2 id="42-attach-detach">4.2 Attach / Detach<a class="headerlink" href="#42-attach-detach" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Situación</th>
+<th>Política</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hilo creado por Gateway/Bootstrap para Call*</td>
+<td>Attach al inicio del batch; Detach al fin del batch (o hilo dedicado permanente attached mientras <code>isUsable</code>)</td>
+</tr>
+<tr>
+<td>Callback desde hilo Java ya managed por la VM</td>
+<td><code>GetEnv</code>; si detached, Attach; no Detach el hilo de la VM si es hilo Java permanente — solo hilos nativos “visitantes”</td>
+</tr>
+<tr>
+<td>Tras <code>invalidate()</code></td>
+<td>Ningún attach nuevo; callbacks rechazados</td>
+</tr>
+</tbody>
+</table>
+<h2 id="43-relacion-con-estados-del-manager">4.3 Relación con estados del Manager<a class="headerlink" href="#43-relacion-con-estados-del-manager" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Estado Manager</th>
+<th>Gateway</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>NotInitialized</code> / <code>Starting</code></td>
+<td>No usable</td>
+</tr>
+<tr>
+<td><code>Ready</code></td>
+<td>Usable para spike / resolución de clases (sin FreeJ2ME)</td>
+</tr>
+<tr>
+<td><code>LoadingFreeJ2ME</code></td>
+<td>Usable solo para operaciones de carga ordenadas por Bootstrap</td>
+</tr>
+<tr>
+<td><code>Idle</code> / <code>Running</code> / <code>Paused</code> / <code>StoppingSession</code></td>
+<td>Usable según semántica Bootstrap</td>
+</tr>
+<tr>
+<td><code>Shutdown</code> / <code>Destroyed</code> / <code>Failed</code></td>
+<td><code>invalidate()</code>; rechazar</td>
+</tr>
+</tbody>
+</table>
+<h2 id="44-prohibiciones">4.4 Prohibiciones<a class="headerlink" href="#44-prohibiciones" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Compartir <code>JNIEnv</code> entre hilos.  </li>
+<li>Llamar JNI desde Views.  </li>
+<li>Registrar trampolines que llamen Bridge/Host.  </li>
+<li>Hacer <code>ensureStarted</code> del Manager desde un callback Java sin pasar por Bootstrap.</li>
+</ul>
+<hr />
+<h1 id="5-error-mapping">5. Error mapping<a class="headerlink" href="#5-error-mapping" title="Permanent link">&para;</a></h1>
+<table>
+<thead>
+<tr>
+<th>Origen</th>
+<th>Comportamiento Gateway</th>
+<th>Hacia Bootstrap</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Manager no usable</td>
+<td>No llamar JNI</td>
+<td>Error tipado <code>runtimeUnavailable</code> / <code>gatewayInvalidated</code> (nombre interno)</td>
+</tr>
+<tr>
+<td><code>FindClass</code> / <code>GetMethodID</code> null + excepción</td>
+<td><code>ExceptionDescribe</code> opcional en debug; <code>ExceptionClear</code>; liberar locals</td>
+<td><code>classNotFound</code> / <code>methodNotFound</code></td>
+</tr>
+<tr>
+<td><code>Call*</code> con excepción Java pendiente</td>
+<td>Clear + capturar nombre/mensaje vía APIs JNI de Exception</td>
+<td><code>javaException(type, message)</code> normalizado — <strong>sin</strong> filtrar stack traces crudos a UI</td>
+</tr>
+<tr>
+<td>Attach fallido</td>
+<td>Fallo inmediato</td>
+<td><code>threadAttachFailed</code></td>
+</tr>
+<tr>
+<td>OOM / <code>PushLocalFrame</code> fail</td>
+<td>Abortar operación; clear</td>
+<td><code>resourceExhausted</code></td>
+</tr>
+<tr>
+<td>Crash / abort nativo</td>
+<td>Fuera de mapeo; proceso comprometido</td>
+<td>Manager → <code>Failed</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Regla:</strong> el Gateway <strong>nunca</strong> propaga tipos JNI ni <code>jthrowable</code> al Adapter/Host/Bridge. Solo errores de dominio del Bootstrap, que el Adapter ya sabe mapear a <code>EmulatorBridgeError</code> cuando exista wiring.</p>
+<hr />
+<h1 id="6-object-lifetime">6. Object lifetime<a class="headerlink" href="#6-object-lifetime" title="Permanent link">&para;</a></h1>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>CreateJavaVM (Manager)
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>      │
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>      ▼
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>Gateway.bind → caches Global (clases/métodos infra)
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>      │
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>      ▼
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>[Sesión] Global/session refs + locals por llamada
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>      │  stopSession
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>      ▼
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>Liberar session globals; locals ya liberados
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>      │  processShutdown
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>      ▼
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>Gateway.invalidate → DeleteGlobalRef all
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>      │
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>      ▼
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>DestroyJavaVM (Manager)
+</span></code></pre></div>
+<ul>
+<li>Objetos Java de sesión (p. ej. futuros <code>MobilePlatform</code>) viven en el heap; el Gateway solo retiene <strong>refs</strong> mientras Bootstrap las necesite.  </li>
+<li>Tras Stop, el heap puede conservar clases FreeJ2ME (política Manager); las <strong>refs de sesión</strong> del Gateway deben caer.  </li>
+<li>No usar local refs como “cache” entre llamadas.</li>
+</ul>
+<hr />
+<h1 id="7-global-local-jni-references">7. Global / local JNI references<a class="headerlink" href="#7-global-local-jni-references" title="Permanent link">&para;</a></h1>
+<h2 id="71-local-refs">7.1 Local refs<a class="headerlink" href="#71-local-refs" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Creadas implícitamente por casi toda API JNI que retorna <code>jobject</code>/<code>jclass</code>/<code>jarray</code>.  </li>
+<li><strong>Scope máximo:</strong> una invocación pública del Gateway (o un <code>PushLocalFrame</code>/<code>PopLocalFrame</code> anidado).  </li>
+<li>Prohibido almacenar en propiedades Swift/ivar del Gateway.  </li>
+<li>Preferir <code>PushLocalFrame</code> al inicio de Call* batch y <code>PopLocalFrame</code> al salir (éxito o error).</li>
+</ul>
+<h2 id="72-global-refs">7.2 Global refs<a class="headerlink" href="#72-global-refs" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Uso</th>
+<th>¿Global?</th>
+<th>Vida</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>jclass</code> de clases calientes</td>
+<td>Sí</td>
+<td>Hasta <code>invalidate</code></td>
+</tr>
+<tr>
+<td><code>jmethodID</code> / <code>jfieldID</code></td>
+<td>No son refs; cacheables una vez resueltos con clase global viva</td>
+<td>Hasta invalidate / unload</td>
+</tr>
+<tr>
+<td>Objeto sesión (platform instance)</td>
+<td>Sí, si se retiene entre llamadas</td>
+<td>Hasta stopSession</td>
+</tr>
+<tr>
+<td>Framebuffer Java</td>
+<td>No retener; copiar a nativo y soltar locals</td>
+<td>Por paint</td>
+</tr>
+</tbody>
+</table>
+<h2 id="73-weak-global-refs">7.3 Weak global refs<a class="headerlink" href="#73-weak-global-refs" title="Permanent link">&para;</a></h2>
+<p>Opcionales para caches especulativos; <strong>no</strong> requeridos en Fase 2. Si se usan, fallar cerrado si la resolución weak es null.</p>
+<hr />
+<h1 id="8-exception-handling">8. Exception handling<a class="headerlink" href="#8-exception-handling" title="Permanent link">&para;</a></h1>
+<ol>
+<li>Tras cada Call*/New* relevante: <code>ExceptionCheck</code>.  </li>
+<li>Si hay excepción: leer tipo/mensaje mínimos necesarios para mapeo; <strong>siempre</strong> <code>ExceptionClear</code> antes de retornar al Bootstrap.  </li>
+<li>No dejar excepciones pendientes al cruzar hacia Swift.  </li>
+<li>No invocar más JNI (salvo APIs seguras de excepción) con excepción pendiente.  </li>
+<li>En callbacks nativos: igual disciplina; si falla el mapeo, notificar Bootstrap y no re-lanzar a Java sin política explícita (<code>ThrowNew</code> solo si el contrato Java lo exige).</li>
+</ol>
+<hr />
+<h1 id="9-string-conversion-strategy">9. String conversion strategy<a class="headerlink" href="#9-string-conversion-strategy" title="Permanent link">&para;</a></h1>
+<table>
+<thead>
+<tr>
+<th>Dirección</th>
+<th>Estrategia</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Swift <code>String</code> → Java</td>
+<td>Modificar UTF-16 / <code>NewString</code> (UTF-16) preferente para fidelidad Unicode; evitar asumir UTF-8 modificado salvo APIs que lo requieran</td>
+</tr>
+<tr>
+<td>Java <code>String</code> → Swift</td>
+<td><code>GetStringChars</code> o <code>GetStringUTFChars</code> según API elegida; copiar a <code>String</code> Swift; <strong>Release*</strong> siempre</td>
+</tr>
+<tr>
+<td>Paths sandbox / file URLs</td>
+<td>Normalizar a path absoluto string en Bootstrap; Gateway solo transporta string</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Reglas:</strong><br />
+- Nunca retener punteros de <code>GetString*Chars</code> más allá del scope.<br />
+- Fallo de conversión → error de dominio, no crash.<br />
+- Para Fase 2 (suma / echo string): suficiente round-trip UTF-16 o UTF-8 modificado documentado en el spike.</p>
+<hr />
+<h1 id="10-array-buffer-transfer-strategy">10. Array / buffer transfer strategy<a class="headerlink" href="#10-array-buffer-transfer-strategy" title="Permanent link">&para;</a></h1>
+<table>
+<thead>
+<tr>
+<th>Caso</th>
+<th>Estrategia</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Arrays primitivos pequeños (spike)</td>
+<td><code>New*Array</code> + <code>Set*ArrayRegion</code> / <code>Get*ArrayRegion</code> (copia explícita)</td>
+</tr>
+<tr>
+<td>Framebuffer futuro (Contract C)</td>
+<td>Preferir <strong>una</strong> copia compacta Java→nativo por paint (<code>GetIntArrayRegion</code> o critical section de corta duración); <strong>prohibido</strong> compartir puntero Java con SwiftUI</td>
+</tr>
+<tr>
+<td>Critical (<code>GetPrimitiveArrayCritical</code>)</td>
+<td>Solo si se mide beneficio; duración mínima; sin JNI anidado / sin blocking</td>
+</tr>
+<tr>
+<td>Direct <code>ByteBuffer</code></td>
+<td>Opcional más adelante; no requerido en Fase 2</td>
+</tr>
+<tr>
+<td>Ownership post-copia</td>
+<td>Buffer nativo owned por Bootstrap/<code>frameHandler</code>; Java array no se pinnea</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Anti-patrón:</strong> cero-copia hacia Views; mmap compartido UI↔heap Java.</p>
+<hr />
+<h1 id="11-performance-considerations">11. Performance considerations<a class="headerlink" href="#11-performance-considerations" title="Permanent link">&para;</a></h1>
+<ol>
+<li><strong>Minimizar cruces JNI</strong> por operación de producto (objetivo arquitectura: ~1 cruce/paint con copia compacta).  </li>
+<li><strong>Cachear</strong> <code>jclass</code>/<code>jmethodID</code> en globals; no <code>FindClass</code> por frame.  </li>
+<li><strong>No</strong> reiniciar JVM entre juegos (Manager).  </li>
+<li><strong>No</strong> bloquear MainActor.  </li>
+<li>Serializar Calls en cola dedicada para predecibilidad bajo Zero interpreter.  </li>
+<li>Medir en spikes: latencia Call* round-trip, RSS, local-ref pressure.  </li>
+<li>Invalidación completa solo en Shutdown — no “reiniciar Gateway” por Stop de sesión.</li>
+</ol>
+<hr />
+<h1 id="12-testing-strategy">12. Testing strategy<a class="headerlink" href="#12-testing-strategy" title="Permanent link">&para;</a></h1>
+<h2 id="121-sin-freej2me-fase-2">12.1 Sin FreeJ2ME (Fase 2)<a class="headerlink" href="#121-sin-freej2me-fase-2" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Verifica</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Round-trip estático (p. ej. <code>add(int,int)</code> / echo <code>String</code>)</td>
+<td>Call* + conversión</td>
+</tr>
+<tr>
+<td>Gateway usable solo tras Ready</td>
+<td>Precondiciones Manager</td>
+</tr>
+<tr>
+<td><code>invalidate</code> tras Destroy</td>
+<td>Rechazo post-teardown</td>
+</tr>
+<tr>
+<td>Stress attach en 2+ hilos</td>
+<td>No compartir <code>JNIEnv</code> (TSan / asserts)</td>
+</tr>
+<tr>
+<td>Exception Java → error dominio</td>
+<td>Clear + mapeo</td>
+</tr>
+<tr>
+<td>Local frame leak test</td>
+<td>Contador/diagnóstico en debug builds</td>
+</tr>
+</tbody>
+</table>
+<h2 id="122-concurrencia">12.2 Concurrencia<a class="headerlink" href="#122-concurrencia" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Dos Calls concurrentes en hilos distintos → cada uno su env.  </li>
+<li>Callback simulado desde hilo secundario → entrega ordenada al Bootstrap sin deadlock con Manager.</li>
+</ul>
+<h2 id="123-no-tests">12.3 No-tests<a class="headerlink" href="#123-no-tests" title="Permanent link">&para;</a></h2>
+<ul>
+<li>No tests de UI/Bridge.  </li>
+<li>No carga FreeJ2ME en Epic 2.  </li>
+<li>No App Target wiring obligatorio: harness aislado aceptable (como Fase 1/1.5).</li>
+</ul>
+<h2 id="124-criterio-de-salida-fase-2">12.4 Criterio de salida Fase 2<a class="headerlink" href="#124-criterio-de-salida-fase-2" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Round-trip documentado.  </li>
+<li>Gateway inválido tras Destroyed.  </li>
+<li>Sin exposición JNI a Views/Bridge.  </li>
+<li>Thread rules del Manager respetadas.</li>
+</ul>
+<hr />
+<h1 id="13-flujo-detallado-swift-java">13. Flujo detallado Swift → Java<a class="headerlink" href="#13-flujo-detallado-swift-java" title="Permanent link">&para;</a></h1>
+<h2 id="131-ida-bootstrap-java">13.1 Ida (Bootstrap → Java)<a class="headerlink" href="#131-ida-bootstrap-java" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>1. Bootstrap necesita una operación semántica (spike: &quot;invoke hello util&quot;).
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>2. Bootstrap consulta Manager / Gateway.isUsable().
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>3. Si no usable → error tipado; fin.
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>4. Bootstrap llama JNIGateway.callStatic(... handles opacos / args Swift).
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>5. Gateway (en hilo runtime):
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>   a. Attach/GetEnv
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>   b. PushLocalFrame
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>   c. Resolve desde cache Global (o populate cache)
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>   d. Convertir args (strings/arrays)
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>   e. CallStatic*
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>   f. ExceptionCheck → mapear o continuar
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>   g. Convertir valor de retorno a tipo owned Swift
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>   h. PopLocalFrame / Release strings
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>6. Retorno al Bootstrap sin tipos JNI.
+</span></code></pre></div>
+<h2 id="132-vuelta-java-bootstrap-diseno-futuro-painter">13.2 Vuelta (Java → Bootstrap) — diseño futuro painter<a class="headerlink" href="#132-vuelta-java-bootstrap-diseno-futuro-painter" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>1. Hilo Java invoca native method registrado por Gateway.
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>2. Trampoline Gateway:
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>   a. GetEnv
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>   b. Copiar píxeles/payload a buffer owned
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>   c. ExceptionClear si aplica
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>   d. Encolar entrega a frameHandler/closure del Bootstrap (off MainActor)
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>3. Bootstrap → Adapter → Host pipe (fuera del Gateway).
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>4. Gateway no retiene el buffer tras handoff.
+</span></code></pre></div>
+<h2 id="133-shutdown">13.3 Shutdown<a class="headerlink" href="#133-shutdown" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>1. Manager entra en Shutdown.
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>2. Manager ordena Gateway.invalidate().
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>3. Gateway: rechaza Calls; DeleteGlobalRef; marca unusable.
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>4. Manager DestroyJavaVM.
+</span></code></pre></div>
+<hr />
+<h1 id="14-adr-gateway">14. ADR (Gateway)<a class="headerlink" href="#14-adr-gateway" title="Permanent link">&para;</a></h1>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Estado</th>
+<th>Motivación</th>
+<th>Consecuencia</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>JGW-001</strong></td>
+<td>Aceptada</td>
+<td>JNI solo en Gateway</td>
+<td>Manager ≠ kitchen-sink JNI; capas producto opacas</td>
+</tr>
+<tr>
+<td><strong>JGW-002</strong></td>
+<td>Aceptada</td>
+<td>Handles opacos</td>
+<td>Sin <code>jobject</code> en Bootstrap API pública interna tipada como JNI</td>
+</tr>
+<tr>
+<td><strong>JGW-003</strong></td>
+<td>Aceptada</td>
+<td>Local refs por scope</td>
+<td>Push/PopLocalFrame por Call batch</td>
+</tr>
+<tr>
+<td><strong>JGW-004</strong></td>
+<td>Aceptada</td>
+<td>Global refs para infra</td>
+<td>Cache FindClass/GetMethodID</td>
+</tr>
+<tr>
+<td><strong>JGW-005</strong></td>
+<td>Aceptada</td>
+<td>Copia en frontera de frames</td>
+<td>No memoria compartida UI↔Java</td>
+</tr>
+<tr>
+<td><strong>JGW-006</strong></td>
+<td>Aceptada</td>
+<td>Errores de dominio</td>
+<td>No <code>jthrowable</code> hacia Adapter</td>
+</tr>
+<tr>
+<td><strong>JGW-007</strong></td>
+<td>Aceptada</td>
+<td>Cliente único = Bootstrap iOS</td>
+<td>Adapter no conoce Gateway</td>
+</tr>
+<tr>
+<td><strong>JGW-008</strong></td>
+<td>Aceptada</td>
+<td>Fase 2 sin FreeJ2ME</td>
+<td>Spike de disciplina antes de Vendor</td>
+</tr>
+<tr>
+<td><strong>JGW-009</strong></td>
+<td>Aceptada</td>
+<td>Stop ≠ invalidate total</td>
+<td>Solo session refs en Stop</td>
+</tr>
+<tr>
+<td><strong>JGW-010</strong></td>
+<td>Aceptada</td>
+<td>Off MainActor</td>
+<td>Alineado a EJM-006</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="15-riesgos-residuales">15. Riesgos residuales<a class="headerlink" href="#15-riesgos-residuales" title="Permanent link">&para;</a></h1>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Riesgo</th>
+<th>Mitigación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>R1</td>
+<td>Deadlock Manager↔Gateway</td>
+<td>Orden de locks; no JNI largo bajo monitor Manager</td>
+</tr>
+<tr>
+<td>R2</td>
+<td>Local ref table overflow</td>
+<td>PushLocalFrame; tests de leak</td>
+</tr>
+<tr>
+<td>R3</td>
+<td>Callback tras invalidate</td>
+<td>Flag usable atómico; drop</td>
+</tr>
+<tr>
+<td>R4</td>
+<td>Critical array mal usado</td>
+<td>Preferir Get*ArrayRegion en v1</td>
+</tr>
+<tr>
+<td>R5</td>
+<td>Filtrado accidental de JNI a Adapter</td>
+<td>Review + API opaca; tests de compilación</td>
+</tr>
+<tr>
+<td>R6</td>
+<td>Divergencia macOS Process vs iOS Gateway</td>
+<td>Mismo Contract C en Bootstrap; Gateway solo iOS</td>
+</tr>
+</tbody>
+</table>
+<p>Ninguno de estos riesgos requiere un spike <strong>previo</strong> distinto de la propia <strong>Fase 2</strong> ya planificada: Fase 1/1.5 ya demostró <code>JNI_CreateJavaVM</code> + invoke Java + destroy con OpenJDK Mobile.</p>
+<hr />
+<h1 id="16-fuera-de-alcance-de-este-documento">16. Fuera de alcance de este documento<a class="headerlink" href="#16-fuera-de-alcance-de-este-documento" title="Permanent link">&para;</a></h1>
+<ul>
+<li>Implementación Objective-C++ / Swift.  </li>
+<li>Registro real de painter FreeJ2ME.  </li>
+<li>Cambios a <code>EmbeddedJVMManager</code>, Bridge, Host, Adapter, UI, Library.  </li>
+<li>Empaquetado App Target.  </li>
+<li>JNI Gateway en macOS Process (macOS sigue Process persistente).</li>
+</ul>
+<hr />
+<h1 id="cierre">Cierre<a class="headerlink" href="#cierre" title="Permanent link">&para;</a></h1>
+<p><code>JNIGateway</code> es el <strong>único borde JNI</strong> del runtime embebido iOS.<br />
+<code>EmbeddedJVMManager</code> posee la VM; el Gateway posee la disciplina de invocación y referencias; el Bootstrap posee Contract C; el Adapter/Host/Bridge permanecen ajenos a JNI.</p>
+<h2 id="approved-for-implementation">Approved for implementation<a class="headerlink" href="#approved-for-implementation" title="Permanent link">&para;</a></h2>
+<p><em>Referencia oficial · JNI Gateway Architecture v1.0 · CoreJ2 · Epic 2</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; CoreJ2 contributors · <a href="https://github.com/flakito-loko/CoreJ2">GitHub</a> · <a href="https://flakito-loko.github.io/CoreJ2/">Documentation</a> · <a href="https://flakito-loko.github.io/CoreJ2/roadmap/">Roadmap</a> · <a href="https://flakito-loko.github.io/CoreJ2/compatibility/">Compatibility</a>
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/flakito-loko/CoreJ2" target="_blank" rel="noopener" title="GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://flakito-loko.github.io/CoreJ2/" target="_blank" rel="noopener" title="Documentation" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M384 512H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h304c26.5 0 48 21.5 48 48v288c0 20.9-13.4 38.7-32 45.3V448c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 384c-17.7 0-32 14.3-32 32s14.3 32 32 32h256v-64zm32-232c0 13.3 10.7 24 24 24h176c13.3 0 24-10.7 24-24s-10.7-24-24-24H152c-13.3 0-24 10.7-24 24m24 72c-13.3 0-24 10.7-24 24s10.7 24 24 24h176c13.3 0 24-10.7 24-24s-10.7-24-24-24z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://flakito-loko.github.io/CoreJ2/compatibility/" target="_blank" rel="noopener" title="Compatibility" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M448 64c106 0 192 86 192 192s-86 192-192 192H192C86 448 0 362 0 256S86 64 192 64zM192 176c-13.3 0-24 10.7-24 24v32h-32c-13.3 0-24 10.7-24 24s10.7 24 24 24h32v32c0 13.3 10.7 24 24 24s24-10.7 24-24v-32h32c13.3 0 24-10.7 24-24s-10.7-24-24-24h-32v-32c0-13.3-10.7-24-24-24m240 96a32 32 0 1 0 0 64 32 32 0 1 0 0-64m64-96a32 32 0 1 0 0 64 32 32 0 1 0 0-64"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://flakito-loko.github.io/CoreJ2/roadmap/" target="_blank" rel="noopener" title="Roadmap" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M512 48c0-11.1-5.7-21.4-15.2-27.2s-21.2-6.4-31.1-1.4L349.5 77.5 170.1 17.6c-8.1-2.7-16.8-2.1-24.4 1.7l-128 64C6.8 88.8 0 99.9 0 112v352c0 11.1 5.7 21.4 15.2 27.2s21.2 6.4 31.1 1.4l116.1-58.1 179.4 59.8c8.1 2.7 16.8 2.1 24.4-1.7l128-64c10.8-5.4 17.7-16.5 17.7-28.6V48zM192 376.9V92.4l128 42.7v284.5z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "search.share", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

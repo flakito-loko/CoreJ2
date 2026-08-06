@@ -1,0 +1,6 @@
+title,vendor,midp,genre,status,fps,rms,touch,keypad,audio,notes,jar,sources,launch_success
+Alea,ro.plesoianu,MIDP 2.0,Puzzle / Dice,Playable,0.0,N/A,Pass,Pass,Untested,First paint OK; LCD frame counter stalled (~6) during 5 min continuous input (P2). Relaunch OK after E11-US002.,Alea.jar,E11-US001;E11-US002;E11-US003,True
+Astroids,astroids,MIDP 2.0,Arcade / Shooter,Playable,13.65,N/A,Pass,Pass,Untested,Strong game loop on device; frames 72→4174 over ~5 min. Relaunch OK.,astroids.jar,E11-US001;E11-US002;E11-US003,True
+Tetris,game.Tetris (fixture),MIDP 2.0,Puzzle,Playable,4.01,N/A,Pass,Pass,Untested,Fixture tetris.jar; continuous frames 13→1222. Commercial Tetris_240x320 also present on device but not exercised in the 5-min loop.,tetris.jar,E11-US001;E11-US002;E11-US003,True
+Gryzzles,game.Gryzzles,MIDP 2.0,Puzzle,Playable,,Pass,Pass,Pass,Untested,E11-US001 failed with RMS NPE. Fixed in E11-US003 (sandbox dataPath). Launches and persists GryzzlesLevel store; relaunch OK.,gryzzles.jar,E11-US001;E11-US003,True
+Ubertris,ubertris,MIDP 2.0,Puzzle,Playable,11.84,Pass,Pass,Pass,Untested,First session painted well (65→3637). E11-US001 RMS path + relaunch/bootstrap issues fixed in E11-US002/US003. License Alert remains (P2 UI).,Ubertris.jar,E11-US001;E11-US002;E11-US003,True

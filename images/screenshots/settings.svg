@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="390" height="844" viewBox="0 0 390 844" role="img" aria-label="Settings">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#111113"/>
+      <stop offset="100%" stop-color="#1C1C1E"/>
+    </linearGradient>
+  </defs>
+  <rect width="390" height="844" fill="url(#g)"/>
+  <rect x="20" y="48" width="350" height="748" rx="36" fill="#000" stroke="#3A3A3C" stroke-width="2"/>
+  <text x="195" y="110" text-anchor="middle" fill="#F5F5F7" font-family="SF Pro Text, Helvetica, Arial, sans-serif" font-size="20" font-weight="600">CoreJ2</text>
+  <text x="195" y="148" text-anchor="middle" fill="#8E8E93" font-family="SF Pro Text, Helvetica, Arial, sans-serif" font-size="14">Settings</text>
+  <rect x="56" y="220" width="278" height="400" rx="18" fill="#111" stroke="#48484A" stroke-dasharray="8 8"/>
+  <text x="195" y="420" text-anchor="middle" fill="#636366" font-family="SF Pro Text, Helvetica, Arial, sans-serif" font-size="13">Screenshot placeholder</text>
+  <text x="195" y="448" text-anchor="middle" fill="#48484A" font-family="SF Pro Text, Helvetica, Arial, sans-serif" font-size="12">Replace with PNG/WebP</text>
+</svg>

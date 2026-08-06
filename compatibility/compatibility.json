@@ -1,0 +1,154 @@
+{
+  "schema_version": 2,
+  "project": "CoreJ2",
+  "generated_from": [
+    "artifacts/e11-us001-gameplay-validation/REPORT.md",
+    "artifacts/e11-us001-gameplay-validation/metrics/corpus-results.json",
+    "artifacts/e11-us002-relaunch-lifecycle/REPORT.md",
+    "artifacts/e11-us003-rms-compatibility/REPORT.md"
+  ],
+  "validation": {
+    "device": "iPhone 17 Pro Max",
+    "udid": "00008150-000C70A80EBA401C",
+    "ios": "26.5.2",
+    "date": "2026-08-06",
+    "runtime": "Production app + embedded OpenJDK Mobile + FreeJ2ME"
+  },
+  "status_legend": {
+    "Perfect": "Launch, continuous frames, input, RMS/audio as applicable \u2014 no known issues",
+    "Playable": "Launches and sustains interactive gameplay on device",
+    "Partial": "Launches with significant limitations",
+    "Launch only": "First frame / startApp OK but not sustainably playable",
+    "Not working": "Fails to launch or unusable",
+    "Untested": "Not measured in the referenced validation runs"
+  },
+  "status_emoji": {
+    "Perfect": "\ud83d\udfe2",
+    "Playable": "\ud83d\udfe2",
+    "Partial": "\ud83d\udfe1",
+    "Launch only": "\ud83d\udfe0",
+    "Not working": "\ud83d\udd34",
+    "Untested": "\u26aa"
+  },
+  "games": [
+    {
+      "id": "Alea",
+      "title": "Alea",
+      "jar": "Alea.jar",
+      "vendor": "ro.plesoianu",
+      "midp": "MIDP 2.0",
+      "genre": "Puzzle / Dice",
+      "status": "Playable",
+      "fps": 0.0,
+      "rms": "N/A",
+      "touch": "Pass",
+      "keypad": "Pass",
+      "audio": "Untested",
+      "notes": "First paint OK; LCD frame counter stalled (~6) during 5 min continuous input (P2). Relaunch OK after E11-US002.",
+      "sources": [
+        "E11-US001",
+        "E11-US002",
+        "E11-US003"
+      ],
+      "ttff_seconds": 3.3,
+      "session_seconds": 301,
+      "frame_continuity": "stalled_after_first_paint",
+      "launch_success": true
+    },
+    {
+      "id": "Astroids",
+      "title": "Astroids",
+      "jar": "astroids.jar",
+      "vendor": "astroids",
+      "midp": "MIDP 2.0",
+      "genre": "Arcade / Shooter",
+      "status": "Playable",
+      "fps": 13.65,
+      "rms": "N/A",
+      "touch": "Pass",
+      "keypad": "Pass",
+      "audio": "Untested",
+      "notes": "Strong game loop on device; frames 72\u21924174 over ~5 min. Relaunch OK.",
+      "sources": [
+        "E11-US001",
+        "E11-US002",
+        "E11-US003"
+      ],
+      "ttff_seconds": 1.0,
+      "session_seconds": 300,
+      "frame_continuity": "ok",
+      "launch_success": true
+    },
+    {
+      "id": "Tetris",
+      "title": "Tetris",
+      "jar": "tetris.jar",
+      "vendor": "game.Tetris (fixture)",
+      "midp": "MIDP 2.0",
+      "genre": "Puzzle",
+      "status": "Playable",
+      "fps": 4.01,
+      "rms": "N/A",
+      "touch": "Pass",
+      "keypad": "Pass",
+      "audio": "Untested",
+      "notes": "Fixture tetris.jar; continuous frames 13\u21921222. Commercial Tetris_240x320 also present on device but not exercised in the 5-min loop.",
+      "sources": [
+        "E11-US001",
+        "E11-US002",
+        "E11-US003"
+      ],
+      "ttff_seconds": 1.0,
+      "session_seconds": 301,
+      "frame_continuity": "ok",
+      "launch_success": true
+    },
+    {
+      "id": "Gryzzles",
+      "title": "Gryzzles",
+      "jar": "gryzzles.jar",
+      "vendor": "game.Gryzzles",
+      "midp": "MIDP 2.0",
+      "genre": "Puzzle",
+      "status": "Playable",
+      "fps": null,
+      "rms": "Pass",
+      "touch": "Pass",
+      "keypad": "Pass",
+      "audio": "Untested",
+      "notes": "E11-US001 failed with RMS NPE. Fixed in E11-US003 (sandbox dataPath). Launches and persists GryzzlesLevel store; relaunch OK.",
+      "sources": [
+        "E11-US001",
+        "E11-US003"
+      ],
+      "ttff_seconds": null,
+      "session_seconds": null,
+      "frame_continuity": "validated_after_rms_fix",
+      "launch_success": true
+    },
+    {
+      "id": "Ubertris",
+      "title": "Ubertris",
+      "jar": "Ubertris.jar",
+      "vendor": "ubertris",
+      "midp": "MIDP 2.0",
+      "genre": "Puzzle",
+      "status": "Playable",
+      "fps": 11.84,
+      "rms": "Pass",
+      "touch": "Pass",
+      "keypad": "Pass",
+      "audio": "Untested",
+      "notes": "First session painted well (65\u21923637). E11-US001 RMS path + relaunch/bootstrap issues fixed in E11-US002/US003. License Alert remains (P2 UI).",
+      "sources": [
+        "E11-US001",
+        "E11-US002",
+        "E11-US003"
+      ],
+      "ttff_seconds": 1.0,
+      "session_seconds": 302,
+      "frame_continuity": "ok",
+      "launch_success": true
+    }
+  ]
+}

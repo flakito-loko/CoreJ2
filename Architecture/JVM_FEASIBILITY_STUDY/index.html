@@ -1,0 +1,2314 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Run classic Java ME (J2ME) games natively on iPhone & iPad">
+      
+      
+        <meta name="author" content="CoreJ2">
+      
+      
+        <link rel="canonical" href="https://flakito-loko.github.io/CoreJ2/Architecture/JVM_FEASIBILITY_STUDY/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/branding/favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Estudio de viabilidad: JVM embebida en iOS para FreeJ2ME - CoreJ2</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  
+  <meta property="og:title" content="Estudio de viabilidad: JVM embebida en iOS para FreeJ2ME - CoreJ2">
+  <meta property="og:description" content="Run classic Java ME (J2ME) games natively on iPhone & iPad">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://flakito-loko.github.io/CoreJ2/Architecture/JVM_FEASIBILITY_STUDY/">
+  <meta property="og:image" content="https://flakito-loko.github.io/CoreJ2/assets/branding/social-preview.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Estudio de viabilidad: JVM embebida en iOS para FreeJ2ME - CoreJ2">
+  <meta name="twitter:description" content="Run classic Java ME (J2ME) games natively on iPhone & iPad">
+  <meta name="twitter:image" content="https://flakito-loko.github.io/CoreJ2/assets/branding/social-preview.png">
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#estudio-de-viabilidad-jvm-embebida-en-ios-para-freej2me" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="CoreJ2" class="md-header__button md-logo" aria-label="CoreJ2" data-md-component="logo">
+      
+  <img src="../../assets/branding/isotype.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CoreJ2
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Estudio de viabilidad: JVM embebida en iOS para FreeJ2ME
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/flakito-loko/CoreJ2" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    flakito-loko/CoreJ2
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../why-corej2/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Why CoreJ2?
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../getting-started/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Getting Started
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../building/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Building
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../compatibility/" class="md-tabs__link">
+          
+  
+  
+  Compatibility
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../architecture/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Architecture
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../milestones/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Milestones
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../roadmap/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Roadmap
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../performance/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Performance
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../faq/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  FAQ
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../screenshots/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Screenshots
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../branding/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Branding
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../technical-reports/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Technical Reports
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../releases/v0.9.0-alpha/" class="md-tabs__link">
+          
+  
+  
+  Releases
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="CoreJ2" class="md-nav__button md-logo" aria-label="CoreJ2" data-md-component="logo">
+      
+  <img src="../../assets/branding/isotype.svg" alt="logo">
+
+    </a>
+    CoreJ2
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/flakito-loko/CoreJ2" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    flakito-loko/CoreJ2
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../why-corej2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Why CoreJ2?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../building/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Building
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Compatibility
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Compatibility
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../compatibility/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../compatibility-stats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Statistics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../compatibility/games/Alea/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Alea
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../compatibility/games/Astroids/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Astroids
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../compatibility/games/Tetris/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tetris
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../compatibility/games/Gryzzles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gryzzles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../compatibility/games/Ubertris/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ubertris
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../milestones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Milestones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../screenshots/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Screenshots
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../branding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Branding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../technical-reports/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Reports
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Releases
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_14">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Releases
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../releases/v0.9.0-alpha/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    v0.9.0-alpha
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#resumen-ejecutivo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Resumen ejecutivo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-opciones-reales-para-ejecutar-una-jvm-o-java-en-ios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Opciones reales para ejecutar una JVM (o Java) en iOS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Opciones reales para ejecutar una JVM (o Java) en iOS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-matriz-de-opciones-2026" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.1 Matriz de opciones (2026)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-conclusion-de-opciones" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1.2 Conclusión de opciones
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-openjdk-mobile-es-una-opcion-viable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. ¿OpenJDK Mobile es una opción viable?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. ¿OpenJDK Mobile es una opción viable?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-que-es-hoy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.1 Qué es hoy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-fortalezas-para-corej2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.2 Fortalezas para CoreJ2
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-debilidades-gaps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.3 Debilidades / gaps
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-veredicto-openjdk-mobile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2.4 Veredicto OpenJDK Mobile
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-puede-compilarse-como-biblioteca-estatica-libjvm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. ¿Puede compilarse como biblioteca estática (libjvm)?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-que-dependencias-requiere" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. ¿Qué dependencias requiere?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. ¿Qué dependencias requiere?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-build-time-host-macos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Build-time (host macOS)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-runtime-dentro-de-la-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 Runtime (dentro de la app)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-dependencias-de-producto-freej2me-no-son-del-jvm-pero-bloquean" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Dependencias “de producto” FreeJ2ME (no son del JVM, pero bloquean)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-es-compatible-con-las-restricciones-de-apple-sin-jit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. ¿Es compatible con las restricciones de Apple (sin JIT)?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. ¿Es compatible con las restricciones de Apple (sin JIT)?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-regla-relevante" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.1 Regla relevante
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-como-openjdk-mobile-responde" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.2 Cómo OpenJDK Mobile responde
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-implicacion-para-corej2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5.3 Implicación para CoreJ2
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-integracion-con-platformbootstrap-sin-romper-la-arquitectura" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Integración con PlatformBootstrap sin romper la arquitectura
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Integración con PlatformBootstrap sin romper la arquitectura">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-invariantes-a-preservar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 Invariantes a preservar
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-diseno-del-backend-ios-solo-conceptual" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Diseño del backend iOS (solo conceptual)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-threading-alineado-a-e5-us003" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 Threading (alineado a E5-US003)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-que-no-hacer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 Qué NO hacer
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-riesgos-tecnicos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Riesgos técnicos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-riesgos-para-app-store-review" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Riesgos para App Store Review
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-recomendacion-final" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Recomendación final
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Recomendación final">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#91-decision-arquitectonica" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.1 Decisión arquitectónica
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#92-orden-de-spikes-go-no-go" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.2 Orden de spikes (go / no-go)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#93-recomendacion-de-producto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.3 Recomendación de producto
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#94-que-no-recomendar-ahora" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9.4 Qué no recomendar ahora
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Referencias
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="estudio-de-viabilidad-jvm-embebida-en-ios-para-freej2me">Estudio de viabilidad: JVM embebida en iOS para FreeJ2ME<a class="headerlink" href="#estudio-de-viabilidad-jvm-embebida-en-ios-para-freej2me" title="Permanent link">&para;</a></h1>
+<p><strong>Tipo:</strong> Investigación / arquitectura (sin implementación)<br />
+<strong>Fecha:</strong> 2026-08-04<br />
+<strong>Audiencia:</strong> Ingeniería CoreJ2<br />
+<strong>Alcance:</strong> Ejecutar FreeJ2ME dentro de una app iOS distribuible por App Store, <strong>sin alterar</strong> la arquitectura existente (Bridge → Host → Adapter → PlatformBootstrap).</p>
+<p><strong>Contexto CoreJ2:</strong></p>
+<ul>
+<li>macOS ya tiene JVM persistente vía <code>PersistentProcessFreeJ2MEMobilePlatformBootstrap</code> + <code>PersistentMobilePlatformDaemon</code>.</li>
+<li>iOS hoy falla de forma tipada con <code>EmulatorBridgeError.runtimeUnavailable</code> (sin <code>Process</code> / sin JDK host).</li>
+<li>FreeJ2ME asume Java SE (AWT <code>BufferedImage</code>, ASM/<code>defineClass</code>, Java Sound, <code>System.exit</code>, etc.). Ver <code>docs/FREEJ2ME_ASSESSMENT.md</code> y <code>docs/E5_US003_PERSISTENT_RUNTIME_DESIGN.md</code>.</li>
+</ul>
+<hr />
+<h2 id="resumen-ejecutivo">Resumen ejecutivo<a class="headerlink" href="#resumen-ejecutivo" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Pregunta</th>
+<th>Respuesta corta</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>¿Hay JVM real en iOS App Store?</td>
+<td><strong>Sí, con matices:</strong> OpenJDK Mobile (Zero interpreter, builds estáticos) es la vía oficial más creíble en 2025–2026; no es HotSpot JIT.</td>
+</tr>
+<tr>
+<td>¿OpenJDK Mobile es viable para CoreJ2?</td>
+<td><strong>Viable como spike técnico</strong>, no como “enchufar y listo”. Cubre bytecode + JNI; <strong>no garantiza</strong> AWT headless completo ni el perfil SE que FreeJ2ME necesita.</td>
+</tr>
+<tr>
+<td>¿<code>libjvm</code> estática?</td>
+<td><strong>Sí:</strong> el árbol <code>openjdk/mobile</code> documenta <code>make … static-libs-image</code> → <code>libjvm.a</code> (variante Zero en device).</td>
+</tr>
+<tr>
+<td>¿Compatible con “no JIT”?</td>
+<td><strong>Sí, por diseño:</strong> Zero interpreta bytecode; no genera código nativo en runtime. Rendimiento limitado; Leyden/AOT es la evolución esperada.</td>
+</tr>
+<tr>
+<td>¿Encaje con PlatformBootstrap?</td>
+<td><strong>Sí, sin romper capas:</strong> nuevo backend iOS de <code>FreeJ2MEMobilePlatformBootstrapping</code> (JNI/FFI in-process) paralelo al Process persistente de macOS.</td>
+</tr>
+<tr>
+<td>¿Recomendación?</td>
+<td><strong>Adoptar OpenJDK Mobile (Zero + static) como hipótesis principal</strong> y ejecutar un spike M9 acotado (hello JNI → headless AWT/<code>BufferedImage</code> → <code>defineClass</code> → Contract C). En paralelo, plan B: fork allowlisted de backends gráficos/audio si AWT no cierra.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Veredicto:</strong> Embebido in-process es la única topología alineada con App Store y con la arquitectura CoreJ2. No hay camino serio con <code>Process</code>/<code>java</code> hijo en iOS. El riesgo dominante <strong>no</strong> es “¿existe libjvm?”, sino <strong>¿FreeJ2ME corre sobre el subconjunto SE + AWT que ese JVM ofrece?</strong></p>
+<hr />
+<h2 id="1-opciones-reales-para-ejecutar-una-jvm-o-java-en-ios">1. Opciones reales para ejecutar una JVM (o Java) en iOS<a class="headerlink" href="#1-opciones-reales-para-ejecutar-una-jvm-o-java-en-ios" title="Permanent link">&para;</a></h2>
+<h3 id="11-matriz-de-opciones-2026">1.1 Matriz de opciones (2026)<a class="headerlink" href="#11-matriz-de-opciones-2026" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Opción</th>
+<th>Qué es</th>
+<th>App Store</th>
+<th>Encaje FreeJ2ME</th>
+<th>Madurez</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>A. OpenJDK Mobile (Zero + static/<code>libjvm</code>)</strong></td>
+<td>Downstream oficial OpenJDK con parches iOS; intérprete Zero en device; builds estáticos documentados</td>
+<td>Históricamente hay apps que empaquetaron OpenJDK (p. ej. editores/IDE); requiere packaging cuidadoso (frameworks, rutas, bitcode legacy)</td>
+<td>Mejor candidato a “JVM real” + JNI hacia Vendor</td>
+<td><strong>Activa</strong> (Gluon/OpenJDK Mobile 2025+); aún infraestructura, no producto plug-and-play</td>
+</tr>
+<tr>
+<td><strong>B. Gluon Mobile / GraalVM Native Image (AOT)</strong></td>
+<td>Compila Java → binario nativo; a menudo JavaFX</td>
+<td>Producto comercial/orientado a apps Java UI</td>
+<td>FreeJ2ME + ASM dinámico + <code>defineClass</code> en runtime <strong>chocan</strong> con AOT cerrado; MIDlets son JARs desconocidos en build time</td>
+<td>Maduro para <em>apps</em> Java propias; <strong>malo</strong> para emular JARs arbitrarios</td>
+</tr>
+<tr>
+<td><strong>C. Intérprete / runtime propietario o legacy (RoboVM-era, forks)</strong></td>
+<td>AOT parcial + runtime</td>
+<td>Variable; muchos abandonados</td>
+<td>Misma tensión AOT vs carga dinámica de MIDlets</td>
+<td><strong>Legacy / alto riesgo de mantenimiento</strong></td>
+</tr>
+<tr>
+<td><strong>D. Multi-OS Engine (Intel ART-like)</strong></td>
+<td>Runtime estilo ART para iOS desde Android Studio</td>
+<td>Histórico; ecosistema en declive</td>
+<td>No es HotSpot SE; portabilidad FreeJ2ME dudosa</td>
+<td><strong>No recomendable</strong> como base nueva</td>
+</tr>
+<tr>
+<td><strong>E. Proceso hijo <code>java</code> (como macOS)</strong></td>
+<td><code>Foundation.Process</code> + JDK</td>
+<td><strong>No viable</strong> en iOS app sandbox / APIs</td>
+<td>Igual que macOS host</td>
+<td><strong>Descartado</strong> para device</td>
+</tr>
+<tr>
+<td><strong>F. Reescritura nativa / sin JVM</strong></td>
+<td>Portar MIDP a Swift/C++</td>
+<td>Compatible</td>
+<td>Abandona FreeJ2ME Vendor “casi intacto”; contradice la estrategia actual</td>
+<td>Solo si el spike JVM falla</td>
+</tr>
+<tr>
+<td><strong>G. Codificar FreeJ2ME a WASM / otro VM</strong></td>
+<td>Capas de traducción</td>
+<td>Posible pero experimental</td>
+<td>Doble emulación + coste enorme</td>
+<td><strong>Fuera de alcance razonable</strong></td>
+</tr>
+</tbody>
+</table>
+<h3 id="12-conclusion-de-opciones">1.2 Conclusión de opciones<a class="headerlink" href="#12-conclusion-de-opciones" title="Permanent link">&para;</a></h3>
+<p>Para CoreJ2 (emular <strong>JARs MIDlet arbitrarios</strong> con FreeJ2ME):</p>
+<ol>
+<li><strong>Prioridad 1:</strong> OpenJDK Mobile in-process (opción A).  </li>
+<li><strong>Prioridad 2 (si AWT/<code>defineClass</code> fallan):</strong> mismo JVM + <strong>fork allowlisted</strong> de backends FreeJ2ME (gráficos/audio), sin cambiar Bridge/Host.  </li>
+<li><strong>No priorizar:</strong> Gluon AOT como runtime de MIDlets dinámicos; Process hijo; Multi-OS Engine.</li>
+</ol>
+<hr />
+<h2 id="2-openjdk-mobile-es-una-opcion-viable">2. ¿OpenJDK Mobile es una opción viable?<a class="headerlink" href="#2-openjdk-mobile-es-una-opcion-viable" title="Permanent link">&para;</a></h2>
+<h3 id="21-que-es-hoy">2.1 Qué es hoy<a class="headerlink" href="#21-que-es-hoy" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Repositorio downstream oficial: <a href="https://github.com/openjdk/mobile"><code>openjdk/mobile</code></a>.  </li>
+<li>Sitio de coordinación: <a href="https://openjdk-mobile.github.io/">openjdk-mobile.github.io</a>.  </li>
+<li>Objetivo: parches mínimos para JVM + class libraries en iOS/Android, con intención de upstream.  </li>
+<li>Gluon ha invertido en pipelines, docs y builds estáticos (InfoQ, nov 2025).</li>
+</ul>
+<h3 id="22-fortalezas-para-corej2">2.2 Fortalezas para CoreJ2<a class="headerlink" href="#22-fortalezas-para-corej2" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>JVM real</strong> (HotSpot familia) con variante <strong>Zero</strong> en device → cumple la restricción de no generar código en runtime.  </li>
+<li>Documentación explícita de <strong>imagen de librerías estáticas</strong> (<code>libjvm.a</code>).  </li>
+<li>Camino natural a <strong>JNI</strong>: el Adapter/Bootstrap pueden llamar a un façade C/JNI que invoque las mismas clases FreeJ2ME que el daemon macOS.  </li>
+<li>Alineado con “no cambiar la arquitectura”: solo cambia la <strong>implementación</strong> de <code>FreeJ2MEMobilePlatformBootstrapping</code> en iOS.</li>
+</ul>
+<h3 id="23-debilidades-gaps">2.3 Debilidades / gaps<a class="headerlink" href="#23-debilidades-gaps" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Gap</th>
+<th>Impacto en FreeJ2ME</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Zero = interpretación</td>
+<td>FPS/CPU peores que desktop HotSpot; emulación jugable incierta</td>
+</tr>
+<tr>
+<td>Headless / AWT</td>
+<td>FreeJ2ME usa <code>BufferedImage</code> / <code>Graphics2D</code>. Hay que <strong>probar</strong> <code>--enable-headless-only</code> y el subset AWT disponible</td>
+</tr>
+<tr>
+<td><code>SecurityManager</code></td>
+<td>Deprecado/eliminado en JDKs modernos; <code>System.exit</code> in-process puede matar la <strong>app</strong></td>
+</tr>
+<tr>
+<td>ASM + <code>defineClass</code></td>
+<td>MIDletLoader reescribe bytecode; el runtime debe permitir definición dinámica de clases</td>
+</tr>
+<tr>
+<td>Java Sound / MIDI</td>
+<td>Audio FreeJ2ME no es AVAudioEngine</td>
+</tr>
+<tr>
+<td>Tamaño del bundle</td>
+<td>JDK estático + FreeJ2ME + resources → decenas–centenas de MB</td>
+</tr>
+<tr>
+<td>Madurez de tooling</td>
+<td>“Infraestructura en construcción”, no SDK de producto con soporte SLA</td>
+</tr>
+</tbody>
+</table>
+<h3 id="24-veredicto-openjdk-mobile">2.4 Veredicto OpenJDK Mobile<a class="headerlink" href="#24-veredicto-openjdk-mobile" title="Permanent link">&para;</a></h3>
+<p><strong>Sí es la mejor opción realista de JVM embebida App Store-oriented en 2026</strong>, condicionada a un <strong>spike de compatibilidad FreeJ2ME</strong> (no solo “hello world” JNI).<br />
+No se debe tratar como decisión cerrada de producto hasta que el spike demuestre: platform + painter + <code>loadJar</code> + <code>runJar</code> + al menos un frame LCD.</p>
+<hr />
+<h2 id="3-puede-compilarse-como-biblioteca-estatica-libjvm">3. ¿Puede compilarse como biblioteca estática (<code>libjvm</code>)?<a class="headerlink" href="#3-puede-compilarse-como-biblioteca-estatica-libjvm" title="Permanent link">&para;</a></h2>
+<p><strong>Sí.</strong> El propio <code>openjdk/mobile</code> documenta el flujo:</p>
+<ol>
+<li>Configurar target <code>aarch64-macos-ios</code> (device) o simulador.  </li>
+<li>Variante JVM por defecto en iOS device: <strong>Zero</strong>.  </li>
+<li>Dependencias de soporte (p. ej. <strong>libffi</strong>, cups headers en los zips de soporte Gluon).  </li>
+<li><code>make CONF=ios-aarch64-zero-release static-libs-image</code>  </li>
+<li>Salida típica: <code>build/.../images/static-libs/lib/zero/libjvm.a</code> (más otras libs estáticas del JDK según el layout de imagen).</li>
+</ol>
+<p><strong>Implicaciones de packaging App Store:</strong></p>
+<ul>
+<li>Enlazar estáticamente reduce fricción de <code>dylib</code> sueltas, pero el JDK también puede producir/necesitar otras libs y recursos (<code>lib/</code> modules, configs).  </li>
+<li>Experiencias pasadas (p. ej. empaquetado OpenJDK 8 en App Store) muestran que <strong>rutas de carga</strong>, <code>Frameworks/</code>, y <code>dlopen</code> desde extensiones son puntos de rechazo frecuentes si se hace mal.  </li>
+<li>Plan de integración CoreJ2: un <strong>Xcode target / xcframework</strong> “CoreJ2JVM” owned por el equipo, consumido solo desde <code>Features/Emulator/Runtime/</code> — nunca desde Views.</li>
+</ul>
+<hr />
+<h2 id="4-que-dependencias-requiere">4. ¿Qué dependencias requiere?<a class="headerlink" href="#4-que-dependencias-requiere" title="Permanent link">&para;</a></h2>
+<h3 id="41-build-time-host-macos">4.1 Build-time (host macOS)<a class="headerlink" href="#41-build-time-host-macos" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Dependencia</th>
+<th>Rol</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Xcode + iOS SDK</td>
+<td>sysroot, clang, codesign</td>
+</tr>
+<tr>
+<td>Boot JDK (versión alineada al árbol mobile, p. ej. JDK 21–24 según docs del repo)</td>
+<td>Bootstrap del build OpenJDK</td>
+</tr>
+<tr>
+<td><code>autoconf</code> / toolchain OpenJDK</td>
+<td><code>configure</code> + <code>make</code></td>
+</tr>
+<tr>
+<td><strong>libffi</strong> (build iOS)</td>
+<td>Zero necesita FFI para calls nativos</td>
+</tr>
+<tr>
+<td>Soporte cups/headers (según zip Gluon / docs mobile)</td>
+<td>Configure del JDK</td>
+</tr>
+<tr>
+<td>Espacio disco + tiempo CI</td>
+<td>Builds JDK son pesados; cachear artefactos</td>
+</tr>
+</tbody>
+</table>
+<h3 id="42-runtime-dentro-de-la-app">4.2 Runtime (dentro de la app)<a class="headerlink" href="#42-runtime-dentro-de-la-app" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Dependencia</th>
+<th>Rol</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>libjvm</code> (+ libs JDK estáticas/dinámicas permitidas)</td>
+<td>Ejecutar bytecode</td>
+</tr>
+<tr>
+<td>Classpath / modules FreeJ2ME + bootstrap CoreJ2</td>
+<td>Contract C</td>
+</tr>
+<tr>
+<td>Recursos JDK (si la imagen los exige)</td>
+<td>Locales, configs, security</td>
+</tr>
+<tr>
+<td>JNI façade CoreJ2</td>
+<td>CREATE/PAINTER/LOAD/RUN/STOP hacia clases Java</td>
+</tr>
+<tr>
+<td>(Opcional) libffi enlazada</td>
+<td>Si Zero la requiere en link final</td>
+</tr>
+</tbody>
+</table>
+<h3 id="43-dependencias-de-producto-freej2me-no-son-del-jvm-pero-bloquean">4.3 Dependencias “de producto” FreeJ2ME (no son del JVM, pero bloquean)<a class="headerlink" href="#43-dependencias-de-producto-freej2me-no-son-del-jvm-pero-bloquean" title="Permanent link">&para;</a></h3>
+<ul>
+<li>AWT headless / <code>BufferedImage</code>  </li>
+<li>Capacidad de <strong>class loading dinámico</strong> para JARs de usuario  </li>
+<li>Estrategia para <strong>audio</strong> y <strong>RMS (<code>dataPath</code>)</strong>  </li>
+<li>Trampa de <strong><code>System.exit</code></strong></li>
+</ul>
+<hr />
+<h2 id="5-es-compatible-con-las-restricciones-de-apple-sin-jit">5. ¿Es compatible con las restricciones de Apple (sin JIT)?<a class="headerlink" href="#5-es-compatible-con-las-restricciones-de-apple-sin-jit" title="Permanent link">&para;</a></h2>
+<h3 id="51-regla-relevante">5.1 Regla relevante<a class="headerlink" href="#51-regla-relevante" title="Permanent link">&para;</a></h3>
+<p>En <strong>iOS device</strong>, Apple no permite el modelo clásico de JIT (memoria escribible y ejecutable para código generado en runtime) del modo en que HotSpot lo necesita. El template interpreter de HotSpot también implica generación dinámica de stubs.</p>
+<h3 id="52-como-openjdk-mobile-responde">5.2 Cómo OpenJDK Mobile responde<a class="headerlink" href="#52-como-openjdk-mobile-responde" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Device:</strong> JVM variant <strong>Zero</strong> — intérprete en C/C++, <strong>sin</strong> emitir código máquina en runtime.  </li>
+<li><strong>Simulator (x64/arm64 macOS):</strong> a menudo se puede usar otras variantes (p. ej. server) para desarrollo; <strong>no</strong> es la configuración de App Store.  </li>
+<li>Estrategia a medio plazo citada por el ecosistema (Gluon/Leyden): Zero + <strong>AOT/Leyden</strong> para métodos calientes, sin JIT clásico.</li>
+</ul>
+<h3 id="53-implicacion-para-corej2">5.3 Implicación para CoreJ2<a class="headerlink" href="#53-implicacion-para-corej2" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Aspecto</th>
+<th>Evaluación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cumplimiento “no JIT” con Zero</td>
+<td><strong>Compatible en principio</strong></td>
+</tr>
+<tr>
+<td>Rendimiento emulación</td>
+<td><strong>Riesgo alto</strong> (intérprete + FreeJ2ME + ASM)</td>
+</tr>
+<tr>
+<td>Entitlement <code>allow-jit</code> (Hardened Runtime)</td>
+<td>Es historia de <strong>Mac</strong>, no una licencia para JIT libre en iOS App Store apps</td>
+</tr>
+<tr>
+<td>Código interpretado / JARs de usuario</td>
+<td>Revisar guideline de <strong>código descargado/interpretado</strong> (juegos emulados suelen argumentar “contenido del usuario”, no app logic remota) — riesgo de review, no solo técnico</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="6-integracion-con-platformbootstrap-sin-romper-la-arquitectura">6. Integración con <code>PlatformBootstrap</code> sin romper la arquitectura<a class="headerlink" href="#6-integracion-con-platformbootstrap-sin-romper-la-arquitectura" title="Permanent link">&para;</a></h2>
+<h3 id="61-invariantes-a-preservar">6.1 Invariantes a preservar<a class="headerlink" href="#61-invariantes-a-preservar" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Library / SwiftUI
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  → EmulatorBridgeProtocol
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>    → RuntimeHostProtocol (FreeJ2MERuntimeHost)
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>      → FreeJ2MERuntimeAdapter   // único que “conoce” FreeJ2ME
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>        → FreeJ2MEMobilePlatformBootstrapping
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>             ├─ macOS: PersistentProcess… (ya existe)
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>             └─ iOS:   EmbeddedOpenJDK… (nuevo, futuro)
+</span></code></pre></div>
+<p><strong>No cambiar:</strong></p>
+<ul>
+<li><code>EmulatorBridgeProtocol</code>  </li>
+<li><code>RuntimeHostProtocol</code>  </li>
+<li>Superficie pública del Adapter  </li>
+<li>Library / Import Engine  </li>
+<li>Vendor FreeJ2ME (salvo fork allowlisted explícito más adelante)</li>
+</ul>
+<h3 id="62-diseno-del-backend-ios-solo-conceptual">6.2 Diseño del backend iOS (solo conceptual)<a class="headerlink" href="#62-diseno-del-backend-ios-solo-conceptual" title="Permanent link">&para;</a></h3>
+<p>Nuevo tipo, p. ej. <code>EmbeddedOpenJDKMobilePlatformBootstrap</code>, que:</p>
+<ol>
+<li>En <code>bootstrapMobilePlatform</code>: asegura JVM arrancada <strong>una vez por proceso app</strong> (o por sesión) vía JNI <code>JNI_CreateJavaVM</code> / API equivalente del build static.  </li>
+<li>Implementa los mismos comandos semánticos que el daemon persistente (CREATE / PAINTER / LOAD / RUN / STOP), pero <strong>in-process</strong> (invocación directa de clases <code>org.recompile.mobile.*</code> + fachada CoreJ2).  </li>
+<li>Publica frames por el mismo <code>frameHandler</code> ya existente en el protocolo.  </li>
+<li><code>shutdownRuntime()</code> destruye sesión Java; la JVM puede quedarse viva (reuso) o destruirse (más simple al inicio).</li>
+</ol>
+<p>Selección en DI (sin cambiar contratos):</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>#if os(iOS)
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>  Persistent/Embedded bootstrap
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>#else
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>  Persistent Process bootstrap (actual)
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>#endif
+</span></code></pre></div>
+<p>o factory en <code>AppDependencyContainer</code> que elija la implementación concreta de <code>FreeJ2MEMobilePlatformBootstrapping</code>.</p>
+<h3 id="63-threading-alineado-a-e5-us003">6.3 Threading (alineado a E5-US003)<a class="headerlink" href="#63-threading-alineado-a-e5-us003" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Hilos Java FreeJ2ME ≠ MainActor.  </li>
+<li>Callbacks JNI → cola “FreeJ2MERuntime” → hop a MainActor solo para <code>RuntimeEventPipe</code> / UI.  </li>
+<li>Nunca bloquear MainActor con <code>AttachCurrentThread</code> + trabajo largo.</li>
+</ul>
+<h3 id="64-que-no-hacer">6.4 Qué NO hacer<a class="headerlink" href="#64-que-no-hacer" title="Permanent link">&para;</a></h3>
+<ul>
+<li>No acoplar SwiftUI al JNI.  </li>
+<li>No hacer que el Host conozca <code>JNIEnv</code>.  </li>
+<li>No spawn de <code>Process</code> en iOS “por si acaso”.  </li>
+<li>No meter OpenJFX solo para FreeJ2ME (superficie incorrecta).</li>
+</ul>
+<hr />
+<h2 id="7-riesgos-tecnicos">7. Riesgos técnicos<a class="headerlink" href="#7-riesgos-tecnicos" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Riesgo</th>
+<th>Severidad</th>
+<th>Mitigación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T1</td>
+<td>AWT/<code>BufferedImage</code> incompleto en build mobile headless</td>
+<td><strong>Crítica</strong></td>
+<td>Spike dedicado; si falla → fork gráfico allowlisted (painter lee buffer propio)</td>
+</tr>
+<tr>
+<td>T2</td>
+<td><code>defineClass</code> / ASM bloqueado o frágil</td>
+<td><strong>Crítica</strong></td>
+<td>Spike con ProbeMIDlet + JAR real; validar MIDletLoader</td>
+</tr>
+<tr>
+<td>T3</td>
+<td>Rendimiento Zero insuficiente para juegos</td>
+<td><strong>Alta</strong></td>
+<td>Medir FPS en device; evaluar Leyden/AOT parcial más tarde</td>
+</tr>
+<tr>
+<td>T4</td>
+<td><code>System.exit</code> mata el proceso app</td>
+<td><strong>Alta</strong></td>
+<td>Trampa nativa / wrapper de <code>Runtime.exit</code> / parche allowlisted en loader</td>
+</tr>
+<tr>
+<td>T5</td>
+<td>Tamaño binario y tiempo de arranque JVM</td>
+<td><strong>Alta</strong></td>
+<td>Strip modules; lazy init; métricas de cold start</td>
+</tr>
+<tr>
+<td>T6</td>
+<td>Complejidad de build/CI OpenJDK Mobile</td>
+<td><strong>Alta</strong></td>
+<td>Artefacto precompilado versionado; no compilar JDK en cada PR de app</td>
+</tr>
+<tr>
+<td>T7</td>
+<td>Fugas JNI / hilos / classloaders entre sesiones</td>
+<td><strong>Media</strong></td>
+<td>Una VM por proceso; reset de sesión estricto en STOP</td>
+</tr>
+<tr>
+<td>T8</td>
+<td>Audio / MIDI no portables</td>
+<td><strong>Media</strong></td>
+<td>Stub inicial; backend iOS después</td>
+</tr>
+<tr>
+<td>T9</td>
+<td>Divergencia macOS Process vs iOS embedded</td>
+<td><strong>Media</strong></td>
+<td>Misma fachada de comandos Contract C; tests compartidos de Adapter</td>
+</tr>
+<tr>
+<td>T10</td>
+<td>GPL-3 FreeJ2ME vs modelo App Store</td>
+<td><strong>Alta (legal/tech)</strong></td>
+<td>Asesoría legal; compliance de fuentes/binarios</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="8-riesgos-para-app-store-review">8. Riesgos para App Store Review<a class="headerlink" href="#8-riesgos-para-app-store-review" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Riesgo</th>
+<th>Notas</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>R1</td>
+<td><strong>Emulación / consola</strong></td>
+<td>Apple ha tolerado y rechazado emuladores según época y categoría; J2ME no es consola “cerrada”, pero el precedente es volátil. Preparar narrativa: “reproductor de software Java ME del usuario”.</td>
+</tr>
+<tr>
+<td>R2</td>
+<td><strong>Código interpretado</strong></td>
+<td>Guideline sobre código no embebido en el binario. Argumento: el intérprete va en el binario; los JARs son <strong>contenido del usuario</strong> (como documentos), no lógica remota de la app.</td>
+</tr>
+<tr>
+<td>R3</td>
+<td><strong>No JIT / no unsigned executable memory</strong></td>
+<td>Zero ayuda; evitar cualquier JIT propio o trampolines W^X ilegales.</td>
+</tr>
+<tr>
+<td>R4</td>
+<td><strong>Frameworks / dylib layout</strong></td>
+<td>Empaquetado incorrecto → rechazo binario. Preferir static link + resources auditados.</td>
+</tr>
+<tr>
+<td>R5</td>
+<td><strong>Tamaño / performance</strong></td>
+<td>Rechazos raros, pero reviews humanas notan apps lentas/inestables.</td>
+</tr>
+<tr>
+<td>R6</td>
+<td><strong>Privacidad / sandbox</strong></td>
+<td>RMS y file I/O solo en container; no escape sandbox.</td>
+</tr>
+<tr>
+<td>R7</td>
+<td><strong>Licencias (GPL-3)</strong></td>
+<td>No es guideline técnico, pero puede bloquear distribución comercial o imponer obligaciones de fuente. Tratar como gate de producto paralelo al spike técnico.</td>
+</tr>
+<tr>
+<td>R8</td>
+<td><strong>Private API</strong></td>
+<td>Cualquier patch JDK que toque APIs privadas iOS → rechazo. Mantener syscalls/POSIX documentados.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Postura de review recomendada:</strong> presentar CoreJ2 como app nativa SwiftUI cuya capacidad de emulación es un <strong>motor local</strong> empaquetado; el usuario importa sus propios JARs; sin store de ROMs integrado si eso eleva el riesgo.</p>
+<hr />
+<h2 id="9-recomendacion-final">9. Recomendación final<a class="headerlink" href="#9-recomendacion-final" title="Permanent link">&para;</a></h2>
+<h3 id="91-decision-arquitectonica">9.1 Decisión arquitectónica<a class="headerlink" href="#91-decision-arquitectonica" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Mantener</strong> la arquitectura desacoplada actual.  </li>
+<li><strong>Tratar OpenJDK Mobile (Zero + static libs)</strong> como la <strong>única hipótesis de JVM embebida</strong> digna de un spike de ingeniería en iOS.  </li>
+<li><strong>No</strong> apostar el producto a Gluon AOT / Native Image como runtime de MIDlets dinámicos.  </li>
+<li><strong>No</strong> intentar <code>Process</code> en iOS.  </li>
+<li><strong>Implementar</strong> (cuando se autorice código) un bootstrap iOS paralelo al persistente de macOS, detrás de <code>FreeJ2MEMobilePlatformBootstrapping</code>.</li>
+</ol>
+<h3 id="92-orden-de-spikes-go-no-go">9.2 Orden de spikes (go / no-go)<a class="headerlink" href="#92-orden-de-spikes-go-no-go" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Fase</th>
+<th>Criterio de éxito</th>
+<th>Si falla</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>M9a</strong></td>
+<td>Enlazar <code>libjvm</code>, <code>JNI_CreateJavaVM</code>, ejecutar clase hello</td>
+<td>Abandonar JVM embebida; reconsiderar F</td>
+</tr>
+<tr>
+<td><strong>M9b</strong></td>
+<td><code>BufferedImage</code> headless 240×320 + getRGB</td>
+<td>Plan B: fork gráfico FreeJ2ME</td>
+</tr>
+<tr>
+<td><strong>M9c</strong></td>
+<td><code>defineClass</code> / cargar ProbeMIDlet</td>
+<td>Plan B profundo o no-go FreeJ2ME en iOS</td>
+</tr>
+<tr>
+<td><strong>M9d</strong></td>
+<td>Contract C + 1 frame vía painter → <code>frameHandler</code></td>
+<td>No conectar UI aún</td>
+</tr>
+<tr>
+<td><strong>M9e</strong></td>
+<td>STOP sin matar la app; sin leak obvio tras N sesiones</td>
+<td>Hardening antes de DI production iOS</td>
+</tr>
+</tbody>
+</table>
+<h3 id="93-recomendacion-de-producto">9.3 Recomendación de producto<a class="headerlink" href="#93-recomendacion-de-producto" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Corto plazo:</strong> seguir validando emulación en <strong>macOS</strong> (JVM persistente ya migrada).  </li>
+<li><strong>Medio plazo:</strong> spike OpenJDK Mobile <strong>fuera</strong> del critical path de features de UI.  </li>
+<li><strong>Solo entonces:</strong> activar bootstrap embebido en DI iOS.  </li>
+<li>Comunicar a stakeholders: <strong>“JVM en iOS es factible en papel; FreeJ2ME-on-that-JVM es la incertidumbre real.”</strong></li>
+</ul>
+<h3 id="94-que-no-recomendar-ahora">9.4 Qué no recomendar ahora<a class="headerlink" href="#94-que-no-recomendar-ahora" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Reescribir FreeJ2ME a Swift.  </li>
+<li>Cambiar Bridge/Host/Adapter “por si la JVM cambia”.  </li>
+<li>Mezclar OpenJFX en el pipeline de emulación.  </li>
+<li>Declarar App Store “garantizado” antes de M9b–M9d y revisión legal GPL.</li>
+</ul>
+<hr />
+<h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
+<ul>
+<li>OpenJDK Mobile: https://github.com/openjdk/mobile  </li>
+<li>Java on Mobile: https://openjdk-mobile.github.io/  </li>
+<li>OpenJDK iOS notes (histórico Zero + libffi): https://openjdk.org/projects/mobile/ios.html  </li>
+<li>InfoQ (2025): <em>Running Java on iOS: Gluon Introduces OpenJDK Mobile Resources…</em>  </li>
+<li>CoreJ2: <code>docs/FREEJ2ME_ASSESSMENT.md</code>, <code>docs/E5_US003_PERSISTENT_RUNTIME_DESIGN.md</code>, <code>docs/E5_US005_PERSISTENT_RUNTIME_MIGRATION.md</code></li>
+</ul>
+<hr />
+<p><em>Fin del estudio de viabilidad. Documento de arquitectura únicamente; sin cambios de código asociados.</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; CoreJ2 contributors · <a href="https://github.com/flakito-loko/CoreJ2">GitHub</a> · <a href="https://flakito-loko.github.io/CoreJ2/">Documentation</a> · <a href="https://flakito-loko.github.io/CoreJ2/roadmap/">Roadmap</a> · <a href="https://flakito-loko.github.io/CoreJ2/compatibility/">Compatibility</a>
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/flakito-loko/CoreJ2" target="_blank" rel="noopener" title="GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://flakito-loko.github.io/CoreJ2/" target="_blank" rel="noopener" title="Documentation" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M384 512H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h304c26.5 0 48 21.5 48 48v288c0 20.9-13.4 38.7-32 45.3V448c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 384c-17.7 0-32 14.3-32 32s14.3 32 32 32h256v-64zm32-232c0 13.3 10.7 24 24 24h176c13.3 0 24-10.7 24-24s-10.7-24-24-24H152c-13.3 0-24 10.7-24 24m24 72c-13.3 0-24 10.7-24 24s10.7 24 24 24h176c13.3 0 24-10.7 24-24s-10.7-24-24-24z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://flakito-loko.github.io/CoreJ2/compatibility/" target="_blank" rel="noopener" title="Compatibility" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M448 64c106 0 192 86 192 192s-86 192-192 192H192C86 448 0 362 0 256S86 64 192 64zM192 176c-13.3 0-24 10.7-24 24v32h-32c-13.3 0-24 10.7-24 24s10.7 24 24 24h32v32c0 13.3 10.7 24 24 24s24-10.7 24-24v-32h32c13.3 0 24-10.7 24-24s-10.7-24-24-24h-32v-32c0-13.3-10.7-24-24-24m240 96a32 32 0 1 0 0 64 32 32 0 1 0 0-64m64-96a32 32 0 1 0 0 64 32 32 0 1 0 0-64"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://flakito-loko.github.io/CoreJ2/roadmap/" target="_blank" rel="noopener" title="Roadmap" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M512 48c0-11.1-5.7-21.4-15.2-27.2s-21.2-6.4-31.1-1.4L349.5 77.5 170.1 17.6c-8.1-2.7-16.8-2.1-24.4 1.7l-128 64C6.8 88.8 0 99.9 0 112v352c0 11.1 5.7 21.4 15.2 27.2s21.2 6.4 31.1 1.4l116.1-58.1 179.4 59.8c8.1 2.7 16.8 2.1 24.4-1.7l128-64c10.8-5.4 17.7-16.5 17.7-28.6V48zM192 376.9V92.4l128 42.7v284.5z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "search.share", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

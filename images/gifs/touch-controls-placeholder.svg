@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360" role="img" aria-label="Touch controls GIF">
+  <rect width="640" height="360" rx="16" fill="#1C1C1E" stroke="#3A3A3C"/>
+  <text x="320" y="160" text-anchor="middle" fill="#F5F5F7" font-family="SF Pro Text, Helvetica, Arial, sans-serif" font-size="22" font-weight="600">Touch controls GIF</text>
+  <text x="320" y="200" text-anchor="middle" fill="#8E8E93" font-family="SF Pro Text, Helvetica, Arial, sans-serif" font-size="14">Animated GIF placeholder — drop a real .gif here</text>
+  <rect x="270" y="230" width="100" height="36" rx="8" fill="#2C2C2E"/>
+  <text x="320" y="254" text-anchor="middle" fill="#64D2FF" font-family="SF Pro Text, Helvetica, Arial, sans-serif" font-size="13">Coming soon</text>
+</svg>

@@ -1,0 +1,2231 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Run classic Java ME (J2ME) games natively on iPhone & iPad">
+      
+      
+        <meta name="author" content="CoreJ2">
+      
+      
+        <link rel="canonical" href="https://flakito-loko.github.io/CoreJ2/Architecture/IMPLEMENTATION_ROADMAP/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/branding/favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Implementation Roadmap — Embedded JVM Runtime - CoreJ2</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  
+  <meta property="og:title" content="Implementation Roadmap — Embedded JVM Runtime - CoreJ2">
+  <meta property="og:description" content="Run classic Java ME (J2ME) games natively on iPhone & iPad">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://flakito-loko.github.io/CoreJ2/Architecture/IMPLEMENTATION_ROADMAP/">
+  <meta property="og:image" content="https://flakito-loko.github.io/CoreJ2/assets/branding/social-preview.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Implementation Roadmap — Embedded JVM Runtime - CoreJ2">
+  <meta name="twitter:description" content="Run classic Java ME (J2ME) games natively on iPhone & iPad">
+  <meta name="twitter:image" content="https://flakito-loko.github.io/CoreJ2/assets/branding/social-preview.png">
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#implementation-roadmap-embedded-jvm-runtime" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="CoreJ2" class="md-header__button md-logo" aria-label="CoreJ2" data-md-component="logo">
+      
+  <img src="../../assets/branding/isotype.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CoreJ2
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Implementation Roadmap — Embedded JVM Runtime
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/flakito-loko/CoreJ2" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    flakito-loko/CoreJ2
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../why-corej2/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Why CoreJ2?
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../getting-started/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Getting Started
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../building/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Building
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../compatibility/" class="md-tabs__link">
+          
+  
+  
+  Compatibility
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../architecture/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Architecture
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../milestones/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Milestones
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../roadmap/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Roadmap
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../performance/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Performance
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../faq/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  FAQ
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../screenshots/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Screenshots
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../branding/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Branding
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../technical-reports/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Technical Reports
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../releases/v0.9.0-alpha/" class="md-tabs__link">
+          
+  
+  
+  Releases
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="CoreJ2" class="md-nav__button md-logo" aria-label="CoreJ2" data-md-component="logo">
+      
+  <img src="../../assets/branding/isotype.svg" alt="logo">
+
+    </a>
+    CoreJ2
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/flakito-loko/CoreJ2" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    flakito-loko/CoreJ2
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../why-corej2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Why CoreJ2?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../building/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Building
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Compatibility
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Compatibility
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../compatibility/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../compatibility-stats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Statistics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../compatibility/games/Alea/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Alea
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../compatibility/games/Astroids/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Astroids
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../compatibility/games/Tetris/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tetris
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../compatibility/games/Gryzzles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gryzzles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../compatibility/games/Ubertris/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ubertris
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../milestones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Milestones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../screenshots/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Screenshots
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../branding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Branding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../technical-reports/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Reports
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Releases
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_14">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Releases
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../releases/v0.9.0-alpha/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    v0.9.0-alpha
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="implementation-roadmap-embedded-jvm-runtime">Implementation Roadmap — Embedded JVM Runtime<a class="headerlink" href="#implementation-roadmap-embedded-jvm-runtime" title="Permanent link">&para;</a></h1>
+<p><strong>Estado:</strong> Plan de ejecución oficial<br />
+<strong>Versión:</strong> 1.0<br />
+<strong>Fecha:</strong> 2026-08-04  </p>
+<p><strong>Arquitectura de referencia (no modificar):</strong></p>
+<ul>
+<li><code>docs/Architecture/JVM_FEASIBILITY_STUDY.md</code></li>
+<li><code>docs/Architecture/EMBEDDED_JVM_ARCHITECTURE.md</code></li>
+<li><code>docs/Architecture/EMBEDDED_JVM_MANAGER.md</code></li>
+</ul>
+<p><strong>Naturaleza</strong></p>
+<p>Este documento traduce la arquitectura oficial en un <strong>plan de implementación por fases</strong>. No redefine capas, no inventa APIs de producto y no contiene código. Cada fase es pequeña, verificable y con criterios de éxito / rollback explícitos.</p>
+<p><strong>Invariante de ejecución</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Bridge → Host → Adapter → PlatformBootstrap
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>                              └─ (iOS) EmbeddedJVMManager + JNI Gateway + Embedded JVM
+</span></code></pre></div>
+<p>macOS permanece en Process persistente. Este roadmap cubre el <strong>camino iOS embebido</strong> y la integración gradual sin romper la pila existente.</p>
+<hr />
+<h1 id="fase-0-preparacion">Fase 0 — Preparación<a class="headerlink" href="#fase-0-preparacion" title="Permanent link">&para;</a></h1>
+<h2 id="objetivo">Objetivo<a class="headerlink" href="#objetivo" title="Permanent link">&para;</a></h2>
+<p>Dejar listo el entorno de ingeniería para construir y enlazar OpenJDK Mobile (u artefacto estático equivalente aprobado por la arquitectura) sin tocar aún la lógica de emulación.</p>
+<h2 id="prerrequisitos">Prerrequisitos<a class="headerlink" href="#prerrequisitos" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Arquitectura oficial leída y aceptada por el equipo.</li>
+<li>Acceso a macOS + Xcode alineado al proyecto CoreJ2.</li>
+<li>Decisión de no alterar Bridge / Host / Adapter públicos.</li>
+</ul>
+<h2 id="entregables-trabajo">Entregables / trabajo<a class="headerlink" href="#entregables-trabajo" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Dependencias de host:</strong> Xcode, iOS SDK, autoconf, boot JDK según docs OpenJDK Mobile.</li>
+<li><strong>Repositorios:</strong> pin o mirror documentado de <code>openjdk/mobile</code> (y soporte libffi/cups según estudio de viabilidad).</li>
+<li><strong>Herramientas:</strong> scripts de build de JDK <strong>fuera</strong> del target app (CI o máquina de release); cache de artefactos.</li>
+<li><strong>OpenJDK Mobile:</strong> reproducir build <code>static-libs-image</code> (Zero / aarch64 device; política simulador documentada).</li>
+<li><strong>Artefactos necesarios:</strong> <code>libjvm.a</code> (y libs estáticas asociadas), layout de resources JDK si aplica, inventario de tamaño aproximado.</li>
+<li>Convención de directorios internos Runtime (solo documentación de paths; sin wiring DI iOS aún).</li>
+</ul>
+<h2 id="archivos-afectados-esperados">Archivos afectados (esperados)<a class="headerlink" href="#archivos-afectados-esperados" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Ningún Swift de producto obligatorio en esta fase.</li>
+<li>Posibles: scripts bajo <code>scripts/</code>, docs de build internos, artefactos binarios versionados o CI cache (fuera de Vendor FreeJ2ME).</li>
+</ul>
+<h2 id="riesgos">Riesgos<a class="headerlink" href="#riesgos" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Build OpenJDK Mobile frágil o no reproducible.</li>
+<li>Tamaño de artefacto incompatible con objetivos de app.</li>
+<li>Divergencia simulador vs device.</li>
+</ul>
+<h2 id="criterios-de-exito">Criterios de éxito<a class="headerlink" href="#criterios-de-exito" title="Permanent link">&para;</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Se obtiene de forma repetible una imagen estática Zero para el target iOS acordado.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Queda documentado cómo regenerar el artefacto y su hash/versión.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Ningún cambio a Bridge / Host / Adapter / Library.</li>
+</ul>
+<h2 id="criterios-de-rollback">Criterios de rollback<a class="headerlink" href="#criterios-de-rollback" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Descartar el pin de OpenJDK Mobile; volver a “solo macOS Process” sin dejar restos enlazados en el app target.</li>
+</ul>
+<h2 id="tiempo-estimado">Tiempo estimado<a class="headerlink" href="#tiempo-estimado" title="Permanent link">&para;</a></h2>
+<p><strong>1–3 semanas</strong> (según experiencia previa con builds OpenJDK).</p>
+<h2 id="dependencias">Dependencias<a class="headerlink" href="#dependencias" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Ninguna fase posterior de runtime embebido.</li>
+<li>Bloquea Fases 1+.</li>
+</ul>
+<h2 id="resultado-esperado">Resultado esperado<a class="headerlink" href="#resultado-esperado" title="Permanent link">&para;</a></h2>
+<p>Kit de build + artefacto JVM versionado listo para un spike de proceso, sin FreeJ2ME y sin UI.</p>
+<hr />
+<h1 id="fase-1-spike-jvm">Fase 1 — Spike JVM<a class="headerlink" href="#fase-1-spike-jvm" title="Permanent link">&para;</a></h1>
+<h2 id="objetivo_1">Objetivo<a class="headerlink" href="#objetivo_1" title="Permanent link">&para;</a></h2>
+<p>Crear una <strong>JVM embebida en proceso iOS</strong> y ejecutar únicamente un <strong>Hello World Java</strong>.<br />
+<strong>No</strong> cargar FreeJ2ME. <strong>No</strong> Contract C. <strong>No</strong> UI.</p>
+<h2 id="prerrequisitos_1">Prerrequisitos<a class="headerlink" href="#prerrequisitos_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Fase 0 completada (artefacto <code>libjvm</code> disponible).</li>
+</ul>
+<h2 id="entregables">Entregables<a class="headerlink" href="#entregables" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Target o harness mínimo que enlace el artefacto.</li>
+<li>Arranque de VM vía <code>EmbeddedJVMManager</code> (rol arquitectónico; implementación mínima del spike).</li>
+<li>Clase Java trivial ejecutada hasta completar (impresión o retorno de estado).</li>
+<li>Registro de métricas: cold start, RSS aproximado.</li>
+</ul>
+<h2 id="archivos-afectados-esperados_1">Archivos afectados (esperados)<a class="headerlink" href="#archivos-afectados-esperados_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Área Runtime / bootstrap iOS de spike (aislado).</li>
+<li>Posible target de prueba o flag de compilación <strong>sin</strong> DI de producción.</li>
+<li>Clase Java hello (CoreJ2-owned, no Vendor).</li>
+</ul>
+<h2 id="riesgos_1">Riesgos<a class="headerlink" href="#riesgos_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Fallo <code>JNI_CreateJavaVM</code> / imagen incompleta.</li>
+<li>Crash al link en device.</li>
+<li>MainActor bloqueado durante create (deuda a corregir antes de producción).</li>
+</ul>
+<h2 id="criterios-de-exito_1">Criterios de éxito<a class="headerlink" href="#criterios-de-exito_1" title="Permanent link">&para;</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Una sola JVM arranca en device o simulador acordado.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Hello World Java completa sin crash.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Estado del manager alcanza Ready (según contrato EmbeddedJVMManager).</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> No se carga FreeJ2ME.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Bridge/Host/Adapter públicos intactos.</li>
+</ul>
+<h2 id="criterios-de-fracaso">Criterios de fracaso<a class="headerlink" href="#criterios-de-fracaso" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Imposible crear VM tras intentos documentados con el artefacto de Fase 0.</li>
+<li>Requisito de JIT / memoria W^X incompatible con App Store.</li>
+<li>Segunda JVM necesaria para un hello world.</li>
+</ul>
+<h2 id="criterios-de-rollback_1">Criterios de rollback<a class="headerlink" href="#criterios-de-rollback_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Eliminar harness de spike; app sigue solo con camino macOS / <code>runtimeUnavailable</code> en iOS.</li>
+</ul>
+<h2 id="tiempo-estimado_1">Tiempo estimado<a class="headerlink" href="#tiempo-estimado_1" title="Permanent link">&para;</a></h2>
+<p><strong>1–2 semanas.</strong></p>
+<h2 id="dependencias_1">Dependencias<a class="headerlink" href="#dependencias_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Fase 0.</li>
+<li>Bloquea Fases 2+.</li>
+</ul>
+<hr />
+<h1 id="fase-2-spike-jni">Fase 2 — Spike JNI<a class="headerlink" href="#fase-2-spike-jni" title="Permanent link">&para;</a></h1>
+<h2 id="objetivo_2">Objetivo<a class="headerlink" href="#objetivo_2" title="Permanent link">&para;</a></h2>
+<p>Comunicación <strong>Swift ↔ Java</strong> vía JNI Gateway, sin FreeJ2ME. Solo llamadas simples (p. ej. método estático que suma / devuelve string).</p>
+<h2 id="prerrequisitos_2">Prerrequisitos<a class="headerlink" href="#prerrequisitos_2" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Fase 1 en éxito (JVM Ready).</li>
+</ul>
+<h2 id="entregables_1">Entregables<a class="headerlink" href="#entregables_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>JNI Gateway mínimo: attach, FindClass/Call, liberación de local refs.</li>
+<li>Llamada de ida (Swift/bootstrap → Java) y de vuelta simple (callback nativo opcional o return value).</li>
+<li>Verificación de no compartir <code>JNIEnv</code> entre hilos (test de disciplina).</li>
+</ul>
+<h2 id="archivos-afectados-esperados_2">Archivos afectados (esperados)<a class="headerlink" href="#archivos-afectados-esperados_2" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Implementación interna Gateway + manager.</li>
+<li>Tests de spike aislados.</li>
+<li>Sin cambios Library / Views / Bridge API.</li>
+</ul>
+<h2 id="riesgos_2">Riesgos<a class="headerlink" href="#riesgos_2" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Local refs filtradas.</li>
+<li>Deadlock con monitor del manager.</li>
+<li>Callbacks desde hilos Java mal attached.</li>
+</ul>
+<h2 id="criterios-de-exito_2">Criterios de éxito<a class="headerlink" href="#criterios-de-exito_2" title="Permanent link">&para;</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Round-trip documentado Swift→Java→Swift (o return).</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Gateway inválido tras Destroyed.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Sin exposición de JNI a Views/Bridge.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Thread rules del EmbeddedJVMManager respetadas en el spike.</li>
+</ul>
+<h2 id="criterios-de-fracaso_1">Criterios de fracaso<a class="headerlink" href="#criterios-de-fracaso_1" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Imposible invocar Java de forma estable.</li>
+<li>Filtrado inevitable de <code>JNIEnv</code> a capas de producto.</li>
+</ul>
+<h2 id="criterios-de-rollback_2">Criterios de rollback<a class="headerlink" href="#criterios-de-rollback_2" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Revertir Gateway; conservar Fase 1 solo como evidencia de VM.</li>
+</ul>
+<h2 id="tiempo-estimado_2">Tiempo estimado<a class="headerlink" href="#tiempo-estimado_2" title="Permanent link">&para;</a></h2>
+<p><strong>1 semana.</strong></p>
+<h2 id="dependencias_2">Dependencias<a class="headerlink" href="#dependencias_2" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Fase 1.</li>
+<li>Bloquea Fases 3+.</li>
+</ul>
+<hr />
+<h1 id="fase-3-carga-de-freej2me">Fase 3 — Carga de FreeJ2ME<a class="headerlink" href="#fase-3-carga-de-freej2me" title="Permanent link">&para;</a></h1>
+<h2 id="objetivo_3">Objetivo<a class="headerlink" href="#objetivo_3" title="Permanent link">&para;</a></h2>
+<p>Conseguir que el runtime Java <strong>cargue / resuelva</strong> FreeJ2ME (classpath/modules Vendor) correctamente.<br />
+<strong>Sin</strong> ejecutar MIDlets. <strong>Sin</strong> <code>runJar</code>.</p>
+<h2 id="prerrequisitos_3">Prerrequisitos<a class="headerlink" href="#prerrequisitos_3" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Fases 1–2 en éxito.</li>
+</ul>
+<h2 id="entregables_2">Entregables<a class="headerlink" href="#entregables_2" title="Permanent link">&para;</a></h2>
+<ul>
+<li>LoadingFreeJ2ME → Idle en el manager.</li>
+<li>Verificación de que clases clave Vendor son resolubles (p. ej. existencia de <code>MobilePlatform</code> vía reflexión controlada en Gateway/bootstrap — sin Contract C completo).</li>
+<li>Política de <code>dataPath</code> sandbox preparada (puede quedar sin RMS aún).</li>
+</ul>
+<h2 id="archivos-afectados-esperados_3">Archivos afectados (esperados)<a class="headerlink" href="#archivos-afectados-esperados_3" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Backend bootstrap iOS (classpath).</li>
+<li>Empaquetado de classes/jar FreeJ2ME en el bundle app (sin modificar fuentes Vendor).</li>
+<li>Tests de resolución de clases.</li>
+</ul>
+<h2 id="riesgos_3">Riesgos<a class="headerlink" href="#riesgos_3" title="Permanent link">&para;</a></h2>
+<ul>
+<li>AWT / dependencias SE faltantes al cargar clases.</li>
+<li>Tamaño de bundle.</li>
+<li>Classpath incorrecto en device.</li>
+</ul>
+<h2 id="criterios-de-exito_3">Criterios de éxito<a class="headerlink" href="#criterios-de-exito_3" title="Permanent link">&para;</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Estado Idle con FreeJ2ME residente.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Clases Vendor críticas resolubles.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Ningún MIDlet arrancado.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Vendor sources no modificados.</li>
+</ul>
+<h2 id="criterios-de-fracaso_2">Criterios de fracaso<a class="headerlink" href="#criterios-de-fracaso_2" title="Permanent link">&para;</a></h2>
+<ul>
+<li>FreeJ2ME no carga por lagunas SE/AWT insalvables sin romper arquitectura (gate hacia plan B allowlisted — decisión Go/No-Go).</li>
+</ul>
+<h2 id="criterios-de-rollback_3">Criterios de rollback<a class="headerlink" href="#criterios-de-rollback_3" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Quitar classpath Vendor del bundle iOS; volver a spike JNI-only.</li>
+</ul>
+<h2 id="tiempo-estimado_3">Tiempo estimado<a class="headerlink" href="#tiempo-estimado_3" title="Permanent link">&para;</a></h2>
+<p><strong>1–2 semanas.</strong></p>
+<h2 id="dependencias_3">Dependencias<a class="headerlink" href="#dependencias_3" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Fase 2.</li>
+<li>Bloquea Fases 4+.</li>
+</ul>
+<hr />
+<h1 id="fase-4-carga-de-un-archivo-jar">Fase 4 — Carga de un archivo JAR<a class="headerlink" href="#fase-4-carga-de-un-archivo-jar" title="Permanent link">&para;</a></h1>
+<h2 id="objetivo_4">Objetivo<a class="headerlink" href="#objetivo_4" title="Permanent link">&para;</a></h2>
+<p>Validar que el runtime puede <strong>localizar</strong> un JAR instalado (ruta <code>file://</code> / sandbox Library) desde el borde bootstrap.<br />
+<strong>Sin</strong> ejecutar el MIDlet (<code>runJar</code> / <code>startApp</code> no requeridos).<br />
+Puede incluir validación de existencia/legibilidad alineada a Bridge, y opcionalmente <code>loadJar</code> <strong>sin</strong> run si el spike lo permite de forma segura.</p>
+<h2 id="prerrequisitos_4">Prerrequisitos<a class="headerlink" href="#prerrequisitos_4" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Fase 3 en éxito.</li>
+<li>Pipeline Library/Import capaz de producir un JAR en sandbox (ya existente en producto).</li>
+</ul>
+<h2 id="entregables_3">Entregables<a class="headerlink" href="#entregables_3" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Prueba con un <code>InstalledGame</code> / JAR de fixture en el container.</li>
+<li>Confirmación de path visible para el runtime embebido.</li>
+<li>Error tipado si el archivo falta (sin crash nativo).</li>
+</ul>
+<h2 id="archivos-afectados-esperados_4">Archivos afectados (esperados)<a class="headerlink" href="#archivos-afectados-esperados_4" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Bootstrap iOS (resolución de path).</li>
+<li>Tests con fixture JAR.</li>
+<li>Sin cambios de API Bridge.</li>
+</ul>
+<h2 id="riesgos_4">Riesgos<a class="headerlink" href="#riesgos_4" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Sandbox / security scoped URLs.</li>
+<li>Paths distintos a macOS Process daemon.</li>
+</ul>
+<h2 id="criterios-de-exito_4">Criterios de éxito<a class="headerlink" href="#criterios-de-exito_4" title="Permanent link">&para;</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> JAR instalado localizable desde el runtime embebido.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Ausencia de archivo → fallo controlado.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Sin <code>startApp</code>.</li>
+</ul>
+<h2 id="criterios-de-rollback_4">Criterios de rollback<a class="headerlink" href="#criterios-de-rollback_4" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Limitar iOS a “FreeJ2ME cargado” sin acceso a JARs de usuario hasta replantear paths.</li>
+</ul>
+<h2 id="tiempo-estimado_4">Tiempo estimado<a class="headerlink" href="#tiempo-estimado_4" title="Permanent link">&para;</a></h2>
+<p><strong>3–5 días.</strong></p>
+<h2 id="dependencias_4">Dependencias<a class="headerlink" href="#dependencias_4" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Fase 3; Library/Import existentes.</li>
+<li>Bloquea Fase 5.</li>
+</ul>
+<hr />
+<h1 id="fase-5-primer-midlet">Fase 5 — Primer MIDlet<a class="headerlink" href="#fase-5-primer-midlet" title="Permanent link">&para;</a></h1>
+<h2 id="objetivo_5">Objetivo<a class="headerlink" href="#objetivo_5" title="Permanent link">&para;</a></h2>
+<p>Ejecutar un <strong>MIDlet mínimo</strong> (p. ej. ProbeMIDlet / equivalente CoreJ2-owned) hasta <code>startApp</code>.<br />
+<strong>Sin</strong> render UI. <strong>Sin</strong> audio. Frames pueden ignorarse.</p>
+<h2 id="prerrequisitos_5">Prerrequisitos<a class="headerlink" href="#prerrequisitos_5" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Fase 4 en éxito.</li>
+<li><code>defineClass</code> / ASM viables (hipótesis del estudio).</li>
+</ul>
+<h2 id="entregables_4">Entregables<a class="headerlink" href="#entregables_4" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Contract C parcial: platform + load + run vía bootstrap embebido.</li>
+<li>Evidencia de <code>startApp</code> (señal ya usada en host macOS).</li>
+<li>Stop de sesión → Idle <strong>sin</strong> destruir JVM.</li>
+</ul>
+<h2 id="archivos-afectados-esperados_5">Archivos afectados (esperados)<a class="headerlink" href="#archivos-afectados-esperados_5" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Bootstrap embebido + Gateway.</li>
+<li>Adapter ya orquesta Contract C (wiring DI iOS opcional aún detrás de flag).</li>
+<li>Tests de sesión / unicidad JVM.</li>
+</ul>
+<h2 id="riesgos_5">Riesgos<a class="headerlink" href="#riesgos_5" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Fallo ASM/<code>defineClass</code>.</li>
+<li><code>System.exit</code> mata el proceso.</li>
+<li>Leak de sesión al Idle.</li>
+</ul>
+<h2 id="criterios-de-exito_5">Criterios de éxito<a class="headerlink" href="#criterios-de-exito_5" title="Permanent link">&para;</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Probe MIDlet alcanza startApp.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> JVM launch count = 1 tras stop y segundo launch (si se prueba doble sesión).</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Sin SwiftUI render.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Sin audio.</li>
+</ul>
+<h2 id="criterios-de-fracaso_3">Criterios de fracaso<a class="headerlink" href="#criterios-de-fracaso_3" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Imposible <code>defineClass</code> / loader.</li>
+<li>Exit inevitable del proceso app.</li>
+</ul>
+<h2 id="criterios-de-rollback_5">Criterios de rollback<a class="headerlink" href="#criterios-de-rollback_5" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Feature flag off; iOS vuelve a <code>runtimeUnavailable</code>; macOS intacto.</li>
+</ul>
+<h2 id="tiempo-estimado_5">Tiempo estimado<a class="headerlink" href="#tiempo-estimado_5" title="Permanent link">&para;</a></h2>
+<p><strong>1–2 semanas.</strong></p>
+<h2 id="dependencias_5">Dependencias<a class="headerlink" href="#dependencias_5" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Fase 4.</li>
+<li>Bloquea Fase 6.</li>
+</ul>
+<hr />
+<h1 id="fase-6-primer-frame">Fase 6 — Primer Frame<a class="headerlink" href="#fase-6-primer-frame" title="Permanent link">&para;</a></h1>
+<h2 id="objetivo_6">Objetivo<a class="headerlink" href="#objetivo_6" title="Permanent link">&para;</a></h2>
+<p>Recibir al menos un <strong>frame</strong> desde FreeJ2ME (painter / captura) hasta <code>EmulatorFrame</code> / evento de runtime.<br />
+<strong>Sin</strong> mostrarlo en SwiftUI (validación de pipeline solamente; puede assertarse en test).</p>
+<h2 id="prerrequisitos_6">Prerrequisitos<a class="headerlink" href="#prerrequisitos_6" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Fase 5 en éxito.</li>
+</ul>
+<h2 id="entregables_5">Entregables<a class="headerlink" href="#entregables_5" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Painter registrado; copia ARGB; <code>frameHandler</code> → Adapter <code>onFrameCaptured</code> → Host <code>.frameAvailable</code>.</li>
+<li>Test que cuenta ≥ 1 frame sin UI.</li>
+</ul>
+<h2 id="archivos-afectados-esperados_6">Archivos afectados (esperados)<a class="headerlink" href="#archivos-afectados-esperados_6" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Gateway painter callback.</li>
+<li>Bootstrap <code>frameHandler</code>.</li>
+<li>Tests Host/Adapter existentes como modelo.</li>
+</ul>
+<h2 id="riesgos_6">Riesgos<a class="headerlink" href="#riesgos_6" title="Permanent link">&para;</a></h2>
+<ul>
+<li>AWT/<code>getLCD</code> no disponible.</li>
+<li>Callbacks en hilo Java sin attach.</li>
+<li>Frames tras Shutdown.</li>
+</ul>
+<h2 id="criterios-de-exito_6">Criterios de éxito<a class="headerlink" href="#criterios-de-exito_6" title="Permanent link">&para;</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> ≥ 1 <code>EmulatorFrame</code> / <code>.frameAvailable</code> observado en test.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Copia de píxeles (no buffer compartido mutable).</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Renderer de producto no obligatorio en esta fase.</li>
+</ul>
+<h2 id="criterios-de-rollback_6">Criterios de rollback<a class="headerlink" href="#criterios-de-rollback_6" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Mantener MIDlet sin frames; documentar bloqueo AWT (plan B gráfico allowlisted según arquitectura).</li>
+</ul>
+<h2 id="tiempo-estimado_6">Tiempo estimado<a class="headerlink" href="#tiempo-estimado_6" title="Permanent link">&para;</a></h2>
+<p><strong>1 semana.</strong></p>
+<h2 id="dependencias_6">Dependencias<a class="headerlink" href="#dependencias_6" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Fase 5.</li>
+<li>Bloquea Fase 7.</li>
+</ul>
+<hr />
+<h1 id="fase-7-render">Fase 7 — Render<a class="headerlink" href="#fase-7-render" title="Permanent link">&para;</a></h1>
+<h2 id="objetivo_7">Objetivo<a class="headerlink" href="#objetivo_7" title="Permanent link">&para;</a></h2>
+<p>Mostrar el primer frame en <strong>SwiftUI</strong> usando el Renderer existente (<code>EmulatorViewModel</code> / <code>EmulatorView</code> / convertidor CGImage), sin nuevas APIs de Bridge.</p>
+<h2 id="prerrequisitos_7">Prerrequisitos<a class="headerlink" href="#prerrequisitos_7" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Fase 6 en éxito.</li>
+<li>Flujo Library → EmulatorView ya existente.</li>
+</ul>
+<h2 id="entregables_6">Entregables<a class="headerlink" href="#entregables_6" title="Permanent link">&para;</a></h2>
+<ul>
+<li>DI iOS selecciona bootstrap embebido (flag).</li>
+<li>Launch desde Library muestra LCD con imagen real.</li>
+<li>Stop/onDisappear limpia sesión; JVM permanece.</li>
+</ul>
+<h2 id="archivos-afectados-esperados_7">Archivos afectados (esperados)<a class="headerlink" href="#archivos-afectados-esperados_7" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>AppDependencyContainer</code> (solo elección de bootstrap).</li>
+<li>Posible flag de feature.</li>
+<li><strong>No</strong> cambios de contrato Bridge/Host/Adapter públicos.</li>
+</ul>
+<h2 id="riesgos_7">Riesgos<a class="headerlink" href="#riesgos_7" title="Permanent link">&para;</a></h2>
+<ul>
+<li>MainActor / jank al primer frame.</li>
+<li>Regresiones macOS al tocar DI.</li>
+</ul>
+<h2 id="criterios-de-exito_7">Criterios de éxito<a class="headerlink" href="#criterios-de-exito_7" title="Permanent link">&para;</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Frame visible en EmulatorView en device/simulador acordado.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Pipeline sigue Bridge → Host → Adapter.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Tests de Renderer previos siguen pasando.</li>
+</ul>
+<h2 id="criterios-de-rollback_7">Criterios de rollback<a class="headerlink" href="#criterios-de-rollback_7" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Revertir DI a bootstrap que reporta <code>runtimeUnavailable</code> en iOS.</li>
+</ul>
+<h2 id="tiempo-estimado_7">Tiempo estimado<a class="headerlink" href="#tiempo-estimado_7" title="Permanent link">&para;</a></h2>
+<p><strong>3–5 días.</strong></p>
+<h2 id="dependencias_7">Dependencias<a class="headerlink" href="#dependencias_7" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Fase 6; UI Library/Emulator existente.</li>
+<li>Bloquea Fases 8–10 de producto jugable.</li>
+</ul>
+<hr />
+<h1 id="fase-8-input">Fase 8 — Input<a class="headerlink" href="#fase-8-input" title="Permanent link">&para;</a></h1>
+<h2 id="objetivo_8">Objetivo<a class="headerlink" href="#objetivo_8" title="Permanent link">&para;</a></h2>
+<p>Enviar teclas / pointer normalizados hasta FreeJ2ME (<code>key*</code> / <code>pointer*</code>) por la cadena Bridge → Adapter → Bootstrap → JNI.</p>
+<h2 id="prerrequisitos_8">Prerrequisitos<a class="headerlink" href="#prerrequisitos_8" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Fase 7 en éxito (o al menos Fase 5+6 si se prueba input headless).</li>
+<li>Contrato de input de producto alineado a <code>FREEJ2ME_RUNTIME_CONTRACT</code> (sin inventar capas nuevas).</li>
+</ul>
+<h2 id="entregables_7">Entregables<a class="headerlink" href="#entregables_7" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Puente de input en Adapter/Bootstrap/Gateway.</li>
+<li>Teclado virtual o controles mínimos en UI <strong>solo</strong> hablando con Bridge/ViewModel.</li>
+<li>Test de que una tecla llega al Display/Canvas (o probe instrumentado).</li>
+</ul>
+<h2 id="archivos-afectados-esperados_8">Archivos afectados (esperados)<a class="headerlink" href="#archivos-afectados-esperados_8" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Bridge (si la API de input del contrato aún no estaba cableada — extensión de contrato <strong>ya prevista</strong>, no arquitectura nueva).</li>
+<li>Adapter, Bootstrap, Gateway.</li>
+<li>Vista de keypad (UI).</li>
+</ul>
+<h2 id="riesgos_8">Riesgos<a class="headerlink" href="#riesgos_8" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Coordenadas mal escaladas.</li>
+<li>Atajos UI→JNI (anti-pattern).</li>
+</ul>
+<h2 id="criterios-de-exito_8">Criterios de éxito<a class="headerlink" href="#criterios-de-exito_8" title="Permanent link">&para;</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Evento de input observable en FreeJ2ME / probe.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Ningún JNI desde Views.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Pause/Stop no dejan teclas colgadas de forma indefinida.</li>
+</ul>
+<h2 id="criterios-de-rollback_8">Criterios de rollback<a class="headerlink" href="#criterios-de-rollback_8" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Deshabilitar keypad; emulación solo visual.</li>
+</ul>
+<h2 id="tiempo-estimado_8">Tiempo estimado<a class="headerlink" href="#tiempo-estimado_8" title="Permanent link">&para;</a></h2>
+<p><strong>1–2 semanas.</strong></p>
+<h2 id="dependencias_8">Dependencias<a class="headerlink" href="#dependencias_8" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Fase 7 (recomendado); contrato input.</li>
+<li>No bloquea Audio/RMS de forma dura, pero sí “jugable”.</li>
+</ul>
+<hr />
+<h1 id="fase-9-audio">Fase 9 — Audio<a class="headerlink" href="#fase-9-audio" title="Permanent link">&para;</a></h1>
+<h2 id="objetivo_9">Objetivo<a class="headerlink" href="#objetivo_9" title="Permanent link">&para;</a></h2>
+<p>Definir e integrar el <strong>borde de responsabilidades</strong> de audio (FreeJ2ME → bootstrap/native), con mute en pause/stop. Implementación nativa mínima aceptable (stub silencioso → backend real).</p>
+<h2 id="prerrequisitos_9">Prerrequisitos<a class="headerlink" href="#prerrequisitos_9" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Fase 5+ (runtime con MIDlet).</li>
+<li>Arquitectura de audio del plano embebido respetada.</li>
+</ul>
+<h2 id="entregables_8">Entregables<a class="headerlink" href="#entregables_8" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Punto único de puente en Bootstrap/Gateway.</li>
+<li>Silence on pause/stop/session end.</li>
+<li>Criterios de no acoplar Views al motor de audio Java.</li>
+</ul>
+<h2 id="archivos-afectados-esperados_9">Archivos afectados (esperados)<a class="headerlink" href="#archivos-afectados-esperados_9" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Bootstrap / Gateway / posible backend AVAudio*.</li>
+<li>Sin Library.</li>
+</ul>
+<h2 id="riesgos_9">Riesgos<a class="headerlink" href="#riesgos_9" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Java Sound ausente en mobile JDK.</li>
+<li>Latencia / glitches.</li>
+<li>Threads audio vs JNI.</li>
+</ul>
+<h2 id="criterios-de-exito_9">Criterios de éxito<a class="headerlink" href="#criterios-de-exito_9" title="Permanent link">&para;</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Política de mute de sesión verificada.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Ningún audio desde Views vía JNI.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Fallo de audio no tumba la JVM.</li>
+</ul>
+<h2 id="criterios-de-rollback_9">Criterios de rollback<a class="headerlink" href="#criterios-de-rollback_9" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Audio stub/off; resto del emulador intacto.</li>
+</ul>
+<h2 id="tiempo-estimado_9">Tiempo estimado<a class="headerlink" href="#tiempo-estimado_9" title="Permanent link">&para;</a></h2>
+<p><strong>1–3 semanas.</strong></p>
+<h2 id="dependencias_9">Dependencias<a class="headerlink" href="#dependencias_9" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Fase 5+.</li>
+<li>Paralelo posible con Fase 8/10 tras Fase 7.</li>
+</ul>
+<hr />
+<h1 id="fase-10-rms">Fase 10 — RMS<a class="headerlink" href="#fase-10-rms" title="Permanent link">&para;</a></h1>
+<h2 id="objetivo_10">Objetivo<a class="headerlink" href="#objetivo_10" title="Permanent link">&para;</a></h2>
+<p>Configurar <code>MobilePlatform.dataPath</code> (o equivalente Contract C) al <strong>sandbox</strong> iOS y verificar persistencia Record Store entre Idle→Running→Stop→Running del mismo juego.</p>
+<h2 id="prerrequisitos_10">Prerrequisitos<a class="headerlink" href="#prerrequisitos_10" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Fase 5+.</li>
+<li>ADR de sandbox del plano embebido.</li>
+</ul>
+<h2 id="entregables_9">Entregables<a class="headerlink" href="#entregables_9" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Path por app / política por juego documentada.</li>
+<li>Test de escritura/lectura RMS con MIDlet de fixture.</li>
+<li>Sin que Library almacene RMS.</li>
+</ul>
+<h2 id="archivos-afectados-esperados_10">Archivos afectados (esperados)<a class="headerlink" href="#archivos-afectados-esperados_10" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Bootstrap embebido (dataPath).</li>
+<li>Fixtures de prueba.</li>
+<li>Posible limpieza en stopSession.</li>
+</ul>
+<h2 id="riesgos_10">Riesgos<a class="headerlink" href="#riesgos_10" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Paths incorrectos / pérdida de datos.</li>
+<li>Contaminación entre juegos.</li>
+</ul>
+<h2 id="criterios-de-exito_10">Criterios de éxito<a class="headerlink" href="#criterios-de-exito_10" title="Permanent link">&para;</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> RMS sobrevive stop/relaunch de sesión en misma JVM.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Datos bajo sandbox.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Bridge no interpreta records.</li>
+</ul>
+<h2 id="criterios-de-rollback_10">Criterios de rollback<a class="headerlink" href="#criterios-de-rollback_10" title="Permanent link">&para;</a></h2>
+<ul>
+<li>RMS deshabilitado / efímero; documentar limitación.</li>
+</ul>
+<h2 id="tiempo-estimado_10">Tiempo estimado<a class="headerlink" href="#tiempo-estimado_10" title="Permanent link">&para;</a></h2>
+<p><strong>3–7 días.</strong></p>
+<h2 id="dependencias_10">Dependencias<a class="headerlink" href="#dependencias_10" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Fase 5+.</li>
+<li>Paralelo con 8/9 tras 7.</li>
+</ul>
+<hr />
+<h1 id="fase-11-optimizacion">Fase 11 — Optimización<a class="headerlink" href="#fase-11-optimizacion" title="Permanent link">&para;</a></h1>
+<h2 id="objetivo_11">Objetivo<a class="headerlink" href="#objetivo_11" title="Permanent link">&para;</a></h2>
+<p>Cumplir objetivos de performance del EmbeddedJVMManager / arquitectura: off MainActor, menos JNI por frame, telemetría, estabilidad multi-sesión.</p>
+<h2 id="prerrequisitos_11">Prerrequisitos<a class="headerlink" href="#prerrequisitos_11" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Fases 7+ (y preferible 8).</li>
+</ul>
+<h2 id="entregables_10">Entregables<a class="headerlink" href="#entregables_10" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Presupuesto de frame time medido en device.</li>
+<li>Startup JVM / launch latency dashboards o logs.</li>
+<li>Eliminación de bloqueos UI conocidos.</li>
+<li>Pass del checklist EmbeddedJVMManager (§15).</li>
+</ul>
+<h2 id="archivos-afectados-esperados_11">Archivos afectados (esperados)<a class="headerlink" href="#archivos-afectados-esperados_11" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Manager, Gateway, Bootstrap, posiblemente Host hop de eventos.</li>
+<li>Sin rediseño Bridge.</li>
+</ul>
+<h2 id="riesgos_11">Riesgos<a class="headerlink" href="#riesgos_11" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Regresiones de correctness al mover hilos.</li>
+<li>Over-copy o under-copy de frames.</li>
+</ul>
+<h2 id="criterios-de-exito_11">Criterios de éxito<a class="headerlink" href="#criterios-de-exito_11" title="Permanent link">&para;</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Checklist EmbeddedJVMManager completo.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Sin regresiones de Fases 5–7.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Métricas de cold start y RSS aceptadas por el equipo.</li>
+</ul>
+<h2 id="criterios-de-rollback_11">Criterios de rollback<a class="headerlink" href="#criterios-de-rollback_11" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Revertir optimizaciones de threading; mantener correctness.</li>
+</ul>
+<h2 id="tiempo-estimado_11">Tiempo estimado<a class="headerlink" href="#tiempo-estimado_11" title="Permanent link">&para;</a></h2>
+<p><strong>2–4 semanas</strong> (iterativo).</p>
+<h2 id="dependencias_11">Dependencias<a class="headerlink" href="#dependencias_11" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Fase 7+.</li>
+<li>Bloquea parcialmente Fase 12 (calidad).</li>
+</ul>
+<hr />
+<h1 id="fase-12-app-store-readiness">Fase 12 — App Store Readiness<a class="headerlink" href="#fase-12-app-store-readiness" title="Permanent link">&para;</a></h1>
+<h2 id="objetivo_12">Objetivo<a class="headerlink" href="#objetivo_12" title="Permanent link">&para;</a></h2>
+<p>Dejar el binario iOS listo para distribución: packaging runtime, tamaño, estabilidad, feature flags, compliance GPL-3, narrativa de review, pruebas en device de producción.</p>
+<h2 id="prerrequisitos_12">Prerrequisitos<a class="headerlink" href="#prerrequisitos_12" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Fases críticas 1–7 en éxito; 8–11 según alcance de release.</li>
+<li>Gates Go/No-Go técnicos cerrados en verde.</li>
+</ul>
+<h2 id="entregables_11">Entregables<a class="headerlink" href="#entregables_11" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Inventario de binarios nativos y licenses.</li>
+<li>Plan de fuentes GPL si aplica.</li>
+<li>Hardening <code>System.exit</code> / Failed states.</li>
+<li>TestFlight / checklist review.</li>
+<li>DI producción iOS habilitada solo tras sign-off.</li>
+</ul>
+<h2 id="archivos-afectados-esperados_12">Archivos afectados (esperados)<a class="headerlink" href="#archivos-afectados-esperados_12" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Build settings, scripts de empaquetado, docs legales internos, flags DI.</li>
+<li>Mínimo impacto en Architecture docs (este roadmap solo se marca “done”).</li>
+</ul>
+<h2 id="riesgos_12">Riesgos<a class="headerlink" href="#riesgos_12" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Rechazo App Store (emulación / interpreted code).</li>
+<li>Tamaño excesivo.</li>
+<li>Regresión de privacidad/sandbox.</li>
+</ul>
+<h2 id="criterios-de-exito_12">Criterios de éxito<a class="headerlink" href="#criterios-de-exito_12" title="Permanent link">&para;</a></h2>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Build App Store reproducible.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Sign-off legal + ingeniería.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Escenarios Idle/Running/Stop/Terminate estables en device.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> macOS Process path no regredido.</li>
+</ul>
+<h2 id="criterios-de-rollback_12">Criterios de rollback<a class="headerlink" href="#criterios-de-rollback_12" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Deshabilitar embebido iOS en release; mantener catálogo + macOS host.</li>
+</ul>
+<h2 id="tiempo-estimado_12">Tiempo estimado<a class="headerlink" href="#tiempo-estimado_12" title="Permanent link">&para;</a></h2>
+<p><strong>2–4 semanas</strong> (incluye cola de review).</p>
+<h2 id="dependencias_12">Dependencias<a class="headerlink" href="#dependencias_12" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Critical path 0→7; recomendable 8–11 según promesa de producto.</li>
+</ul>
+<hr />
+<h1 id="implementation-order">Implementation Order<a class="headerlink" href="#implementation-order" title="Permanent link">&para;</a></h1>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Orden</th>
+<th>Fase</th>
+<th>Nombre</th>
+<th>Estimación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">0</td>
+<td>Fase 0</td>
+<td>Preparación</td>
+<td>1–3 sem</td>
+</tr>
+<tr>
+<td style="text-align: right;">1</td>
+<td>Fase 1</td>
+<td>Spike JVM</td>
+<td>1–2 sem</td>
+</tr>
+<tr>
+<td style="text-align: right;">2</td>
+<td>Fase 2</td>
+<td>Spike JNI</td>
+<td>1 sem</td>
+</tr>
+<tr>
+<td style="text-align: right;">3</td>
+<td>Fase 3</td>
+<td>Carga FreeJ2ME</td>
+<td>1–2 sem</td>
+</tr>
+<tr>
+<td style="text-align: right;">4</td>
+<td>Fase 4</td>
+<td>Localizar JAR</td>
+<td>3–5 días</td>
+</tr>
+<tr>
+<td style="text-align: right;">5</td>
+<td>Fase 5</td>
+<td>Primer MIDlet</td>
+<td>1–2 sem</td>
+</tr>
+<tr>
+<td style="text-align: right;">6</td>
+<td>Fase 6</td>
+<td>Primer Frame</td>
+<td>1 sem</td>
+</tr>
+<tr>
+<td style="text-align: right;">7</td>
+<td>Fase 7</td>
+<td>Render</td>
+<td>3–5 días</td>
+</tr>
+<tr>
+<td style="text-align: right;">8</td>
+<td>Fase 8</td>
+<td>Input</td>
+<td>1–2 sem</td>
+</tr>
+<tr>
+<td style="text-align: right;">9</td>
+<td>Fase 9</td>
+<td>Audio</td>
+<td>1–3 sem</td>
+</tr>
+<tr>
+<td style="text-align: right;">10</td>
+<td>Fase 10</td>
+<td>RMS</td>
+<td>3–7 días</td>
+</tr>
+<tr>
+<td style="text-align: right;">11</td>
+<td>Fase 11</td>
+<td>Optimización</td>
+<td>2–4 sem</td>
+</tr>
+<tr>
+<td style="text-align: right;">12</td>
+<td>Fase 12</td>
+<td>App Store Readiness</td>
+<td>2–4 sem</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Paralelismo permitido tras Fase 7:</strong> Fases 8, 9 y 10 pueden avanzar en paralelo si hay capacidad. Fase 11 puede solaparse parcialmente con 8–10. Fase 12 al final.</p>
+<hr />
+<h1 id="critical-path">Critical Path<a class="headerlink" href="#critical-path" title="Permanent link">&para;</a></h1>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>F0 → F1 → F2 → F3 → F4 → F5 → F6 → F7 → (F8 ∥ F9 ∥ F10) → F11 → F12
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Fase</th>
+<th>Bloquea</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>0</strong></td>
+<td>Todo el camino embebido</td>
+</tr>
+<tr>
+<td><strong>1</strong></td>
+<td>JNI y cualquier FreeJ2ME in-process</td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td>Carga Vendor y Contract C embebido</td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td>JAR de usuario y MIDlets</td>
+</tr>
+<tr>
+<td><strong>4</strong></td>
+<td>Primer MIDlet real de Library</td>
+</tr>
+<tr>
+<td><strong>5</strong></td>
+<td>Frames, input útil, audio, RMS con MIDlet</td>
+</tr>
+<tr>
+<td><strong>6</strong></td>
+<td>Render de producto</td>
+</tr>
+<tr>
+<td><strong>7</strong></td>
+<td>Experiencia visual end-to-end; habilita trabajo paralelo 8–10</td>
+</tr>
+<tr>
+<td><strong>8</strong></td>
+<td>Jugabilidad (no bloquea Audio/RMS técnicos)</td>
+</tr>
+<tr>
+<td><strong>9</strong></td>
+<td>Completitud “playable” con sonido</td>
+</tr>
+<tr>
+<td><strong>10</strong></td>
+<td>Saves J2ME</td>
+</tr>
+<tr>
+<td><strong>11</strong></td>
+<td>Calidad release / gate de performance</td>
+</tr>
+<tr>
+<td><strong>12</strong></td>
+<td>Distribución</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Camino crítico mínimo para “primer LCD en iOS”:</strong> Fases <strong>0 → 7</strong>.<br />
+<strong>Camino crítico para “jugable básico”:</strong> <strong>0 → 8</strong> (+ 10 recomendable).<br />
+<strong>Camino crítico para store:</strong> <strong>0 → 12</strong> con gates verdes.</p>
+<hr />
+<h1 id="go-no-go-decision-gates">Go / No-Go Decision Gates<a class="headerlink" href="#go-no-go-decision-gates" title="Permanent link">&para;</a></h1>
+<p>El proyecto <strong>debe detenerse o pivotar</strong> (sin seguir gastando en fases posteriores) si falla el gate indicado.</p>
+<table>
+<thead>
+<tr>
+<th>Gate</th>
+<th>Momento</th>
+<th>Hipótesis bajo prueba</th>
+<th>No-Go si…</th>
+<th>Acción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>G0</strong></td>
+<td>Fin Fase 0</td>
+<td>OpenJDK Mobile produce artefacto estático usable</td>
+<td>No hay <code>libjvm</code> reproducible para el target</td>
+<td>Abortar embebido iOS; permanecer en macOS Process + <code>runtimeUnavailable</code></td>
+</tr>
+<tr>
+<td><strong>G1</strong></td>
+<td>Fin Fase 1</td>
+<td>JVM embebida arranca en proceso app</td>
+<td>Hello World imposible / violación W^X-JIT</td>
+<td>Abortar embebido; reevaluar solo si aparece runtime alternativo <strong>sin</strong> cambiar arquitectura de capas</td>
+</tr>
+<tr>
+<td><strong>G2</strong></td>
+<td>Fin Fase 2</td>
+<td>JNI estable y contenido al Gateway</td>
+<td>Filtrado inevitable a producto / inestable</td>
+<td>Abortar embebido</td>
+</tr>
+<tr>
+<td><strong>G3</strong></td>
+<td>Fin Fase 3</td>
+<td>FreeJ2ME carga sobre la VM</td>
+<td>SE/AWT/classpath insalvable</td>
+<td><strong>Stop:</strong> no F4–F7 sobre esta VM; activar decisión de fork gráfico allowlisted <strong>o</strong> abandonar iOS embebido</td>
+</tr>
+<tr>
+<td><strong>G4</strong></td>
+<td>Fin Fase 5</td>
+<td><code>defineClass</code> + Probe MIDlet</td>
+<td>Loader/ASM/<code>System.exit</code> matan el enfoque</td>
+<td>Stop iOS embebido o fork allowlisted explícito; no fingir progreso en F6–F12</td>
+</tr>
+<tr>
+<td><strong>G5</strong></td>
+<td>Fin Fase 6</td>
+<td>Primer frame por painter</td>
+<td>Sin framebuffer legible</td>
+<td>Stop render path; no F7 hasta plan B gráfico</td>
+</tr>
+<tr>
+<td><strong>G6</strong></td>
+<td>Pre Fase 12</td>
+<td>Performance + estabilidad multi-sesión</td>
+<td>No cumple checklist EmbeddedJVMManager / UX mínima</td>
+<td>No enviar a App Store; iterar F11 o reducir scope</td>
+</tr>
+<tr>
+<td><strong>G7</strong></td>
+<td>Fase 12</td>
+<td>Legal GPL + review policy</td>
+<td>Bloqueo legal o rechazo estructural de categoría</td>
+<td>No release iOS embebido; documentar decisión de producto</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Regla de oro:</strong> un No-Go en G0–G5 <strong>congela</strong> el critical path. No se “compensa” saltando a Input/Audio/Store. macOS y la arquitectura Bridge→Host→Adapter <strong>siguen válidos</strong> independientemente del No-Go iOS.</p>
+<hr />
+<h2 id="cierre">Cierre<a class="headerlink" href="#cierre" title="Permanent link">&para;</a></h2>
+<p>Este roadmap es el <strong>plan de ejecución</strong> del Embedded JVM Runtime.<br />
+La arquitectura oficial permanece en los tres documentos padre. Cualquier fase que requiera romper Bridge, Host, Adapter públicos o los anti-patterns de EmbeddedJVMManager está <strong>fuera de alcance</strong> y debe rechazarse.</p>
+<hr />
+<p><em>Implementation Roadmap v1.0 · CoreJ2</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; CoreJ2 contributors · <a href="https://github.com/flakito-loko/CoreJ2">GitHub</a> · <a href="https://flakito-loko.github.io/CoreJ2/">Documentation</a> · <a href="https://flakito-loko.github.io/CoreJ2/roadmap/">Roadmap</a> · <a href="https://flakito-loko.github.io/CoreJ2/compatibility/">Compatibility</a>
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/flakito-loko/CoreJ2" target="_blank" rel="noopener" title="GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://flakito-loko.github.io/CoreJ2/" target="_blank" rel="noopener" title="Documentation" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M384 512H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h304c26.5 0 48 21.5 48 48v288c0 20.9-13.4 38.7-32 45.3V448c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 384c-17.7 0-32 14.3-32 32s14.3 32 32 32h256v-64zm32-232c0 13.3 10.7 24 24 24h176c13.3 0 24-10.7 24-24s-10.7-24-24-24H152c-13.3 0-24 10.7-24 24m24 72c-13.3 0-24 10.7-24 24s10.7 24 24 24h176c13.3 0 24-10.7 24-24s-10.7-24-24-24z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://flakito-loko.github.io/CoreJ2/compatibility/" target="_blank" rel="noopener" title="Compatibility" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M448 64c106 0 192 86 192 192s-86 192-192 192H192C86 448 0 362 0 256S86 64 192 64zM192 176c-13.3 0-24 10.7-24 24v32h-32c-13.3 0-24 10.7-24 24s10.7 24 24 24h32v32c0 13.3 10.7 24 24 24s24-10.7 24-24v-32h32c13.3 0 24-10.7 24-24s-10.7-24-24-24h-32v-32c0-13.3-10.7-24-24-24m240 96a32 32 0 1 0 0 64 32 32 0 1 0 0-64m64-96a32 32 0 1 0 0 64 32 32 0 1 0 0-64"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://flakito-loko.github.io/CoreJ2/roadmap/" target="_blank" rel="noopener" title="Roadmap" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M512 48c0-11.1-5.7-21.4-15.2-27.2s-21.2-6.4-31.1-1.4L349.5 77.5 170.1 17.6c-8.1-2.7-16.8-2.1-24.4 1.7l-128 64C6.8 88.8 0 99.9 0 112v352c0 11.1 5.7 21.4 15.2 27.2s21.2 6.4 31.1 1.4l116.1-58.1 179.4 59.8c8.1 2.7 16.8 2.1 24.4-1.7l128-64c10.8-5.4 17.7-16.5 17.7-28.6V48zM192 376.9V92.4l128 42.7v284.5z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "search.share", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

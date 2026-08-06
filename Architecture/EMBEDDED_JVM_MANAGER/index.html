@@ -1,0 +1,2114 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Run classic Java ME (J2ME) games natively on iPhone & iPad">
+      
+      
+        <meta name="author" content="CoreJ2">
+      
+      
+        <link rel="canonical" href="https://flakito-loko.github.io/CoreJ2/Architecture/EMBEDDED_JVM_MANAGER/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/branding/favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>EmbeddedJVMManager - CoreJ2</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  
+  <meta property="og:title" content="EmbeddedJVMManager - CoreJ2">
+  <meta property="og:description" content="Run classic Java ME (J2ME) games natively on iPhone & iPad">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://flakito-loko.github.io/CoreJ2/Architecture/EMBEDDED_JVM_MANAGER/">
+  <meta property="og:image" content="https://flakito-loko.github.io/CoreJ2/assets/branding/social-preview.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="EmbeddedJVMManager - CoreJ2">
+  <meta name="twitter:description" content="Run classic Java ME (J2ME) games natively on iPhone & iPad">
+  <meta name="twitter:image" content="https://flakito-loko.github.io/CoreJ2/assets/branding/social-preview.png">
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#embeddedjvmmanager" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="CoreJ2" class="md-header__button md-logo" aria-label="CoreJ2" data-md-component="logo">
+      
+  <img src="../../assets/branding/isotype.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CoreJ2
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              EmbeddedJVMManager
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/flakito-loko/CoreJ2" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    flakito-loko/CoreJ2
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../why-corej2/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Why CoreJ2?
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../getting-started/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Getting Started
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../building/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Building
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../compatibility/" class="md-tabs__link">
+          
+  
+  
+  Compatibility
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../architecture/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Architecture
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../milestones/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Milestones
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../roadmap/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Roadmap
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../performance/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Performance
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../faq/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  FAQ
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../screenshots/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Screenshots
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../branding/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Branding
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../technical-reports/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Technical Reports
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../releases/v0.9.0-alpha/" class="md-tabs__link">
+          
+  
+  
+  Releases
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="CoreJ2" class="md-nav__button md-logo" aria-label="CoreJ2" data-md-component="logo">
+      
+  <img src="../../assets/branding/isotype.svg" alt="logo">
+
+    </a>
+    CoreJ2
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/flakito-loko/CoreJ2" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    flakito-loko/CoreJ2
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../why-corej2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Why CoreJ2?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../building/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Building
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Compatibility
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Compatibility
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../compatibility/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../compatibility-stats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Statistics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../compatibility/games/Alea/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Alea
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../compatibility/games/Astroids/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Astroids
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../compatibility/games/Tetris/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tetris
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../compatibility/games/Gryzzles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gryzzles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../compatibility/games/Ubertris/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ubertris
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../milestones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Milestones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../screenshots/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Screenshots
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../branding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Branding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../technical-reports/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Reports
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Releases
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_14">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Releases
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../releases/v0.9.0-alpha/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    v0.9.0-alpha
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="embeddedjvmmanager">EmbeddedJVMManager<a class="headerlink" href="#embeddedjvmmanager" title="Permanent link">&para;</a></h1>
+<p><strong>Estado:</strong> Contrato oficial de componente<br />
+<strong>Versión:</strong> 1.0<br />
+<strong>Fecha:</strong> 2026-08-04<br />
+<strong>Padre arquitectónico:</strong> <code>docs/Architecture/EMBEDDED_JVM_ARCHITECTURE.md</code><br />
+<strong>Viabilidad:</strong> <code>docs/Architecture/JVM_FEASIBILITY_STUDY.md</code></p>
+<p><strong>Naturaleza</strong></p>
+<p>Este documento es la <strong>especificación de ingeniería</strong> del rol <code>EmbeddedJVMManager</code>. No es tutorial, no es guía de implementación y <strong>no contiene código</strong>. Toda implementación futura del camino iOS embebido debe cumplir este contrato.</p>
+<p><strong>Posición en la pila</strong></p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>FreeJ2MERuntimeAdapter
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>  → FreeJ2MEMobilePlatformBootstrapping   (backend iOS)
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>       → EmbeddedJVMManager               ← este componente
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>       → JNI Gateway
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>       → Embedded JVM (OpenJDK Mobile u otro runtime aprobado)
+</span></code></pre></div>
+<p><code>EmbeddedJVMManager</code> es <strong>interno</strong> al backend iOS de PlatformBootstrap. No es una capa de producto y no altera Bridge, Host, Adapter público, Library ni Views.</p>
+<hr />
+<h1 id="1-objetivo">1. Objetivo<a class="headerlink" href="#1-objetivo" title="Permanent link">&para;</a></h1>
+<h2 id="11-responsabilidad-exclusiva">1.1 Responsabilidad exclusiva<a class="headerlink" href="#11-responsabilidad-exclusiva" title="Permanent link">&para;</a></h2>
+<p><code>EmbeddedJVMManager</code> administra el <strong>ciclo de vida de la JVM embebida a nivel de proceso de aplicación iOS</strong>:</p>
+<ul>
+<li>existencia de <strong>una</strong> máquina virtual</li>
+<li>transición de estados de esa VM</li>
+<li>coordinación de arranque y apagado ordenado</li>
+<li>exposición de un <strong>estado interno</strong> consumible solo por PlatformBootstrap / JNI Gateway</li>
+<li>habilitación segura del borde JNI una vez la VM está lista</li>
+</ul>
+<h2 id="12-que-no-reemplaza">1.2 Qué no reemplaza<a class="headerlink" href="#12-que-no-reemplaza" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Componente</th>
+<th>Sigue siendo dueño de…</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>EmulatorBridge / DefaultEmulatorBridge</strong></td>
+<td>API app-facing, validación, <code>EmulatorSession</code></td>
+</tr>
+<tr>
+<td><strong>RuntimeHost / FreeJ2MERuntimeHost</strong></td>
+<td><code>RuntimeEventPipe</code>, eventos de lifecycle/frames hacia la app</td>
+</tr>
+<tr>
+<td><strong>FreeJ2MERuntimeAdapter</strong></td>
+<td>Contract C, flags de sesión FreeJ2ME, <code>onFrameCaptured</code>, stop de sesión orquestado</td>
+</tr>
+<tr>
+<td><strong>PlatformBootstrap</strong></td>
+<td>Semántica <code>bootstrapMobilePlatform</code> / painter / load / run / <code>shutdownRuntime</code> / <code>frameHandler</code></td>
+</tr>
+<tr>
+<td><strong>JNI Gateway</strong></td>
+<td>Invocaciones Java y callbacks nativos</td>
+</tr>
+<tr>
+<td><strong>Renderer / Library / Import</strong></td>
+<td>UI, catálogo, importación</td>
+</tr>
+</tbody>
+</table>
+<p><code>EmbeddedJVMManager</code> <strong>no</strong> es el Adapter, <strong>no</strong> es el Bootstrap, <strong>no</strong> es el Bridge y <strong>no</strong> es el Host. Solo administra la JVM.</p>
+<hr />
+<h1 id="2-responsabilidades">2. Responsabilidades<a class="headerlink" href="#2-responsabilidades" title="Permanent link">&para;</a></h1>
+<h2 id="21-que-hace">2.1 Qué hace<a class="headerlink" href="#21-que-hace" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Crear</strong> la JVM embebida (como máximo una vez por proceso, salvo recuperación explícita tras Destroyed/Failed terminal).  </li>
+<li><strong>Destruir</strong> la JVM en teardown de proceso o política de shutdown global.  </li>
+<li><strong>Garantizar unicidad:</strong> rechazar cualquier intento de segunda creación concurrente o solapada.  </li>
+<li><strong>Conocer y publicar estado interno</strong> del runtime embebido (máquina de §4).  </li>
+<li><strong>Coordinar startup:</strong> secuencia NotInitialized → Starting → Ready → LoadingFreeJ2ME → Idle.  </li>
+<li><strong>Coordinar shutdown:</strong> Idle/StoppingSession → Shutdown → Destroyed.  </li>
+<li><strong>Coordinar con JNI Gateway:</strong> indicar cuándo el borde JNI es usable; invalidar el borde tras Destroyed.  </li>
+<li><strong>Registrar ocupación de sesión</strong> (Idle ↔ Running/Paused/StoppingSession) cuando PlatformBootstrap lo notifica, <strong>sin</strong> poseer <code>EmulatorSession</code>.  </li>
+<li><strong>Serializar</strong> operaciones de lifecycle de VM frente a callbacks concurrentes.  </li>
+<li><strong>Señalar fallos de VM</strong> hacia PlatformBootstrap para normalización a errores de dominio (sin filtrar JNI crudo a UI).</li>
+</ol>
+<h2 id="22-que-no-hace">2.2 Qué no hace<a class="headerlink" href="#22-que-no-hace" title="Permanent link">&para;</a></h2>
+<ul>
+<li>No valida <code>LaunchConfiguration</code> ni JAR (Bridge).  </li>
+<li>No publica <code>RuntimeEvent</code> (Host).  </li>
+<li>No orquesta Contract C completo (Adapter + Bootstrap).  </li>
+<li>No invoca <code>MobilePlatform.loadJar</code> / <code>runJar</code> por sí mismo (Gateway/Bootstrap).  </li>
+<li>No renderiza frames ni conoce CGImage/SwiftUI.  </li>
+<li>No importa juegos ni toca SwiftData.  </li>
+<li>No conoce <code>FreeJ2MERuntimeAdapter</code>, Views, Library ni Import Engine.  </li>
+<li>No destruye la JVM al cerrar un juego (Stop de sesión ≠ Destroy).  </li>
+<li>No expone tipos OpenJDK, <code>JavaVM*</code> o <code>JNIEnv*</code> fuera del Runtime embebido.  </li>
+<li>No implementa teclado virtual, audio AVFoundation ni persistencia RMS de producto.</li>
+</ul>
+<hr />
+<h1 id="3-principios">3. Principios<a class="headerlink" href="#3-principios" title="Permanent link">&para;</a></h1>
+<ol>
+<li><strong>Singleton por proceso de aplicación.</strong> Una instancia lógica de manager; una JVM.  </li>
+<li><strong>Thread-safe.</strong> Todas las transiciones de estado y la publicación de “JNI usable” están sincronizadas.  </li>
+<li><strong>Lazy initialization permitida.</strong> La JVM puede crearse en el primer uso real del bootstrap, no necesariamente en <code>App.init</code>, siempre que la unicidad se preserve.  </li>
+<li><strong>Eager initialization opcional.</strong> Cold-start controlado está permitido si DI/bootstrap lo solicitan explícitamente.  </li>
+<li><strong>Nunca múltiples JVM</strong> en el mismo proceso.  </li>
+<li><strong>Nunca reinicio ordinario entre juegos.</strong>  </li>
+<li><strong>Nunca conoce FreeJ2MERuntimeAdapter.</strong>  </li>
+<li><strong>Nunca conoce SwiftUI, Views ni ViewModels.</strong>  </li>
+<li><strong>Nunca conoce Bridge ni Host.</strong>  </li>
+<li><strong>Separación Stop vs Terminate:</strong> Stop de MIDlet/sesión deja la JVM viva; Terminate de app destruye la JVM.  </li>
+<li><strong>Fail closed:</strong> si el estado no permite una operación, se rechaza; no se “crea otra JVM” como recuperación silenciosa.  </li>
+<li><strong>Opacidad:</strong> el resto del proyecto ve, como máximo, estados abstractos vía PlatformBootstrap — nunca handles nativos de OpenJDK.</li>
+</ol>
+<hr />
+<h1 id="4-maquina-de-estados">4. Máquina de estados<a class="headerlink" href="#4-maquina-de-estados" title="Permanent link">&para;</a></h1>
+<h2 id="41-estados">4.1 Estados<a class="headerlink" href="#41-estados" title="Permanent link">&para;</a></h2>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>NotInitialized
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>      │ ensureStarted / start
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>      ▼
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>  Starting
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>      │ éxito                         │ fallo
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>      ▼                               ▼
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>   Ready ─────────────────────► Failed (terminal o recuperable según política)
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>      │ loadFreeJ2ME
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>      ▼
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>LoadingFreeJ2ME
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>      │ éxito
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>      ▼
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>    Idle ◄──────────────────────────────────────────────┐
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>      │ sessionBegin (platform/painter/load/run)          │
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>      ▼                                                   │
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>  Running ◄──── resume ──── Paused                        │
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>      │ pause                    │                        │
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>      └──────────► Paused        │                        │
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>      │                          │                        │
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>      │ sessionStop / stopSession│                        │
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>      ▼                          ▼                        │
+</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>           StoppingSession ──────┴────────────────────────┘
+</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>      │
+</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>      │ processShutdown (solo desde Idle o tras StoppingSession→Idle)
+</span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>      ▼
+</span><span id="__span-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>  Shutdown
+</span><span id="__span-1-27"><a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>      │
+</span><span id="__span-1-28"><a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>      ▼
+</span><span id="__span-1-29"><a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a> Destroyed
+</span></code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Estado</th>
+<th>Significado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>NotInitialized</strong></td>
+<td>No existe JVM. Estado inicial del proceso.</td>
+</tr>
+<tr>
+<td><strong>Starting</strong></td>
+<td>Creación de VM en curso. JNI aún no usable para Contract C.</td>
+</tr>
+<tr>
+<td><strong>Ready</strong></td>
+<td>JVM viva; FreeJ2ME aún no considerado cargado/resoluble en classpath.</td>
+</tr>
+<tr>
+<td><strong>LoadingFreeJ2ME</strong></td>
+<td>Preparación de classpath/modules Vendor / fachada.</td>
+</tr>
+<tr>
+<td><strong>Idle</strong></td>
+<td>JVM + FreeJ2ME listos; <strong>ningún</strong> MIDlet/sesión FreeJ2ME activa.</td>
+</tr>
+<tr>
+<td><strong>Running</strong></td>
+<td>Sesión FreeJ2ME activa y en ejecución (ocupación). La JVM sigue siendo la misma.</td>
+</tr>
+<tr>
+<td><strong>Paused</strong></td>
+<td>Sesión activa suspendida. JVM viva.</td>
+</tr>
+<tr>
+<td><strong>StoppingSession</strong></td>
+<td>Teardown de sesión FreeJ2ME en curso; aún no Idle.</td>
+</tr>
+<tr>
+<td><strong>Shutdown</strong></td>
+<td>Apagado ordenado de la JVM de proceso en curso.</td>
+</tr>
+<tr>
+<td><strong>Destroyed</strong></td>
+<td>JVM inexistente tras shutdown o fallo terminal de destrucción.</td>
+</tr>
+<tr>
+<td><strong>Failed</strong></td>
+<td>Fallo de startup o corrupción que impide uso; no se aceptan sesiones hasta política de recuperación explícita.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="42-eventos-que-disparan-transicion">4.2 Eventos que disparan transición<a class="headerlink" href="#42-eventos-que-disparan-transicion" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Evento</th>
+<th>Origen típico</th>
+<th>Efecto</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ensureStarted</code> / <code>start</code></td>
+<td>PlatformBootstrap</td>
+<td>NotInitialized → Starting → Ready</td>
+</tr>
+<tr>
+<td><code>loadFreeJ2ME</code></td>
+<td>PlatformBootstrap</td>
+<td>Ready → LoadingFreeJ2ME → Idle</td>
+</tr>
+<tr>
+<td><code>sessionBegin</code></td>
+<td>PlatformBootstrap al entrar en Contract C de juego</td>
+<td>Idle → Running (vía pasos internos del bootstrap; el manager registra ocupación Running cuando el bootstrap declara sesión activa)</td>
+</tr>
+<tr>
+<td><code>pauseSession</code></td>
+<td>PlatformBootstrap (derivado de Adapter pause)</td>
+<td>Running → Paused</td>
+</tr>
+<tr>
+<td><code>resumeSession</code></td>
+<td>PlatformBootstrap</td>
+<td>Paused → Running</td>
+</tr>
+<tr>
+<td><code>stopSession</code></td>
+<td>PlatformBootstrap (<code>shutdownRuntime</code> de sesión)</td>
+<td>Running/Paused → StoppingSession → Idle</td>
+</tr>
+<tr>
+<td><code>processShutdown</code></td>
+<td>Fin de app / política global</td>
+<td>Idle (preferente) → Shutdown → Destroyed</td>
+</tr>
+<tr>
+<td><code>fail</code></td>
+<td>Cualquier fase</td>
+<td>→ Failed o Destroyed según severidad</td>
+</tr>
+</tbody>
+</table>
+<h2 id="43-transiciones-prohibidas">4.3 Transiciones prohibidas<a class="headerlink" href="#43-transiciones-prohibidas" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Crear JVM desde <strong>Running</strong>, <strong>Paused</strong>, <strong>StoppingSession</strong>, <strong>Shutdown</strong>.  </li>
+<li><strong>Running/Paused → Destroyed</strong> sin Passing por StoppingSession e Idle (salvo crash fatal de proceso).  </li>
+<li><strong>Idle → Destroyed</strong> sin Shutdown ordenado (salvo kill del proceso OS).  </li>
+<li><strong>Destroyed → Running</strong> sin pasar de nuevo por Starting → Ready → LoadingFreeJ2ME → Idle.  </li>
+<li><strong>NotInitialized → Idle</strong> saltándose Starting/Ready/LoadingFreeJ2ME.  </li>
+<li>Cualquier transición iniciada desde Views, Bridge o Adapter <strong>directamente</strong> hacia el manager (deben pasar por Bootstrap).  </li>
+<li>Segunda <code>start</code> concurrente mientras <strong>Starting</strong>.</li>
+</ul>
+<h2 id="44-relacion-con-emulatorsession">4.4 Relación con <code>EmulatorSession</code><a class="headerlink" href="#44-relacion-con-emulatorsession" title="Permanent link">&para;</a></h2>
+<p><code>EmulatorSession</code> sigue siendo ownership del <strong>Bridge</strong>.<br />
+Los estados Running/Paused del manager son <strong>ocupación del runtime embebido</strong>, alineados pero no duplicados como API pública de sesión.</p>
+<hr />
+<h1 id="5-ownership">5. Ownership<a class="headerlink" href="#5-ownership" title="Permanent link">&para;</a></h1>
+<table>
+<thead>
+<tr>
+<th>Recurso</th>
+<th>Poseedor</th>
+<th>Quién libera</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>JVM (instancia de proceso)</strong></td>
+<td><code>EmbeddedJVMManager</code></td>
+<td>Manager en Shutdown → Destroyed</td>
+</tr>
+<tr>
+<td><strong>JavaVM handle nativo</strong></td>
+<td>Manager (opaco hacia arriba)</td>
+<td>Manager</td>
+</tr>
+<tr>
+<td><strong>JNIEnv por hilo</strong></td>
+<td>Hilo que hizo attach; coordinado por JNI Gateway</td>
+<td>Detach al fin del uso del hilo; Gateway ejecuta la disciplina</td>
+</tr>
+<tr>
+<td><strong>Global JNI references</strong></td>
+<td>JNI Gateway (cache de clases/métodos de vida larga)</td>
+<td>Gateway en invalidación; Manager ordena invalidar en Shutdown</td>
+</tr>
+<tr>
+<td><strong>Local JNI references</strong></td>
+<td>Scope de cada invocación del Gateway</td>
+<td>Fin de scope de llamada; nunca almacenar en el Manager como estado de sesión</td>
+</tr>
+<tr>
+<td><strong>ClassLoader / classpath FreeJ2ME</strong></td>
+<td>JVM + configuración aplicada en LoadingFreeJ2ME</td>
+<td>GC Java tras soltar refs; Shutdown destruye el heap entero</td>
+</tr>
+<tr>
+<td><strong>FreeJ2ME Runtime (MobilePlatform, loader)</strong></td>
+<td>Objetos Java en el heap; orquestados por Bootstrap/Gateway</td>
+<td>Stop de sesión debe soltar bindings; no los posee el Manager como objetos tipados</td>
+</tr>
+<tr>
+<td><strong>MIDlet activo</strong></td>
+<td>FreeJ2ME / Display</td>
+<td>Stop de sesión</td>
+</tr>
+<tr>
+<td><strong>Buffers de frame (copia nativa)</strong></td>
+<td>Productor en Gateway → bootstrap <code>frameHandler</code> → Adapter</td>
+<td>Cadena de ownership hacia <code>EmulatorFrame</code>; el Manager no retiene framebuffers</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Regla:</strong> el Manager posee la <strong>VM</strong>; el Gateway posee la <strong>disciplina JNI</strong>; el Bootstrap posee la <strong>semántica Contract C</strong>; el Adapter posee la <strong>orquestación app-facing FreeJ2ME</strong>.</p>
+<hr />
+<h1 id="6-thread-model">6. Thread Model<a class="headerlink" href="#6-thread-model" title="Permanent link">&para;</a></h1>
+<h2 id="61-preguntas-y-respuestas-arquitectonicas">6.1 Preguntas y respuestas arquitectónicas<a class="headerlink" href="#61-preguntas-y-respuestas-arquitectonicas" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Pregunta</th>
+<th>Respuesta</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>¿Qué hilo crea la JVM?</strong></td>
+<td>Un hilo de runtime dedicado (cola “EmbeddedJVM” / runtime executor), <strong>nunca</strong> el MainActor de SwiftUI como único lugar bloqueante indefinido. El Bootstrap puede solicitar <code>ensureStarted</code> desde el contexto que use hoy el Adapter; el Manager debe poder ejecutar el create en fondo y publicar Ready de forma sincronizada.</td>
+</tr>
+<tr>
+<td><strong>¿Qué hilo usa JNI?</strong></td>
+<td>Solo hilos attached. El JNI Gateway realiza llamadas Contract C en hilos conocidos. Prohibido usar un <code>JNIEnv*</code> obtenido en un hilo desde otro hilo.</td>
+</tr>
+<tr>
+<td><strong>¿Qué ocurre si un callback viene desde Java?</strong></td>
+<td>El hilo Java se attacha (si aplica), el Gateway copia datos (p. ej. píxeles), entrega al <code>frameHandler</code> del Bootstrap, y <strong>no</strong> llama al Manager para mutar estado de sesión salvo eventos de lifecycle explícitos. El Manager solo se toca bajo su candado de estado.</td>
+</tr>
+<tr>
+<td><strong>¿Cómo se sincronizan los frames?</strong></td>
+<td>Los frames no atraviesan el Manager. Fluyen Gateway → Bootstrap <code>frameHandler</code> → Adapter → Host pipe. El Manager garantiza que durante Destroyed/Shutdown el Gateway deje de aceptar callbacks.</td>
+</tr>
+<tr>
+<td><strong>¿Cómo se protege el estado interno?</strong></td>
+<td>Un único monitor/serial queue de estado del Manager. Lecturas de “isReady/isDestroyed” son consistentes; transiciones son atómicas respecto a ese monitor.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="62-roles-de-hilo-conceptual">6.2 Roles de hilo (conceptual)<a class="headerlink" href="#62-roles-de-hilo-conceptual" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Rol</th>
+<th>Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>UI / MainActor</strong></td>
+<td>Solo producto; nunca JNI directo; nunca create JVM bloqueante prolongado sin política explícita</td>
+</tr>
+<tr>
+<td><strong>Runtime executor</strong></td>
+<td>Startup/shutdown JVM; posiblemente serialize ensureStarted</td>
+</tr>
+<tr>
+<td><strong>JNI call threads</strong></td>
+<td>Contract C sync desde Bootstrap</td>
+</tr>
+<tr>
+<td><strong>FreeJ2ME / MIDlet threads</strong></td>
+<td>Callbacks painter/audio; entrán al Gateway</td>
+</tr>
+</tbody>
+</table>
+<h2 id="63-prohibiciones-de-concurrencia">6.3 Prohibiciones de concurrencia<a class="headerlink" href="#63-prohibiciones-de-concurrencia" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Compartir <code>JNIEnv</code> entre hilos.  </li>
+<li>Mutar la máquina de estados desde callbacks Java sin adquirir el monitor del Manager.  </li>
+<li>Iniciar Shutdown mientras Starting sin cancelación definida.  </li>
+<li>Publicar “JNI usable” antes de Ready (+ Idle tras FreeJ2ME load para Contract C completo).</li>
+</ul>
+<hr />
+<h1 id="7-memory-model">7. Memory Model<a class="headerlink" href="#7-memory-model" title="Permanent link">&para;</a></h1>
+<h2 id="71-vida-util">7.1 Vida útil<a class="headerlink" href="#71-vida-util" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Entidad</th>
+<th>Nace</th>
+<th>Muere</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>JVM</strong></td>
+<td>Éxito Starting → Ready</td>
+<td>Destroyed</td>
+</tr>
+<tr>
+<td><strong>FreeJ2ME (classes resolubles)</strong></td>
+<td>LoadingFreeJ2ME → Idle</td>
+<td>Destroyed (o unload solo si una política futura lo define; por defecto vive con la JVM)</td>
+</tr>
+<tr>
+<td><strong>MIDlet / sesión</strong></td>
+<td>sessionBegin / Running</td>
+<td>StoppingSession → Idle</td>
+</tr>
+<tr>
+<td><strong>GC Java</strong></td>
+<td>Continuo dentro de la JVM</td>
+<td>N/A; Swift no lo conduce</td>
+</tr>
+<tr>
+<td><strong>Frame buffers (copia)</strong></td>
+<td>Cada paint</td>
+<td>Tras entrega a <code>EmulatorFrame</code> / consumo UI; no retenidos por Manager</td>
+</tr>
+<tr>
+<td><strong>JNI Global refs</strong></td>
+<td>Cache Gateway en Ready/Idle</td>
+<td>Invalidación en Shutdown</td>
+</tr>
+<tr>
+<td><strong>JNI Local refs</strong></td>
+<td>Por llamada</td>
+<td>Fin de llamada</td>
+</tr>
+</tbody>
+</table>
+<h2 id="72-que-permanece-viva-entre-juegos">7.2 Qué permanece viva entre juegos<a class="headerlink" href="#72-que-permanece-viva-entre-juegos" title="Permanent link">&para;</a></h2>
+<ul>
+<li>La JVM.  </li>
+<li>Classes FreeJ2ME cargadas.  </li>
+<li>Global refs de infraestructura (si el Gateway las cachea).  </li>
+<li>Configuración de classpath / <code>dataPath</code> de proceso (sandbox).</li>
+</ul>
+<h2 id="73-que-debe-liberarse-al-cerrar-un-juego">7.3 Qué debe liberarse al cerrar un juego<a class="headerlink" href="#73-que-debe-liberarse-al-cerrar-un-juego" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Bindings de <code>MobilePlatform</code> / loader / MIDlet de la sesión.  </li>
+<li>Global refs <strong>de sesión</strong> (si se crearon).  </li>
+<li>Local refs pendientes.  </li>
+<li>Cualquier buffer nativo de captura aún no entregado.  </li>
+<li><strong>No</strong> la JVM.  </li>
+<li><strong>No</strong> el ClassLoader bootstrap de FreeJ2ME (salvo diseño futuro de unload, fuera de este contrato).</li>
+</ul>
+<h2 id="74-low-memory">7.4 Low memory<a class="headerlink" href="#74-low-memory" title="Permanent link">&para;</a></h2>
+<p>El Manager puede recibir una señal de presión de memoria vía Bootstrap (origen OS). Respuesta arquitectónica:</p>
+<ol>
+<li>Preferir Stop de sesión y liberación de heap Java de juego.  </li>
+<li><strong>No</strong> destruir la JVM como primer recurso (contrario a ADR de unicidad), salvo orden explícita de proceso.  </li>
+<li>Nunca pedirle al Renderer que hable con JNI.</li>
+</ol>
+<hr />
+<h1 id="8-session-lifecycle">8. Session Lifecycle<a class="headerlink" href="#8-session-lifecycle" title="Permanent link">&para;</a></h1>
+<p>Cómo responde <strong>EmbeddedJVMManager</strong> (no el Bridge) ante escenarios de producto:</p>
+<table>
+<thead>
+<tr>
+<th>Escenario</th>
+<th>Respuesta del Manager</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Abrir juego</strong></td>
+<td>Exige Idle (o asegura Starting…Idle). Pasa a Running cuando Bootstrap declara sesión activa.</td>
+</tr>
+<tr>
+<td><strong>Cerrar juego</strong></td>
+<td>Running/Paused → StoppingSession → Idle. JVM permanece.</td>
+</tr>
+<tr>
+<td><strong>Abrir otro juego</strong></td>
+<td>Desde Idle, nuevo sessionBegin → Running. Sin <code>start</code> de JVM.</td>
+</tr>
+<tr>
+<td><strong>Cerrar otro</strong></td>
+<td>Igual que cerrar juego.</td>
+</tr>
+<tr>
+<td><strong>Background</strong></td>
+<td>No destruye JVM. Puede registrar Paused si Bootstrap propaga pause de sesión; política de throttling es del Adapter/Bootstrap, no del Manager.</td>
+</tr>
+<tr>
+<td><strong>Foreground</strong></td>
+<td>Resume de sesión si aplica; Manager solo refleja Running.</td>
+</tr>
+<tr>
+<td><strong>Low Memory</strong></td>
+<td>Ver §7.4.</td>
+</tr>
+<tr>
+<td><strong>App Termination</strong></td>
+<td>processShutdown: preferible Idle; si hay sesión, StoppingSession primero; luego Shutdown → Destroyed.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="9-error-recovery">9. Error Recovery<a class="headerlink" href="#9-error-recovery" title="Permanent link">&para;</a></h1>
+<p>Comportamiento arquitectónico (sin excepciones Swift concretas):</p>
+<table>
+<thead>
+<tr>
+<th>Fallo</th>
+<th>Comportamiento</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Fallo al crear la JVM</strong></td>
+<td>Starting → Failed. JNI no usable. Bootstrap informa indisponibilidad de runtime. No reintentar en bucle infinito; reintento solo por política explícita → NotInitialized/Failed → Starting.</td>
+</tr>
+<tr>
+<td><strong>Fallo al cargar FreeJ2ME</strong></td>
+<td>LoadingFreeJ2ME → Failed (o Ready si se permite reintentar load). Contract C bloqueado.</td>
+</tr>
+<tr>
+<td><strong>Fallo al cargar un MIDlet</strong></td>
+<td>No destruye JVM. Sesión no alcanza Running estable; StoppingSession/Idle. Error sube por Bootstrap → Adapter → Bridge.</td>
+</tr>
+<tr>
+<td><strong>Excepción Java en sesión</strong></td>
+<td>Gateway la captura/normaliza; Bootstrap decide stop de sesión. Manager permanece en Running hasta stopSession o pasa a StoppingSession.</td>
+</tr>
+<tr>
+<td><strong>Crash JNI</strong></td>
+<td>Severidad alta: Failed o Destroyed. Proceso puede estar comprometido; no continuar Contract C.</td>
+</tr>
+<tr>
+<td><strong>OOM</strong></td>
+<td>Intentar stopSession y liberar; si la VM queda inutilizable → Failed.</td>
+</tr>
+<tr>
+<td><strong>Thread perdido / deadlock</strong></td>
+<td>No crear segunda JVM. Marcar Failed si el runtime no puede garantizar thread-safety. Recuperación = reinicio de <strong>proceso app</strong>, no de “JVM fantasma”.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="10-performance">10. Performance<a class="headerlink" href="#10-performance" title="Permanent link">&para;</a></h1>
+<h2 id="101-objetivos">10.1 Objetivos<a class="headerlink" href="#101-objetivos" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>No reiniciar JVM</strong> entre juegos.  </li>
+<li><strong>Minimizar cruces JNI</strong> por frame (idealmente un cruce por paint con copia compacta).  </li>
+<li><strong>Evitar copias innecesarias</strong> más allá de la copia de frontera framebuffer ya exigida por arquitectura.  </li>
+<li><strong>Mantener FreeJ2ME residente</strong> tras LoadingFreeJ2ME.  </li>
+<li><strong>Reutilizar</strong> global refs de clases/métodos calientes en el Gateway.  </li>
+<li><strong>No bloquear MainActor</strong> con startup JVM ni con paints.  </li>
+<li><strong>Lazy vs eager:</strong> elegir por métrica de cold-start; ambos cumplen unicidad.</li>
+</ol>
+<h2 id="102-anti-objetivos">10.2 Anti-objetivos<a class="headerlink" href="#102-anti-objetivos" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Optimizar saltándose Adapter/Host.  </li>
+<li>Compartir memoria Java con SwiftUI.  </li>
+<li>Multiplexar varias JVM para “aislamiento” de juegos.</li>
+</ul>
+<hr />
+<h1 id="11-integracion">11. Integración<a class="headerlink" href="#11-integracion" title="Permanent link">&para;</a></h1>
+<h2 id="111-con-platformbootstrap">11.1 Con PlatformBootstrap<a class="headerlink" href="#111-con-platformbootstrap" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Único cliente autorizado del Manager en la pila de producto runtime.  </li>
+<li>Solicita <code>ensureStarted</code>, <code>loadFreeJ2ME</code>, notifica <code>sessionBegin</code> / pause / resume / <code>stopSession</code>, y <code>processShutdown</code>.  </li>
+<li>Traduce estados del Manager a éxito/fallo de métodos del protocolo <code>FreeJ2MEMobilePlatformBootstrapping</code>.</li>
+</ul>
+<h2 id="112-con-jni-gateway">11.2 Con JNI Gateway<a class="headerlink" href="#112-con-jni-gateway" title="Permanent link">&para;</a></h2>
+<ul>
+<li>El Manager habilita/inhabilita el Gateway según Ready/Idle/Running/Paused vs Shutdown/Destroyed/Failed.  </li>
+<li>El Gateway <strong>no</strong> crea la JVM.  </li>
+<li>En Shutdown, el Manager ordena al Gateway invalidar global refs y rechazar callbacks.</li>
+</ul>
+<h2 id="113-con-embedded-jvm">11.3 Con Embedded JVM<a class="headerlink" href="#113-con-embedded-jvm" title="Permanent link">&para;</a></h2>
+<ul>
+<li>El Manager es el único dueño del create/destroy.  </li>
+<li>Parámetros de VM (classpath, opciones headless, etc.) se aplican en Starting/LoadingFreeJ2ME bajo dirección del Bootstrap, no de la UI.</li>
+</ul>
+<h2 id="114-integraciones-prohibidas">11.4 Integraciones prohibidas<a class="headerlink" href="#114-integraciones-prohibidas" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Views / SwiftUI  </li>
+<li>Library / Import Engine  </li>
+<li>Bridge / Host / Adapter (contacto directo)  </li>
+<li>Renderer  </li>
+</ul>
+<p>Cualquier necesidad de esos mundos asciende/desciende solo por la cadena oficial Bridge → Host → Adapter → Bootstrap.</p>
+<hr />
+<h1 id="12-restricciones">12. Restricciones<a class="headerlink" href="#12-restricciones" title="Permanent link">&para;</a></h1>
+<h2 id="anti-patterns">Anti-patterns<a class="headerlink" href="#anti-patterns" title="Permanent link">&para;</a></h2>
+<p>Queda <strong>prohibido</strong>:</p>
+<ol>
+<li>Crear más de una JVM en el proceso.  </li>
+<li>Destruir la JVM al cerrar un juego (Stop de sesión).  </li>
+<li>Acceder a JNI desde cualquier capa fuera de JNI Gateway (+ disciplina ordenada por Manager/Bootstrap).  </li>
+<li>Compartir <code>JNIEnv</code> entre hilos.  </li>
+<li>Almacenar referencias locales JNI más allá del scope de una llamada.  </li>
+<li>Exponer detalles OpenJDK (<code>JavaVM</code>, opciones nativas, classpaths crudos) al resto del proyecto.  </li>
+<li>Hacer que el Manager conozca SwiftUI, Library o <code>FreeJ2MERuntimeAdapter</code>.  </li>
+<li>Publicar frames desde el Manager.  </li>
+<li>Usar Failed como licencia para spawnear una segunda VM en paralelo a una primera a medias.  </li>
+<li>Tratar <code>System.exit</code> del heap Java como Stop de sesión limpio sin política de contención (ver arquitectura padre).</li>
+</ol>
+<hr />
+<h1 id="13-adr">13. ADR<a class="headerlink" href="#13-adr" title="Permanent link">&para;</a></h1>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Estado</th>
+<th>Motivación</th>
+<th>Consecuencia</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>EJM-001</strong></td>
+<td>Aceptada</td>
+<td>Una JVM por proceso</td>
+<td>Manager singleton lógico; Stop ≠ Destroy</td>
+</tr>
+<tr>
+<td><strong>EJM-002</strong></td>
+<td>Aceptada</td>
+<td>Manager interno al bootstrap iOS</td>
+<td>Invisible a Bridge/Host/Adapter público</td>
+</tr>
+<tr>
+<td><strong>EJM-003</strong></td>
+<td>Aceptada</td>
+<td>Lazy init permitido</td>
+<td>Primer juego puede pagar cold start; unicidad intacta</td>
+</tr>
+<tr>
+<td><strong>EJM-004</strong></td>
+<td>Aceptada</td>
+<td>Estados de ocupación Running/Paused en el Manager</td>
+<td>Permite políticas de recurso sin poseer <code>EmulatorSession</code></td>
+</tr>
+<tr>
+<td><strong>EJM-005</strong></td>
+<td>Aceptada</td>
+<td>JNI solo vía Gateway</td>
+<td>Manager no es un “JNI kitchen sink”</td>
+</tr>
+<tr>
+<td><strong>EJM-006</strong></td>
+<td>Aceptada</td>
+<td>Startup/shutdown en runtime executor</td>
+<td>Protege MainActor</td>
+</tr>
+<tr>
+<td><strong>EJM-007</strong></td>
+<td>Aceptada</td>
+<td>Fail closed ante corrupción</td>
+<td>Preferir Failed + reinicio de proceso a VM múltiple</td>
+</tr>
+<tr>
+<td><strong>EJM-008</strong></td>
+<td>Aceptada</td>
+<td>FreeJ2ME residente entre juegos</td>
+<td>LoadingFreeJ2ME no se repite por MIDlet</td>
+</tr>
+<tr>
+<td><strong>EJM-009</strong></td>
+<td>Propuesta</td>
+<td>Señal low-memory → stopSession antes que Destroy</td>
+<td>Preserva ADR de unicidad bajo presión</td>
+</tr>
+<tr>
+<td><strong>EJM-010</strong></td>
+<td>Aceptada</td>
+<td>Sin APIs públicas nuevas hacia producto</td>
+<td>Cumple restricción de no inventar superficie Bridge/Host/Adapter</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="14-riesgos">14. Riesgos<a class="headerlink" href="#14-riesgos" title="Permanent link">&para;</a></h1>
+<h2 id="141-riesgos-tecnicos">14.1 Riesgos técnicos<a class="headerlink" href="#141-riesgos-tecnicos" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Fallo de <code>JNI_CreateJavaVM</code> / imagen estática incompleta.  </li>
+<li>Orden incorrecto Ready vs LoadingFreeJ2ME.  </li>
+<li>Callbacks Java tras Shutdown.  </li>
+<li>Divergencia de estados Manager vs flags del Adapter.</li>
+</ul>
+<h2 id="142-riesgos-de-memoria">14.2 Riesgos de memoria<a class="headerlink" href="#142-riesgos-de-memoria" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Global refs filtradas entre sesiones.  </li>
+<li>OOM en Zero interpreter con FreeJ2ME + MIDlet.  </li>
+<li>Retener framebuffers en el Manager por error de diseño.</li>
+</ul>
+<h2 id="143-riesgos-de-concurrencia">14.3 Riesgos de concurrencia<a class="headerlink" href="#143-riesgos-de-concurrencia" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Doble <code>ensureStarted</code>.  </li>
+<li><code>JNIEnv</code> cruzado entre hilos.  </li>
+<li>Deadlock entre monitor del Manager y locks del Gateway.  </li>
+<li>Pause/Stop concurrentes con painter callbacks.</li>
+</ul>
+<h2 id="144-riesgos-de-compatibilidad">14.4 Riesgos de compatibilidad<a class="headerlink" href="#144-riesgos-de-compatibilidad" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Classpath FreeJ2ME incompatible con la imagen mobile.  </li>
+<li>Necesidad de reiniciar VM ante classloader leaks de Vendor (presión contra EJM-001).  </li>
+<li>Diferencias simulador vs device.</li>
+</ul>
+<h2 id="145-riesgos-app-store">14.5 Riesgos App Store<a class="headerlink" href="#145-riesgos-app-store" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Empaquetado de runtime nativo.  </li>
+<li>Tamaño y estabilidad en review.  </li>
+<li>Percepción de código interpretado (contenido de usuario vs lógica app).  </li>
+<li>Cumplimiento GPL-3 de FreeJ2ME (gate legal paralelo).</li>
+</ul>
+<hr />
+<h1 id="15-checklist-de-validacion">15. Checklist de validación<a class="headerlink" href="#15-checklist-de-validacion" title="Permanent link">&para;</a></h1>
+<p>Toda implementación futura de <code>EmbeddedJVMManager</code> deberá demostrar:</p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Existe <strong>una sola</strong> JVM por proceso de aplicación.  </li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> La JVM <strong>nunca</strong> se reinicia como parte del cierre normal de un juego.  </li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Las transiciones respetan la máquina de estados de §4 (incluidas las prohibidas).  </li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> El componente es <strong>thread-safe</strong> bajo startup, sesión y shutdown concurrentes.  </li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>No</strong> rompe ni sustituye <code>FreeJ2MERuntimeAdapter</code>.  </li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>No</strong> rompe ni sustituye <code>FreeJ2MEMobilePlatformBootstrapping</code> (solo lo sirve por debajo).  </li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <strong>No</strong> expone JNI/OpenJDK a Bridge, Host, Library, Views ni Renderer.  </li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> JNIEnv no se comparte entre hilos; local refs no se almacenan.  </li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Stop de sesión → Idle; Terminate app → Shutdown → Destroyed.  </li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Frames no fluyen a través del Manager.  </li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Fallos de creación/carga se degradan sin spawnear JVM adicionales.  </li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Compatible con <code>docs/Architecture/EMBEDDED_JVM_ARCHITECTURE.md</code> y anti-patterns allí definidos.  </li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Compatible con el estudio de viabilidad OpenJDK Mobile como hipótesis de runtime.  </li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> No introduce APIs públicas nuevas en Bridge / Host / Adapter.  </li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Verificable con tests de estado (unicidad, stop≠destroy, shutdown) sin acoplar SwiftUI.</li>
+</ul>
+<hr />
+<h2 id="cierre">Cierre<a class="headerlink" href="#cierre" title="Permanent link">&para;</a></h2>
+<p><code>EmbeddedJVMManager</code> es el <strong>dueño exclusivo del ciclo de vida de la JVM embebida</strong> en iOS.</p>
+<p>Cualquier PR que cree múltiples VM, destruya la VM al cambiar de juego, filtre JNI hacia producto, o bypass PlatformBootstrap <strong>viola este contrato</strong> y debe rechazarse en revisión de arquitectura.</p>
+<hr />
+<p><em>Referencia oficial · EmbeddedJVMManager v1.0 · CoreJ2</em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; CoreJ2 contributors · <a href="https://github.com/flakito-loko/CoreJ2">GitHub</a> · <a href="https://flakito-loko.github.io/CoreJ2/">Documentation</a> · <a href="https://flakito-loko.github.io/CoreJ2/roadmap/">Roadmap</a> · <a href="https://flakito-loko.github.io/CoreJ2/compatibility/">Compatibility</a>
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/flakito-loko/CoreJ2" target="_blank" rel="noopener" title="GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://flakito-loko.github.io/CoreJ2/" target="_blank" rel="noopener" title="Documentation" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M384 512H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h304c26.5 0 48 21.5 48 48v288c0 20.9-13.4 38.7-32 45.3V448c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 384c-17.7 0-32 14.3-32 32s14.3 32 32 32h256v-64zm32-232c0 13.3 10.7 24 24 24h176c13.3 0 24-10.7 24-24s-10.7-24-24-24H152c-13.3 0-24 10.7-24 24m24 72c-13.3 0-24 10.7-24 24s10.7 24 24 24h176c13.3 0 24-10.7 24-24s-10.7-24-24-24z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://flakito-loko.github.io/CoreJ2/compatibility/" target="_blank" rel="noopener" title="Compatibility" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M448 64c106 0 192 86 192 192s-86 192-192 192H192C86 448 0 362 0 256S86 64 192 64zM192 176c-13.3 0-24 10.7-24 24v32h-32c-13.3 0-24 10.7-24 24s10.7 24 24 24h32v32c0 13.3 10.7 24 24 24s24-10.7 24-24v-32h32c13.3 0 24-10.7 24-24s-10.7-24-24-24h-32v-32c0-13.3-10.7-24-24-24m240 96a32 32 0 1 0 0 64 32 32 0 1 0 0-64m64-96a32 32 0 1 0 0 64 32 32 0 1 0 0-64"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://flakito-loko.github.io/CoreJ2/roadmap/" target="_blank" rel="noopener" title="Roadmap" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M512 48c0-11.1-5.7-21.4-15.2-27.2s-21.2-6.4-31.1-1.4L349.5 77.5 170.1 17.6c-8.1-2.7-16.8-2.1-24.4 1.7l-128 64C6.8 88.8 0 99.9 0 112v352c0 11.1 5.7 21.4 15.2 27.2s21.2 6.4 31.1 1.4l116.1-58.1 179.4 59.8c8.1 2.7 16.8 2.1 24.4-1.7l128-64c10.8-5.4 17.7-16.5 17.7-28.6V48zM192 376.9V92.4l128 42.7v284.5z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "search.share", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

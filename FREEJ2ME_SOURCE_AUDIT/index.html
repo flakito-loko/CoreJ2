@@ -1,0 +1,2482 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Run classic Java ME (J2ME) games natively on iPhone & iPad">
+      
+      
+        <meta name="author" content="CoreJ2">
+      
+      
+        <link rel="canonical" href="https://flakito-loko.github.io/CoreJ2/FREEJ2ME_SOURCE_AUDIT/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/branding/favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>FreeJ2ME Source Audit - CoreJ2</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Inter";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  
+  <meta property="og:title" content="FreeJ2ME Source Audit - CoreJ2">
+  <meta property="og:description" content="Run classic Java ME (J2ME) games natively on iPhone & iPad">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://flakito-loko.github.io/CoreJ2/FREEJ2ME_SOURCE_AUDIT/">
+  <meta property="og:image" content="https://flakito-loko.github.io/CoreJ2/assets/branding/social-preview.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="FreeJ2ME Source Audit - CoreJ2">
+  <meta name="twitter:description" content="Run classic Java ME (J2ME) games natively on iPhone & iPad">
+  <meta name="twitter:image" content="https://flakito-loko.github.io/CoreJ2/assets/branding/social-preview.png">
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#freej2me-source-audit" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="CoreJ2" class="md-header__button md-logo" aria-label="CoreJ2" data-md-component="logo">
+      
+  <img src="../assets/branding/isotype.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CoreJ2
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              FreeJ2ME Source Audit
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9zM20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12zm-9.15 3.96h2.3L12 9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="blue" data-md-color-accent="indigo"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/flakito-loko/CoreJ2" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    flakito-loko/CoreJ2
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../why-corej2/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Why CoreJ2?
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../getting-started/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Getting Started
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../building/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Building
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../compatibility/" class="md-tabs__link">
+          
+  
+  
+  Compatibility
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../architecture/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Architecture
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../milestones/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Milestones
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../roadmap/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Roadmap
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../performance/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Performance
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../faq/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  FAQ
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../screenshots/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Screenshots
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../branding/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Branding
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../technical-reports/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Technical Reports
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../releases/v0.9.0-alpha/" class="md-tabs__link">
+          
+  
+  
+  Releases
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="CoreJ2" class="md-nav__button md-logo" aria-label="CoreJ2" data-md-component="logo">
+      
+  <img src="../assets/branding/isotype.svg" alt="logo">
+
+    </a>
+    CoreJ2
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/flakito-loko/CoreJ2" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    flakito-loko/CoreJ2
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../why-corej2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Why CoreJ2?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../building/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Building
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Compatibility
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Compatibility
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../compatibility/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../compatibility-stats/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Statistics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../compatibility/games/Alea/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Alea
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../compatibility/games/Astroids/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Astroids
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../compatibility/games/Tetris/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tetris
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../compatibility/games/Gryzzles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Gryzzles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../compatibility/games/Ubertris/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ubertris
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../milestones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Milestones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../roadmap/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Roadmap
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../performance/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Performance
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../faq/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    FAQ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../screenshots/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Screenshots
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../branding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Branding
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../technical-reports/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technical Reports
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_14" id="__nav_14_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Releases
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_14">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Releases
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../releases/v0.9.0-alpha/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    v0.9.0-alpha
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-verification-against-freej2me_assessmentmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Verification against FREEJ2ME_ASSESSMENT.md
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-symbol-locations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Symbol locations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-real-call-graph-host-start-startapp-first-present-painter" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Real call graph: host start → startApp → first present → painter
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Real call graph: host start → startApp → first present → painter">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-important-ordering-correction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.1 Important ordering correction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-compact-corej2-mental-model-graph" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3.2 Compact “CoreJ2 mental model” graph
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-every-place-corej2-will-eventually-need-to-connect" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Every place CoreJ2 will eventually need to connect
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Every place CoreJ2 will eventually need to connect">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-mandatory-startup-contract-c-already-targeted" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.1 Mandatory startup (Contract C — already targeted)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-first-frame-rendering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.2 First frame / rendering
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-input" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.3 Input
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#44-display-lifecycle" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.4 Display / lifecycle
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#45-persistence-audio-post-startup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.5 Persistence / audio (post-startup)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#46-explicit-non-connect-do-not-wire-corej2-to-these" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4.6 Explicit non-connect (do not wire CoreJ2 to these)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-places-that-should-never-be-modified" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Places that should NEVER be modified
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-dependency-inventory" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Dependency inventory
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Dependency inventory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-awt-javaawt-related" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.1 AWT (java.awt / related)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-java-sound" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.2 Java Sound
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-file-io" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.3 File I/O
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#64-threads-timers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.4 Threads / timers
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#65-reflection" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.5 Reflection
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#66-asm-objectweb" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6.6 ASM (ObjectWeb)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-precise-integration-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Precise integration checklist
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Precise integration checklist">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-repository-legal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.1 Repository / legal
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-runtime-prerequisite-critical-gate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.2 Runtime prerequisite (critical gate)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-startup-wiring-swift-contract-c" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.3 Startup wiring (Swift → Contract C)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74-first-frame" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.4 First frame
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#75-input-audio-rms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.5 Input / audio / RMS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#76-isolation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.6 Isolation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#77-verification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7.7 Verification
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-documents" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related documents
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#out-of-scope-for-e3-r004" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Out of scope for E3-R004
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="freej2me-source-audit">FreeJ2ME Source Audit<a class="headerlink" href="#freej2me-source-audit" title="Permanent link">&para;</a></h1>
+<p><strong>Task:</strong> E3-R004 — Official FreeJ2ME source audit (documentation only)<br />
+<strong>Upstream audited:</strong> <a href="https://github.com/hex007/freej2me">hex007/freej2me</a><br />
+<strong>Pinned revision:</strong> <code>b1c4cf13e012938f9d5270621fddea60e5554858</code> (tip of default branch at audit time; merge <code>b1c4cf1</code>)<br />
+<strong>Method:</strong> Read-only shallow clone outside the CoreJ2 tree — <strong>no FreeJ2ME or CoreJ2 source was modified</strong><br />
+<strong>Depends on:</strong> E3-R001 (<code>FREEJ2ME_ASSESSMENT.md</code>), E3-R002 (<code>FREEJ2ME_RUNTIME_CONTRACT.md</code>), E3-R003 (<code>FREEJ2ME_INTEGRATION_STRATEGY.md</code>)</p>
+<hr />
+<h2 id="1-verification-against-freej2me_assessmentmd">1. Verification against <code>FREEJ2ME_ASSESSMENT.md</code><a class="headerlink" href="#1-verification-against-freej2me_assessmentmd" title="Permanent link">&para;</a></h2>
+<p>Overall: <strong>the live hex007 tree matches the assessment</strong>. The assessment’s architecture, startup story, and iOS risks remain accurate.</p>
+<table>
+<thead>
+<tr>
+<th>Assessment claim</th>
+<th>Audit finding</th>
+<th>Match?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Layout <code>src/org/recompile/{freej2me,mobile}</code>, <code>javax/microedition</code>, vendored ASM, <code>libretro/</code>, <code>sdl2/</code></td>
+<td>Present under <code>src/</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Core types <code>Mobile</code>, <code>MobilePlatform</code>, <code>MIDletLoader</code>, <code>PlatformGraphics</code>, <code>PlatformImage</code>, <code>PlatformPlayer</code>, <code>PlatformFont</code></td>
+<td>All present under <code>src/org/recompile/mobile/</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Frontends <code>FreeJ2ME</code>, <code>Libretro</code>, <code>Anbu</code>, <code>Config</code>, <code>ScreenShot</code></td>
+<td>Present under <code>src/org/recompile/freej2me/</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Build produces <code>freej2me.jar</code> / <code>freej2me-lr.jar</code> / <code>freej2me-sdl.jar</code> with those Main-Classes</td>
+<td>Confirmed in <code>build.xml</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Startup: <code>setPlatform</code> → <code>setPainter</code> → <code>loadJar</code> → <code>runJar</code> → paint/flush → <code>painter.run()</code></td>
+<td>Confirmed in all three frontends + <code>MobilePlatform</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Best iOS reference = Libretro/SDL painter path, not AWT Frame</td>
+<td>Libretro/Anbu painters copy <code>getLCD()</code> / pipe RGB; AWT paints a <code>Canvas</code> component</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>LCD via <code>BufferedImage</code> / AWT graphics</td>
+<td><code>PlatformImage</code> / <code>PlatformGraphics</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Audio via Java Sound / MIDI in <code>PlatformPlayer</code></td>
+<td><code>javax.sound.sampled</code> + <code>javax.sound.midi</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>RMS under <code>dataPath</code></td>
+<td><code>RecordStore</code> uses <code>Mobile.getPlatform().dataPath + "./rms/..."</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>ASM rewrite in loader</td>
+<td><code>MIDletLoader.loadClass</code> + <code>org.objectweb.asm</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>System.exit</code> in loader / frontends</td>
+<td>Present (hostile to embedding)</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>GPL-3</td>
+<td><code>LICENSE</code> is GPL-3 (with ASM exception note)</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Minor assessment gaps (not contradictions):</strong></p>
+<ul>
+<li>Extra mobile helper: <code>WavImaAdpcmDecoder.java</code> (used by audio path).</li>
+<li>AWT also appears in <code>javax/microedition/lcdui/game/LayerManager.java</code> (not only mobile/frontends).</li>
+<li>FreeJ2ME has <strong>no method named <code>launch()</code></strong>; “launch” in CoreJ2 maps to frontend <code>main</code> + <code>loadJar</code>/<code>runJar</code>.</li>
+<li><code>setPainter()</code> is installed <strong>before</strong> <code>startApp()</code>, not after the first <code>repaint()</code> (see §3).</li>
+</ul>
+<p><strong>Counts at audited SHA:</strong> ~317 Java files total (~158 <code>javax</code>, ~107 ASM, ~13 <code>org.recompile</code>, plus <code>libretro</code>/<code>sdl2</code> natives).</p>
+<hr />
+<h2 id="2-symbol-locations">2. Symbol locations<a class="headerlink" href="#2-symbol-locations" title="Permanent link">&para;</a></h2>
+<p>Paths relative to the FreeJ2ME repository root.</p>
+<table>
+<thead>
+<tr>
+<th>Symbol / API</th>
+<th>Path</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MobilePlatform</strong></td>
+<td><code>src/org/recompile/mobile/MobilePlatform.java</code></td>
+<td>LCD, loader, painter, keys/pointer, <code>loadJar</code>/<code>runJar</code>, <code>flushGraphics</code>/<code>repaint</code></td>
+</tr>
+<tr>
+<td><strong>MIDletLoader</strong></td>
+<td><code>src/org/recompile/mobile/MIDletLoader.java</code></td>
+<td>Extends <code>URLClassLoader</code>; manifest; ASM <code>loadClass</code>; reflective <code>startApp</code></td>
+</tr>
+<tr>
+<td><strong>PlatformGraphics</strong></td>
+<td><code>src/org/recompile/mobile/PlatformGraphics.java</code></td>
+<td>Implements MIDP <code>Graphics</code> over AWT <code>Graphics2D</code> / <code>BufferedImage</code></td>
+</tr>
+<tr>
+<td><strong>PlatformImage</strong></td>
+<td><code>src/org/recompile/mobile/PlatformImage.java</code></td>
+<td>Owns <code>BufferedImage</code> LCD/offscreen buffers</td>
+</tr>
+<tr>
+<td><strong>Display</strong></td>
+<td><code>src/javax/microedition/lcdui/Display.java</code></td>
+<td>Singleton current displayable; <code>setCurrent</code>; ~17 ms <code>Timer</code> for <code>callSerially</code></td>
+</tr>
+<tr>
+<td><strong>Canvas</strong></td>
+<td><code>src/javax/microedition/lcdui/Canvas.java</code></td>
+<td><code>paint</code> → <code>MobilePlatform.repaint</code> → <code>painter.run()</code></td>
+</tr>
+<tr>
+<td><strong>GameCanvas</strong></td>
+<td><code>src/javax/microedition/lcdui/game/GameCanvas.java</code></td>
+<td><code>flushGraphics</code> → <code>MobilePlatform.flushGraphics</code> → <code>painter.run()</code></td>
+</tr>
+<tr>
+<td><strong>setPainter()</strong></td>
+<td><code>MobilePlatform.setPainter(Runnable)</code> L88–91</td>
+<td>Field <code>painter</code>; default no-op in ctor</td>
+</tr>
+<tr>
+<td><strong>loadJar()</strong></td>
+<td><code>MobilePlatform.loadJar(String)</code> L153–168</td>
+<td><code>new URL</code> + <code>new MIDletLoader(URL[])</code></td>
+</tr>
+<tr>
+<td><strong>runJar()</strong></td>
+<td><code>MobilePlatform.runJar()</code> L170–181</td>
+<td><code>loader.start()</code></td>
+</tr>
+<tr>
+<td><strong>getLCD()</strong></td>
+<td><code>MobilePlatform.getLCD()</code></td>
+<td>Returns <code>lcd.getCanvas()</code> (<code>BufferedImage</code>)</td>
+</tr>
+<tr>
+<td><strong>dataPath</strong></td>
+<td><code>MobilePlatform.dataPath</code> (public <code>String</code>)</td>
+<td>Set by frontends (e.g. Libretro); read by RMS</td>
+</tr>
+<tr>
+<td><strong>Mobile</strong></td>
+<td><code>src/org/recompile/mobile/Mobile.java</code></td>
+<td>Static platform/display/G3D; key constants; <code>sound</code> / phone flags</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="3-real-call-graph-host-start-startapp-first-present-painter">3. Real call graph: host start → <code>startApp</code> → first present → painter<a class="headerlink" href="#3-real-call-graph-host-start-startapp-first-present-painter" title="Permanent link">&para;</a></h2>
+<p>There is <strong>no</strong> FreeJ2ME <code>launch()</code> API. The graph below is the <strong>actual</strong> desktop/embed frontend sequence (AWT <code>FreeJ2ME.main</code> shown; Libretro/Anbu are isomorphic for the core hooks).</p>
+<h3 id="31-important-ordering-correction">3.1 Important ordering correction<a class="headerlink" href="#31-important-ordering-correction" title="Permanent link">&para;</a></h3>
+<p><code>setPainter()</code> is <strong>not</strong> reached after the first <code>repaint()</code>. Frontends call it <strong>during platform bring-up, before</strong> <code>loadJar</code> / <code>runJar</code>. The first MIDlet present then <strong>invokes</strong> the already-installed painter.</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Frontend main / host bring-up
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>│
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>├─ Mobile.setPlatform(new MobilePlatform(w, h))
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│     ├─ new PlatformImage(w,h) + PlatformGraphics
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>│     ├─ Mobile.setGraphics3D(new Graphics3D())
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>│     └─ painter = empty Runnable   // placeholder
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>│
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>├─ MobilePlatform.setPainter(hostPainter)     ← INSTALLED HERE (before MIDlet)
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>│     // AWT: lcd.paint(...)
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>│     // Libretro/Anbu: copy getLCD() / push RGB
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>│
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>├─ MobilePlatform.dataPath = &lt;sandbox&gt;        ← (Libretro sets; CoreJ2 must always set)
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>│
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>├─ MobilePlatform.loadJar(&quot;file:///.../game.jar&quot;)
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>│     └─ new MIDletLoader(URL[])
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>│           └─ loadManifest() + System properties
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>│
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>├─ optional Config.init() / settings → resizeLCD, Mobile.sound, phone flags
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>│
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>└─ MobilePlatform.runJar()
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>      └─ MIDletLoader.start()
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>            ├─ loadClass(mainClass)          // ASM rewrite path
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>            ├─ reflective ctor → MIDlet
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>            ├─ MIDlet.initAppProperties(...)
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>            └─ reflective startApp()         ★ MIDlet.startApp()
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>                  │
+</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>                  │  (typical game)
+</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>                  ▼
+</span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>            Display.getDisplay(midlet).setCurrent(canvas|gameCanvas|form...)
+</span><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>                  │
+</span><span id="__span-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a>                  ├─ Displayable.showNotify()
+</span><span id="__span-0-32"><a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>                  ├─ current.notifySetCurrent()
+</span><span id="__span-0-33"><a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a>                  │     └─ Canvas.notifySetCurrent() → Canvas.repaint()   ★ often first paint
+</span><span id="__span-0-34"><a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a>                  │           ├─ paint(PlatformGraphics)
+</span><span id="__span-0-35"><a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a>                  │           └─ MobilePlatform.repaint(img,…)
+</span><span id="__span-0-36"><a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>                  │                 ├─ PlatformGraphics.flushGraphics(...)  // blit into LCD buffer
+</span><span id="__span-0-37"><a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a>                  │                 └─ painter.run()                        ★ first frame drain
+</span><span id="__span-0-38"><a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a>                  │
+</span><span id="__span-0-39"><a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a>                  └─ MobilePlatform.flushGraphics(...)   // also from setCurrent path
+</span><span id="__span-0-40"><a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a>                        ├─ PlatformGraphics.flushGraphics(...)
+</span><span id="__span-0-41"><a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a>                        └─ painter.run()
+</span><span id="__span-0-42"><a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a>
+</span><span id="__span-0-43"><a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a>Later frames (game loop / timers / threads owned by MIDlet):
+</span><span id="__span-0-44"><a id="__codelineno-0-44" name="__codelineno-0-44" href="#__codelineno-0-44"></a>  Canvas.repaint() ──────────────► MobilePlatform.repaint() ──► painter.run()
+</span><span id="__span-0-45"><a id="__codelineno-0-45" name="__codelineno-0-45" href="#__codelineno-0-45"></a>  GameCanvas.flushGraphics() ────► MobilePlatform.flushGraphics() ──► painter.run()
+</span><span id="__span-0-46"><a id="__codelineno-0-46" name="__codelineno-0-46" href="#__codelineno-0-46"></a>  Display.callSerially(Runnable) ► Timer (~17ms) executes queued runnables
+</span></code></pre></div>
+<h3 id="32-compact-corej2-mental-model-graph">3.2 Compact “CoreJ2 mental model” graph<a class="headerlink" href="#32-compact-corej2-mental-model-graph" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>CoreJ2 FreeJ2MERuntimeHost / Adapter
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>        │
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>        ▼
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>Mobile.setPlatform + dataPath + setPainter     (prepare)
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>        │
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>        ▼
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>loadJar(fileURL) → MIDletLoader
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>        │
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>        ▼
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>runJar() → startApp()
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>        │
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>        ▼
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>setCurrent / repaint / flushGraphics
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>        │
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>        ▼
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>painter.run() → (future) RuntimeEvent.frameAvailable + pixels from getLCD()
+</span></code></pre></div>
+<hr />
+<h2 id="4-every-place-corej2-will-eventually-need-to-connect">4. Every place CoreJ2 will eventually need to connect<a class="headerlink" href="#4-every-place-corej2-will-eventually-need-to-connect" title="Permanent link">&para;</a></h2>
+<p>These are <strong>integration seams</strong>. Prefer connecting from Swift/<code>FreeJ2MERuntimeAdapter</code> (or JNI façade) <strong>without</strong> editing FreeJ2ME unless listed as allowlisted in E3-R003.</p>
+<h3 id="41-mandatory-startup-contract-c-already-targeted">4.1 Mandatory startup (Contract C — already targeted)<a class="headerlink" href="#41-mandatory-startup-contract-c-already-targeted" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Seam</th>
+<th>FreeJ2ME API</th>
+<th>CoreJ2 action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Construct platform</td>
+<td><code>new MobilePlatform(w,h)</code> + <code>Mobile.setPlatform</code></td>
+<td>LCD defaults 240×320 (or LaunchConfiguration)</td>
+</tr>
+<tr>
+<td>Sandbox</td>
+<td><code>MobilePlatform.dataPath</code></td>
+<td><code>Documents/JavaOne/Saves/&lt;gameUUID&gt;/</code></td>
+</tr>
+<tr>
+<td>Frame drain hook</td>
+<td><code>setPainter(Runnable)</code></td>
+<td>Copy/convert <code>getLCD()</code> → emit <code>RuntimeEvent.frameAvailable</code> (later)</td>
+</tr>
+<tr>
+<td>Open MIDlet</td>
+<td><code>loadJar(file:///…)</code></td>
+<td>Pass standardized file URL from <code>InstalledGame.jarURL</code></td>
+</tr>
+<tr>
+<td>Start MIDlet</td>
+<td><code>runJar()</code> → <code>MIDletLoader.start</code> → <code>startApp</code></td>
+<td>Map failure → <code>RuntimeEvent.failed</code> / <code>launchFailed</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="42-first-frame-rendering">4.2 First frame / rendering<a class="headerlink" href="#42-first-frame-rendering" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Seam</th>
+<th>Location</th>
+<th>CoreJ2 action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Painter callback</td>
+<td>Runnable passed to <code>setPainter</code></td>
+<td>Hop to MainActor/Metal; never block MIDlet unboundedly</td>
+</tr>
+<tr>
+<td>Pixel source</td>
+<td><code>MobilePlatform.getLCD()</code> → <code>BufferedImage</code></td>
+<td>Read ARGB; later adapt if AWT buffer unavailable on iOS runtime</td>
+</tr>
+<tr>
+<td>Present paths</td>
+<td><code>MobilePlatform.repaint</code> / <code>flushGraphics</code></td>
+<td>Already call <code>painter.run()</code> — do not bypass</td>
+</tr>
+</tbody>
+</table>
+<h3 id="43-input">4.3 Input<a class="headerlink" href="#43-input" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Seam</th>
+<th>API</th>
+<th>CoreJ2 action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Keys</td>
+<td><code>keyPressed</code> / <code>keyReleased</code> / <code>keyRepeated</code></td>
+<td>Map virtual keypad → <code>Mobile</code> keycodes</td>
+</tr>
+<tr>
+<td>Pointer</td>
+<td><code>pointerPressed</code> / <code>Dragged</code> / <code>Released</code></td>
+<td>Scale UIKit → LCD coords</td>
+</tr>
+<tr>
+<td>GameCanvas bitmask</td>
+<td><code>keyState</code> via <code>updateKeyState</code></td>
+<td>Filled by key APIs; consumed by <code>GameCanvas.getKeyStates()</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="44-display-lifecycle">4.4 Display / lifecycle<a class="headerlink" href="#44-display-lifecycle" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Seam</th>
+<th>API</th>
+<th>CoreJ2 action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Current screen</td>
+<td><code>Display.setCurrent</code></td>
+<td>Triggers flush + often first paint</td>
+</tr>
+<tr>
+<td>Serial events</td>
+<td><code>Display.callSerially</code> + Timer</td>
+<td>Runs on FreeJ2ME timer thread — adapter must tolerate non-main painter</td>
+</tr>
+<tr>
+<td>Pause/resume/destroy</td>
+<td>MIDlet lifecycle (<code>pauseApp</code> / <code>destroyApp</code>)</td>
+<td>Not cleanly exposed as host APIs today; future host work</td>
+</tr>
+<tr>
+<td>Sound master</td>
+<td><code>Mobile.sound</code></td>
+<td>Honor LaunchConfiguration when added</td>
+</tr>
+<tr>
+<td>Phone profile</td>
+<td><code>Mobile.nokia</code> / <code>siemens</code> / <code>motorola</code></td>
+<td>Optional config</td>
+</tr>
+</tbody>
+</table>
+<h3 id="45-persistence-audio-post-startup">4.5 Persistence / audio (post-startup)<a class="headerlink" href="#45-persistence-audio-post-startup" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Seam</th>
+<th>Location</th>
+<th>CoreJ2 action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RMS</td>
+<td><code>javax.microedition.rms.RecordStore</code> via <code>dataPath</code></td>
+<td>Ensure directory exists &amp; is writable</td>
+</tr>
+<tr>
+<td>MMAPI Player</td>
+<td><code>PlatformPlayer</code></td>
+<td>Eventually replace Java Sound with AVAudioEngine behind façade (likely fork)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="46-explicit-non-connect-do-not-wire-corej2-to-these">4.6 Explicit non-connect (do not wire CoreJ2 to these)<a class="headerlink" href="#46-explicit-non-connect-do-not-wire-corej2-to-these" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Piece</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>org.recompile.freej2me.FreeJ2ME</code> AWT UI</td>
+<td>Desktop window/listeners</td>
+</tr>
+<tr>
+<td><code>Libretro</code> stdin protocol / <code>src/libretro/*</code> native core</td>
+<td>RetroArch host model</td>
+</tr>
+<tr>
+<td><code>Anbu</code> + <code>src/sdl2/*</code></td>
+<td>Desktop SDL IPC</td>
+</tr>
+<tr>
+<td>Spawning <code>java -jar</code></td>
+<td>Impossible on iOS</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="5-places-that-should-never-be-modified">5. Places that should NEVER be modified<a class="headerlink" href="#5-places-that-should-never-be-modified" title="Permanent link">&para;</a></h2>
+<p>Aligns with E3-R001 §10.6 and E3-R003 §6.</p>
+<table>
+<thead>
+<tr>
+<th>Zone</th>
+<th>Path / pattern</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Vendored ASM</td>
+<td><code>src/org/objectweb/asm/**</code></td>
+<td>Stability + separate license surface</td>
+</tr>
+<tr>
+<td>MIDlet game content</td>
+<td>User JARs</td>
+<td>Not FreeJ2ME; never rewrite</td>
+</tr>
+<tr>
+<td>Broad MIDP semantics</td>
+<td>Most of <code>src/javax/microedition/**</code></td>
+<td>Compatibility; only upstream-style fixes if ever</td>
+</tr>
+<tr>
+<td>AWT desktop frontend</td>
+<td><code>FreeJ2ME.java</code>, AWT pieces of <code>Config</code> UI</td>
+<td>Wrong target</td>
+</tr>
+<tr>
+<td>Libretro native + protocol</td>
+<td><code>src/libretro/**</code>, Libretro IO protocol</td>
+<td>Wrong host</td>
+</tr>
+<tr>
+<td>SDL helper</td>
+<td><code>src/sdl2/**</code>, Anbu native protocol</td>
+<td>Wrong host</td>
+</tr>
+<tr>
+<td>ASM rewrite policy “redesign”</td>
+<td><code>MIDletLoader</code> class transform logic</td>
+<td>High regression risk</td>
+</tr>
+<tr>
+<td>Opportunistic game-specific hacks in core</td>
+<td>Scattered conditionals</td>
+<td>Prefer adapter / documented fork patches</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Rare allowlisted fork points (only if runtime forces it — see E3-R003):</strong><br />
+<code>System.exit</code> in <code>MIDletLoader</code> / <code>MIDlet</code>; <code>PlatformPlayer</code> backends; AWT <code>BufferedImage</code> access behind an interface; embed-safe <code>dataPath</code> init. Prefer <strong>not</strong> changing <code>setPainter</code> / <code>loadJar</code> / <code>runJar</code> signatures.</p>
+<hr />
+<h2 id="6-dependency-inventory">6. Dependency inventory<a class="headerlink" href="#6-dependency-inventory" title="Permanent link">&para;</a></h2>
+<h3 id="61-awt-javaawt-related">6.1 AWT (<code>java.awt</code> / related)<a class="headerlink" href="#61-awt-javaawt-related" title="Permanent link">&para;</a></h3>
+<p><strong>Direct Java importers (9 files):</strong></p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MobilePlatform.java</code></td>
+<td><code>BufferedImage</code> LCD; unused-looking <code>KeyEvent</code> import</td>
+</tr>
+<tr>
+<td><code>PlatformImage.java</code></td>
+<td><code>BufferedImage</code>, <code>Graphics2D</code>, transforms</td>
+</tr>
+<tr>
+<td><code>PlatformGraphics.java</code></td>
+<td>Full graphics implementation on AWT</td>
+</tr>
+<tr>
+<td><code>PlatformFont.java</code></td>
+<td>AWT fonts</td>
+</tr>
+<tr>
+<td><code>FreeJ2ME.java</code></td>
+<td>Frame, Canvas, listeners</td>
+</tr>
+<tr>
+<td><code>Libretro.java</code></td>
+<td><code>BufferedImage</code> surface for RGB extract</td>
+</tr>
+<tr>
+<td><code>Anbu.java</code></td>
+<td>Image/RGB for SDL pipe</td>
+</tr>
+<tr>
+<td><code>Config.java</code></td>
+<td>UI / images</td>
+</tr>
+<tr>
+<td><code>LayerManager.java</code></td>
+<td>AWT usage inside MIDP game layer</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Impact:</strong> Core LCD path is AWT-shaped. An iOS-capable runtime must provide AWT-compatible buffers <strong>or</strong> CoreJ2 must fork thin graphics backends.</p>
+<h3 id="62-java-sound">6.2 Java Sound<a class="headerlink" href="#62-java-sound" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>APIs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PlatformPlayer.java</code></td>
+<td><code>javax.sound.sampled.AudioSystem</code> / <code>Clip</code>; <code>javax.sound.midi.MidiSystem</code> / <code>Sequencer</code></td>
+</tr>
+<tr>
+<td><code>WavImaAdpcmDecoder.java</code></td>
+<td>WAV/ADPCM decode supporting player</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Impact:</strong> No <code>javax.sound</code> on typical iOS embeddings → audio backend replacement (fork or runtime shim).</p>
+<h3 id="63-file-io">6.3 File I/O<a class="headerlink" href="#63-file-io" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RecordStore.java</code></td>
+<td><code>File</code>, <code>FileOutputStream</code>, <code>Files</code>, <code>Paths</code>; paths under <code>dataPath</code></td>
+</tr>
+<tr>
+<td>Frontends (<code>Config</code>, <code>ScreenShot</code>, <code>FreeJ2ME</code>, <code>Libretro</code>, <code>Anbu</code>)</td>
+<td>Config/screenshots/jar paths</td>
+</tr>
+<tr>
+<td><code>MIDletLoader</code></td>
+<td>JAR via <code>URLClassLoader</code> / resource streams (not raw <code>File</code> for game code)</td>
+</tr>
+<tr>
+<td>ASM util/xml</td>
+<td>Tooling only</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Impact:</strong> CoreJ2 must set <code>dataPath</code> to the app sandbox; never rely on process CWD.</p>
+<h3 id="64-threads-timers">6.4 Threads / timers<a class="headerlink" href="#64-threads-timers" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Location</th>
+<th>Mechanism</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Display</code></td>
+<td><code>java.util.Timer</code> + <code>TimerTask</code> every <strong>17 ms</strong> for <code>callSerially</code></td>
+</tr>
+<tr>
+<td><code>Libretro</code> / <code>Anbu</code></td>
+<td>Timers for host I/O polling</td>
+</tr>
+<tr>
+<td>MIDlets</td>
+<td>May create their own threads (standard J2ME practice); FreeJ2ME does not serialize all game work onto one thread</td>
+</tr>
+<tr>
+<td>Painter</td>
+<td>Invoked on whatever thread called <code>repaint</code>/<code>flushGraphics</code> (often MIDlet or timer)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Impact:</strong> Adapter must assume <strong>non-MainActor</strong> painter callbacks.</p>
+<h3 id="65-reflection">6.5 Reflection<a class="headerlink" href="#65-reflection" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Location</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MIDletLoader.start</code></td>
+<td><code>getConstructor</code>, <code>newInstance</code>, <code>getDeclaredMethod("startApp")</code>, <code>invoke</code>, <code>setAccessible</code></td>
+</tr>
+<tr>
+<td><code>MIDletLoader.loadClass</code></td>
+<td><code>defineClass</code> after ASM rewrite</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Impact:</strong> Requires a runtime that allows reflective MIDlet construction and custom class definition.</p>
+<h3 id="66-asm-objectweb">6.6 ASM (ObjectWeb)<a class="headerlink" href="#66-asm-objectweb" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Location</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Entire <code>src/org/objectweb/asm/**</code></td>
+<td>Vendored ASM tree</td>
+</tr>
+<tr>
+<td><code>MIDletLoader</code></td>
+<td><code>ClassReader</code> / <code>ClassWriter</code> / adapters to rewrite loaded MIDlet bytecode</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Impact:</strong> Class loading is not “plain URLClassLoader”; ASM is load-bearing. Do not strip or replace casually. LICENSE notes ASM is <strong>not</strong> under GPL-3.</p>
+<hr />
+<h2 id="7-precise-integration-checklist">7. Precise integration checklist<a class="headerlink" href="#7-precise-integration-checklist" title="Permanent link">&para;</a></h2>
+<p>Use this as the gate list before claiming “FreeJ2ME runs inside CoreJ2.”</p>
+<h3 id="71-repository-legal">7.1 Repository / legal<a class="headerlink" href="#71-repository-legal" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Add <code>Vendor/FreeJ2ME</code> submodule at a pinned hex007 SHA (E3-R003).</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Confirm GPL-3 (+ ASM notice) review status for distribution.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Document audited SHA in the bump PR.</li>
+</ul>
+<h3 id="72-runtime-prerequisite-critical-gate">7.2 Runtime prerequisite (critical gate)<a class="headerlink" href="#72-runtime-prerequisite-critical-gate" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Decide iOS execution strategy (embedded JVM / alternative) — <strong>without this, hooks below cannot run on device</strong>.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Prove <code>URLClassLoader</code> + <code>defineClass</code> + reflection work on that runtime.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Prove AWT <code>BufferedImage</code> path <strong>or</strong> schedule allowlisted graphics fork.</li>
+</ul>
+<h3 id="73-startup-wiring-swift-contract-c">7.3 Startup wiring (Swift → Contract C)<a class="headerlink" href="#73-startup-wiring-swift-contract-c" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> <code>Mobile.setPlatform(new MobilePlatform(w, h))</code> with agreed LCD size.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Set <code>dataPath</code> to <code>Documents/JavaOne/Saves/&lt;gameUUID&gt;/</code> and create directories.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Install <code>setPainter</code> <strong>before</strong> <code>loadJar</code>.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Format JAR as <code>file:///&lt;absolute-path&gt;</code> and call <code>loadJar</code>.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Call <code>runJar</code>; map exceptions / <code>System.exit</code> risk to Swift errors (fork guard if needed).</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Emit <code>RuntimeEvent.started</code> only after successful <code>runJar</code> entry (or defined success criteria).</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Emit <code>RuntimeEvent.failed</code> on load/start failure; never leave orphan sessions.</li>
+</ul>
+<h3 id="74-first-frame">7.4 First frame<a class="headerlink" href="#74-first-frame" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Painter reads <code>getLCD()</code> (or equivalent pixel API).</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Convert to iOS pixel format; hop to render queue / MainActor.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Publish <code>RuntimeEvent.frameAvailable</code> (payload story).</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Drop frames under backpressure; do not deadlock <code>stop</code>.</li>
+</ul>
+<h3 id="75-input-audio-rms">7.5 Input / audio / RMS<a class="headerlink" href="#75-input-audio-rms" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Keypad → <code>MobilePlatform.key*</code>.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Touch → <code>pointer*</code> in LCD space.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> RMS read/write under sandbox <code>dataPath</code>.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Audio: mute via <code>Mobile.sound</code>; replace Java Sound when required.</li>
+</ul>
+<h3 id="76-isolation">7.6 Isolation<a class="headerlink" href="#76-isolation" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> No FreeJ2ME types in Library / Import / Views / ViewModels.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Only Emulator Runtime / adapter / JNI façade touch FreeJ2ME.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Do not link AWT frontend, Libretro native, or SDL helper into the iOS app target.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Keep DI on <code>PlaceholderRuntimeHost</code> until checklist 7.2–7.4 pass.</li>
+</ul>
+<h3 id="77-verification">7.7 Verification<a class="headerlink" href="#77-verification" title="Permanent link">&para;</a></h3>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Unit: adapter maps configuration → prepare / loadJar / runJar order.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Device/sim: one known MIDlet reaches <code>startApp</code> without process exit.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Device/sim: at least one <code>painter.run()</code> observed.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled/><span class="task-list-indicator"></span></label> Compatibility corpus smoke (expand over time).</li>
+</ul>
+<hr />
+<h2 id="8-summary">8. Summary<a class="headerlink" href="#8-summary" title="Permanent link">&para;</a></h2>
+<p>The official <strong>hex007/freej2me</strong> tree at <code>b1c4cf1</code> <strong>confirms</strong> <code>FREEJ2ME_ASSESSMENT.md</code>. The real present path is:</p>
+<p><strong><code>setPainter</code> (early) → <code>loadJar</code> → <code>runJar</code>/<code>startApp</code> → <code>Display.setCurrent</code> / <code>Canvas.repaint</code> / <code>GameCanvas.flushGraphics</code> → <code>MobilePlatform.repaint|flushGraphics</code> → <code>painter.run()</code>.</strong></p>
+<p>CoreJ2’s first durable connections are exactly Contract C: <strong>platform + <code>dataPath</code> + painter + <code>loadJar</code> + <code>runJar</code></strong>, then pixels from <strong><code>getLCD()</code></strong>. Everything else (AWT buffers, Java Sound, <code>System.exit</code>, ASM/<code>defineClass</code>) is either a <strong>runtime prerequisite</strong> or an <strong>allowlisted fork</strong>, not a reason to rewrite MIDP.</p>
+<hr />
+<h2 id="related-documents">Related documents<a class="headerlink" href="#related-documents" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Doc</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>docs/FREEJ2ME_ASSESSMENT.md</code></td>
+<td>E3-R001 architecture assessment</td>
+</tr>
+<tr>
+<td><code>docs/FREEJ2ME_RUNTIME_CONTRACT.md</code></td>
+<td>E3-R002 seam contracts</td>
+</tr>
+<tr>
+<td><code>docs/FREEJ2ME_INTEGRATION_STRATEGY.md</code></td>
+<td>E3-R003 vendor/submodule policy</td>
+</tr>
+<tr>
+<td><code>docs/EMULATOR_ARCHITECTURE.md</code></td>
+<td>CoreJ2 bridge layout</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="out-of-scope-for-e3-r004">Out of scope for E3-R004<a class="headerlink" href="#out-of-scope-for-e3-r004" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Modifying FreeJ2ME or CoreJ2 application code  </li>
+<li>Adding the submodule  </li>
+<li>Implementing JNI  </li>
+<li>Commits</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; CoreJ2 contributors · <a href="https://github.com/flakito-loko/CoreJ2">GitHub</a> · <a href="https://flakito-loko.github.io/CoreJ2/">Documentation</a> · <a href="https://flakito-loko.github.io/CoreJ2/roadmap/">Roadmap</a> · <a href="https://flakito-loko.github.io/CoreJ2/compatibility/">Compatibility</a>
+
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+    <a href="https://github.com/flakito-loko/CoreJ2" target="_blank" rel="noopener" title="GitHub" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://flakito-loko.github.io/CoreJ2/" target="_blank" rel="noopener" title="Documentation" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M384 512H96c-53 0-96-43-96-96V96C0 43 43 0 96 0h304c26.5 0 48 21.5 48 48v288c0 20.9-13.4 38.7-32 45.3V448c17.7 0 32 14.3 32 32s-14.3 32-32 32zM96 384c-17.7 0-32 14.3-32 32s14.3 32 32 32h256v-64zm32-232c0 13.3 10.7 24 24 24h176c13.3 0 24-10.7 24-24s-10.7-24-24-24H152c-13.3 0-24 10.7-24 24m24 72c-13.3 0-24 10.7-24 24s10.7 24 24 24h176c13.3 0 24-10.7 24-24s-10.7-24-24-24z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://flakito-loko.github.io/CoreJ2/compatibility/" target="_blank" rel="noopener" title="Compatibility" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M448 64c106 0 192 86 192 192s-86 192-192 192H192C86 448 0 362 0 256S86 64 192 64zM192 176c-13.3 0-24 10.7-24 24v32h-32c-13.3 0-24 10.7-24 24s10.7 24 24 24h32v32c0 13.3 10.7 24 24 24s24-10.7 24-24v-32h32c13.3 0 24-10.7 24-24s-10.7-24-24-24h-32v-32c0-13.3-10.7-24-24-24m240 96a32 32 0 1 0 0 64 32 32 0 1 0 0-64m64-96a32 32 0 1 0 0 64 32 32 0 1 0 0-64"/></svg>
+    </a>
+  
+    
+    
+    
+    
+    <a href="https://flakito-loko.github.io/CoreJ2/roadmap/" target="_blank" rel="noopener" title="Roadmap" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M512 48c0-11.1-5.7-21.4-15.2-27.2s-21.2-6.4-31.1-1.4L349.5 77.5 170.1 17.6c-8.1-2.7-16.8-2.1-24.4 1.7l-128 64C6.8 88.8 0 99.9 0 112v352c0 11.1 5.7 21.4 15.2 27.2s21.2 6.4 31.1 1.4l116.1-58.1 179.4 59.8c8.1 2.7 16.8 2.1 24.4-1.7l128-64c10.8-5.4 17.7-16.5 17.7-28.6V48zM192 376.9V92.4l128 42.7v284.5z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand", "navigation.top", "navigation.footer", "search.suggest", "search.highlight", "search.share", "content.code.copy", "content.code.annotate", "toc.follow"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
